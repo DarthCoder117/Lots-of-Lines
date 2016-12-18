@@ -253,3 +253,4 @@ paket-files/
 
 # 3rd-party libraries
 3rd-party/
+build/
