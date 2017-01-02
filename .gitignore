@@ -251,6 +251,5 @@ paket-files/
 .idea/
 *.sln.iml
 
-# 3rd-party libraries
-3rd-party/
+# Build files
 build/

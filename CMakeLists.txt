@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
-add_subdirectory(3rd-party/googletest)
+project(lots-of-lines)
 
-add_subdirectory(data-model)
+add_subdirectory(tests)
