@@ -1,4 +1,4 @@
-#include "DataModel.h"
+#include "LotsOfLines/DataModel.h"
 
 DataModel::DataModel()
 {}

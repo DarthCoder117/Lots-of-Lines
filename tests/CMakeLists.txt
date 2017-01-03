@@ -1,27 +1,30 @@
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
+project(tests)
 
-# Include Google C++ test framework
-include (ExternalProject)
+set(CMAKE_EXECUTABLE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 
+enable_testing()
+
+# Include Catch testing framework
+include(ExternalProject)
+
+# Download Catch
 ExternalProject_Add(
-    gtest
-    GIT_REPOSITORY https://github.com/google/googletest.git
-    PREFIX ${CMAKE_SOURCE_DIR}/3rd-party/gtest
-    BUILD_COMMAND cmake
+    Catch
+    PREFIX ${CMAKE_SOURCE_DIR}/3rd-party/Catch
+    GIT_REPOSITORY "https://github.com/philsquared/Catch.git"
+    GIT_TAG "v1.5.9"
+    CONFIGURE_COMMAND ""
+    UPDATE_COMMAND ""
+    BUILD_COMMAND ""
+    INSTALL_COMMAND ""
 )
 
-ExternalProject_Get_Property(gtest source_dir binary_dir)
+ExternalProject_Get_Property(Catch SOURCE_DIR)
+include_directories(${SOURCE_DIR}/include)
 
-message(STATUS ${source_dir})
-
-# All source files in this directory will be built as tests
-file(GLOB src
-    "*.cpp"
-)
-
-add_executable(tests ${src})
-#target_link_libraries(tests gtest)
-#add_dependencies(tests gtest)
+# Add all files in test folder
+file(GLOB sources "${PROJECT_SOURCE_DIR}/*.cpp")
+add_executable(tests ${sources})
+add_test(tests ${PROJECT_BINARY_DIR}/bin/tests)
