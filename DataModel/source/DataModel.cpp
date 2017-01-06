@@ -1,4 +1,6 @@
-#include "LotsOfLines/DataModel.h"
+#include "LotsOfLines/DataModel.hpp"
+
+using namespace LotsOfLines;
 
 DataModel::DataModel()
 {}
