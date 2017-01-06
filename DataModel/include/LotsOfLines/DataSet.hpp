@@ -1,6 +1,7 @@
 #ifndef DATA_SET_H
 #define DATA_SET_H
 #include <vector>
+#include <memory>
 
 namespace LotsOfLines
 {
@@ -40,6 +41,8 @@ namespace LotsOfLines
 
 		std::vector<VectorClass> m_vectorData;
 	};
+
+	typedef std::shared_ptr<DataSet> DataSetPtr;
 }
 
 #endif
