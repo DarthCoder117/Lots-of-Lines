@@ -1,28 +1,31 @@
 #ifndef DATE_MODEL_H
 #define DATA_MODEL_H
+#include "LotsOfLines/DataModel.hpp"
 #include <vector>
 
 namespace LotsOfLines
 {
-	class IDataLoader;
+	class IRenderer;
 
-	typedef std::vector<IDataLoader> DataLoaderArray;
+	enum E_VISUALIZATION_TYPE
+	{
+		EVT_PARALLEL_COORDINATES
+	};
 
-	///@brief The DataModel class handles loading and processing datasets to convert them to a form usable by the rendering system.
-	class DataModel
+	///@brief The RenderingSystem manages different drivers to render with and handles all visualization rendering.
+	class RenderingSystem
 	{
 	public:
 
-		DataModel();
-		DataModel(const DataLoaderArray& dataLoaders);
+		RenderingSystem(IRenderer* driver);
+	
+		IRenderer* getDriver() const;
 
-		///@brief Register a data loader with the DataModel.
-		///Data loaders implement the actual parsing logic.
-		void registerLoader(IDataLoader* loader) const;
+		
 
 	private:
 
-		DataLoaderArray m_dataLoaders;
+		IRenderer* m_driver;
 	};
 }
 

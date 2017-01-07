@@ -1,15 +1,21 @@
-#include "LotsOfLines/DataModel.hpp"
+#include "LotsOfLines/RenderingSystem.hpp"
 
 using namespace LotsOfLines;
 
-DataModel::DataModel()
-{}
-
-DataModel::DataModel(const DataLoaderArray& dataLoaders)
-	:m_dataLoaders(dataLoaders)
-{}
-
-void DataModel::registerLoader(IDataLoader* loader) const
+RenderingSystem::RenderingSystem(IRenderer* driver)
+	:m_driver(driver)
 {
+	
+}
 
+
+IRenderer* RenderingSystem::getDriver() const
+{
+	return m_driver;
+}
+
+// TEMPORARY FOR GHETTO TESTING PURPOSES. TESTS WILL BE MOVED TO THE TEST FRAMEWORK SHORTLY.
+int main()
+{
+	return 0;
 }

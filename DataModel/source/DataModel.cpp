@@ -17,7 +17,7 @@ void DataModel::registerLoader(IDataLoader* loader)
 
 DataSetPtr DataModel::loadData(const std::string& path) const
 {
-	DataLoaderArray::reverse_iterator iter;//Reverse iterator so that loaders registered later can override old ones.
+	DataLoaderArray::const_reverse_iterator iter;//Reverse iterator so that loaders registered later can override old ones.
 	for (iter = m_dataLoaders.rbegin(); iter != m_dataLoaders.rend(); ++iter)
 	{
 		if ((*iter)->supportsFormat(path))

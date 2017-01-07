@@ -24,7 +24,7 @@ void DataSet::addVectorClass()
 
 const VectorClass& DataSet::getVectors(unsigned int vectorClass)
 {
-
+	return VectorClass();
 }
 
 void DataSet::addVector(unsigned int vectorClass, const Vector& vec)
