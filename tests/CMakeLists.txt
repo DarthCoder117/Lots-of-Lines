@@ -24,7 +24,12 @@ ExternalProject_Add(
 ExternalProject_Get_Property(Catch SOURCE_DIR)
 include_directories(${SOURCE_DIR}/include)
 
+include_directories(${CMAKE_SOURCE_DIR}/DataModel/include)
+
 # Add all files in test folder
 file(GLOB sources "${PROJECT_SOURCE_DIR}/*.cpp")
 add_executable(tests ${sources})
+add_dependencies(tests DataModel)
+target_link_libraries(tests DataModel)
+
 add_test(tests ${PROJECT_BINARY_DIR}/bin/tests)

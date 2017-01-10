@@ -1,15 +1,23 @@
 #include "catch.hpp"
+#include "LotsOfLines/DataModel.hpp"
+#include "LotsOfLines/FileSystemLoader.hpp"
 
-//===========================================================================
-// Example tests copied from Catch framework
-//===========================================================================
-unsigned int Factorial(unsigned int number) {
-	return number <= 1 ? number : Factorial(number - 1)*number;
-}
+using namespace LotsOfLines;
 
-TEST_CASE("Factorials are computed", "[factorial]") {
-	REQUIRE(Factorial(1) == 1);
+//FileSystemLoader
+TEST_CASE("Load .data file", "[FileSystemLoader]") 
+{
+	FileSystemLoader fsLoader;
+	DataModel dataModel
+	({
+		&fsLoader
+	});
+
+	dataModel.loadData("C:/Users/super/Documents/School/CS 481/Lots-of-Lines/tests/data/iris.data");
+	printf("");
+
+	/*REQUIRE(Factorial(1) == 1);
 	REQUIRE(Factorial(2) == 2);
 	REQUIRE(Factorial(3) == 6);
-	REQUIRE(Factorial(10) == 3628800);
+	REQUIRE(Factorial(10) == 3628800);*/
 }

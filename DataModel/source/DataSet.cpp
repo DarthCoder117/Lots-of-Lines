@@ -7,27 +7,17 @@ DataSet::DataSet()
 
 }
 
-DataSet::DataSet(unsigned int capacity)
+void DataSet::addVectorClass(const std::string& vectorClass)
 {
-
+	m_vectorData[vectorClass] = VectorClass();
 }
 
-DataSet::DataSet(unsigned int numClasses, unsigned int* capacities)
+const VectorClass& DataSet::getVectors(const std::string& vectorClass)
 {
-
+	return m_vectorData[vectorClass];
 }
 
-void DataSet::addVectorClass()
+void DataSet::addVector(const Vector& vec, const std::string& vectorClass)
 {
-
-}
-
-const VectorClass& DataSet::getVectors(unsigned int vectorClass)
-{
-	return VectorClass();
-}
-
-void DataSet::addVector(unsigned int vectorClass, const Vector& vec)
-{
-
+	m_vectorData[vectorClass].push_back(vec);
 }

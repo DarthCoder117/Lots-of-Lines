@@ -1,6 +1,7 @@
 #ifndef DATE_MODEL_H
 #define DATA_MODEL_H
 #include <vector>
+#include <memory>
 #include "LotsOfLines/DataSet.hpp"
 
 namespace LotsOfLines
@@ -25,7 +26,7 @@ namespace LotsOfLines
 		///@param path The path to load data from. The format of this parameter is to be interpreted by the loader implementation
 		///and could be a file path, a URL, or something else.
 		///@return A shared_ptr to the DataSet loaded from the path, or nullptr if an error occurred.
-		DataSetPtr loadData(const std::string& path) const;
+		std::shared_ptr<DataSet> loadData(const std::string& path) const;
 
 	private:
 
