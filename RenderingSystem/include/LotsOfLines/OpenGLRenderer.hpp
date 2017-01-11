@@ -1,5 +1,5 @@
-#ifndef OPENGL_RENDERER_H
-#define OPENGL_RENDERER_H
+#ifndef OPENGL_RENDERER_HPP
+#define OPENGL_RENDERER_HPP
 #include "LotsOfLines/IRenderer.hpp"
 
 struct GLFWwindow;
@@ -20,6 +20,8 @@ namespace LotsOfLines
 		void beginDraw(float r, float g, float b);
 
 		void endDraw();
+
+		std::shared_ptr<IVertexBufferObject> createVBO(const std::vector<float3>& vertices, const std::vector<unsigned int>& indices);
 
 	private:
 

@@ -1,5 +1,5 @@
-#ifndef DATE_MODEL_H
-#define DATA_MODEL_H
+#ifndef DATE_MODEL_HPP
+#define DATA_MODEL_HPP
 #include <vector>
 #include <memory>
 #include "LotsOfLines/DataSet.hpp"

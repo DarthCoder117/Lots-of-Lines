@@ -1,4 +1,5 @@
 #include "LotsOfLines/OpenGLRenderer.hpp"
+#include "LotsOfLines/OpenGLVertexBufferObject.hpp"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -52,4 +53,12 @@ void OpenGLRenderer::endDraw()
 
 	//Poll for and process events
 	glfwPollEvents();
+}
+
+std::shared_ptr<IVertexBufferObject> OpenGLRenderer::createVBO(const std::vector<float3>& vertices, const std::vector<unsigned int>& indices)
+{
+	std::shared_ptr<OpenGLVertexBufferObject> buffer = std::make_shared<OpenGLVertexBufferObject>();
+	if (buffer->init(vertices, indices)) return buffer;
+
+	return nullptr;
 }
