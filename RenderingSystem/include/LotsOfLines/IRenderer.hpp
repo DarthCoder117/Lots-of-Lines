@@ -26,6 +26,9 @@ namespace LotsOfLines
 		///@brief Flips buffers to screen.
 		virtual void endDraw() = 0;
 
+		///@brief Draw a VBO to the screen.
+		virtual void drawVBO(std::shared_ptr<IVertexBufferObject> vbo) = 0;
+
 		///@brief Construct a VBO from a list of vertices and indices.
 		virtual std::shared_ptr<IVertexBufferObject> createVBO(const std::vector<float3>& vertices, const std::vector<unsigned int>& indices) = 0;
 	};

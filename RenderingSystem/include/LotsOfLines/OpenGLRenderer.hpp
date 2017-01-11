@@ -21,9 +21,13 @@ namespace LotsOfLines
 
 		void endDraw();
 
+		void drawVBO(std::shared_ptr<IVertexBufferObject> vbo);
+
 		std::shared_ptr<IVertexBufferObject> createVBO(const std::vector<float3>& vertices, const std::vector<unsigned int>& indices);
 
 	private:
+
+		void initShaders();
 
 		GLFWwindow* m_window;
 	};

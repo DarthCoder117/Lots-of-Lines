@@ -30,6 +30,11 @@ OpenGLRenderer::OpenGLRenderer()
 	}
 }
 
+void OpenGLRenderer::initShaders()
+{
+	//TODO: Load default shaders here...
+}
+
 OpenGLRenderer::~OpenGLRenderer()
 {
 	glfwTerminate();
@@ -53,6 +58,11 @@ void OpenGLRenderer::endDraw()
 
 	//Poll for and process events
 	glfwPollEvents();
+}
+
+void OpenGLRenderer::drawVBO(std::shared_ptr<IVertexBufferObject> vbo)
+{
+	std::static_pointer_cast<OpenGLVertexBufferObject, IVertexBufferObject>(vbo)->draw();
 }
 
 std::shared_ptr<IVertexBufferObject> OpenGLRenderer::createVBO(const std::vector<float3>& vertices, const std::vector<unsigned int>& indices)

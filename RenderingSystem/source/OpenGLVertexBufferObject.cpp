@@ -19,7 +19,9 @@ bool OpenGLVertexBufferObject::init(const std::vector<float3>& vertices, const s
 	//Index buffer
 	glGenBuffers(1, &m_indexBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int)*indices.size(), &indices[0], GL_STATIC_DRAW);
+
+	m_indexCount = indices.size();
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int)*m_indexCount, &indices[0], GL_STATIC_DRAW);
 
 	return true;
 }
@@ -27,7 +29,10 @@ bool OpenGLVertexBufferObject::init(const std::vector<float3>& vertices, const s
 void OpenGLVertexBufferObject::draw()
 {
 	glEnableVertexAttribArray(0);
+
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
+
 	glVertexAttribPointer(
 		0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
 		3,                  // size
@@ -37,7 +42,6 @@ void OpenGLVertexBufferObject::draw()
 		(void*)0            // array buffer offset
 		);
 
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glDrawElements(GL_LINES, 8, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_LINES, m_indexCount, GL_UNSIGNED_INT, (void*)0);
 	glDisableVertexAttribArray(0);
 }

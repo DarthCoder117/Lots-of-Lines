@@ -18,7 +18,9 @@ namespace LotsOfLines
 	private:
 
 		unsigned int m_vertexBuffer;
+
 		unsigned int m_indexBuffer;
+		unsigned int m_indexCount = 0;
 	};
 }
 
