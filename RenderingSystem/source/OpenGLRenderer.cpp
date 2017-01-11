@@ -1,4 +1,6 @@
 #include "LotsOfLines/OpenGLRenderer.hpp"
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 using namespace LotsOfLines;
 
@@ -21,8 +23,8 @@ OpenGLRenderer::OpenGLRenderer()
 	//Make the window's context current
 	glfwMakeContextCurrent(window);
 	//Init GLEW so that we can use modern OpenGL on Windows
-	//if (glewInit() != GLEW_OK)
+	if (glewInit() != GLEW_OK)
 	{
-		//return -1;
+		return;
 	}
 }

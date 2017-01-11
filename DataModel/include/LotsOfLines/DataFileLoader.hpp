@@ -5,7 +5,7 @@
 
 namespace LotsOfLines
 {
-	class FileSystemLoader : public IDataLoader
+	class DataFileLoader : public IDataLoader
 	{
 	public:
 

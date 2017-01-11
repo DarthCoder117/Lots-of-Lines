@@ -1,13 +1,13 @@
 #include "catch.hpp"
 #include "LotsOfLines/DataModel.hpp"
-#include "LotsOfLines/FileSystemLoader.hpp"
+#include "LotsOfLines/DataFileLoader.hpp"
 
 using namespace LotsOfLines;
 
-//FileSystemLoader
-TEST_CASE("Load .data file", "[FileSystemLoader]") 
+//DataFileLoader
+TEST_CASE("Load .data file", "[DataFileLoader]") 
 {
-	FileSystemLoader fsLoader;
+	DataFileLoader fsLoader;
 	DataModel dataModel
 	({
 		&fsLoader

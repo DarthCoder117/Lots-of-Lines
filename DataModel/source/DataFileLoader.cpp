@@ -1,16 +1,16 @@
-#include "LotsOfLines/FileSystemLoader.hpp"
+#include "LotsOfLines/DataFileLoader.hpp"
 #include <fstream>
 #include <regex>
 #include <iostream>
 
 using namespace LotsOfLines;
 
-bool FileSystemLoader::supportsFormat(const std::string& path)
+bool DataFileLoader::supportsFormat(const std::string& path)
 {
 	return path.find(".data") != path.npos;
 }
 
-std::shared_ptr<DataSet> FileSystemLoader::loadData(const std::string& path) const
+std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path) const
 {
 	std::ifstream in(path);
 	if (in)
@@ -51,7 +51,7 @@ std::shared_ptr<DataSet> FileSystemLoader::loadData(const std::string& path) con
 						dataClass = token;
 					}
 				}
-				catch (std::out_of_range e) 
+				catch (std::out_of_range e)
 				{
 					std::cout << e.what() << "\n";
 				}
