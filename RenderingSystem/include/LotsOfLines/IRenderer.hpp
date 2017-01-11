@@ -8,6 +8,12 @@ namespace LotsOfLines
 	public:
 
 		virtual ~IRenderer() {}
+
+		virtual bool run() = 0;
+
+		virtual void beginDraw(float r, float g, float b) = 0;
+
+		virtual void endDraw() = 0;
 	};
 }
 

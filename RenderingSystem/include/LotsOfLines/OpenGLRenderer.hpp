@@ -13,9 +13,17 @@ namespace LotsOfLines
 
 		OpenGLRenderer();
 
+		~OpenGLRenderer();
+
+		bool run();
+
+		void beginDraw(float r, float g, float b);
+
+		void endDraw();
+
 	private:
 
-		GLFWwindow* window;
+		GLFWwindow* m_window;
 	};
 }
 

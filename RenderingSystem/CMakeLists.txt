@@ -45,4 +45,8 @@ add_executable(RenderingSystem ${sources} ${headers})
 add_dependencies(RenderingSystem glew)
 add_dependencies(RenderingSystem glfw)
 add_dependencies(RenderingSystem DataModel)
-target_link_libraries(RenderingSystem glew32 glfw3)
+
+include(FindOpenGL)
+find_package(OpenGL)
+
+target_link_libraries(RenderingSystem glew32 glfw3 ${OPENGL_gl_LIBRARY})

@@ -21,7 +21,11 @@ namespace LotsOfLines
 	
 		IRenderer* getDriver() const;
 
-		
+		bool run();
+
+		void beginDraw(float r = 0.6f, float g = 0.6f, float b = 1.0f);
+
+		void endDraw();
 
 	private:
 
