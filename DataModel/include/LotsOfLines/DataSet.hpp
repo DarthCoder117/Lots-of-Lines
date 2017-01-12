@@ -1,6 +1,7 @@
 #ifndef DATA_SET_H
 #define DATA_SET_H
 #include <map>
+#include <set>
 #include <vector>
 
 namespace LotsOfLines
@@ -10,7 +11,7 @@ namespace LotsOfLines
 
 	///@brief DataSet holds the data for multiple classes of vector data
 	class DataSet
-{
+	{
 	public:
 
 		///@brief Default constructor to make
@@ -18,6 +19,9 @@ namespace LotsOfLines
 		
 		///@brief Add a vector class to the dataset
 		void addVectorClass(const std::string& name);
+
+		///@return The set of vector classes contained in this DataSet.
+		const std::set<std::string>& getClasses();
 
 		///@brief Get the collection of vectors for a class of data
 		///@param vectorClass Data class name.
@@ -32,6 +36,7 @@ namespace LotsOfLines
 
 		DataSet(const DataSet& oth) {} //Dissallow copy
 
+		std::set<std::string> m_dataClasses;
 		std::map<std::string, VectorClass> m_vectorData;
 	};
 }

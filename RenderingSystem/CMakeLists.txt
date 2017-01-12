@@ -49,4 +49,4 @@ add_dependencies(RenderingSystem DataModel)
 include(FindOpenGL)
 find_package(OpenGL)
 
-target_link_libraries(RenderingSystem glew32 glfw3 ${OPENGL_gl_LIBRARY})
+target_link_libraries(RenderingSystem DataModel glew32 glfw3 ${OPENGL_gl_LIBRARY})

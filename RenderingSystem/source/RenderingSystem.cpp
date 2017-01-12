@@ -1,10 +1,15 @@
 #include "LotsOfLines/RenderingSystem.hpp"
 #include "LotsOfLines/IRenderer.hpp"
 
+#include "LotsOfLines/ParallelCoordinatesVisualizationMethod.hpp"
+
 using namespace LotsOfLines;
 
 RenderingSystem::RenderingSystem(IRenderer* driver)
-	:m_driver(driver)
+	:m_driver(driver),
+	m_visualizationMethods({
+		std::make_shared<ParallelCoordinatesVisualizationMethod>()
+	})
 {
 	
 }
@@ -29,17 +34,52 @@ void RenderingSystem::endDraw()
 	m_driver->endDraw();
 }
 
+std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type)
+{
+	for (auto method : m_visualizationMethods)
+	{
+		if (method->getType() == type)
+		{
+			std::vector<float3> vertices;
+			std::vector<unsigned int> indices;
+			if (method->generateVBO(dataSet, vertices, indices))
+			{
+				return m_driver->createVBO(vertices, indices);
+			}
+		}
+	}
+
+	return nullptr;
+}
+
+void RenderingSystem::drawVBO(std::shared_ptr<IVertexBufferObject> vbo)
+{
+	m_driver->drawVBO(vbo);
+}
+
 // TEMPORARY FOR GHETTO TESTING PURPOSES. TESTS WILL BE MOVED TO THE TEST FRAMEWORK SHORTLY.
 #include "LotsOfLines/OpenGLRenderer.hpp"
+#include "LotsOfLines/DataFileLoader.hpp"
 
 int main()
 {
-	RenderingSystem render(new OpenGLRenderer());
-	while (render.run())
-	{
-		render.beginDraw();
+	DataModel dataModel({
+		new DataFileLoader()
+	});
 
-		render.endDraw();
+	std::shared_ptr<DataSet> data = dataModel.loadData("C:/Users/super/Documents/School/CS 481/Lots-of-Lines/tests/data/iris.data");
+
+	RenderingSystem renderer(new OpenGLRenderer());
+
+	std::shared_ptr<IVertexBufferObject> vbo = renderer.generateFromDataSet(data, EVT_PARALLEL_COORDINATES);
+
+	while (renderer.run())
+	{
+		renderer.beginDraw();
+
+		renderer.drawVBO(vbo);
+
+		renderer.endDraw();
 	}
 
 	return 0;

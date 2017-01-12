@@ -21,6 +21,7 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path) const
 		{
 			std::string line{ "" };
 			std::getline(in, line);
+			if (line.empty()) continue;
 
 			//Each line is a new vector
 			Vector vec;

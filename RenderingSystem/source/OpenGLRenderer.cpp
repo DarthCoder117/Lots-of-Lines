@@ -14,7 +14,7 @@ OpenGLRenderer::OpenGLRenderer()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
 	//Create a windowed mode window and its OpenGL context
-	m_window = glfwCreateWindow(640, 480, "OpenGL test", NULL, NULL);
+	m_window = glfwCreateWindow(1024, 768, "OpenGL test", NULL, NULL);
 	if (!m_window)
 	{
 		glfwTerminate();
