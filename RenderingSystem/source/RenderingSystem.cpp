@@ -40,7 +40,7 @@ std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::s
 	{
 		if (method->getType() == type)
 		{
-			std::vector<float3> vertices;
+			std::vector<Vertex> vertices;
 			std::vector<unsigned int> indices;
 			if (method->generateVBO(dataSet, vertices, indices))
 			{
@@ -67,7 +67,7 @@ int main()
 		new DataFileLoader()
 	});
 
-	std::shared_ptr<DataSet> data = dataModel.loadData("C:/Users/super/Documents/School/CS 481/Lots-of-Lines/tests/data/iris.data");
+	std::shared_ptr<DataSet> data = dataModel.loadData("D:/School/CWU/CS 481/Lots-of-Lines/tests/data/iris.data");
 
 	RenderingSystem renderer(new OpenGLRenderer());
 

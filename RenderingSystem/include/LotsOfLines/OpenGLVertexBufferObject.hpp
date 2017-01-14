@@ -11,7 +11,7 @@ namespace LotsOfLines
 
 		~OpenGLVertexBufferObject();
 		
-		bool init(const std::vector<float3>& vertices, const std::vector<unsigned int>& indices);
+		bool init(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
 
 		void draw();
 

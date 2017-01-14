@@ -26,7 +26,7 @@ namespace LotsOfLines
 
 		bool run();
 
-		void beginDraw(float r = 0.6f, float g = 0.6f, float b = 1.0f);
+		void beginDraw(float r = 0.2f, float g = 0.2f, float b = 0.2f);
 
 		void endDraw();
 

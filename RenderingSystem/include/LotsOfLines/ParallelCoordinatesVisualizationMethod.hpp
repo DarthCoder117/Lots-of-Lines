@@ -10,7 +10,7 @@ namespace LotsOfLines
 
 		E_VISUALIZATION_TYPE getType() { return EVT_PARALLEL_COORDINATES; }
 
-		bool generateVBO(std::shared_ptr<DataSet> dataSet, std::vector<float3>& verticesOut, std::vector<unsigned int>& indicesOut);
+		bool generateVBO(std::shared_ptr<DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut);
 	};
 }
 

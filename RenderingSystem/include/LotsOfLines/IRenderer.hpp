@@ -6,13 +6,15 @@
 
 namespace LotsOfLines
 {
-	struct float3
+	struct Vertex
 	{
-		float3(float x, float y, float z)
-			:x(x), y(y), z(z)
+		Vertex(float x, float y)
+			:x(x), y(y), z(0.0f),
+			r(1.0f), g(0.5f), b(0.5f)
 		{}
 
-		float x, y, z = 0.0f;
+		float x, y, z;
+		float r, g, b;
 	};
 
 	class IRenderer
@@ -34,7 +36,7 @@ namespace LotsOfLines
 		virtual void drawVBO(std::shared_ptr<IVertexBufferObject> vbo) = 0;
 
 		///@brief Construct a VBO from a list of vertices and indices.
-		virtual std::shared_ptr<IVertexBufferObject> createVBO(const std::vector<float3>& vertices, const std::vector<unsigned int>& indices) = 0;
+		virtual std::shared_ptr<IVertexBufferObject> createVBO(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices) = 0;
 	};
 }
 
