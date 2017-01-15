@@ -34,6 +34,11 @@ void RenderingSystem::endDraw()
 	m_driver->endDraw();
 }
 
+void RenderingSystem::setViewTransform(float camX, float camY, float zoomX, float zoomY)
+{
+	m_driver->setViewTransform(camX, camY, zoomX, zoomY);
+}
+
 std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type)
 {
 	for (auto method : m_visualizationMethods)
@@ -72,6 +77,8 @@ int main()
 	RenderingSystem renderer(new OpenGLRenderer());
 
 	std::shared_ptr<IVertexBufferObject> vbo = renderer.generateFromDataSet(data, EVT_PARALLEL_COORDINATES);
+
+	renderer.setViewTransform(0.0f, 3.7f, 1.0f, 0.2f);
 
 	while (renderer.run())
 	{

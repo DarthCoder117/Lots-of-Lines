@@ -157,14 +157,9 @@ void OpenGLRenderer::beginDraw(float r, float g, float b)
 	//Set shader program
 	glUseProgram(m_program);
 
-	//Calculate matrices
-	glm::mat4x4 proj = glm::ortho(0.0f, 1024.0f, 768.0f, 0.0f);
-
-	float zoomFactor = 1.0f;
-	glm::vec2 cameraCenter(0.0f, 0.0f);
-
-	glm::mat4x4 zoom = glm::scale(glm::mat4x4(), glm::vec3(zoomFactor, zoomFactor, 0.0f));
-	glm::mat4x4 translate = glm::translate(glm::mat4x4(), glm::vec3(-cameraCenter.x, -cameraCenter.y, 0.0f));
+	//Setup matrices for pan/zoom
+	glm::mat4x4 zoom = glm::scale(glm::mat4x4(), glm::vec3(m_zoomX, m_zoomY, 0.0f));
+	glm::mat4x4 translate = glm::translate(glm::mat4x4(), glm::vec3(-m_camX, -m_camY, 0.0f));
 	glm::mat4x4 mvp = zoom * translate;
 
 	GLuint MatrixID = glGetUniformLocation(m_program, "MVP");
@@ -178,6 +173,14 @@ void OpenGLRenderer::endDraw()
 
 	//Poll for and process events
 	glfwPollEvents();
+}
+
+void OpenGLRenderer::setViewTransform(float camX, float camY, float zoomX, float zoomY)
+{
+	m_camX = camX;
+	m_camY = camY;
+	m_zoomX = zoomX;
+	m_zoomY = zoomY;
 }
 
 void OpenGLRenderer::drawVBO(std::shared_ptr<IVertexBufferObject> vbo)

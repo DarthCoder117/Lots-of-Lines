@@ -28,7 +28,8 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(std::shared_ptr<DataSet
 			vectorSize = vec.size();
 			for (unsigned int x = 0; x < vec.size(); ++x)
 			{
-				Vertex v(-1.0f + ((float)x) * 0.675f, ((float)vec[x] / 4.0f) - 1.0f);
+				float interval = 2.0f / ((float)vectorSize - 1);//Screen is 2 screen units wide
+				Vertex v(-1.0f + (float)x * interval, (float)vec[x]);
 				v.r = colors[classIdx][0];
 				v.g = colors[classIdx][1];
 				v.b = colors[classIdx][2];

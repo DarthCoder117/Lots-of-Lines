@@ -30,6 +30,8 @@ namespace LotsOfLines
 
 		void endDraw();
 
+		void setViewTransform(float camX, float camY, float zoomX, float zoomY);
+
 		std::shared_ptr<IVertexBufferObject> generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type);
 
 		void drawVBO(std::shared_ptr<IVertexBufferObject> vbo);
