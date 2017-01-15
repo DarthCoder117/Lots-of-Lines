@@ -2,19 +2,21 @@
 #include "LotsOfLines/OpenGLVertexBufferObject.hpp"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 
 using namespace LotsOfLines;
 
 static const char* vertex_shader_text =
 "#version 330 core\n"
+"uniform mat4 MVP;\n"
 "in vec3 pos;\n"
 "in vec3 vertexColor;\n"
 "out vec3 fragmentColor;\n"
 "void main()\n"
 "{\n"
-"   gl_Position.xyz = pos;\n"
-"	gl_Position.w = 1.0;\n"
+"   gl_Position = MVP * vec4(pos, 1.0);\n"
 "	fragmentColor = vertexColor;\n"
 "}\n";
 
@@ -152,7 +154,21 @@ void OpenGLRenderer::beginDraw(float r, float g, float b)
 	glClearColor(r, g, b, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
+	//Set shader program
 	glUseProgram(m_program);
+
+	//Calculate matrices
+	glm::mat4x4 proj = glm::ortho(0.0f, 1024.0f, 768.0f, 0.0f);
+
+	float zoomFactor = 1.0f;
+	glm::vec2 cameraCenter(0.0f, 0.0f);
+
+	glm::mat4x4 zoom = glm::scale(glm::mat4x4(), glm::vec3(zoomFactor, zoomFactor, 0.0f));
+	glm::mat4x4 translate = glm::translate(glm::mat4x4(), glm::vec3(-cameraCenter.x, -cameraCenter.y, 0.0f));
+	glm::mat4x4 mvp = zoom * translate;
+
+	GLuint MatrixID = glGetUniformLocation(m_program, "MVP");
+	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
 }
 
 void OpenGLRenderer::endDraw()

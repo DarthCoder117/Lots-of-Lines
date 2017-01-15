@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
 project(RenderingSystem)
 
-# Include GLFW testing framework
+# Include GLFW
 include(ExternalProject)
 
 ExternalProject_Add(
@@ -12,6 +12,16 @@ ExternalProject_Add(
     URL_HASH "SHA1=bee9cd9a8b4925184070ade5bc287c5635830eb0"
     INSTALL_COMMAND ""
     CMAKE_ARGS -DGLFW_BUILD_DOCS:BOOL=OFF -DGLFW_BUILD_TESTS:BOOL=OFF -DGLFW_BUILD_EXAMPLES:BOOL=OFF
+)
+
+# Include GLM
+ExternalProject_Add(
+    glm
+    PREFIX ${CMAKE_SOURCE_DIR}/3rd-party/glm
+    URL "https://github.com/g-truc/glm/archive/0.9.8.3.tar.gz"
+    INSTALL_COMMAND ""
+    BUILD_COMMAND ""
+    CONFIGURE_COMMAND ""
 )
 
 #Include GLEW for Windows development
@@ -29,6 +39,10 @@ ExternalProject_Get_Property(glfw SOURCE_DIR)
 include_directories(${SOURCE_DIR}/include)
 ExternalProject_Get_Property(glfw BINARY_DIR)
 link_directories(${BINARY_DIR}/src)
+
+#Add paths for GLM
+ExternalProject_Get_Property(glm SOURCE_DIR)
+include_directories(${SOURCE_DIR})
 
 #Add paths for GLEW
 ExternalProject_Get_Property(glew SOURCE_DIR)
