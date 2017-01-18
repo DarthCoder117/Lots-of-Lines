@@ -190,7 +190,7 @@ void OpenGLRenderer::onMouseButton(GLFWwindow* window, int button, int action, i
 {
 	OpenGLRenderer* renderer = (OpenGLRenderer*)glfwGetWindowUserPointer(window);
 	if (button == GLFW_MOUSE_BUTTON_LEFT)
-	{	
+	{
 		glfwGetCursorPos(window, &renderer->m_lastMouseX, &renderer->m_lastMouseY);
 
 		if (action == GLFW_PRESS)
