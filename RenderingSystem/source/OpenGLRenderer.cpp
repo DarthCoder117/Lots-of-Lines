@@ -1,5 +1,6 @@
 #include "LotsOfLines/OpenGLRenderer.hpp"
 #include "LotsOfLines/OpenGLVertexBufferObject.hpp"
+#include <math.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -49,7 +50,10 @@ OpenGLRenderer::OpenGLRenderer()
 		glfwTerminate();
 		return;
 	}
+	glfwSetWindowUserPointer(m_window, this);
 
+	glfwSetMouseButtonCallback(m_window, onMouseButton);
+	glfwSetScrollCallback(m_window, onMouseScroll);
 	glfwSetWindowSizeCallback(m_window, windowSizeCallback);
 
 	//Make the window's context current
@@ -151,6 +155,12 @@ bool OpenGLRenderer::run()
 
 void OpenGLRenderer::beginDraw(float r, float g, float b)
 {
+	//Calculate frame time
+	double currentTime = glfwGetTime();
+	m_deltaTime = currentTime - m_lastTime;
+	m_lastTime = currentTime;
+
+	//Clear frame buffer
 	glClearColor(r, g, b, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
@@ -173,6 +183,58 @@ void OpenGLRenderer::endDraw()
 
 	//Poll for and process events
 	glfwPollEvents();
+	updateInput();
+}
+
+void OpenGLRenderer::onMouseButton(GLFWwindow* window, int button, int action, int mods)
+{
+	OpenGLRenderer* renderer = (OpenGLRenderer*)glfwGetWindowUserPointer(window);
+	if (button == GLFW_MOUSE_BUTTON_LEFT)
+	{	
+		glfwGetCursorPos(window, &renderer->m_lastMouseX, &renderer->m_lastMouseY);
+
+		if (action == GLFW_PRESS)
+		{
+			renderer->m_mouseDown = true;
+		}
+		else if (action == GLFW_RELEASE)
+		{
+			renderer->m_mouseDown = false;
+		}
+	}
+}
+
+void OpenGLRenderer::onMouseScroll(GLFWwindow* window, double xoffset, double yoffset)
+{
+	const bool lockZoomX = true;//TODO: Read this from the options for the current visualization type
+	const bool lockZoomY = false;//TODO: Read this from the options for the current visualization type
+
+	OpenGLRenderer* renderer = (OpenGLRenderer*)glfwGetWindowUserPointer(window);
+
+	float offset = (float)(renderer->m_deltaTime * yoffset * 20);
+	renderer->m_zoomX = lockZoomX ? renderer->m_zoomX : std::fmaxf(renderer->m_zoomX + offset, 0.0f);
+	renderer->m_zoomY = lockZoomY ? renderer->m_zoomY : std::fmaxf(renderer->m_zoomY + offset, 0.0f);
+}
+
+void OpenGLRenderer::updateInput()
+{
+	if (m_mouseDown)
+	{
+		const bool lockPanX = true;//TODO: Read this from the options for the current visualization type
+		const bool lockPanY = false;//TODO: Read this from the options for the current visualization type
+
+		double mouseX, mouseY;
+		glfwGetCursorPos(m_window, &mouseX, &mouseY);
+
+		double mouseDeltaX = m_lastMouseX - mouseX;
+		double mouseDeltaY = mouseY - m_lastMouseY;
+
+		m_camX += lockPanX ? 0.0f : (float)(mouseDeltaX * m_deltaTime * 3);
+		m_camY += lockPanY ? 0.0f : (float)(mouseDeltaY * m_deltaTime * 15);
+
+		m_lastMouseX = mouseX;
+		m_lastMouseY = mouseY;
+	}
 }
 
 void OpenGLRenderer::setViewTransform(float camX, float camY, float zoomX, float zoomY)

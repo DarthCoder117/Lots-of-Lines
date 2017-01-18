@@ -31,6 +31,8 @@ namespace LotsOfLines
 
 		void initShaders();
 
+		void updateInput();
+
 		GLFWwindow* m_window;
 
 		unsigned int m_program;
@@ -39,6 +41,16 @@ namespace LotsOfLines
 		float m_camY = 0.0f;
 		float m_zoomX = 1.0f;
 		float m_zoomY = 1.0f;
+
+		double m_lastTime = 0.0;
+		double m_deltaTime = 0.0;
+
+		static void onMouseButton(GLFWwindow* window, int button, int action, int mods);
+		static void onMouseScroll(GLFWwindow* window, double xoffset, double yoffset);
+
+		bool m_mouseDown = false;
+		double m_lastMouseX = 0.0;
+		double m_lastMouseY = 0.0;
 	};
 }
 
