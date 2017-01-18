@@ -6,12 +6,14 @@
 using namespace LotsOfLines;
 
 RenderingSystem::RenderingSystem(IRenderer* driver)
-	:m_driver(driver),
-	m_visualizationMethods({
-		std::make_shared<ParallelCoordinatesVisualizationMethod>()
-	})
+	:m_driver(driver)
 {
-	
+	registerVisualizationMethod(EVT_PARALLEL_COORDINATES, std::make_shared<ParallelCoordinatesVisualizationMethod>());
+}
+
+void RenderingSystem::registerVisualizationMethod(E_VISUALIZATION_TYPE type, std::shared_ptr<IVisualizationMethod> visMethod)
+{
+	m_visualizationMethods[type] = visMethod;
 }
 
 IRenderer* RenderingSystem::getDriver() const
@@ -39,19 +41,58 @@ void RenderingSystem::setViewTransform(float camX, float camY, float zoomX, floa
 	m_driver->setViewTransform(camX, camY, zoomX, zoomY);
 }
 
+void RenderingSystem::setVisualizationType(E_VISUALIZATION_TYPE type)
+{
+	if (m_currentVisualizationType != type)
+	{
+		m_currentVisualizationType = type;
+
+		//Generate VBO if needed
+		if (m_vboCache.find(type) == m_vboCache.end())
+		{
+			m_vboCache[type] = generateFromDataSet(m_dataSet, type);
+		}
+	}
+}
+
+void RenderingSystem::setDataSet(std::shared_ptr<DataSet> dataSet)
+{
+	if (m_dataSet != dataSet)
+	{
+		m_dataSet = dataSet;
+
+		//Generate VBO buffer if needed
+		if (m_vboCache.find(m_currentVisualizationType) == m_vboCache.end())
+		{
+			m_vboCache[m_currentVisualizationType] = generateFromDataSet(m_dataSet, m_currentVisualizationType);
+		}
+	}
+}
+
+void RenderingSystem::drawVisualization()
+{
+	auto iter = m_vboCache.find(m_currentVisualizationType);
+	if (iter != m_vboCache.end())
+	{
+		drawVBO(iter->second);
+	}
+}
+
 std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type)
 {
-	for (auto method : m_visualizationMethods)
+	auto iter = m_visualizationMethods.find(type);
+	if (iter == m_visualizationMethods.end())
 	{
-		if (method->getType() == type)
-		{
-			std::vector<Vertex> vertices;
-			std::vector<unsigned int> indices;
-			if (method->generateVBO(dataSet, vertices, indices))
-			{
-				return m_driver->createVBO(vertices, indices);
-			}
-		}
+		return nullptr;
+	}
+
+	std::shared_ptr<IVisualizationMethod> method = iter->second;
+
+	std::vector<Vertex> vertices;
+	std::vector<unsigned int> indices;
+	if (method->generateVBO(dataSet, vertices, indices))
+	{
+		return m_driver->createVBO(vertices, indices);
 	}
 
 	return nullptr;
@@ -76,7 +117,8 @@ int main()
 
 	RenderingSystem renderer(new OpenGLRenderer());
 
-	std::shared_ptr<IVertexBufferObject> vbo = renderer.generateFromDataSet(data, EVT_PARALLEL_COORDINATES);
+	renderer.setVisualizationType(EVT_PARALLEL_COORDINATES);
+	renderer.setDataSet(data);
 
 	renderer.setViewTransform(0.0f, 3.7f, 1.0f, 0.2f);
 
@@ -84,7 +126,7 @@ int main()
 	{
 		renderer.beginDraw();
 
-		renderer.drawVBO(vbo);
+		renderer.drawVisualization();
 
 		renderer.endDraw();
 	}

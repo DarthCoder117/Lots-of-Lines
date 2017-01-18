@@ -22,6 +22,8 @@ namespace LotsOfLines
 
 		RenderingSystem(IRenderer* driver);
 	
+		void registerVisualizationMethod(E_VISUALIZATION_TYPE type, std::shared_ptr<IVisualizationMethod> visMethod);
+
 		IRenderer* getDriver() const;
 
 		bool run();
@@ -32,6 +34,12 @@ namespace LotsOfLines
 
 		void setViewTransform(float camX, float camY, float zoomX, float zoomY);
 
+		void setVisualizationType(E_VISUALIZATION_TYPE type);
+
+		void setDataSet(std::shared_ptr<DataSet> dataSet);
+
+		void drawVisualization();
+
 		std::shared_ptr<IVertexBufferObject> generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type);
 
 		void drawVBO(std::shared_ptr<IVertexBufferObject> vbo);
@@ -40,7 +48,12 @@ namespace LotsOfLines
 
 		IRenderer* m_driver;
 
-		std::vector<std::shared_ptr<IVisualizationMethod> > m_visualizationMethods;
+		E_VISUALIZATION_TYPE m_currentVisualizationType = EVT_PARALLEL_COORDINATES;
+		std::shared_ptr<DataSet> m_dataSet = nullptr;
+
+		std::map<E_VISUALIZATION_TYPE, std::shared_ptr<IVertexBufferObject> > m_vboCache;
+
+		std::map<E_VISUALIZATION_TYPE, std::shared_ptr<IVisualizationMethod> > m_visualizationMethods;
 	};
 }
 
