@@ -32,12 +32,18 @@ namespace LotsOfLines
 		///@param vec The vector data to add.
 		void addVector(const Vector& vec, const std::string& vectorClass = "default");
 
+		const Vector& getMaxValues() { return m_maxValues; }
+		const Vector& getMinValues() { return m_minValues; }
+
 	private:
 
 		DataSet(const DataSet& oth) {} //Dissallow copy
 
 		std::set<std::string> m_dataClasses;
 		std::map<std::string, VectorClass> m_vectorData;
+
+		Vector m_maxValues;
+		Vector m_minValues;
 	};
 }
 

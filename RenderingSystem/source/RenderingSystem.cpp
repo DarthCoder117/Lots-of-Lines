@@ -120,7 +120,7 @@ int main()
 	renderer.setVisualizationType(EVT_PARALLEL_COORDINATES);
 	renderer.setDataSet(data);
 
-	renderer.setViewTransform(0.0f, 3.7f, 1.0f, 0.2f);
+	//renderer.setViewTransform(0.0f, 3.7f, 1.0f, 0.2f);
 
 	while (renderer.run())
 	{

@@ -16,6 +16,9 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(std::shared_ptr<DataSet
 		{0.0f, 0.0f, 1.0f}
 	};
 
+	const Vector& maxValues = dataSet->getMaxValues();
+	const Vector& minValues = dataSet->getMinValues();
+
 	//Generate vertices for each data class
 	for (auto dataClass : dataSet->getClasses())
 	{
@@ -29,6 +32,13 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(std::shared_ptr<DataSet
 			for (unsigned int x = 0; x < vec.size(); ++x)
 			{
 				float interval = 2.0f / ((float)vectorSize - 1);//Screen is 2 screen units wide
+
+				//Normalize data
+				double val = vec[x];
+				double max = maxValues[x];
+				double min = maxValues[x];
+				double normalized = (val - min) / (max - min);
+
 				Vertex v(-1.0f + (float)x * interval, (float)vec[x]);
 				v.r = colors[classIdx][0];
 				v.g = colors[classIdx][1];
