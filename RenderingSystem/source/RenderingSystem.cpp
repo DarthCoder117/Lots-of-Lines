@@ -9,12 +9,18 @@ using namespace LotsOfLines;
 RenderingSystem::RenderingSystem(IRenderer* driver)
 	:m_driver(driver)
 {
+	registerVisualizationMethod(EVT_PARALLEL_COORDINATES, std::make_shared<ParallelCoordinatesVisualizationMethod>());
 	registerVisualizationMethod(EVT_COLLOCATED_PAIRED_COORDINATES, std::make_shared<CollocatedPairedCoordinatesVisualizationMethod>());
 }
 
 void RenderingSystem::registerVisualizationMethod(E_VISUALIZATION_TYPE type, std::shared_ptr<IVisualizationMethod> visMethod)
 {
 	m_visualizationMethods[type] = visMethod;
+}
+
+std::shared_ptr<IVisualizationMethod> RenderingSystem::getCurrentVisualizationMethod()
+{
+	return m_visualizationMethods[m_currentVisualizationType];
 }
 
 IRenderer* RenderingSystem::getDriver() const
@@ -40,6 +46,11 @@ void RenderingSystem::endDraw()
 void RenderingSystem::setViewTransform(float camX, float camY, float zoomX, float zoomY)
 {
 	m_driver->setViewTransform(camX, camY, zoomX, zoomY);
+}
+
+void RenderingSystem::setNavigationOptions(bool lockZoomX, bool lockZoomY, bool lockPanX, bool lockPanY)
+{
+	m_driver->setNavigationOptions(lockZoomX, lockZoomY, lockPanX, lockPanY);
 }
 
 void RenderingSystem::setVisualizationType(E_VISUALIZATION_TYPE type)
@@ -121,8 +132,13 @@ int main()
 
 	renderer.setVisualizationType(EVT_COLLOCATED_PAIRED_COORDINATES);
 	renderer.setDataSet(data);
-
 	renderer.setViewTransform(0.0f, 3.7f, 1.0f, 0.2f);
+
+	// Set nav options
+	std::shared_ptr<IVisualizationMethod> method = renderer.getCurrentVisualizationMethod();
+	NavigationOptions& options = NavigationOptions();
+	method->getNavigationOptions(options);
+	renderer.setNavigationOptions(options.lockZoomX, options.lockZoomY, options.lockPanX, options.lockPanY);
 
 	while (renderer.run())
 	{

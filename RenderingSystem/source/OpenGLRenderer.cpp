@@ -35,6 +35,10 @@ void windowSizeCallback(GLFWwindow* window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
+// Set static vars
+bool OpenGLRenderer::m_lockZoomX = false;
+bool OpenGLRenderer::m_lockZoomY = false;
+
 OpenGLRenderer::OpenGLRenderer()
 {
 	//Initialize the library
@@ -206,31 +210,25 @@ void OpenGLRenderer::onMouseButton(GLFWwindow* window, int button, int action, i
 
 void OpenGLRenderer::onMouseScroll(GLFWwindow* window, double xoffset, double yoffset)
 {
-	const bool lockZoomX = true;//TODO: Read this from the options for the current visualization type
-	const bool lockZoomY = false;//TODO: Read this from the options for the current visualization type
-
 	OpenGLRenderer* renderer = (OpenGLRenderer*)glfwGetWindowUserPointer(window);
 
 	float offset = (float)(renderer->m_deltaTime * yoffset * 20);
-	renderer->m_zoomX = lockZoomX ? renderer->m_zoomX : std::fmaxf(renderer->m_zoomX + offset, 0.0f);
-	renderer->m_zoomY = lockZoomY ? renderer->m_zoomY : std::fmaxf(renderer->m_zoomY + offset, 0.0f);
+	renderer->m_zoomX = m_lockZoomX ? renderer->m_zoomX : std::fmaxf(renderer->m_zoomX + offset, 0.0f);
+	renderer->m_zoomY = m_lockZoomY ? renderer->m_zoomY : std::fmaxf(renderer->m_zoomY + offset, 0.0f);
 }
 
 void OpenGLRenderer::updateInput()
 {
 	if (m_mouseDown)
 	{
-		const bool lockPanX = true;//TODO: Read this from the options for the current visualization type
-		const bool lockPanY = false;//TODO: Read this from the options for the current visualization type
-
 		double mouseX, mouseY;
 		glfwGetCursorPos(m_window, &mouseX, &mouseY);
 
 		double mouseDeltaX = m_lastMouseX - mouseX;
 		double mouseDeltaY = mouseY - m_lastMouseY;
 
-		m_camX += lockPanX ? 0.0f : (float)(mouseDeltaX * m_deltaTime * 3);
-		m_camY += lockPanY ? 0.0f : (float)(mouseDeltaY * m_deltaTime * 15);
+		m_camX += m_lockPanX ? 0.0f : (float)(mouseDeltaX * m_deltaTime * 3);
+		m_camY += m_lockPanY ? 0.0f : (float)(mouseDeltaY * m_deltaTime * 15);
 
 		m_lastMouseX = mouseX;
 		m_lastMouseY = mouseY;
@@ -243,6 +241,14 @@ void OpenGLRenderer::setViewTransform(float camX, float camY, float zoomX, float
 	m_camY = camY;
 	m_zoomX = zoomX;
 	m_zoomY = zoomY;
+}
+
+void OpenGLRenderer::setNavigationOptions(bool lockZoomX, bool lockZoomY, bool lockPanX, bool lockPanY)
+{
+	m_lockZoomX = lockZoomX;
+	m_lockZoomY = lockZoomY;
+	m_lockPanX = lockPanX;
+	m_lockPanY = lockPanY;
 }
 
 void OpenGLRenderer::drawVBO(std::shared_ptr<IVertexBufferObject> vbo)
