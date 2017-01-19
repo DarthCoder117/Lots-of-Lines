@@ -62,8 +62,10 @@ bool CollocatedPairedCoordinatesVisualizationMethod::generateVBO(std::shared_ptr
 	{
 		for (unsigned int i = 1; i < vectorSize; ++i)
 		{
-			indicesOut.push_back(i + (baseIndex * vectorSize) - 1);
-			indicesOut.push_back(i + (baseIndex * vectorSize));
+			if ((i + (baseIndex * vectorSize)) % (vectorSize / 2) != 0) {
+				indicesOut.push_back(i + (baseIndex * vectorSize) - 1);
+				indicesOut.push_back(i + (baseIndex * vectorSize));
+			}
 		}
 	}
 
