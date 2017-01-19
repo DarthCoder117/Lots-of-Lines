@@ -12,6 +12,7 @@ namespace LotsOfLines
 	enum E_VISUALIZATION_TYPE
 	{
 		EVT_PARALLEL_COORDINATES,
+		EVT_COLLOCATED_PAIRED_COORDINATES,
 		EVT_COUNT
 	};
 
@@ -48,7 +49,7 @@ namespace LotsOfLines
 
 		IRenderer* m_driver;
 
-		E_VISUALIZATION_TYPE m_currentVisualizationType = EVT_PARALLEL_COORDINATES;
+		E_VISUALIZATION_TYPE m_currentVisualizationType = EVT_COLLOCATED_PAIRED_COORDINATES;
 		std::shared_ptr<DataSet> m_dataSet = nullptr;
 
 		std::map<E_VISUALIZATION_TYPE, std::shared_ptr<IVertexBufferObject> > m_vboCache;

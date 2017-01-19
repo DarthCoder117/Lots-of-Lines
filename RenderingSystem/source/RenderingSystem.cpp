@@ -2,13 +2,14 @@
 #include "LotsOfLines/IRenderer.hpp"
 
 #include "LotsOfLines/ParallelCoordinatesVisualizationMethod.hpp"
+#include "LotsOfLines/CollocatedPairedCoordinatesVisualizationMethod.hpp"
 
 using namespace LotsOfLines;
 
 RenderingSystem::RenderingSystem(IRenderer* driver)
 	:m_driver(driver)
 {
-	registerVisualizationMethod(EVT_PARALLEL_COORDINATES, std::make_shared<ParallelCoordinatesVisualizationMethod>());
+	registerVisualizationMethod(EVT_COLLOCATED_PAIRED_COORDINATES, std::make_shared<CollocatedPairedCoordinatesVisualizationMethod>());
 }
 
 void RenderingSystem::registerVisualizationMethod(E_VISUALIZATION_TYPE type, std::shared_ptr<IVisualizationMethod> visMethod)
@@ -114,11 +115,11 @@ int main()
 		new DataFileLoader()
 	});
 
-	std::shared_ptr<DataSet> data = dataModel.loadData("../../tests/data/iris.data");
+	std::shared_ptr<DataSet> data = dataModel.loadData("../../tests/data/collocated-paired-coordinates-test.data");
 
 	RenderingSystem renderer(new OpenGLRenderer());
 
-	renderer.setVisualizationType(EVT_PARALLEL_COORDINATES);
+	renderer.setVisualizationType(EVT_COLLOCATED_PAIRED_COORDINATES);
 	renderer.setDataSet(data);
 
 	renderer.setViewTransform(0.0f, 3.7f, 1.0f, 0.2f);
