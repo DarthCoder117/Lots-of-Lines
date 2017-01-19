@@ -106,6 +106,7 @@ void RenderingSystem::drawVBO(std::shared_ptr<IVertexBufferObject> vbo)
 // TEMPORARY FOR GHETTO TESTING PURPOSES. TESTS WILL BE MOVED TO THE TEST FRAMEWORK SHORTLY.
 #include "LotsOfLines/OpenGLRenderer.hpp"
 #include "LotsOfLines/DataFileLoader.hpp"
+#include "LotsOfLines/CSVFileLoader.hpp"
 
 int main()
 {
@@ -113,7 +114,7 @@ int main()
 		new DataFileLoader()
 	});
 
-	std::shared_ptr<DataSet> data = dataModel.loadData("D:/School/CWU/CS 481/Lots-of-Lines/tests/data/iris.data");
+	std::shared_ptr<DataSet> data = dataModel.loadData("../../tests/data/iris.data");
 
 	RenderingSystem renderer(new OpenGLRenderer());
 
