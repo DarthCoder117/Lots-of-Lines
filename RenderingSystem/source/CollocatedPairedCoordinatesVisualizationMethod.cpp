@@ -25,7 +25,7 @@ bool CollocatedPairedCoordinatesVisualizationMethod::generateVBO(std::shared_ptr
 	float width = 2.0f;
 
 	// Scaling
-	float interval = width / (diff - 1);
+	float interval = width / diff;
 	// Shifting
 	float shift[2] = {
 		firstVec[0] * interval * -1,
