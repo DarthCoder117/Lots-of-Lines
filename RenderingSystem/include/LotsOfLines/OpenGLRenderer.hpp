@@ -23,6 +23,8 @@ namespace LotsOfLines
 
 		void setViewTransform(float camX, float camY, float zoomX, float zoomY);
 
+		void setNavigationOptions(bool lockZoomX, bool lockZoomY, bool lockPanX, bool lockPanY);
+
 		void drawVBO(std::shared_ptr<IVertexBufferObject> vbo);
 
 		std::shared_ptr<IVertexBufferObject> createVBO(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
@@ -41,6 +43,12 @@ namespace LotsOfLines
 		float m_camY = 0.0f;
 		float m_zoomX = 1.0f;
 		float m_zoomY = 1.0f;
+
+		bool m_lockPanX = false;
+		bool m_lockPanY = false;
+
+		static bool m_lockZoomX;
+		static bool m_lockZoomY;
 
 		double m_lastTime = 0.0;
 		double m_deltaTime = 0.0;
