@@ -9,11 +9,11 @@ namespace LotsOfLines
 {
 	struct NavigationOptions
 	{
-		bool lockZoomX = false;
-		bool lockZoomY = false;
-
-		bool lockPanX = false;
-		bool lockPanY = false;
+		bool lockZoomX, lockZoomY;
+		bool lockPanX, lockPanY;
+		
+		NavigationOptions(bool zX = false, bool zY = false, bool pX = false, bool pY = false)
+			: lockZoomX(zX), lockZoomY(zY), lockPanX(pX), lockPanY(pY) {}
 	};
 
 	class IVisualizationMethod
@@ -27,7 +27,7 @@ namespace LotsOfLines
 		virtual bool generateVBO(std::shared_ptr<DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut) = 0;
 
 		///@brief Should return the navigation options for the rendering method (X scroll lock, etc)
-		virtual void getNavigationOptions(NavigationOptions& optionsOut) {}
+		virtual void getNavigationOptions(NavigationOptions& optionsOut) = 0;
 	};
 }
 

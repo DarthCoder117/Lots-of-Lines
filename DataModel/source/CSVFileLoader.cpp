@@ -25,6 +25,7 @@ std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path) const
 		while (!in.eof())
 		{
 			std::getline(in, line);
+			if (line.empty()) continue;
 
 			//Each line is a new vector
 			Vector vec;

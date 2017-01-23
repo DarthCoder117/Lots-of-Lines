@@ -12,6 +12,8 @@ namespace LotsOfLines
 	enum E_VISUALIZATION_TYPE
 	{
 		EVT_PARALLEL_COORDINATES,
+		EVT_COLLOCATED_PAIRED_COORDINATES,
+		EVT_RADIAL_PAIRED_COORDINATES,
 		EVT_COUNT
 	};
 
@@ -24,6 +26,8 @@ namespace LotsOfLines
 	
 		void registerVisualizationMethod(E_VISUALIZATION_TYPE type, std::shared_ptr<IVisualizationMethod> visMethod);
 
+		std::shared_ptr<IVisualizationMethod> getCurrentVisualizationMethod();
+
 		IRenderer* getDriver() const;
 
 		bool run();
@@ -35,6 +39,8 @@ namespace LotsOfLines
 		void setViewTransform(float camX, float camY, float zoomX, float zoomY);
 
 		void setVisualizationType(E_VISUALIZATION_TYPE type);
+
+		void setNavigationOptions(bool lockZoomX, bool lockZoomY, bool lockPanX, bool lockPanY);
 
 		void setDataSet(std::shared_ptr<DataSet> dataSet);
 

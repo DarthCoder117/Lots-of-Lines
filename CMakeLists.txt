@@ -17,4 +17,5 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 # Add each module as a subdirectory
 add_subdirectory("${CMAKE_SOURCE_DIR}/DataModel")
 add_subdirectory("${CMAKE_SOURCE_DIR}/RenderingSystem")
+add_subdirectory("${CMAKE_SOURCE_DIR}/GuiSystem")
 add_subdirectory("${CMAKE_SOURCE_DIR}/tests")
