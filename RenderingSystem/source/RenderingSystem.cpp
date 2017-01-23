@@ -3,6 +3,7 @@
 
 #include "LotsOfLines/ParallelCoordinatesVisualizationMethod.hpp"
 #include "LotsOfLines/CollocatedPairedCoordinatesVisualizationMethod.hpp"
+#include "LotsOfLines/RadialPairedCoordinatesVisualizationMethod.hpp"
 
 using namespace LotsOfLines;
 
@@ -11,6 +12,7 @@ RenderingSystem::RenderingSystem(IRenderer* driver)
 {
 	registerVisualizationMethod(EVT_PARALLEL_COORDINATES, std::make_shared<ParallelCoordinatesVisualizationMethod>());
 	registerVisualizationMethod(EVT_COLLOCATED_PAIRED_COORDINATES, std::make_shared<CollocatedPairedCoordinatesVisualizationMethod>());
+	registerVisualizationMethod(EVT_RADIAL_PAIRED_COORDINATES, std::make_shared<RadialPairedCoordinatesVisualizationMethod>());
 }
 
 void RenderingSystem::registerVisualizationMethod(E_VISUALIZATION_TYPE type, std::shared_ptr<IVisualizationMethod> visMethod)
@@ -131,7 +133,7 @@ int main()
 	RenderingSystem renderer(new OpenGLRenderer());
 
 	renderer.setDataSet(data);
-	renderer.setVisualizationType(EVT_COLLOCATED_PAIRED_COORDINATES);
+	renderer.setVisualizationType(EVT_RADIAL_PAIRED_COORDINATES);
 	renderer.setViewTransform(0.0f, 0.2f, 1.0f, 1.0f);
 
 	// Set nav options
