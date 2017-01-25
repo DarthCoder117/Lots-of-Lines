@@ -13,7 +13,10 @@ namespace LotsOfLines
 	{
 		EVT_PARALLEL_COORDINATES,
 		EVT_COLLOCATED_PAIRED_COORDINATES,
+<<<<<<< HEAD
 		EVT_RADIAL_PAIRED_COORDINATES,
+=======
+>>>>>>> collocated-paired-coordinates
 		EVT_COUNT
 	};
 
