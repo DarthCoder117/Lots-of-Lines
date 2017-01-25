@@ -130,9 +130,9 @@ int main()
 
 	RenderingSystem renderer(new OpenGLRenderer());
 
-	renderer.setVisualizationType(EVT_COLLOCATED_PAIRED_COORDINATES);
 	renderer.setDataSet(data);
-	renderer.setViewTransform(0.0f, 3.7f, 1.0f, 0.2f);
+	renderer.setVisualizationType(EVT_COLLOCATED_PAIRED_COORDINATES);
+	renderer.setViewTransform(0.0f, 0.2f, 1.0f, 1.0f);
 
 	// Set nav options
 	std::shared_ptr<IVisualizationMethod> method = renderer.getCurrentVisualizationMethod();

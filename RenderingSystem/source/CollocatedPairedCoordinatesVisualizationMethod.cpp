@@ -25,7 +25,7 @@ bool CollocatedPairedCoordinatesVisualizationMethod::generateVBO(std::shared_ptr
 	float width = 2.0f;
 
 	// Scaling
-	float interval = width / (diff - 1);
+	float interval = width / diff;
 	// Shifting
 	float shift[2] = {
 		firstVec[0] * interval * -1,
@@ -51,6 +51,14 @@ bool CollocatedPairedCoordinatesVisualizationMethod::generateVBO(std::shared_ptr
 				v.g = colors[classIdx][1];
 				v.b = colors[classIdx][2];
 				verticesOut.push_back(v);
+				// If single left over vector
+				if (x == vectorSize - 2)
+				{
+					//Or (vec[x + 1], 0)
+					v = Vertex(vec[x + 1] * interval + shift[0], vec[x + 1] * interval + shift[1]);
+					verticesOut.push_back(v);
+					vectorSize++;
+				}
 			}
 		}
 
