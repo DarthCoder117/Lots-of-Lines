@@ -30,6 +30,7 @@ void OpenGLVertexBufferObject::draw()
 {
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
@@ -43,8 +44,8 @@ void OpenGLVertexBufferObject::draw()
 		sizeof(Vertex),                  // stride
 		(void*)offset           // array buffer offset
 	);
-
 	offset += sizeof(float) * 3;
+
 	glVertexAttribPointer(
 		1,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
 		3,                  // size
@@ -53,19 +54,20 @@ void OpenGLVertexBufferObject::draw()
 		sizeof(Vertex),                  // stride
 		(void*)offset            // array buffer offset
 	);
+	offset += sizeof(float) * 3;
 
-	offset += sizeof(unsigned int);
-	glVertexAttribPointer(
+	glVertexAttribIPointer(
 		2,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
 		1,                  // size
-		GL_UNSIGNED_INT,    // type
-		GL_FALSE,           // normalized?
+		GL_UNSIGNED_INT,    // type 
 		sizeof(Vertex),                 // stride
 		(void*)offset            // array buffer offset
 	);
+	offset += sizeof(unsigned int);
 
 	glDrawElements(GL_LINES, m_indexCount, GL_UNSIGNED_INT, (void*)0);
 
+	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(0);
 }

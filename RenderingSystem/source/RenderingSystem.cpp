@@ -152,14 +152,15 @@ int main()
 		new DataFileLoader()
 	});
 
-	std::shared_ptr<DataSet> data = dataModel.loadData("../../tests/data/collocated-paired-coordinates-test.data");
+	std::shared_ptr<DataSet> data = dataModel.loadData("../../tests/data/iris-small.data");
 
 	RenderingSystem renderer(new OpenGLRenderer());
 
 	renderer.setDataSet(data);
 
 	renderer.setViewTransform(0.0f, 3.7f, 1.0f, 0.2f);
-	renderer.setVisualizationType(EVT_COLLOCATED_PAIRED_COORDINATES);
+	renderer.setVisualizationType(EVT_PARALLEL_COORDINATES);
+	renderer.getDriver()->setSelectedLine(1);
 
 	//renderer.setViewTransform(0.0f, 0.2f, 1.0f, 1.0f);
 

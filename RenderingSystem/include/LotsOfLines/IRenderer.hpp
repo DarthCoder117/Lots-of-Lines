@@ -16,7 +16,7 @@ namespace LotsOfLines
 
 		float x, y, z;
 		float r, g, b;
-		unsigned int lineIndex;
+		std::uint32_t lineIndex;
 	};
 
 	class IRenderer
@@ -42,6 +42,8 @@ namespace LotsOfLines
 
 		///@brief Draw a VBO to the screen.
 		virtual void drawVBO(std::shared_ptr<IVertexBufferObject> vbo) = 0;
+
+		virtual void setSelectedLine(unsigned int selectedLine) = 0;
 
 		///@brief Construct a VBO from a list of vertices and indices.
 		virtual std::shared_ptr<IVertexBufferObject> createVBO(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices) = 0;

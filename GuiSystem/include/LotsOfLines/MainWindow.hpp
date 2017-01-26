@@ -4,7 +4,7 @@
 
 namespace LotsOfLines
 {
-	class MainWindow : public IDataLoader
+	class MainWindow
 	{
 	public:
 
