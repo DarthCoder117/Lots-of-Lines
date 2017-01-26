@@ -70,9 +70,12 @@ bool RadialPairedCoordinatesVisualizationMethod::generateVBO(std::shared_ptr<Dat
 	//Generate indices for lines
 	for (unsigned int baseIndex = 0; baseIndex < numVectors; ++baseIndex)
 	{
-		for (unsigned int i = 1; i < vectorSize; ++i)
+		for (unsigned int i = 1, j = 0; i < vectorSize; ++i)
 		{
-			indicesOut.push_back(0);
+			if ((i + (baseIndex * vectorSize)) % (vectorSize / 2) == 0) {
+				j += vectorSize / 2;
+			}
+			indicesOut.push_back(j + (baseIndex * vectorSize));
 			indicesOut.push_back(i + (baseIndex * vectorSize));
 		}
 	}
