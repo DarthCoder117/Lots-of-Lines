@@ -1,12 +1,12 @@
 #ifndef RENDERING_SYSTEM_HPP
 #define RENDERING_SYSTEM_HPP
+#include "LotsOfLines/IRenderer.hpp"
 #include "LotsOfLines/DataModel.hpp"
 #include "LotsOfLines/IVertexBufferObject.hpp"
 #include <vector>
 
 namespace LotsOfLines
 {
-	class IRenderer;
 	class IVisualizationMethod;
 
 	enum E_VISUALIZATION_TYPE
@@ -47,11 +47,14 @@ namespace LotsOfLines
 
 		void drawVisualization();
 
-		std::shared_ptr<IVertexBufferObject> generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type);
-
 		void drawVBO(std::shared_ptr<IVertexBufferObject> vbo);
 
+		///@brief Gets index of the closest line to the 
+		unsigned int getClosestLine(float x, float y);
+
 	private:
+
+		std::shared_ptr<IVertexBufferObject> generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type, std::vector<Vertex>& verticesOut);
 
 		IRenderer* m_driver;
 
@@ -59,6 +62,7 @@ namespace LotsOfLines
 		std::shared_ptr<DataSet> m_dataSet = nullptr;
 
 		std::map<E_VISUALIZATION_TYPE, std::shared_ptr<IVertexBufferObject> > m_vboCache;
+		std::map<E_VISUALIZATION_TYPE, std::vector<Vertex> > m_vertices;
 
 		std::map<E_VISUALIZATION_TYPE, std::shared_ptr<IVisualizationMethod> > m_visualizationMethods;
 	};

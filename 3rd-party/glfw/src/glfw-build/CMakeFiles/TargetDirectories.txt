@@ -1,0 +1,6 @@
+C:/Users/super/Documents/School/CS 481/Lots-of-Lines/3rd-party/glfw/src/glfw-build/CMakeFiles/uninstall.dir
+C:/Users/super/Documents/School/CS 481/Lots-of-Lines/3rd-party/glfw/src/glfw-build/CMakeFiles/INSTALL.dir
+C:/Users/super/Documents/School/CS 481/Lots-of-Lines/3rd-party/glfw/src/glfw-build/CMakeFiles/ALL_BUILD.dir
+C:/Users/super/Documents/School/CS 481/Lots-of-Lines/3rd-party/glfw/src/glfw-build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/super/Documents/School/CS 481/Lots-of-Lines/3rd-party/glfw/src/glfw-build/src/CMakeFiles/glfw.dir
+C:/Users/super/Documents/School/CS 481/Lots-of-Lines/3rd-party/glfw/src/glfw-build/src/CMakeFiles/INSTALL.dir
