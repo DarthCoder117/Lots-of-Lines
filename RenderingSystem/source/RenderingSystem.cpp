@@ -82,7 +82,9 @@ void RenderingSystem::setDataSet(std::shared_ptr<DataSet> dataSet)
 		//Generate VBO buffer if needed
 		if (m_vboCache.find(m_currentVisualizationType) == m_vboCache.end())
 		{
-			m_vboCache[m_currentVisualizationType] = generateFromDataSet(m_dataSet, m_currentVisualizationType);
+			std::vector<Vertex> vertices;
+			m_vboCache[m_currentVisualizationType] = generateFromDataSet(m_dataSet, m_currentVisualizationType, vertices);
+			m_vertices[m_currentVisualizationType] = vertices;
 		}
 	}
 }
@@ -106,7 +108,6 @@ std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::s
 
 	std::shared_ptr<IVisualizationMethod> method = iter->second;
 
-	std::vector<Vertex> verticesOut;
 	std::vector<unsigned int> indices;
 	if (method->generateVBO(dataSet, verticesOut, indices))
 	{
