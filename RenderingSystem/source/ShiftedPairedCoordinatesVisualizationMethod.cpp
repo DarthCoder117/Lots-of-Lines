@@ -60,7 +60,7 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(std::shared_ptr<Da
 				if (x == vectorSize - 2)
 				{
 					//Or (vec[x + 1], 0)
-					v = Vertex(vec[x + 1] * interval + shift[0], vec[x + 1] * interval + shift[1]);
+					v = Vertex((vec[x + 1] + step[x - 1]) * interval + shift[0], (vec[x + 1] + step[x]) * interval + shift[1]);
 					verticesOut.push_back(v);
 					vectorSize++;
 				}
