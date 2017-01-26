@@ -34,22 +34,34 @@ void OpenGLVertexBufferObject::draw()
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
 
+	size_t offset = 0;
 	glVertexAttribPointer(
 		0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
 		3,                  // size
 		GL_FLOAT,           // type
 		GL_FALSE,           // normalized?
-		sizeof(float) * 6,                  // stride
-		(void*)0            // array buffer offset
+		sizeof(Vertex),                  // stride
+		(void*)offset           // array buffer offset
 	);
 
+	offset += sizeof(float) * 3;
 	glVertexAttribPointer(
 		1,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
 		3,                  // size
 		GL_FLOAT,           // type
 		GL_FALSE,           // normalized?
-		24,                  // stride
-		(void*)(sizeof(float) * 3)            // array buffer offset
+		sizeof(Vertex),                  // stride
+		(void*)offset            // array buffer offset
+	);
+
+	offset += sizeof(unsigned int);
+	glVertexAttribPointer(
+		2,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+		1,                  // size
+		GL_UNSIGNED_INT,    // type
+		GL_FALSE,           // normalized?
+		sizeof(Vertex),                 // stride
+		(void*)offset            // array buffer offset
 	);
 
 	glDrawElements(GL_LINES, m_indexCount, GL_UNSIGNED_INT, (void*)0);

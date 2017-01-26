@@ -1,3 +1,5 @@
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include "LotsOfLines/RenderingSystem.hpp"
 #include "LotsOfLines/IRenderer.hpp"
 
@@ -66,7 +68,9 @@ void RenderingSystem::setVisualizationType(E_VISUALIZATION_TYPE type)
 		//Generate VBO if needed
 		if (m_vboCache.find(type) == m_vboCache.end())
 		{
-			m_vboCache[type] = generateFromDataSet(m_dataSet, type);
+			std::vector<Vertex> vertices;
+			m_vboCache[type] = generateFromDataSet(m_dataSet, type, vertices);
+			m_vertices[type] = vertices;
 		}
 	}
 }
@@ -80,7 +84,9 @@ void RenderingSystem::setDataSet(std::shared_ptr<DataSet> dataSet)
 		//Generate VBO buffer if needed
 		if (m_vboCache.find(m_currentVisualizationType) == m_vboCache.end())
 		{
-			m_vboCache[m_currentVisualizationType] = generateFromDataSet(m_dataSet, m_currentVisualizationType);
+			std::vector<Vertex> vertices;
+			m_vboCache[m_currentVisualizationType] = generateFromDataSet(m_dataSet, m_currentVisualizationType, vertices);
+			m_vertices[m_currentVisualizationType] = vertices;
 		}
 	}
 }
@@ -94,7 +100,7 @@ void RenderingSystem::drawVisualization()
 	}
 }
 
-std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type)
+std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type, std::vector<Vertex>& verticesOut)
 {
 	auto iter = m_visualizationMethods.find(type);
 	if (iter == m_visualizationMethods.end())
@@ -104,11 +110,10 @@ std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::s
 
 	std::shared_ptr<IVisualizationMethod> method = iter->second;
 
-	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
-	if (method->generateVBO(dataSet, vertices, indices))
+	if (method->generateVBO(dataSet, verticesOut, indices))
 	{
-		return m_driver->createVBO(vertices, indices);
+		return m_driver->createVBO(verticesOut, indices);
 	}
 
 	return nullptr;
@@ -117,6 +122,25 @@ std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::s
 void RenderingSystem::drawVBO(std::shared_ptr<IVertexBufferObject> vbo)
 {
 	m_driver->drawVBO(vbo);
+}
+
+unsigned int RenderingSystem::getClosestLine(float x, float y)
+{
+	float closestDist = std::numeric_limits<float>::max();
+	unsigned int closestLine = 0;
+	for (auto vertex : m_vertices[m_currentVisualizationType])
+	{
+		glm::vec2 m(x, y);
+		glm::vec2 v(vertex.x, vertex.y);
+		float dist = glm::distance(m, v);
+		if (dist < closestDist)
+		{
+			closestDist = dist;
+			closestLine = vertex.lineIndex;
+		}
+	}
+
+	return closestLine;
 }
 
 // TEMPORARY FOR GHETTO TESTING PURPOSES. TESTS WILL BE MOVED TO THE TEST FRAMEWORK SHORTLY.
@@ -130,16 +154,16 @@ int main()
 		new DataFileLoader()
 	});
 
-	std::shared_ptr<DataSet> data = dataModel.loadData("../../tests/data/iris.data");
+	std::shared_ptr<DataSet> data = dataModel.loadData("../../tests/data/collocated-paired-coordinates-test.data");
 
 	RenderingSystem renderer(new OpenGLRenderer());
 
 	renderer.setDataSet(data);
 
-	//renderer.setViewTransform(0.0f, 3.7f, 1.0f, 0.2f);
+	renderer.setViewTransform(0.0f, 3.7f, 1.0f, 0.2f);
+	renderer.setVisualizationType(EVT_COLLOCATED_PAIRED_COORDINATES);
 
-	renderer.setVisualizationType(EVT_SHIFTED_PAIRED_COORDINATES);
-	renderer.setViewTransform(0.0f, 0.2f, 1.0f, 1.0f);
+	//renderer.setViewTransform(0.0f, 0.2f, 1.0f, 1.0f);
 
 	// Set nav options
 	std::shared_ptr<IVisualizationMethod> method = renderer.getCurrentVisualizationMethod();
