@@ -34,6 +34,6 @@ TEST_CASE("Load .csv file", "[CSVFileLoader]")
 		&fsLoader
 	});
 
-	dataModel.loadData("../../../tests/data/forestfires.csv");
+	dataModel.loadData("../../../tests/data/forestfires.csv", LoadOptions());
 	printf("");
 }

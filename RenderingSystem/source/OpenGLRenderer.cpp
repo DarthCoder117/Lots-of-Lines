@@ -1,5 +1,6 @@
 #include "LotsOfLines/OpenGLRenderer.hpp"
 #include "LotsOfLines/OpenGLVertexBufferObject.hpp"
+#include "LotsOfLines/RenderingSystem.hpp"
 #include <math.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -21,7 +22,6 @@ static const char* vertex_shader_text =
 "{\n"
 "   gl_Position = MVP * vec4(pos, 1.0);\n"
 "	fragmentColor = vertexColor;\n"
-"	if (lineIndex == selectedLine) fragmentColor = vec3(1.0);\n"
 "}\n";
 
 static const char* fragment_shader_text =
@@ -207,6 +207,8 @@ void OpenGLRenderer::onMouseButton(GLFWwindow* window, int button, int action, i
 		if (action == GLFW_PRESS)
 		{
 			renderer->m_mouseDown = true;
+
+			renderer->setSelectedLine(renderer->m_renderingSystem->getClosestLine(renderer->m_lastMouseX, renderer->m_lastMouseY));
 		}
 		else if (action == GLFW_RELEASE)
 		{

@@ -10,7 +10,7 @@ bool CSVFileLoader::supportsFormat(const std::string& path)
 	return path.find(".csv") != path.npos;
 }
 
-std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path) const
+std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path, const LoadOptions& options) const
 {
 	std::ifstream in(path);
 	if (in)

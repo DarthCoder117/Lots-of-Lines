@@ -13,6 +13,8 @@ using namespace LotsOfLines;
 RenderingSystem::RenderingSystem(IRenderer* driver)
 	:m_driver(driver)
 {
+	m_driver->m_renderingSystem = this;
+
 	registerVisualizationMethod(EVT_PARALLEL_COORDINATES, std::make_shared<ParallelCoordinatesVisualizationMethod>());
 	registerVisualizationMethod(EVT_COLLOCATED_PAIRED_COORDINATES, std::make_shared<CollocatedPairedCoordinatesVisualizationMethod>());
 	registerVisualizationMethod(EVT_RADIAL_PAIRED_COORDINATES, std::make_shared<RadialPairedCoordinatesVisualizationMethod>());
@@ -154,17 +156,17 @@ int main()
 		new DataFileLoader()
 	});
 
-	std::shared_ptr<DataSet> data = dataModel.loadData("../../tests/data/iris-small.data");
+	std::shared_ptr<DataSet> data = dataModel.loadData("D:/School/CWU/CS 481/Lots-of-Lines/tests/data/iris.data");
 
 	RenderingSystem renderer(new OpenGLRenderer());
 
 	renderer.setDataSet(data);
 
-	renderer.setViewTransform(0.0f, 3.7f, 1.0f, 0.2f);
+	//renderer.setViewTransform(0.0f, 3.7f, 1.0f, 0.2f);
 	renderer.setVisualizationType(EVT_PARALLEL_COORDINATES);
 	renderer.getDriver()->setSelectedLine(1);
 
-	//renderer.setViewTransform(0.0f, 0.2f, 1.0f, 1.0f);
+	renderer.setViewTransform(0.0f, 0.2f, 1.0f, 1.0f);
 
 	// Set nav options
 	std::shared_ptr<IVisualizationMethod> method = renderer.getCurrentVisualizationMethod();

@@ -2,12 +2,11 @@
 #define DATA_MODEL_HPP
 #include <vector>
 #include <memory>
+#include "LotsOfLines/IDataLoader.hpp"
 #include "LotsOfLines/DataSet.hpp"
 
 namespace LotsOfLines
 {
-	class IDataLoader;
-
 	typedef std::vector<IDataLoader*> DataLoaderArray;
 
 	///@brief The DataModel class handles loading and processing datasets to convert them to a form usable by the rendering system.
@@ -26,7 +25,7 @@ namespace LotsOfLines
 		///@param path The path to load data from. The format of this parameter is to be interpreted by the loader implementation
 		///and could be a file path, a URL, or something else.
 		///@return A shared_ptr to the DataSet loaded from the path, or nullptr if an error occurred.
-		std::shared_ptr<DataSet> loadData(const std::string& path) const;
+		std::shared_ptr<DataSet> loadData(const std::string& path, const LoadOptions& options = LoadOptions::default) const;
 
 	private:
 
