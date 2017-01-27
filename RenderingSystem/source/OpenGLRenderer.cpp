@@ -42,7 +42,7 @@ void windowSizeCallback(GLFWwindow* window, int width, int height)
 bool OpenGLRenderer::m_lockZoomX = false;
 bool OpenGLRenderer::m_lockZoomY = false;
 
-OpenGLRenderer::OpenGLRenderer()
+OpenGLRenderer::OpenGLRenderer(void* windowHandle)
 {
 	//Initialize the library
 	if (!glfwInit()) return;

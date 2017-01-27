@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDockWidget>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
@@ -38,12 +39,14 @@ public:
     QVBoxLayout *verticalLayout;
     QScrollArea *sidebarScrollArea;
     QWidget *scrollAreaWidgetContents;
+    QVBoxLayout *verticalLayout_2;
+    QGroupBox *visualizationOptionsGroupBox;
 
     void setupUi(QMainWindow *LotsOfLinesAppClass)
     {
         if (LotsOfLinesAppClass->objectName().isEmpty())
             LotsOfLinesAppClass->setObjectName(QStringLiteral("LotsOfLinesAppClass"));
-        LotsOfLinesAppClass->resize(600, 400);
+        LotsOfLinesAppClass->resize(1095, 587);
         actionLoad = new QAction(LotsOfLinesAppClass);
         actionLoad->setObjectName(QStringLiteral("actionLoad"));
         centralWidget = new QWidget(LotsOfLinesAppClass);
@@ -51,7 +54,7 @@ public:
         LotsOfLinesAppClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(LotsOfLinesAppClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 600, 21));
+        menuBar->setGeometry(QRect(0, 0, 1095, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         LotsOfLinesAppClass->setMenuBar(menuBar);
@@ -72,7 +75,16 @@ public:
         sidebarScrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 119, 335));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 207, 522));
+        verticalLayout_2 = new QVBoxLayout(scrollAreaWidgetContents);
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        visualizationOptionsGroupBox = new QGroupBox(scrollAreaWidgetContents);
+        visualizationOptionsGroupBox->setObjectName(QStringLiteral("visualizationOptionsGroupBox"));
+
+        verticalLayout_2->addWidget(visualizationOptionsGroupBox);
+
         sidebarScrollArea->setWidget(scrollAreaWidgetContents);
 
         verticalLayout->addWidget(sidebarScrollArea);
@@ -93,6 +105,7 @@ public:
         LotsOfLinesAppClass->setWindowTitle(QApplication::translate("LotsOfLinesAppClass", "LotsOfLinesApp", Q_NULLPTR));
         actionLoad->setText(QApplication::translate("LotsOfLinesAppClass", "Load", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("LotsOfLinesAppClass", "File", Q_NULLPTR));
+        visualizationOptionsGroupBox->setTitle(QApplication::translate("LotsOfLinesAppClass", "Visualization Options", Q_NULLPTR));
     } // retranslateUi
 
 };

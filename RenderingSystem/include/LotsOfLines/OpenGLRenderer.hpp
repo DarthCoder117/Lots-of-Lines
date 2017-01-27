@@ -11,7 +11,7 @@ namespace LotsOfLines
 	{
 	public:
 
-		OpenGLRenderer();
+		OpenGLRenderer(void* windowHandle = nullptr);
 
 		~OpenGLRenderer();
 

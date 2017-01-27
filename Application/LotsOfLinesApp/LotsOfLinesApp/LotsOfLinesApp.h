@@ -10,6 +10,10 @@ class LotsOfLinesApp : public QMainWindow
 public:
     LotsOfLinesApp(QWidget *parent = Q_NULLPTR);
 
+public slots:
+
+	void onLoadFile();
+
 private:
     Ui::LotsOfLinesAppClass ui;
 };

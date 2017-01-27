@@ -146,7 +146,7 @@ unsigned int RenderingSystem::getClosestLine(float x, float y)
 }
 
 // TEMPORARY FOR GHETTO TESTING PURPOSES. TESTS WILL BE MOVED TO THE TEST FRAMEWORK SHORTLY.
-#include "LotsOfLines/OpenGLRenderer.hpp"
+/*#include "LotsOfLines/OpenGLRenderer.hpp"
 #include "LotsOfLines/DataFileLoader.hpp"
 #include "LotsOfLines/CSVFileLoader.hpp"
 
@@ -184,4 +184,4 @@ int main()
 	}
 
 	return 0;
-}
+}*/
