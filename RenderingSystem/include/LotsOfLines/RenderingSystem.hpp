@@ -25,13 +25,17 @@ namespace LotsOfLines
 
 		RenderingSystem(IRenderer* driver);
 	
+		///@brief Initialize the rendering system and its driver.
+		bool init();
+
 		void registerVisualizationMethod(E_VISUALIZATION_TYPE type, std::shared_ptr<IVisualizationMethod> visMethod);
 
 		std::shared_ptr<IVisualizationMethod> getCurrentVisualizationMethod();
 
 		IRenderer* getDriver() const;
 
-		bool run();
+		///@brief Call when the window is resized.
+		void onResize(unsigned int width, unsigned int height);
 
 		void beginDraw(float r = 0.2f, float g = 0.2f, float b = 0.2f);
 

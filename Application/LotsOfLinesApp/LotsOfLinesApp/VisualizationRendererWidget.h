@@ -1,16 +1,22 @@
 #pragma once
 
-#include <QtWidgets/QOpenGLWidget.h>
+#include <QOpenGLWidget>
+#include <QOpenGLFunctions>
+#include <LotsOfLines/RenderingSystem.hpp>
 
-class VisualizationRendererWidget : public QOpenGLWidget
+class VisualizationRendererWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
 	Q_OBJECT
 
 public:
 
-	explicit VisualizationRendererWidget(QWidget* parent = 0);
+	explicit VisualizationRendererWidget(QWidget* parent);
+
+	LotsOfLines::RenderingSystem* getRenderingSystem();
 
 protected:
+
+	LotsOfLines::RenderingSystem m_renderingSystem;
 
 	void initializeGL();
 	void resizeGL(int w, int h);

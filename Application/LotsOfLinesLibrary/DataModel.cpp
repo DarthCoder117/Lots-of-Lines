@@ -1,8 +1,8 @@
-#include "LotsOfLines/DataModel.hpp"
-#include "LotsOfLines/IDataLoader.hpp"
+#include "DataModel.h"
+#include "IDataLoader.h"
 
-#include "LotsOfLines/DataFileLoader.hpp"
-#include "LotsOfLines/CSVFileLoader.hpp"
+#include "DataFileLoader.h"
+#include "CSVFileLoader.h"
 
 using namespace LotsOfLines;
 

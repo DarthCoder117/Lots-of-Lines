@@ -14,71 +14,112 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDialog>
+#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
-class Ui_Dialog
+class Ui_LoadDataDialog
 {
 public:
-    QWidget *layoutWidget;
-    QVBoxLayout *vboxLayout;
-    QPushButton *okButton;
+    QVBoxLayout *verticalLayout;
+    QLineEdit *selectedFile;
+    QGroupBox *optionsGroupBox;
+    QFormLayout *formLayout;
+    QLabel *label;
+    QSpinBox *classColumnSelect;
+    QSpacerItem *verticalSpacer;
+    QHBoxLayout *horizontalLayout_2;
+    QSpacerItem *horizontalSpacer;
     QPushButton *cancelButton;
-    QSpacerItem *spacerItem;
+    QPushButton *okButton;
 
-    void setupUi(QDialog *Dialog)
+    void setupUi(QDialog *LoadDataDialog)
     {
-        if (Dialog->objectName().isEmpty())
-            Dialog->setObjectName(QStringLiteral("Dialog"));
-        Dialog->resize(400, 300);
-        layoutWidget = new QWidget(Dialog);
-        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(300, 20, 77, 106));
-        vboxLayout = new QVBoxLayout(layoutWidget);
-#ifndef Q_OS_MAC
-        vboxLayout->setSpacing(6);
-#endif
-        vboxLayout->setContentsMargins(0, 0, 0, 0);
-        vboxLayout->setObjectName(QStringLiteral("vboxLayout"));
-        vboxLayout->setContentsMargins(0, 0, 0, 0);
-        okButton = new QPushButton(layoutWidget);
-        okButton->setObjectName(QStringLiteral("okButton"));
+        if (LoadDataDialog->objectName().isEmpty())
+            LoadDataDialog->setObjectName(QStringLiteral("LoadDataDialog"));
+        LoadDataDialog->resize(285, 134);
+        verticalLayout = new QVBoxLayout(LoadDataDialog);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        selectedFile = new QLineEdit(LoadDataDialog);
+        selectedFile->setObjectName(QStringLiteral("selectedFile"));
+        selectedFile->setEnabled(true);
+        selectedFile->setReadOnly(true);
 
-        vboxLayout->addWidget(okButton);
+        verticalLayout->addWidget(selectedFile);
 
-        cancelButton = new QPushButton(layoutWidget);
+        optionsGroupBox = new QGroupBox(LoadDataDialog);
+        optionsGroupBox->setObjectName(QStringLiteral("optionsGroupBox"));
+        formLayout = new QFormLayout(optionsGroupBox);
+        formLayout->setObjectName(QStringLiteral("formLayout"));
+        label = new QLabel(optionsGroupBox);
+        label->setObjectName(QStringLiteral("label"));
+
+        formLayout->setWidget(0, QFormLayout::LabelRole, label);
+
+        classColumnSelect = new QSpinBox(optionsGroupBox);
+        classColumnSelect->setObjectName(QStringLiteral("classColumnSelect"));
+
+        formLayout->setWidget(0, QFormLayout::FieldRole, classColumnSelect);
+
+
+        verticalLayout->addWidget(optionsGroupBox);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer);
+
+        cancelButton = new QPushButton(LoadDataDialog);
         cancelButton->setObjectName(QStringLiteral("cancelButton"));
 
-        vboxLayout->addWidget(cancelButton);
+        horizontalLayout_2->addWidget(cancelButton);
 
-        spacerItem = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        okButton = new QPushButton(LoadDataDialog);
+        okButton->setObjectName(QStringLiteral("okButton"));
 
-        vboxLayout->addItem(spacerItem);
+        horizontalLayout_2->addWidget(okButton);
 
 
-        retranslateUi(Dialog);
-        QObject::connect(okButton, SIGNAL(clicked()), Dialog, SLOT(accept()));
-        QObject::connect(cancelButton, SIGNAL(clicked()), Dialog, SLOT(reject()));
+        verticalLayout->addLayout(horizontalLayout_2);
 
-        QMetaObject::connectSlotsByName(Dialog);
+
+        retranslateUi(LoadDataDialog);
+        QObject::connect(cancelButton, SIGNAL(clicked()), LoadDataDialog, SLOT(reject()));
+        QObject::connect(okButton, SIGNAL(clicked()), LoadDataDialog, SLOT(accept()));
+
+        QMetaObject::connectSlotsByName(LoadDataDialog);
     } // setupUi
 
-    void retranslateUi(QDialog *Dialog)
+    void retranslateUi(QDialog *LoadDataDialog)
     {
-        Dialog->setWindowTitle(QApplication::translate("Dialog", "Dialog", Q_NULLPTR));
-        okButton->setText(QApplication::translate("Dialog", "OK", Q_NULLPTR));
-        cancelButton->setText(QApplication::translate("Dialog", "Cancel", Q_NULLPTR));
+        LoadDataDialog->setWindowTitle(QApplication::translate("LoadDataDialog", "Load Data", Q_NULLPTR));
+        optionsGroupBox->setTitle(QApplication::translate("LoadDataDialog", "Options", Q_NULLPTR));
+        label->setText(QApplication::translate("LoadDataDialog", "Class Column", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        classColumnSelect->setToolTip(QApplication::translate("LoadDataDialog", "The column index that will be used as the data class.", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        cancelButton->setText(QApplication::translate("LoadDataDialog", "Cancel", Q_NULLPTR));
+        okButton->setText(QApplication::translate("LoadDataDialog", "OK", Q_NULLPTR));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class Dialog: public Ui_Dialog {};
+    class LoadDataDialog: public Ui_LoadDataDialog {};
 } // namespace Ui
 
 QT_END_NAMESPACE

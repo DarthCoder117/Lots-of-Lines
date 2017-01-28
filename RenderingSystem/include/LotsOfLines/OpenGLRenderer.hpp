@@ -15,11 +15,13 @@ namespace LotsOfLines
 
 		~OpenGLRenderer();
 
-		bool run();
+		bool init();
 
 		void beginDraw(float r, float g, float b);
 
 		void endDraw();
+
+		void setViewport(unsigned int width, unsigned int height);
 
 		void setViewTransform(float camX, float camY, float zoomX, float zoomY);
 

@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDockWidget>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
@@ -31,6 +32,7 @@ class Ui_LotsOfLinesAppClass
 public:
     QAction *actionLoad;
     QWidget *centralWidget;
+    QGridLayout *centralLayout;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QStatusBar *statusBar;
@@ -51,6 +53,11 @@ public:
         actionLoad->setObjectName(QStringLiteral("actionLoad"));
         centralWidget = new QWidget(LotsOfLinesAppClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        centralLayout = new QGridLayout(centralWidget);
+        centralLayout->setSpacing(6);
+        centralLayout->setContentsMargins(11, 11, 11, 11);
+        centralLayout->setObjectName(QStringLiteral("centralLayout"));
+        centralLayout->setContentsMargins(0, 0, 0, 0);
         LotsOfLinesAppClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(LotsOfLinesAppClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -75,7 +82,7 @@ public:
         sidebarScrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 207, 522));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 175, 522));
         verticalLayout_2 = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -105,6 +112,7 @@ public:
         LotsOfLinesAppClass->setWindowTitle(QApplication::translate("LotsOfLinesAppClass", "LotsOfLinesApp", Q_NULLPTR));
         actionLoad->setText(QApplication::translate("LotsOfLinesAppClass", "Load", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("LotsOfLinesAppClass", "File", Q_NULLPTR));
+        sidebarDockWidget->setWindowTitle(QApplication::translate("LotsOfLinesAppClass", "Visualization Options", Q_NULLPTR));
         visualizationOptionsGroupBox->setTitle(QApplication::translate("LotsOfLinesAppClass", "Visualization Options", Q_NULLPTR));
     } // retranslateUi
 

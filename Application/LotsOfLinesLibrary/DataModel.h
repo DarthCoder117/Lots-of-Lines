@@ -1,9 +1,9 @@
-#ifndef DATA_MODEL_HPP
-#define DATA_MODEL_HPP
+#ifndef DATA_MODEL_H
+#define DATA_MODEL_H
 #include <vector>
 #include <memory>
-#include "LotsOfLines/IDataLoader.hpp"
-#include "LotsOfLines/DataSet.hpp"
+#include "IDataLoader.h"
+#include "DataSet.h"
 
 namespace LotsOfLines
 {

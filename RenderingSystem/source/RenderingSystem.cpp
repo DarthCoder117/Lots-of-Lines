@@ -21,6 +21,11 @@ RenderingSystem::RenderingSystem(IRenderer* driver)
 	registerVisualizationMethod(EVT_SHIFTED_PAIRED_COORDINATES, std::make_shared<ShiftedPairedCoordinatesVisualizationMethod>());
 }
 
+bool RenderingSystem::init()
+{
+	return m_driver->init();
+}
+
 void RenderingSystem::registerVisualizationMethod(E_VISUALIZATION_TYPE type, std::shared_ptr<IVisualizationMethod> visMethod)
 {
 	m_visualizationMethods[type] = visMethod;
@@ -36,9 +41,9 @@ IRenderer* RenderingSystem::getDriver() const
 	return m_driver;
 }
 
-bool RenderingSystem::run()
+void RenderingSystem::onResize(unsigned int width, unsigned int height)
 {
-	return m_driver->run();
+	m_driver->setViewport(width, height);
 }
 
 void RenderingSystem::beginDraw(float r, float g, float b)

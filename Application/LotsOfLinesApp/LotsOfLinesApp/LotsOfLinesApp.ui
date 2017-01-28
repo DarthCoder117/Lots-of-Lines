@@ -13,7 +13,22 @@
   <property name="windowTitle">
    <string>LotsOfLinesApp</string>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="centralLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
@@ -33,6 +48,9 @@
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="sidebarDockWidget">
+   <property name="windowTitle">
+    <string>Visualization Options</string>
+   </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
@@ -60,7 +78,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>207</width>
+          <width>175</width>
           <height>522</height>
          </rect>
         </property>
