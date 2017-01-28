@@ -37,6 +37,8 @@ namespace LotsOfLines
 
 		void endDraw();
 
+		void autoViewTransform();
+
 		void setViewTransform(float camX, float camY, float zoomX, float zoomY);
 
 		void setVisualizationType(E_VISUALIZATION_TYPE type);
