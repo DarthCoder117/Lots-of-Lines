@@ -2,6 +2,7 @@
 
 #include <QMainWindow>
 #include <LotsOfLines/DataModel.hpp>
+#include "VisualizationRendererWidget.h"
 #include "ui_LotsOfLinesApp.h"
 
 class LotsOfLinesApp : public QMainWindow
@@ -23,4 +24,6 @@ protected:
     Ui::LotsOfLinesAppClass ui;
 
 	std::shared_ptr<LotsOfLines::DataSet> m_dataSet;
+
+	VisualizationRendererWidget* m_rendererWidget;
 };

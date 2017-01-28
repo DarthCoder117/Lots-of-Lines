@@ -14,6 +14,10 @@ public:
 
 	LotsOfLines::RenderingSystem* getRenderingSystem();
 
+	void mousePressEvent(QMouseEvent *eventPress);
+	void mouseMoveEvent(QMouseEvent* eventMove);
+	void mouseReleaseEvent(QMouseEvent *releaseEvent);
+
 protected:
 
 	LotsOfLines::RenderingSystem m_renderingSystem;

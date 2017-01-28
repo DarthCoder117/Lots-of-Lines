@@ -1,5 +1,4 @@
 #include "LotsOfLinesApp.h"
-#include "VisualizationRendererWidget.h"
 #include <QFileDialog>
 #include <QMessageBox>
 #include "LoadDataDialog.h"
@@ -11,8 +10,8 @@ LotsOfLinesApp::LotsOfLinesApp(QWidget *parent)
 	ui.setupUi(this);
 
 	//Setup rendering window
-	VisualizationRendererWidget* rendererWidget = new VisualizationRendererWidget(this);
-	ui.centralLayout->addWidget(rendererWidget);
+	m_rendererWidget = new VisualizationRendererWidget(this);
+	ui.centralLayout->addWidget(m_rendererWidget);
 
 	connect(ui.actionLoad, SIGNAL(triggered()), this, SLOT(onLoadFile()));
 }
@@ -38,5 +37,8 @@ void LotsOfLinesApp::onLoadFile()
 		{
 			QMessageBox::warning(this, "Failed to load", "There was an error loading the data file.");
 		}
+
+		m_rendererWidget->getRenderingSystem()->setDataSet(m_dataSet);
+		m_rendererWidget->getRenderingSystem()->setVisualizationType(LotsOfLines::EVT_PARALLEL_COORDINATES);
 	}
 }

@@ -196,11 +196,6 @@ void OpenGLRenderer::beginDraw(float r, float g, float b)
 
 void OpenGLRenderer::endDraw()
 {
-	//Swap front and back buffers
-	//glfwSwapBuffers(m_window);
-
-	//Poll for and process events
-	//glfwPollEvents();
 	updateInput();
 }
 

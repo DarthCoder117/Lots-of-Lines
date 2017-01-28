@@ -78,7 +78,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>175</width>
+          <width>160</width>
           <height>522</height>
          </rect>
         </property>
@@ -86,8 +86,30 @@
          <item>
           <widget class="QGroupBox" name="visualizationOptionsGroupBox">
            <property name="title">
-            <string>Visualization Options</string>
+            <string>Visualization Type</string>
            </property>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QRadioButton" name="radioButton_2">
+              <property name="text">
+               <string>Parallel Coordinates</string>
+              </property>
+              <attribute name="buttonGroup">
+               <string notr="true">visualizationTypeButtonGroup</string>
+              </attribute>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="radioButton">
+              <property name="text">
+               <string>Colocated Paired</string>
+              </property>
+              <attribute name="buttonGroup">
+               <string notr="true">visualizationTypeButtonGroup</string>
+              </attribute>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
         </layout>
@@ -108,4 +130,7 @@
   <include location="LotsOfLinesApp.qrc"/>
  </resources>
  <connections/>
+ <buttongroups>
+  <buttongroup name="visualizationTypeButtonGroup"/>
+ </buttongroups>
 </ui>
