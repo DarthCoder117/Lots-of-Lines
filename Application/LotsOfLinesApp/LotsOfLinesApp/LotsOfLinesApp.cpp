@@ -1,4 +1,5 @@
 #include "LotsOfLinesApp.h"
+#include "LoadDataDialog.h"
 
 LotsOfLinesApp::LotsOfLinesApp(QWidget *parent)
 	: QMainWindow(parent)
@@ -10,5 +11,6 @@ LotsOfLinesApp::LotsOfLinesApp(QWidget *parent)
 
 void LotsOfLinesApp::onLoadFile()
 {
-	printf("");
+	LoadDataDialog* dlg = new LoadDataDialog(this);
+	dlg->show();
 }
