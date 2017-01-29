@@ -1,5 +1,6 @@
 #include "LotsOfLines/OpenGLRenderer.hpp"
 #include "LotsOfLines/OpenGLVertexBufferObject.hpp"
+#include "LotsOfLines/RenderingSystem.hpp"
 #include <math.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -12,8 +13,10 @@ using namespace LotsOfLines;
 static const char* vertex_shader_text =
 "#version 330 core\n"
 "uniform mat4 MVP;\n"
+"uniform uint selectedLine;\n"
 "in vec3 pos;\n"
 "in vec3 vertexColor;\n"
+"attribute uint lineIndex;\n"
 "out vec3 fragmentColor;\n"
 "void main()\n"
 "{\n"
@@ -39,7 +42,7 @@ void windowSizeCallback(GLFWwindow* window, int width, int height)
 bool OpenGLRenderer::m_lockZoomX = false;
 bool OpenGLRenderer::m_lockZoomY = false;
 
-OpenGLRenderer::OpenGLRenderer()
+OpenGLRenderer::OpenGLRenderer(void* windowHandle)
 {
 	//Initialize the library
 	if (!glfwInit()) return;
@@ -176,8 +179,12 @@ void OpenGLRenderer::beginDraw(float r, float g, float b)
 	glm::mat4x4 translate = glm::translate(glm::mat4x4(), glm::vec3(-m_camX, -m_camY, 0.0f));
 	glm::mat4x4 mvp = zoom * translate;
 
+	//Set uniforms
 	GLuint MatrixID = glGetUniformLocation(m_program, "MVP");
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
+
+	GLuint selectedLineID = glGetUniformLocation(m_program, "selectedLine");
+	glUniform1ui(selectedLineID, m_selectedLine);
 }
 
 void OpenGLRenderer::endDraw()
@@ -200,6 +207,8 @@ void OpenGLRenderer::onMouseButton(GLFWwindow* window, int button, int action, i
 		if (action == GLFW_PRESS)
 		{
 			renderer->m_mouseDown = true;
+
+			renderer->setSelectedLine(renderer->m_renderingSystem->getClosestLine(renderer->m_lastMouseX, renderer->m_lastMouseY));
 		}
 		else if (action == GLFW_RELEASE)
 		{
@@ -256,6 +265,11 @@ void OpenGLRenderer::drawVBO(std::shared_ptr<IVertexBufferObject> vbo)
 	glBlendFunc(GL_ONE, GL_ONE);
 
 	std::static_pointer_cast<OpenGLVertexBufferObject, IVertexBufferObject>(vbo)->draw();
+}
+
+void OpenGLRenderer::setSelectedLine(unsigned int selectedLine)
+{
+	m_selectedLine = selectedLine;
 }
 
 std::shared_ptr<IVertexBufferObject> OpenGLRenderer::createVBO(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices)

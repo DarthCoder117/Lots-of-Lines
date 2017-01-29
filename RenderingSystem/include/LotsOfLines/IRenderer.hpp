@@ -16,11 +16,19 @@ namespace LotsOfLines
 
 		float x, y, z;
 		float r, g, b;
-		unsigned int lineIndex;
+		std::uint32_t lineIndex;
 	};
+
+	class RenderingSystem;
 
 	class IRenderer
 	{
+	protected:
+
+		RenderingSystem* m_renderingSystem;
+
+		friend class RenderingSystem;
+
 	public:
 
 		virtual ~IRenderer() {}
@@ -42,6 +50,9 @@ namespace LotsOfLines
 
 		///@brief Draw a VBO to the screen.
 		virtual void drawVBO(std::shared_ptr<IVertexBufferObject> vbo) = 0;
+
+		///@brief Sets the line that will be drawn as selected.
+		virtual void setSelectedLine(unsigned int selectedLine) = 0;
 
 		///@brief Construct a VBO from a list of vertices and indices.
 		virtual std::shared_ptr<IVertexBufferObject> createVBO(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices) = 0;

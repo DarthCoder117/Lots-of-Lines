@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
 project(RenderingSystem)
 
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
+
 #Add paths for GLFW
 include_directories(${CMAKE_SOURCE_DIR}/3rd-party/glfw/include)
 link_directories(${CMAKE_SOURCE_DIR}/3rd-party/glfw/lib-vc2015)
@@ -19,7 +21,7 @@ file(GLOB sources "${PROJECT_SOURCE_DIR}/source/*.cpp")
 include_directories("${CMAKE_SOURCE_DIR}/DataModel/include")
 include_directories("${PROJECT_SOURCE_DIR}/include")
 
-add_executable(RenderingSystem ${sources} ${headers})
+add_library(RenderingSystem ${sources} ${headers})
 add_dependencies(RenderingSystem DataModel)
 
 include(FindOpenGL)

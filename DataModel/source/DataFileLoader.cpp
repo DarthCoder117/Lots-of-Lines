@@ -10,7 +10,7 @@ bool DataFileLoader::supportsFormat(const std::string& path)
 	return path.find(".data") != path.npos;
 }
 
-std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path) const
+std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const LoadOptions& options) const
 {
 	std::ifstream in(path);
 	if (in)

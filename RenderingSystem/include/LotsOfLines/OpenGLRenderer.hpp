@@ -11,7 +11,7 @@ namespace LotsOfLines
 	{
 	public:
 
-		OpenGLRenderer();
+		OpenGLRenderer(void* windowHandle = nullptr);
 
 		~OpenGLRenderer();
 
@@ -26,6 +26,8 @@ namespace LotsOfLines
 		void setNavigationOptions(bool lockZoomX, bool lockZoomY, bool lockPanX, bool lockPanY);
 
 		void drawVBO(std::shared_ptr<IVertexBufferObject> vbo);
+
+		void setSelectedLine(unsigned int selectedLine);
 
 		std::shared_ptr<IVertexBufferObject> createVBO(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
 
@@ -59,6 +61,8 @@ namespace LotsOfLines
 		bool m_mouseDown = false;
 		double m_lastMouseX = 0.0;
 		double m_lastMouseY = 0.0;
+
+		unsigned int m_selectedLine;
 	};
 }
 

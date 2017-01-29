@@ -11,7 +11,7 @@ namespace LotsOfLines
 
 		bool supportsFormat(const std::string& path);
 
-		std::shared_ptr<DataSet> loadData(const std::string& path) const;
+		std::shared_ptr<DataSet> loadData(const std::string& path, const LoadOptions& options) const;
 	};
 }
 

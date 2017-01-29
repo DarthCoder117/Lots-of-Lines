@@ -20,12 +20,15 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(std::shared_ptr<DataSet
 	const Vector& minValues = dataSet->getMinValues();
 
 	//Generate vertices for each data class
+	unsigned int lineIdx = 0;
 	for (auto dataClass : dataSet->getClasses())
 	{
 		VectorClass vectors = dataSet->getVectors(dataClass);
 		numVectors += vectors.size();
 		for (unsigned int i = 0; i < vectors.size(); ++i)
 		{
+			lineIdx++;
+
 			//Generate vertices to draw vector as line
 			const Vector& vec = vectors[i];
 			vectorSize = vec.size();
@@ -43,6 +46,7 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(std::shared_ptr<DataSet
 				v.r = colors[classIdx][0];
 				v.g = colors[classIdx][1];
 				v.b = colors[classIdx][2];
+				v.lineIndex = lineIdx;
 				verticesOut.push_back(v);
 			}
 		}
