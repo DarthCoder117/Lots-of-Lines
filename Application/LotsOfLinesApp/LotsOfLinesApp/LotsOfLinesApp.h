@@ -1,6 +1,8 @@
 #pragma once
 
-#include <QtWidgets/QMainWindow>
+#include <QMainWindow>
+#include <LotsOfLines/DataModel.hpp>
+#include "VisualizationRendererWidget.h"
 #include "ui_LotsOfLinesApp.h"
 
 class LotsOfLinesApp : public QMainWindow
@@ -8,12 +10,20 @@ class LotsOfLinesApp : public QMainWindow
     Q_OBJECT
 
 public:
-    LotsOfLinesApp(QWidget *parent = Q_NULLPTR);
+    LotsOfLinesApp(QWidget* parent = 0);
 
 public slots:
 
 	void onLoadFile();
 
-private:
+protected:
+
+	void initializeGL();
+	void paintGL();
+
     Ui::LotsOfLinesAppClass ui;
+
+	std::shared_ptr<LotsOfLines::DataSet> m_dataSet;
+
+	VisualizationRendererWidget* m_rendererWidget;
 };

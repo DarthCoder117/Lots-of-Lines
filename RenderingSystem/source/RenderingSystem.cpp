@@ -21,6 +21,11 @@ RenderingSystem::RenderingSystem(IRenderer* driver)
 	registerVisualizationMethod(EVT_SHIFTED_PAIRED_COORDINATES, std::make_shared<ShiftedPairedCoordinatesVisualizationMethod>());
 }
 
+bool RenderingSystem::init()
+{
+	return m_driver->init();
+}
+
 void RenderingSystem::registerVisualizationMethod(E_VISUALIZATION_TYPE type, std::shared_ptr<IVisualizationMethod> visMethod)
 {
 	m_visualizationMethods[type] = visMethod;
@@ -36,13 +41,44 @@ IRenderer* RenderingSystem::getDriver() const
 	return m_driver;
 }
 
-bool RenderingSystem::run()
+void RenderingSystem::onMousePress(int x, int y)
 {
-	return m_driver->run();
+	//Store mouse drag start positions
+	m_mousePressed = true;
+	m_startMouseX = x;
+	m_startMouseY = y;
+
+	//Store window start drag position too
+	m_camStartX = m_camX;
+	m_camStartY = m_camY;
+}
+
+void RenderingSystem::onMouseMove(int x, int y)
+{
+	if (m_mousePressed)
+	{
+		NavigationOptions options;
+		getCurrentVisualizationMethod()->getNavigationOptions(options);
+
+		//Offset camera position by amount cursor moved
+		m_camX = options.lockPanX ? m_camX : m_camStartX + (float)(x - m_startMouseX) * 0.01f;
+		m_camY = options.lockPanY ? m_camY : m_camStartY + (float)(y - m_startMouseY) * 0.01f;
+	}
+}
+
+void RenderingSystem::onMouseRelease(int x, int y)
+{
+	m_mousePressed = false;
+}
+
+void RenderingSystem::onResize(unsigned int width, unsigned int height)
+{
+	m_driver->setViewport(width, height);
 }
 
 void RenderingSystem::beginDraw(float r, float g, float b)
 {
+	setViewTransform(m_camX, m_camY, 1.0f, 1.0f);
 	m_driver->beginDraw(r, g, b);
 }
 

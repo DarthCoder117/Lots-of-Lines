@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="DataModel">
+      <UniqueIdentifier>{ddf799ad-7309-4525-bfdb-3c73c71ba7a6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DataModel.h">
+      <Filter>DataModel</Filter>
+    </ClInclude>
+    <ClInclude Include="IDataLoader.h">
+      <Filter>DataModel</Filter>
+    </ClInclude>
+    <ClInclude Include="DataSet.h">
+      <Filter>DataModel</Filter>
+    </ClInclude>
+    <ClInclude Include="DataFileLoader.h">
+      <Filter>DataModel</Filter>
+    </ClInclude>
+    <ClInclude Include="CSVFileLoader.h">
+      <Filter>DataModel</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DataSet.cpp">
+      <Filter>DataModel</Filter>
+    </ClCompile>
+    <ClCompile Include="DataModel.cpp">
+      <Filter>DataModel</Filter>
+    </ClCompile>
+    <ClCompile Include="DataFileLoader.cpp">
+      <Filter>DataModel</Filter>
+    </ClCompile>
+    <ClCompile Include="CSVFileLoader.cpp">
+      <Filter>DataModel</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
