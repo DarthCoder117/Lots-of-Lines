@@ -32,41 +32,37 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(std::shared_ptr<Da
 		firstVec[0] * interval * -1,
 		firstVec[1] ? firstVec[1] * interval * -1 : 0
 	};
-
+	double distance = firstVec[2] ? abs(firstVec[0] - firstVec[2]) : 0;
 	//Generate vertices for each data class
 	for (auto dataClass : dataSet->getClasses())
 	{
 		VectorClass vectors = dataSet->getVectors(dataClass);
 		numVectors += vectors.size();
 
-		float *step = (float *)malloc(vectors[0].size() * sizeof(float));
 		for (unsigned int i = 0; i < vectors.size(); ++i)
 		{
+			double step = 0.0f;
 			//Generate vertices to draw vector as line
 			const Vector& vec = vectors[i];
 			vectorSize = vec.size();
 			for (unsigned int x = 1; x < vec.size(); x += 2)
 			{
-				if (i == 0) {
-					step[x - 1] = x > 1 ? vec[0] + 1 - vec[x - 1] : 0;
-					step[x] = x > 1 ? vec[1] - vec[x] : 0;		
-				}
-				Vertex v((vec[x - 1] + step[x - 1]) * interval + shift[0], (vec[x] + step[x]) * interval + shift[1]);
+				Vertex v((vec[x - 1] + step) * interval + shift[0], (vec[x] + step) * interval + shift[1]);
 				v.r = colors[classIdx][0];
 				v.g = colors[classIdx][1];
 				v.b = colors[classIdx][2];
 				verticesOut.push_back(v);
+				step += distance;
 				// If single left over vector
 				if (x == vectorSize - 2)
 				{
 					//Or (vec[x + 1], 0)
-					v = Vertex((vec[x + 1] + step[x - 1]) * interval + shift[0], (vec[x + 1] + step[x]) * interval + shift[1]);
+					v = Vertex((vec[x + 1] + step) * interval + shift[0], (vec[x + 1] + step) * interval + shift[1]);
 					verticesOut.push_back(v);
 					vectorSize++;
 				}
 			}
 		}
-		free(step);
 
 		classIdx++;
 	}
