@@ -76,8 +76,6 @@ namespace LotsOfLines
 
 		void setViewTransform(float camX, float camY, float zoomX, float zoomY);
 
-		void setNavigationOptions(bool lockZoomX, bool lockZoomY, bool lockPanX, bool lockPanY);
-
 		void setDataSet(std::shared_ptr<DataSet> dataSet);
 
 		void beginDraw(float r = 0.2f, float g = 0.2f, float b = 0.2f);

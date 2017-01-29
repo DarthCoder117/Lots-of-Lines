@@ -101,11 +101,6 @@ void RenderingSystem::setViewTransform(float camX, float camY, float zoomX, floa
 	m_driver->setViewTransform(camX, camY, zoomX, zoomY);
 }
 
-void RenderingSystem::setNavigationOptions(bool lockZoomX, bool lockZoomY, bool lockPanX, bool lockPanY)
-{
-	m_driver->setNavigationOptions(lockZoomX, lockZoomY, lockPanX, lockPanY);
-}
-
 void RenderingSystem::setVisualizationType(E_VISUALIZATION_TYPE type)
 {
 	if (m_currentVisualizationType != type)

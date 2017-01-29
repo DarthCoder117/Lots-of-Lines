@@ -48,9 +48,6 @@ namespace LotsOfLines
 		///@brief Set pan/zoom the view.
 		virtual void setViewTransform(float camX, float camY, float zoomX, float zoomY) = 0;
 
-		///@brief Set pan/zoom options
-		virtual void setNavigationOptions(bool lockZoomX, bool lockZoomY, bool lockPanX, bool lockPanY) = 0;
-
 		///@brief Draw a VBO to the screen.
 		virtual void drawVBO(std::shared_ptr<IVertexBufferObject> vbo) = 0;
 

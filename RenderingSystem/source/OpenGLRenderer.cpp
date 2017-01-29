@@ -33,45 +33,9 @@ static const char* fragment_shader_text =
 "    color = fragmentColor;\n"
 "}\n";
 
-void windowSizeCallback(GLFWwindow* window, int width, int height)
+OpenGLRenderer::OpenGLRenderer()
 {
-	glViewport(0, 0, width, height);
-}
-
-// Set static vars
-bool OpenGLRenderer::m_lockZoomX = false;
-bool OpenGLRenderer::m_lockZoomY = false;
-
-OpenGLRenderer::OpenGLRenderer(void* windowHandle)
-{
-	//Initialize the library
-	/*if (!glfwInit()) return;
-
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-
-	//Create a windowed mode window and its OpenGL context
-	m_window = glfwCreateWindow(1024, 768, "OpenGL test", NULL, NULL);
-	if (!m_window)
-	{
-		glfwTerminate();
-		return;
-	}
-	glfwSetWindowUserPointer(m_window, this);
-
-	glfwSetMouseButtonCallback(m_window, onMouseButton);
-	glfwSetScrollCallback(m_window, onMouseScroll);
-	glfwSetWindowSizeCallback(m_window, windowSizeCallback);
-
-	//Make the window's context current
-	glfwMakeContextCurrent(m_window);
-	//Init GLEW so that we can use modern OpenGL on Windows
-	if (glewInit() != GLEW_OK)
-	{
-		return;
-	}
-
-	initShaders();*/
+	
 }
 
 void OpenGLRenderer::initShaders()
@@ -152,7 +116,7 @@ void OpenGLRenderer::initShaders()
 
 OpenGLRenderer::~OpenGLRenderer()
 {
-	//glfwTerminate();
+	
 }
 
 bool OpenGLRenderer::init()
@@ -169,11 +133,6 @@ bool OpenGLRenderer::init()
 
 void OpenGLRenderer::beginDraw(float r, float g, float b)
 {
-	//Calculate frame time
-	double currentTime = 0.0;// glfwGetTime();
-	m_deltaTime = currentTime - m_lastTime;
-	m_lastTime = currentTime;
-
 	//Clear frame buffer
 	glClearColor(r, g, b, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -196,59 +155,12 @@ void OpenGLRenderer::beginDraw(float r, float g, float b)
 
 void OpenGLRenderer::endDraw()
 {
-	updateInput();
+	
 }
 
 void OpenGLRenderer::setViewport(unsigned int width, unsigned int height)
 {
 	glViewport(0, 0, width, height);
-}
-
-void OpenGLRenderer::onMouseButton(GLFWwindow* window, int button, int action, int mods)
-{
-	/*OpenGLRenderer* renderer = (OpenGLRenderer*)glfwGetWindowUserPointer(window);
-	if (button == GLFW_MOUSE_BUTTON_LEFT)
-	{
-		glfwGetCursorPos(window, &renderer->m_lastMouseX, &renderer->m_lastMouseY);
-
-		if (action == GLFW_PRESS)
-		{
-			renderer->m_mouseDown = true;
-
-			renderer->setSelectedLine(renderer->m_renderingSystem->getClosestLine(renderer->m_lastMouseX, renderer->m_lastMouseY));
-		}
-		else if (action == GLFW_RELEASE)
-		{
-			renderer->m_mouseDown = false;
-		}
-	}*/
-}
-
-void OpenGLRenderer::onMouseScroll(GLFWwindow* window, double xoffset, double yoffset)
-{
-	/*OpenGLRenderer* renderer = (OpenGLRenderer*)glfwGetWindowUserPointer(window);
-
-	float offset = (float)(renderer->m_deltaTime * yoffset * 20);
-	renderer->m_zoomX = m_lockZoomX ? renderer->m_zoomX : std::fmaxf(renderer->m_zoomX + offset, 0.0f);
-	renderer->m_zoomY = m_lockZoomY ? renderer->m_zoomY : std::fmaxf(renderer->m_zoomY + offset, 0.0f);*/
-}
-
-void OpenGLRenderer::updateInput()
-{
-	if (m_mouseDown)
-	{
-		double mouseX, mouseY;
-		//glfwGetCursorPos(m_window, &mouseX, &mouseY);
-
-		double mouseDeltaX = m_lastMouseX - mouseX;
-		double mouseDeltaY = mouseY - m_lastMouseY;
-
-		m_camX += m_lockPanX ? 0.0f : (float)(mouseDeltaX * m_deltaTime * 3);
-		m_camY += m_lockPanY ? 0.0f : (float)(mouseDeltaY * m_deltaTime * 15);
-
-		m_lastMouseX = mouseX;
-		m_lastMouseY = mouseY;
-	}
 }
 
 void OpenGLRenderer::setViewTransform(float camX, float camY, float zoomX, float zoomY)
@@ -257,14 +169,6 @@ void OpenGLRenderer::setViewTransform(float camX, float camY, float zoomX, float
 	m_camY = camY;
 	m_zoomX = zoomX;
 	m_zoomY = zoomY;
-}
-
-void OpenGLRenderer::setNavigationOptions(bool lockZoomX, bool lockZoomY, bool lockPanX, bool lockPanY)
-{
-	m_lockZoomX = lockZoomX;
-	m_lockZoomY = lockZoomY;
-	m_lockPanX = lockPanX;
-	m_lockPanY = lockPanY;
 }
 
 void OpenGLRenderer::drawVBO(std::shared_ptr<IVertexBufferObject> vbo)
