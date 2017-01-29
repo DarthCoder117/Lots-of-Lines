@@ -56,6 +56,9 @@ namespace LotsOfLines
 		void onMouseMove(int x, int y);
 		///@brief Call when a mouse release event occurs on the window
 		void onMouseRelease(int x, int y);
+		///@brief Call when a mouse scroll wheel event occurs.
+		///@param delta The amount of degrees the mouse wheel was moved.
+		void onMouseScroll(int delta);
 
 	private:
 
@@ -63,6 +66,7 @@ namespace LotsOfLines
 		int m_startMouseX = 0, m_startMouseY = 0;
 
 		float m_camX = 0.0f, m_camY = 0.0f;
+		float m_zoomX = 1.0f, m_zoomY = 1.0f;
 		float m_camStartX = 0.0f, m_camStartY = 0.0f;
 
 	public:

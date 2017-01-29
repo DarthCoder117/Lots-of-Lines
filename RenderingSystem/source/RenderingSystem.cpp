@@ -71,6 +71,15 @@ void RenderingSystem::onMouseRelease(int x, int y)
 	m_mousePressed = false;
 }
 
+void RenderingSystem::onMouseScroll(int delta)
+{
+	NavigationOptions options;
+	getCurrentVisualizationMethod()->getNavigationOptions(options);
+
+	m_zoomX = std::fmax(0, !options.lockZoomX ? m_zoomX + delta * 0.01f : m_zoomX);
+	m_zoomY = std::fmax(0, !options.lockZoomY ? m_zoomY + delta * 0.01f : m_zoomY);
+}
+
 void RenderingSystem::onResize(unsigned int width, unsigned int height)
 {
 	m_driver->setViewport(width, height);
@@ -78,7 +87,7 @@ void RenderingSystem::onResize(unsigned int width, unsigned int height)
 
 void RenderingSystem::beginDraw(float r, float g, float b)
 {
-	setViewTransform(m_camX, m_camY, 1.0f, 1.0f);
+	setViewTransform(m_camX, m_camY, m_zoomX, m_zoomY);
 	m_driver->beginDraw(r, g, b);
 }
 

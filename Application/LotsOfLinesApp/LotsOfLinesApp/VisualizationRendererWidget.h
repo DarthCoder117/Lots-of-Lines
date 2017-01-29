@@ -17,6 +17,7 @@ public:
 	void mousePressEvent(QMouseEvent *eventPress);
 	void mouseMoveEvent(QMouseEvent* eventMove);
 	void mouseReleaseEvent(QMouseEvent *releaseEvent);
+	void wheelEvent(QWheelEvent* wheelEvent);
 
 protected:
 

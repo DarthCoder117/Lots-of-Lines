@@ -6,8 +6,7 @@ VisualizationRendererWidget::VisualizationRendererWidget(QWidget* parent)
 	:QOpenGLWidget(parent),
 	m_renderingSystem(new LotsOfLines::OpenGLRenderer())
 {
-	//setUpdateBehavior(NoPartialUpdate);
-	//setUpdatesEnabled(true);
+
 }
 
 LotsOfLines::RenderingSystem* VisualizationRendererWidget::getRenderingSystem()
@@ -28,6 +27,11 @@ void VisualizationRendererWidget::mouseMoveEvent(QMouseEvent* eventMove)
 void VisualizationRendererWidget::mouseReleaseEvent(QMouseEvent* eventMove)
 {
 	m_renderingSystem.onMouseRelease(eventMove->pos().x(), eventMove->pos().y());
+}
+
+void VisualizationRendererWidget::wheelEvent(QWheelEvent* wheelEvent)
+{
+	m_renderingSystem.onMouseScroll(wheelEvent->delta() / 8);
 }
 
 void VisualizationRendererWidget::initializeGL()
