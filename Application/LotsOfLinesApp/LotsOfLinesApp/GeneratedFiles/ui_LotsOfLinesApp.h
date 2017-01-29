@@ -32,10 +32,13 @@ class Ui_LotsOfLinesAppClass
 {
 public:
     QAction *actionLoad;
+    QAction *actionWindows;
+    QAction *actionVisualization_Options;
     QWidget *centralWidget;
     QGridLayout *centralLayout;
     QMenuBar *menuBar;
     QMenu *menuFile;
+    QMenu *menuView;
     QStatusBar *statusBar;
     QDockWidget *sidebarDockWidget;
     QWidget *dockWidgetContents;
@@ -47,6 +50,8 @@ public:
     QVBoxLayout *verticalLayout_3;
     QRadioButton *radioButton_2;
     QRadioButton *radioButton;
+    QDockWidget *dataTableDock;
+    QWidget *dockWidgetContents_2;
     QButtonGroup *visualizationTypeButtonGroup;
 
     void setupUi(QMainWindow *LotsOfLinesAppClass)
@@ -56,6 +61,11 @@ public:
         LotsOfLinesAppClass->resize(1095, 587);
         actionLoad = new QAction(LotsOfLinesAppClass);
         actionLoad->setObjectName(QStringLiteral("actionLoad"));
+        actionWindows = new QAction(LotsOfLinesAppClass);
+        actionWindows->setObjectName(QStringLiteral("actionWindows"));
+        actionVisualization_Options = new QAction(LotsOfLinesAppClass);
+        actionVisualization_Options->setObjectName(QStringLiteral("actionVisualization_Options"));
+        actionVisualization_Options->setCheckable(true);
         centralWidget = new QWidget(LotsOfLinesAppClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         centralLayout = new QGridLayout(centralWidget);
@@ -69,6 +79,8 @@ public:
         menuBar->setGeometry(QRect(0, 0, 1095, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
+        menuView = new QMenu(menuBar);
+        menuView->setObjectName(QStringLiteral("menuView"));
         LotsOfLinesAppClass->setMenuBar(menuBar);
         statusBar = new QStatusBar(LotsOfLinesAppClass);
         statusBar->setObjectName(QStringLiteral("statusBar"));
@@ -87,7 +99,7 @@ public:
         sidebarScrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 160, 522));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 156, 355));
         verticalLayout_2 = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -121,8 +133,15 @@ public:
 
         sidebarDockWidget->setWidget(dockWidgetContents);
         LotsOfLinesAppClass->addDockWidget(static_cast<Qt::DockWidgetArea>(1), sidebarDockWidget);
+        dataTableDock = new QDockWidget(LotsOfLinesAppClass);
+        dataTableDock->setObjectName(QStringLiteral("dataTableDock"));
+        dockWidgetContents_2 = new QWidget();
+        dockWidgetContents_2->setObjectName(QStringLiteral("dockWidgetContents_2"));
+        dataTableDock->setWidget(dockWidgetContents_2);
+        LotsOfLinesAppClass->addDockWidget(static_cast<Qt::DockWidgetArea>(8), dataTableDock);
 
         menuBar->addAction(menuFile->menuAction());
+        menuBar->addAction(menuView->menuAction());
         menuFile->addAction(actionLoad);
 
         retranslateUi(LotsOfLinesAppClass);
@@ -134,11 +153,15 @@ public:
     {
         LotsOfLinesAppClass->setWindowTitle(QApplication::translate("LotsOfLinesAppClass", "LotsOfLinesApp", Q_NULLPTR));
         actionLoad->setText(QApplication::translate("LotsOfLinesAppClass", "Load", Q_NULLPTR));
+        actionWindows->setText(QApplication::translate("LotsOfLinesAppClass", "Windows", Q_NULLPTR));
+        actionVisualization_Options->setText(QApplication::translate("LotsOfLinesAppClass", "Visualization Options", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("LotsOfLinesAppClass", "File", Q_NULLPTR));
+        menuView->setTitle(QApplication::translate("LotsOfLinesAppClass", "View", Q_NULLPTR));
         sidebarDockWidget->setWindowTitle(QApplication::translate("LotsOfLinesAppClass", "Visualization Options", Q_NULLPTR));
         visualizationOptionsGroupBox->setTitle(QApplication::translate("LotsOfLinesAppClass", "Visualization Type", Q_NULLPTR));
         radioButton_2->setText(QApplication::translate("LotsOfLinesAppClass", "Parallel Coordinates", Q_NULLPTR));
         radioButton->setText(QApplication::translate("LotsOfLinesAppClass", "Colocated Paired", Q_NULLPTR));
+        dataTableDock->setWindowTitle(QApplication::translate("LotsOfLinesAppClass", "Data Table", Q_NULLPTR));
     } // retranslateUi
 
 };

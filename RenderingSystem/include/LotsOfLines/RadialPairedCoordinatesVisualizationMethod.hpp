@@ -10,6 +10,7 @@ namespace LotsOfLines
 		void getNavigationOptions(NavigationOptions& optionsOut) {
 			optionsOut = NavigationOptions();
 		};
+
 		E_VISUALIZATION_TYPE getType() { return EVT_RADIAL_PAIRED_COORDINATES; }
 
 		bool generateVBO(std::shared_ptr<DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut);

@@ -31,6 +31,10 @@ namespace LotsOfLines
 		///@return Pointer to the driver implementation.
 		IRenderer* getDriver() const;
 
+	private:
+
+		IRenderer* m_driver;
+
 	public:
 
 		///@brief Registers a visualization method and makes it available to use.
@@ -42,11 +46,19 @@ namespace LotsOfLines
 		///@brief Set the active visualization type.
 		void setVisualizationType(E_VISUALIZATION_TYPE type);
 
+		///@brief Set the data set that will be drawn by the rendering system.
+		void setDataSet(std::shared_ptr<DataSet> dataSet);
+
 	private:
 
 		E_VISUALIZATION_TYPE m_currentVisualizationType = EVT_PARALLEL_COORDINATES;
 
 		std::map<E_VISUALIZATION_TYPE, std::shared_ptr<IVisualizationMethod> > m_visualizationMethods;
+
+		std::shared_ptr<DataSet> m_dataSet = nullptr;
+
+		///@brief Generate a VBO from a data set.
+		std::shared_ptr<IVertexBufferObject> generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type, std::vector<Vertex>& verticesOut);
 
 	public:
 
@@ -76,8 +88,6 @@ namespace LotsOfLines
 
 		void setViewTransform(float camX, float camY, float zoomX, float zoomY);
 
-		void setDataSet(std::shared_ptr<DataSet> dataSet);
-
 		void beginDraw(float r = 0.2f, float g = 0.2f, float b = 0.2f);
 
 		void endDraw();
@@ -90,12 +100,6 @@ namespace LotsOfLines
 		unsigned int getClosestLine(float x, float y);
 
 	private:
-
-		std::shared_ptr<IVertexBufferObject> generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type, std::vector<Vertex>& verticesOut);
-
-		IRenderer* m_driver;
-
-		std::shared_ptr<DataSet> m_dataSet = nullptr;
 
 		std::map<E_VISUALIZATION_TYPE, std::shared_ptr<IVertexBufferObject> > m_vboCache;
 		std::map<E_VISUALIZATION_TYPE, std::vector<Vertex> > m_vertices;

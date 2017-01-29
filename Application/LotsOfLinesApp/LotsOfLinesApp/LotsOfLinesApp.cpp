@@ -13,6 +13,10 @@ LotsOfLinesApp::LotsOfLinesApp(QWidget *parent)
 	m_rendererWidget = new VisualizationRendererWidget(this);
 	ui.centralLayout->addWidget(m_rendererWidget);
 
+	//Setup dock widgets
+	ui.menuView->addAction(ui.sidebarDockWidget->toggleViewAction());
+	ui.menuView->addAction(ui.dataTableDock->toggleViewAction());
+
 	connect(ui.actionLoad, SIGNAL(triggered()), this, SLOT(onLoadFile()));
 }
 

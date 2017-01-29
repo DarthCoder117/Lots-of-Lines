@@ -44,7 +44,13 @@
     </property>
     <addaction name="actionLoad"/>
    </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuView"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="sidebarDockWidget">
@@ -78,8 +84,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>160</width>
-          <height>522</height>
+          <width>156</width>
+          <height>355</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -119,9 +125,31 @@
     </layout>
    </widget>
   </widget>
+  <widget class="QDockWidget" name="dataTableDock">
+   <property name="windowTitle">
+    <string>Data Table</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2"/>
+  </widget>
   <action name="actionLoad">
    <property name="text">
     <string>Load</string>
+   </property>
+  </action>
+  <action name="actionWindows">
+   <property name="text">
+    <string>Windows</string>
+   </property>
+  </action>
+  <action name="actionVisualization_Options">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Visualization Options</string>
    </property>
   </action>
  </widget>
