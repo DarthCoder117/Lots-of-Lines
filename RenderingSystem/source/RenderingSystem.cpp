@@ -43,7 +43,6 @@ bool RenderingSystem::run()
 
 void RenderingSystem::beginDraw(float r, float g, float b)
 {
-	autoViewTransform();
 	m_driver->beginDraw(r, g, b);
 }
 
@@ -89,6 +88,8 @@ void RenderingSystem::autoViewTransform()
 		}
 		const Vector& firstVec = m_dataSet->getVectors(*m_dataSet->getClasses().begin())[0];
 		double max_firstX = firstVec[0], max_firstY = firstVec[1] ? firstVec[1] : -INFINITY;
+		double distance = firstVec[2] ? abs(firstVec[0] - firstVec[2]) : 0;
+		double total = distance * (maxValues.size() / 2);
 		switch (m_currentVisualizationType)
 		{
 		case EVT_COLLOCATED_PAIRED_COORDINATES:
@@ -102,7 +103,9 @@ void RenderingSystem::autoViewTransform()
 			if (minValues[1] && minY < minValues[1]) minY = minValues[1];
 			break;
 		case EVT_SHIFTED_PAIRED_COORDINATES:
-			// TODO
+			// Again only an estimate of max values
+			maxX += total;
+			maxY += total;
 			break;
 		default:
 			break;
@@ -139,6 +142,8 @@ void RenderingSystem::setVisualizationType(E_VISUALIZATION_TYPE type)
 			m_vertices[type] = vertices;
 		}
 	}
+	// Apply auto transform
+	autoViewTransform();
 }
 
 void RenderingSystem::setDataSet(std::shared_ptr<DataSet> dataSet)

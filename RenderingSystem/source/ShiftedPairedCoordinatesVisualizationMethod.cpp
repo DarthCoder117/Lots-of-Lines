@@ -18,20 +18,8 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(std::shared_ptr<Da
 		{ 0.0f, 0.0f, 1.0f }
 	};
 
-	// Get boundaries based off of first vector
+	// Get distance between first two pair X values
 	const Vector& firstVec = dataSet->getVectors(*dataSet->getClasses().begin())[0];
-	auto max = std::max_element(firstVec.begin(), firstVec.end());
-	auto min = std::min_element(firstVec.begin(), firstVec.end());
-	float diff = *max - *min;
-	float width = 2.0f;
-
-	// Scaling
-	float interval = width / diff;
-	// Shifting
-	float shift[2] = {
-		firstVec[0] * interval * -1,
-		firstVec[1] ? firstVec[1] * interval * -1 : 0
-	};
 	double distance = firstVec[2] ? abs(firstVec[0] - firstVec[2]) : 0;
 	//Generate vertices for each data class
 	for (auto dataClass : dataSet->getClasses())
@@ -47,7 +35,7 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(std::shared_ptr<Da
 			vectorSize = vec.size();
 			for (unsigned int x = 1; x < vec.size(); x += 2)
 			{
-				Vertex v((vec[x - 1] + step) * interval + shift[0], (vec[x] + step) * interval + shift[1]);
+				Vertex v((float)(vec[x - 1] + step), (float)(vec[x] + step));
 				v.r = colors[classIdx][0];
 				v.g = colors[classIdx][1];
 				v.b = colors[classIdx][2];
@@ -57,7 +45,7 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(std::shared_ptr<Da
 				if (x == vectorSize - 2)
 				{
 					//Or (vec[x + 1], 0)
-					v = Vertex((vec[x + 1] + step) * interval + shift[0], (vec[x + 1] + step) * interval + shift[1]);
+					v = Vertex((float)(vec[x + 1] + step), (float)(vec[x + 1] + step));
 					verticesOut.push_back(v);
 					vectorSize++;
 				}
