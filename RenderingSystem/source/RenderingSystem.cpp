@@ -96,6 +96,73 @@ void RenderingSystem::endDraw()
 	m_driver->endDraw();
 }
 
+void RenderingSystem::autoViewTransform()
+{
+	const Vector& maxValues = m_dataSet->getMaxValues();
+	const Vector& minValues = m_dataSet->getMinValues();
+	double camX = 0.0f, camY = 0.0f, zoomX = 2.0f, zoomY = 2.0f;
+	double minY = minValues[1] ? minValues[1] : INFINITY,
+		maxY = maxValues[1] ? maxValues[1] : -INFINITY;
+	// Parallel Coordinates
+	if (m_currentVisualizationType == EVT_PARALLEL_COORDINATES)
+	{
+		// Only handle Y values. X values handled in Visualization Method
+		zoomX = 1.0f;
+		for (unsigned int i = 0; i < maxValues.size(); ++i)
+		{
+			if (maxY < maxValues[i]) maxY = maxValues[i];
+			if (minY > minValues[i]) minY = minValues[i];
+		}
+	}
+	else
+	{
+		// For all Paired Visualization Methods
+		double minX = minValues[0], maxX = maxValues[0];
+		for (unsigned int i = 0; i < minValues.size(); ++i)
+		{
+			if (i % 2 == 0)
+			{
+				if (minX > minValues[i]) minX = minValues[i];
+				if (maxX < maxValues[i]) maxX = maxValues[i];
+			}
+			else
+			{
+				if (minY > minValues[i]) minY = minValues[i];
+				if (maxY < maxValues[i]) maxY = maxValues[i];
+			}
+		}
+		const Vector& firstVec = m_dataSet->getVectors(*m_dataSet->getClasses().begin())[0];
+		double max_firstX = firstVec[0], max_firstY = firstVec[1] ? firstVec[1] : -INFINITY;
+		double distance = firstVec[2] ? abs(firstVec[0] - firstVec[2]) : 0;
+		double total = distance * (maxValues.size() / 2);
+		switch (m_currentVisualizationType)
+		{
+		case EVT_COLLOCATED_PAIRED_COORDINATES:
+			// Don't need to change any values
+			break;
+		case EVT_RADIAL_PAIRED_COORDINATES:
+			// Estimate max values and assign min values
+			maxX = maxValues[0] + maxX;
+			if (maxValues[1]) maxY = maxValues[1] + maxY;
+			if (minX < minValues[0]) minX = minValues[0];
+			if (minValues[1] && minY < minValues[1]) minY = minValues[1];
+			break;
+		case EVT_SHIFTED_PAIRED_COORDINATES:
+			// Again only an estimate of max values
+			maxX += total;
+			maxY += total;
+			break;
+		default:
+			break;
+		}
+		camX = maxX / 2.0f + minX / 2.0f;
+		zoomX /= (maxX - minX);
+	}
+	camY = maxY / 2.0f + minY / 2.0f;
+	zoomY /= maxY - minY;
+	m_driver->setViewTransform((float)camX, (float)camY, (float)zoomX, (float)zoomY);
+}
+
 void RenderingSystem::setViewTransform(float camX, float camY, float zoomX, float zoomY)
 {
 	m_driver->setViewTransform(camX, camY, zoomX, zoomY);
@@ -115,6 +182,8 @@ void RenderingSystem::setVisualizationType(E_VISUALIZATION_TYPE type)
 			m_vertices[type] = vertices;
 		}
 	}
+	// Apply auto transform
+	autoViewTransform();
 }
 
 void RenderingSystem::setDataSet(std::shared_ptr<DataSet> dataSet)
@@ -196,17 +265,14 @@ int main()
 		new DataFileLoader()
 	});
 
-	std::shared_ptr<DataSet> data = dataModel.loadData("D:/School/CWU/CS 481/Lots-of-Lines/tests/data/iris.data");
+	std::shared_ptr<DataSet> data = dataModel.loadData("../../tests/data/iris.data");
 
 	RenderingSystem renderer(new OpenGLRenderer());
 
 	renderer.setDataSet(data);
 
-	//renderer.setViewTransform(0.0f, 3.7f, 1.0f, 0.2f);
 	renderer.setVisualizationType(EVT_PARALLEL_COORDINATES);
 	renderer.getDriver()->setSelectedLine(1);
-
-	renderer.setViewTransform(0.0f, 0.2f, 1.0f, 1.0f);
 
 	// Set nav options
 	std::shared_ptr<IVisualizationMethod> method = renderer.getCurrentVisualizationMethod();

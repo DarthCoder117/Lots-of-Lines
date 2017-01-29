@@ -29,8 +29,8 @@ void DataSet::addVector(const Vector& vec, const std::string& vectorClass)
 
 	if (m_maxValues.empty())
 	{
-		m_maxValues.resize(vec.size());
-		m_minValues.resize(vec.size());
+		m_maxValues.resize(vec.size(), -INFINITY);
+		m_minValues.resize(vec.size(), INFINITY);
 	}
 
 	for (unsigned int i = 0; i < vec.size(); ++i)

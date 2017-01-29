@@ -86,6 +86,8 @@ namespace LotsOfLines
 		///@brief Call when the window is resized.
 		void onResize(unsigned int width, unsigned int height);
 
+		void autoViewTransform();
+
 		void setViewTransform(float camX, float camY, float zoomX, float zoomY);
 
 		void beginDraw(float r = 0.2f, float g = 0.2f, float b = 0.2f);
