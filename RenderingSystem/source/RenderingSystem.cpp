@@ -61,7 +61,7 @@ void RenderingSystem::onMouseMove(int x, int y)
 		getCurrentVisualizationMethod()->getNavigationOptions(options);
 
 		//Offset camera position by amount cursor moved
-		m_camX = options.lockPanX ? m_camX : m_camStartX + (float)(x - m_startMouseX) * 0.01f;
+		m_camX = options.lockPanX ? m_camX : m_camStartX + (float)(m_startMouseX - x) * 0.01f;
 		m_camY = options.lockPanY ? m_camY : m_camStartY + (float)(y - m_startMouseY) * 0.01f;
 	}
 }
