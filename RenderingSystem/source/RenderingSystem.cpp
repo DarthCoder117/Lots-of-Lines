@@ -160,11 +160,15 @@ void RenderingSystem::autoViewTransform()
 	}
 	camY = maxY / 2.0f + minY / 2.0f;
 	zoomY /= maxY - minY;
-	m_driver->setViewTransform((float)camX, (float)camY, (float)zoomX, (float)zoomY);
+	setViewTransform((float)camX, (float)camY, (float)zoomX, (float)zoomY);
 }
 
 void RenderingSystem::setViewTransform(float camX, float camY, float zoomX, float zoomY)
 {
+	m_camX = camX;
+	m_camY = camY;
+	m_zoomX = zoomX;
+	m_zoomY = zoomY;
 	m_driver->setViewTransform(camX, camY, zoomX, zoomY);
 }
 
