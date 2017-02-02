@@ -71,7 +71,7 @@ public:
     QLabel *label;
     QComboBox *comboBox;
     QSpacerItem *verticalSpacer;
-    QPushButton *pushButton;
+    QPushButton *loadFileButton;
     QDockWidget *dataTableDock;
     QWidget *dockWidgetContents_2;
 
@@ -97,7 +97,7 @@ public:
         LotsOfLinesAppClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(LotsOfLinesAppClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1095, 21));
+        menuBar->setGeometry(QRect(0, 0, 1095, 26));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuView = new QMenu(menuBar);
@@ -138,7 +138,7 @@ public:
         sidebarScrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 185, 480));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 369, 461));
         verticalLayout_2 = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -161,7 +161,7 @@ public:
 "}"));
         page = new QWidget();
         page->setObjectName(QStringLiteral("page"));
-        page->setGeometry(QRect(0, 0, 147, 104));
+        page->setGeometry(QRect(0, 0, 174, 123));
         verticalLayout_4 = new QVBoxLayout(page);
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setContentsMargins(11, 11, 11, 11);
@@ -189,7 +189,7 @@ public:
         toolBox->addItem(page, QStringLiteral("Display"));
         page_2 = new QWidget();
         page_2->setObjectName(QStringLiteral("page_2"));
-        page_2->setGeometry(QRect(0, -26, 130, 99));
+        page_2->setGeometry(QRect(0, 0, 302, 120));
         verticalLayout_5 = new QVBoxLayout(page_2);
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setContentsMargins(11, 11, 11, 11);
@@ -241,10 +241,10 @@ public:
 
         verticalLayout_3->addItem(verticalSpacer);
 
-        pushButton = new QPushButton(visualizationOptionsGroupBox);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
+        loadFileButton = new QPushButton(visualizationOptionsGroupBox);
+        loadFileButton->setObjectName(QStringLiteral("loadFileButton"));
 
-        verticalLayout_3->addWidget(pushButton);
+        verticalLayout_3->addWidget(loadFileButton);
 
 
         verticalLayout_2->addWidget(visualizationOptionsGroupBox);
@@ -267,6 +267,7 @@ public:
         menuFile->addAction(actionLoad);
 
         retranslateUi(LotsOfLinesAppClass);
+        QObject::connect(loadFileButton, SIGNAL(clicked()), actionLoad, SLOT(trigger()));
 
         toolBox->setCurrentIndex(1);
 
@@ -300,7 +301,7 @@ public:
          << QApplication::translate("LotsOfLinesAppClass", "PC Adaptation", Q_NULLPTR)
          << QApplication::translate("LotsOfLinesAppClass", "Non-PC", Q_NULLPTR)
         );
-        pushButton->setText(QApplication::translate("LotsOfLinesAppClass", "Load File", Q_NULLPTR));
+        loadFileButton->setText(QApplication::translate("LotsOfLinesAppClass", "Load File", Q_NULLPTR));
         dataTableDock->setWindowTitle(QApplication::translate("LotsOfLinesAppClass", "Data Table", Q_NULLPTR));
     } // retranslateUi
 

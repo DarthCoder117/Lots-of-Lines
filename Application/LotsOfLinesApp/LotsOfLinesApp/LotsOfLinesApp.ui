@@ -35,7 +35,7 @@
      <x>0</x>
      <y>0</y>
      <width>1095</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -104,8 +104,8 @@ QCheckBox{
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>185</width>
-          <height>480</height>
+          <width>369</width>
+          <height>461</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -146,8 +146,8 @@ QCheckBox{
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>147</width>
-                 <height>104</height>
+                 <width>302</width>
+                 <height>123</height>
                 </rect>
                </property>
                <attribute name="label">
@@ -188,9 +188,9 @@ QCheckBox{
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-26</y>
-                 <width>130</width>
-                 <height>99</height>
+                 <y>0</y>
+                 <width>302</width>
+                 <height>120</height>
                 </rect>
                </property>
                <attribute name="label">
@@ -305,7 +305,7 @@ QCheckBox{
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton">
+             <widget class="QPushButton" name="loadFileButton">
               <property name="text">
                <string>Load File</string>
               </property>
@@ -353,5 +353,22 @@ QCheckBox{
  <resources>
   <include location="LotsOfLinesApp.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>loadFileButton</sender>
+   <signal>clicked()</signal>
+   <receiver>actionLoad</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>476</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
