@@ -46,11 +46,8 @@ void VisualizationRendererWidget::resizeGL(int w, int h)
 
 void VisualizationRendererWidget::paintGL()
 {
-	m_renderingSystem.beginDraw();
-
-	m_renderingSystem.drawVisualization();
-
-	m_renderingSystem.endDraw();
+	m_renderingSystem.setSplitScreen(3);
+	m_renderingSystem.draw();
 
 	update();
 }

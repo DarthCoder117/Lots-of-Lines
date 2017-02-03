@@ -91,15 +91,15 @@ namespace LotsOfLines
 		///@brief Call when the window is resized.
 		void onResize(unsigned int width, unsigned int height);
 
+		///@brief Sets the splitscreen mode.
+		///@param count Number of screens to split to (either 1, 2 or 4).
+		void setSplitScreen(unsigned short count);
+
 		void autoViewTransform();
 
 		void setViewTransform(float camX, float camY, float zoomX, float zoomY);
 
-		void beginDraw(float r = 0.2f, float g = 0.2f, float b = 0.2f);
-
-		void endDraw();
-
-		void drawVisualization();
+		void draw(float r = 0.2f, float g = 0.2f, float b = 0.2f);
 
 		void drawVBO(std::shared_ptr<IVertexBufferObject> vbo);
 
@@ -107,6 +107,17 @@ namespace LotsOfLines
 		unsigned int getClosestLine(float x, float y);
 
 	private:
+
+		///@brief Draw the current visualization to the screen.
+		void drawVisualization();
+
+		unsigned int m_screenWidth = 0;
+		unsigned int m_screenHeight = 0;
+		unsigned short m_splitScreenCount = 0;
+
+		///@brief Updates the viewport settings when the screen resolution or splitscreen mode changes.
+		///@param screenIdx The index of the screen viewport to update.
+		void updateViewport(unsigned short screenIdx);
 
 		std::map<E_VISUALIZATION_TYPE, std::shared_ptr<IVertexBufferObject> > m_vboCache;
 		std::map<E_VISUALIZATION_TYPE, std::vector<Vertex> > m_vertices;

@@ -16,11 +16,13 @@ namespace LotsOfLines
 
 		bool init();
 
-		void beginDraw(float r, float g, float b);
+		void clearScreen(float r, float g, float b);
+
+		void beginDraw();
 
 		void endDraw();
 
-		void setViewport(unsigned int width, unsigned int height);
+		void setViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
 
 		void setViewTransform(float camX, float camY, float zoomX, float zoomY);
 

@@ -128,15 +128,22 @@ bool OpenGLRenderer::init()
 	}
 
 	initShaders();
+
+	//Enable scissor test so that splitscreen works.
+	glEnable(GL_SCISSOR_TEST);
+
 	return true;
 }
 
-void OpenGLRenderer::beginDraw(float r, float g, float b)
+void OpenGLRenderer::clearScreen(float r, float g, float b)
 {
 	//Clear frame buffer
 	glClearColor(r, g, b, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
+}
 
+void OpenGLRenderer::beginDraw()
+{
 	//Set shader program
 	glUseProgram(m_program);
 
@@ -158,9 +165,10 @@ void OpenGLRenderer::endDraw()
 	
 }
 
-void OpenGLRenderer::setViewport(unsigned int width, unsigned int height)
+void OpenGLRenderer::setViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height)
 {
-	glViewport(0, 0, width, height);
+	glViewport(x, y, width, height);
+	glScissor(x, y, width, height);
 }
 
 void OpenGLRenderer::setViewTransform(float camX, float camY, float zoomX, float zoomY)

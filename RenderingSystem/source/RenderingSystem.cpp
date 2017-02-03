@@ -90,17 +90,89 @@ void RenderingSystem::onMouseScroll(int delta)
 
 void RenderingSystem::onResize(unsigned int width, unsigned int height)
 {
-	m_driver->setViewport(width, height);
+	m_screenWidth = width;
+	m_screenHeight = height;
 }
 
-void RenderingSystem::beginDraw(float r, float g, float b)
+void RenderingSystem::setSplitScreen(unsigned short count)
+{
+	m_splitScreenCount = count;
+	if (m_splitScreenCount < 1) m_splitScreenCount = 1;
+}
+
+void RenderingSystem::updateViewport(unsigned short screenIdx)
+{
+	//Split screen in half
+	if (m_splitScreenCount == 2)
+	{
+		unsigned int halfWidth = m_screenWidth / 2;
+		m_driver->setViewport(screenIdx * halfWidth, 0, halfWidth, m_screenHeight);
+	}
+	//Split screen into three
+	else if (m_splitScreenCount == 3)
+	{
+		unsigned int halfWidth = m_screenWidth / 2;
+		unsigned int halfHeight = m_screenHeight / 2;
+
+		if (screenIdx == 0)
+		{
+			m_driver->setViewport(0, 0, halfWidth, m_screenHeight);
+		}
+		else if (screenIdx == 1)
+		{
+			m_driver->setViewport(halfWidth, 0, halfWidth, halfHeight);
+		}
+		else if (screenIdx == 2)
+		{
+			m_driver->setViewport(halfWidth, halfHeight, halfWidth, halfHeight);
+		}
+	}
+	//Split screen into fourths
+	else if (m_splitScreenCount == 4)
+	{
+		unsigned int halfWidth = m_screenWidth / 2;
+		unsigned int halfHeight = m_screenHeight / 2;
+
+		if (screenIdx == 0)
+		{
+			m_driver->setViewport(0, 0, halfWidth, halfHeight);
+		}
+		else if (screenIdx == 1)
+		{
+			m_driver->setViewport(halfWidth, 0, halfWidth, halfHeight);
+		}
+		else if (screenIdx == 2)
+		{
+			m_driver->setViewport(0, halfHeight, halfWidth, halfHeight);
+		}
+		else if (screenIdx == 3)
+		{
+			m_driver->setViewport(halfWidth, halfHeight, halfWidth, halfHeight);
+		}
+	}
+	//Fullscreen rendering
+	else
+	{
+		m_driver->setViewport(0, 0, m_screenWidth, m_screenHeight);
+	}
+}
+
+void RenderingSystem::draw(float r, float g, float b)
 {
 	setViewTransform(m_camX, m_camY, m_zoomX, m_zoomY);
-	m_driver->beginDraw(r, g, b);
-}
 
-void RenderingSystem::endDraw()
-{
+	//Begin drawing frame
+	m_driver->beginDraw();
+
+	for (unsigned short i = 0; i < m_splitScreenCount; ++i)
+	{
+		//Set viewport for current screen being drawn
+		updateViewport(i);
+		m_driver->clearScreen(r, g, b);
+		
+		drawVisualization();
+	}
+
 	m_driver->endDraw();
 }
 

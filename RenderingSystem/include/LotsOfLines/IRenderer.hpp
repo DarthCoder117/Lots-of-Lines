@@ -36,14 +36,17 @@ namespace LotsOfLines
 		///@brief Initialize the rendering driver by setting up default shaders and rendering states.
 		virtual bool init() = 0;
 
+		///@brief Clears the screen before re-rendering.
+		virtual void clearScreen(float r, float g, float b) = 0;
+
 		///@brief Sets up rendering states to begin a frame.
-		virtual void beginDraw(float r, float g, float b) = 0;
+		virtual void beginDraw() = 0;
 
 		///@brief Flips buffers to screen.
 		virtual void endDraw() = 0;
 
 		///@brief Set the viewport
-		virtual void setViewport(unsigned int width, unsigned int height) = 0;
+		virtual void setViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height) = 0;
 
 		///@brief Set pan/zoom the view.
 		virtual void setViewTransform(float camX, float camY, float zoomX, float zoomY) = 0;
