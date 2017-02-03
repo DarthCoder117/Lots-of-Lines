@@ -19,6 +19,7 @@ public:
 public slots:
 
 	void onLoadFile();
+	void onVisualizationChecked(int state);
 
 protected:
 

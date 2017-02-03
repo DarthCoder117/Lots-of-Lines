@@ -6,6 +6,23 @@
 #include <LotsOfLines/RenderingSystem.hpp>
 #include <LotsOfLines/IVisualizationMethod.hpp>
 
+//Custom checkbox for selecting visualization methods.
+class VisualizationTypeCheckbox : public QCheckBox
+{
+public:
+
+	VisualizationTypeCheckbox(const QString& text, QWidget* parent, LotsOfLines::E_VISUALIZATION_TYPE type)
+		:QCheckBox(text, parent),
+		m_visualizationType(type)
+	{}
+
+	LotsOfLines::E_VISUALIZATION_TYPE getVisualizationType() { return m_visualizationType; }
+
+private:
+
+	LotsOfLines::E_VISUALIZATION_TYPE m_visualizationType;
+};
+
 LotsOfLinesApp::LotsOfLinesApp(QWidget *parent)
 	:QMainWindow(parent),
 	m_dataSet(nullptr),
@@ -23,7 +40,8 @@ LotsOfLinesApp::LotsOfLinesApp(QWidget *parent)
 	m_renderingSystem->getVisualizationMethods(visualizationMethods);
 	for (auto method : visualizationMethods)
 	{
-		QCheckBox* methodCheckbox = new QCheckBox(QString::fromStdString(method->getTypeName()), ui.visualizationTypeArea);
+		VisualizationTypeCheckbox* methodCheckbox = new VisualizationTypeCheckbox(QString::fromStdString(method->getTypeName()), ui.visualizationTypeArea, method->getType());
+		connect(methodCheckbox, SIGNAL(stateChanged(int)), this, SLOT(onVisualizationChecked(int)));
 		ui.visualizationTypeLayout->addWidget(methodCheckbox);
 	}
 
@@ -64,4 +82,10 @@ void LotsOfLinesApp::onLoadFile()
 		LotsOfLines::LoadOptions options = dlg.getLoadOptions();
 		loadFile(file, options);
 	}
+}
+
+void LotsOfLinesApp::onVisualizationChecked(int state)
+{
+	VisualizationTypeCheckbox* checkbox = (VisualizationTypeCheckbox*)sender();
+	m_renderingSystem->setVisualizationType(checkbox->getVisualizationType());
 }
