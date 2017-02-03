@@ -3,7 +3,7 @@
 
 using namespace LotsOfLines;
 
-bool RadialPairedCoordinatesVisualizationMethod::generateVBO(std::shared_ptr<DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut)
+bool RadialPairedCoordinatesVisualizationMethod::generateVBO(std::shared_ptr<DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, const VisualizationOptions& options)
 {
 	unsigned int numVectors = 0;
 	unsigned int vectorSize = 0;

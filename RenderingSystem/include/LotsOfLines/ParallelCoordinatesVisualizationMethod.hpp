@@ -7,12 +7,15 @@ namespace LotsOfLines
 	class ParallelCoordinatesVisualizationMethod : public IVisualizationMethod
 	{
 	public:
-		void getNavigationOptions(NavigationOptions& optionsOut) {
-			optionsOut = NavigationOptions(true, false, true);
-		};
-		E_VISUALIZATION_TYPE getType() { return EVT_PARALLEL_COORDINATES; }
 
-		bool generateVBO(std::shared_ptr<DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut);
+		VISUALIZATION_METHOD("Parallel Coordinates", EVT_PARALLEL_COORDINATES)
+
+		void getNavigationOptions(NavigationOptions& optionsOut) 
+		{
+			optionsOut = NavigationOptions(true, false, true);
+		}
+
+		bool generateVBO(std::shared_ptr<DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, const VisualizationOptions& options);
 	};
 }
 

@@ -36,6 +36,14 @@ std::shared_ptr<IVisualizationMethod> RenderingSystem::getCurrentVisualizationMe
 	return m_visualizationMethods[m_currentVisualizationType];
 }
 
+void RenderingSystem::getVisualizationMethods(VisualizationMethodList& visualizationMethodsOut)
+{
+	for (auto method : m_visualizationMethods)
+	{
+		visualizationMethodsOut.push_back(method.second);
+	}
+}
+
 IRenderer* RenderingSystem::getDriver() const
 {
 	return m_driver;

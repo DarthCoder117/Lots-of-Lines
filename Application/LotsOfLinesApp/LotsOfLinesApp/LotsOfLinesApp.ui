@@ -35,7 +35,7 @@
      <x>0</x>
      <y>0</y>
      <width>1095</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -104,8 +104,8 @@ QCheckBox{
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>369</width>
-          <height>461</height>
+          <width>185</width>
+          <height>480</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -119,19 +119,6 @@ QCheckBox{
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
             <item>
-             <spacer name="verticalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
              <widget class="QToolBox" name="toolBox">
               <property name="styleSheet">
                <string notr="true">QToolBox{
@@ -139,58 +126,29 @@ QCheckBox{
 }</string>
               </property>
               <property name="currentIndex">
-               <number>1</number>
+               <number>0</number>
               </property>
-              <widget class="QWidget" name="page">
+              <widget class="QWidget" name="visualizationTypeArea">
                <property name="geometry">
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>302</width>
-                 <height>123</height>
+                 <width>147</width>
+                 <height>104</height>
                 </rect>
                </property>
                <attribute name="label">
                 <string>Display</string>
                </attribute>
-               <layout class="QVBoxLayout" name="verticalLayout_4">
-                <item>
-                 <widget class="QCheckBox" name="checkBox_3">
-                  <property name="text">
-                   <string>Radial Paired</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="checkBox_2">
-                  <property name="text">
-                   <string>Shifted Paired</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="checkBox_4">
-                  <property name="text">
-                   <string>Collocated Coordinate</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="checkBox">
-                  <property name="text">
-                   <string>Parallel Coordinate</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+               <layout class="QVBoxLayout" name="visualizationTypeLayout"/>
               </widget>
               <widget class="QWidget" name="page_2">
                <property name="geometry">
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>302</width>
-                 <height>120</height>
+                 <width>93</width>
+                 <height>99</height>
                 </rect>
                </property>
                <attribute name="label">
@@ -229,32 +187,6 @@ QCheckBox{
                </layout>
               </widget>
              </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <spacer name="verticalSpacer_4">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
             </item>
             <item>
              <widget class="QLabel" name="label">

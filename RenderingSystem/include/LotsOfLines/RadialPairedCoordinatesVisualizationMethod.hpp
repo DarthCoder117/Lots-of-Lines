@@ -7,13 +7,15 @@ namespace LotsOfLines
 	class RadialPairedCoordinatesVisualizationMethod : public IVisualizationMethod
 	{
 	public:
-		void getNavigationOptions(NavigationOptions& optionsOut) {
+
+		VISUALIZATION_METHOD("Radial Paired Coordinates", EVT_RADIAL_PAIRED_COORDINATES)
+
+		void getNavigationOptions(NavigationOptions& optionsOut) 
+		{
 			optionsOut = NavigationOptions();
-		};
+		}
 
-		E_VISUALIZATION_TYPE getType() { return EVT_RADIAL_PAIRED_COORDINATES; }
-
-		bool generateVBO(std::shared_ptr<DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut);
+		bool generateVBO(std::shared_ptr<DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, const VisualizationOptions& options);
 	};
 }
 

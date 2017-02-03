@@ -18,6 +18,8 @@ namespace LotsOfLines
 		EVT_COUNT
 	};
 
+	typedef std::vector<std::shared_ptr<IVisualizationMethod> > VisualizationMethodList;
+
 	///@brief The RenderingSystem manages different drivers to render with and handles all visualization rendering.
 	class RenderingSystem
 	{
@@ -42,6 +44,9 @@ namespace LotsOfLines
 
 		///@return The currently active visualization method.
 		std::shared_ptr<IVisualizationMethod> getCurrentVisualizationMethod();
+
+		///@brief Get the list of currently registered visualization methods.
+		void getVisualizationMethods(VisualizationMethodList& visualizationMethodsOut);
 
 		///@brief Set the active visualization type.
 		void setVisualizationType(E_VISUALIZATION_TYPE type);

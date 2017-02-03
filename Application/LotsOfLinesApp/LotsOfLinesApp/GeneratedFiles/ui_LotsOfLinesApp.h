@@ -13,7 +13,6 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QGridLayout>
@@ -53,21 +52,14 @@ public:
     QVBoxLayout *verticalLayout_2;
     QGroupBox *visualizationOptionsGroupBox;
     QVBoxLayout *verticalLayout_3;
-    QSpacerItem *verticalSpacer_3;
     QToolBox *toolBox;
-    QWidget *page;
-    QVBoxLayout *verticalLayout_4;
-    QCheckBox *checkBox_3;
-    QCheckBox *checkBox_2;
-    QCheckBox *checkBox_4;
-    QCheckBox *checkBox;
+    QWidget *visualizationTypeArea;
+    QVBoxLayout *visualizationTypeLayout;
     QWidget *page_2;
     QVBoxLayout *verticalLayout_5;
     QPushButton *pushButton_2;
     QPushButton *pushButton_3;
     QPushButton *pushButton_4;
-    QSpacerItem *verticalSpacer_2;
-    QSpacerItem *verticalSpacer_4;
     QLabel *label;
     QComboBox *comboBox;
     QSpacerItem *verticalSpacer;
@@ -97,7 +89,7 @@ public:
         LotsOfLinesAppClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(LotsOfLinesAppClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1095, 26));
+        menuBar->setGeometry(QRect(0, 0, 1095, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuView = new QMenu(menuBar);
@@ -138,7 +130,7 @@ public:
         sidebarScrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 369, 461));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 185, 480));
         verticalLayout_2 = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -150,46 +142,22 @@ public:
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
-        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_3->addItem(verticalSpacer_3);
-
         toolBox = new QToolBox(visualizationOptionsGroupBox);
         toolBox->setObjectName(QStringLiteral("toolBox"));
         toolBox->setStyleSheet(QLatin1String("QToolBox{\n"
 "	color: rgb(205, 205, 205);\n"
 "}"));
-        page = new QWidget();
-        page->setObjectName(QStringLiteral("page"));
-        page->setGeometry(QRect(0, 0, 174, 123));
-        verticalLayout_4 = new QVBoxLayout(page);
-        verticalLayout_4->setSpacing(6);
-        verticalLayout_4->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
-        checkBox_3 = new QCheckBox(page);
-        checkBox_3->setObjectName(QStringLiteral("checkBox_3"));
-
-        verticalLayout_4->addWidget(checkBox_3);
-
-        checkBox_2 = new QCheckBox(page);
-        checkBox_2->setObjectName(QStringLiteral("checkBox_2"));
-
-        verticalLayout_4->addWidget(checkBox_2);
-
-        checkBox_4 = new QCheckBox(page);
-        checkBox_4->setObjectName(QStringLiteral("checkBox_4"));
-
-        verticalLayout_4->addWidget(checkBox_4);
-
-        checkBox = new QCheckBox(page);
-        checkBox->setObjectName(QStringLiteral("checkBox"));
-
-        verticalLayout_4->addWidget(checkBox);
-
-        toolBox->addItem(page, QStringLiteral("Display"));
+        visualizationTypeArea = new QWidget();
+        visualizationTypeArea->setObjectName(QStringLiteral("visualizationTypeArea"));
+        visualizationTypeArea->setGeometry(QRect(0, 0, 147, 104));
+        visualizationTypeLayout = new QVBoxLayout(visualizationTypeArea);
+        visualizationTypeLayout->setSpacing(6);
+        visualizationTypeLayout->setContentsMargins(11, 11, 11, 11);
+        visualizationTypeLayout->setObjectName(QStringLiteral("visualizationTypeLayout"));
+        toolBox->addItem(visualizationTypeArea, QStringLiteral("Display"));
         page_2 = new QWidget();
         page_2->setObjectName(QStringLiteral("page_2"));
-        page_2->setGeometry(QRect(0, 0, 302, 120));
+        page_2->setGeometry(QRect(0, 0, 93, 99));
         verticalLayout_5 = new QVBoxLayout(page_2);
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setContentsMargins(11, 11, 11, 11);
@@ -216,14 +184,6 @@ public:
         toolBox->addItem(page_2, QStringLiteral("Lines"));
 
         verticalLayout_3->addWidget(toolBox);
-
-        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_3->addItem(verticalSpacer_2);
-
-        verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_3->addItem(verticalSpacer_4);
 
         label = new QLabel(visualizationOptionsGroupBox);
         label->setObjectName(QStringLiteral("label"));
@@ -269,7 +229,7 @@ public:
         retranslateUi(LotsOfLinesAppClass);
         QObject::connect(loadFileButton, SIGNAL(clicked()), actionLoad, SLOT(trigger()));
 
-        toolBox->setCurrentIndex(1);
+        toolBox->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(LotsOfLinesAppClass);
@@ -285,11 +245,7 @@ public:
         menuView->setTitle(QApplication::translate("LotsOfLinesAppClass", "View", Q_NULLPTR));
         sidebarDockWidget->setWindowTitle(QApplication::translate("LotsOfLinesAppClass", "Menu Bar", Q_NULLPTR));
         visualizationOptionsGroupBox->setTitle(QApplication::translate("LotsOfLinesAppClass", "Visualization Type", Q_NULLPTR));
-        checkBox_3->setText(QApplication::translate("LotsOfLinesAppClass", "Radial Paired", Q_NULLPTR));
-        checkBox_2->setText(QApplication::translate("LotsOfLinesAppClass", "Shifted Paired", Q_NULLPTR));
-        checkBox_4->setText(QApplication::translate("LotsOfLinesAppClass", "Collocated Coordinate", Q_NULLPTR));
-        checkBox->setText(QApplication::translate("LotsOfLinesAppClass", "Parallel Coordinate", Q_NULLPTR));
-        toolBox->setItemText(toolBox->indexOf(page), QApplication::translate("LotsOfLinesAppClass", "Display", Q_NULLPTR));
+        toolBox->setItemText(toolBox->indexOf(visualizationTypeArea), QApplication::translate("LotsOfLinesAppClass", "Display", Q_NULLPTR));
         pushButton_2->setText(QApplication::translate("LotsOfLinesAppClass", "Remove Line", Q_NULLPTR));
         pushButton_3->setText(QApplication::translate("LotsOfLinesAppClass", "Show Line", Q_NULLPTR));
         pushButton_4->setText(QApplication::translate("LotsOfLinesAppClass", "Isolate Line", Q_NULLPTR));

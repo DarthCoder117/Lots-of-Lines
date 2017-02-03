@@ -10,7 +10,11 @@ class LotsOfLinesApp : public QMainWindow
     Q_OBJECT
 
 public:
+
     LotsOfLinesApp(QWidget* parent = 0);
+
+	///@brief Load a data set to be displayed.
+	void loadFile(const QString& filename, const LotsOfLines::LoadOptions& options = LotsOfLines::LoadOptions::default);
 
 public slots:
 
@@ -18,12 +22,12 @@ public slots:
 
 protected:
 
-	void initializeGL();
-	void paintGL();
-
     Ui::LotsOfLinesAppClass ui;
 
 	std::shared_ptr<LotsOfLines::DataSet> m_dataSet;
 
 	VisualizationRendererWidget* m_rendererWidget;
+
+	LotsOfLines::DataModel m_dataModel;
+	LotsOfLines::RenderingSystem* m_renderingSystem;
 };
