@@ -63,7 +63,7 @@ void LotsOfLinesApp::loadFile(const QString& filename, const LotsOfLines::LoadOp
 
 	//Pass data along to rendering system
 	m_renderingSystem->setDataSet(m_dataSet);
-	m_renderingSystem->setVisualizationType(LotsOfLines::EVT_PARALLEL_COORDINATES);
+	//m_renderingSystem->enableVisualizationType(LotsOfLines::EVT_PARALLEL_COORDINATES);
 }
 
 void LotsOfLinesApp::onLoadFile()
@@ -87,5 +87,5 @@ void LotsOfLinesApp::onLoadFile()
 void LotsOfLinesApp::onVisualizationChecked(int state)
 {
 	VisualizationTypeCheckbox* checkbox = (VisualizationTypeCheckbox*)sender();
-	m_renderingSystem->setVisualizationType(checkbox->getVisualizationType());
+	m_renderingSystem->enableVisualizationType(checkbox->getVisualizationType(), (bool)state);
 }

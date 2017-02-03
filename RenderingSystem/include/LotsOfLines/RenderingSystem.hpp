@@ -42,19 +42,28 @@ namespace LotsOfLines
 		///@brief Registers a visualization method and makes it available to use.
 		void registerVisualizationMethod(E_VISUALIZATION_TYPE type, std::shared_ptr<IVisualizationMethod> visMethod);
 
-		///@return The currently active visualization method.
-		std::shared_ptr<IVisualizationMethod> getCurrentVisualizationMethod();
-
 		///@brief Get the list of currently registered visualization methods.
 		void getVisualizationMethods(VisualizationMethodList& visualizationMethodsOut);
 
-		///@brief Set the active visualization type.
-		void setVisualizationType(E_VISUALIZATION_TYPE type);
+		///@brief Enable/disable a visualization type and manage the list of enabled visualization types.
+		///A maximum of 4 visualization types can be enabled at once. The oldest enabled method will be replaced if the maximum of 4 is reached.
+		void enableVisualizationType(E_VISUALIZATION_TYPE type, bool enabled = true);
+
+		///@return The list of currently enabled visualization types.
+		const std::vector<E_VISUALIZATION_TYPE>& getEnabledVisualizationTypes();
 
 		///@brief Set the data set that will be drawn by the rendering system.
 		void setDataSet(std::shared_ptr<DataSet> dataSet);
 
 	private:
+
+		///@return The currently active visualization method.
+		std::shared_ptr<IVisualizationMethod> getCurrentVisualizationMethod();
+
+		///@brief Set the active visualization type.
+		void setVisualizationType(E_VISUALIZATION_TYPE type);
+
+		std::vector<E_VISUALIZATION_TYPE> m_enabledVisualizationTypes;
 
 		E_VISUALIZATION_TYPE m_currentVisualizationType = EVT_PARALLEL_COORDINATES;
 

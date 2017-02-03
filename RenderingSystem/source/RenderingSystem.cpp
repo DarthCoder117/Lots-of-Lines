@@ -114,7 +114,7 @@ void RenderingSystem::updateViewport(unsigned short screenIdx)
 		unsigned int halfWidth = m_screenWidth / 2;
 		unsigned int halfHeight = m_screenHeight / 2;
 
-		if (screenIdx == 0)
+		if (screenIdx == 2)
 		{
 			m_driver->setViewport(0, 0, halfWidth, m_screenHeight);
 		}
@@ -122,7 +122,7 @@ void RenderingSystem::updateViewport(unsigned short screenIdx)
 		{
 			m_driver->setViewport(halfWidth, 0, halfWidth, halfHeight);
 		}
-		else if (screenIdx == 2)
+		else if (screenIdx == 0)
 		{
 			m_driver->setViewport(halfWidth, halfHeight, halfWidth, halfHeight);
 		}
@@ -166,6 +166,9 @@ void RenderingSystem::draw(float r, float g, float b)
 
 	for (unsigned short i = 0; i < m_splitScreenCount; ++i)
 	{
+		//Set the current visualization type to render
+		setVisualizationType(m_enabledVisualizationTypes[i % m_enabledVisualizationTypes.size()]);
+
 		//Set viewport for current screen being drawn
 		updateViewport(i);
 		m_driver->clearScreen(r, g, b);
@@ -268,6 +271,38 @@ void RenderingSystem::setVisualizationType(E_VISUALIZATION_TYPE type)
 	}
 	// Apply auto transform
 	autoViewTransform();
+}
+
+void RenderingSystem::enableVisualizationType(E_VISUALIZATION_TYPE type, bool enabled)
+{
+	//Disable removes the visualization type from the enabled list
+	if (!enabled)
+	{
+		for (auto iter = m_enabledVisualizationTypes.begin(); iter != m_enabledVisualizationTypes.end(); ++iter)
+		{
+			if (*iter == type)
+			{
+				m_enabledVisualizationTypes.erase(iter);
+				break;
+			}
+		}
+	}
+	//Otherwise enable the visualization type
+	else
+	{
+		//If the list is at its maximum size, then the oldest method will be disabled.
+		if (m_enabledVisualizationTypes.size() >= 4)
+		{
+			m_enabledVisualizationTypes.pop_back();
+		}
+		
+		m_enabledVisualizationTypes.push_back(type);
+	}
+}
+
+const std::vector<E_VISUALIZATION_TYPE>& RenderingSystem::getEnabledVisualizationTypes()
+{
+	return m_enabledVisualizationTypes;
 }
 
 void RenderingSystem::setDataSet(std::shared_ptr<DataSet> dataSet)
