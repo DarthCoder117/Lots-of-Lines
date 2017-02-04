@@ -7,7 +7,6 @@ bool RadialPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_p
 {
 	// Hardcoded draw method
 	const int DRAW_METHOD = 1;
-
 	float colors[][3] = {
 		{ 1.0f, 0.0f, 0.0f },
 		{ 0.0f, 1.0f, 0.0f },
@@ -45,7 +44,17 @@ bool RadialPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_p
 			}
 		}
 	}
-
+	//Generate indices for lines
+	for (unsigned int baseIndex = 0; baseIndex < numVectors; ++baseIndex)
+	{
+		for (unsigned int i = 1; i < vectorSize; ++i)
+		{
+			if ((i + (baseIndex * vectorSize)) % (vectorSize / 2) != 0) {
+				indicesOut.push_back(i + (baseIndex * vectorSize) - 1);
+				indicesOut.push_back(i + (baseIndex * vectorSize));
+			}
+		}
+	}
 	//Generate indices for lines
 	unsigned int numVectors = dataSet->vectorCount();
 	for (unsigned int baseIndex = 0; baseIndex < numVectors; ++baseIndex)
