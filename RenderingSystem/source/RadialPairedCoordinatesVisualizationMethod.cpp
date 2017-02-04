@@ -7,6 +7,7 @@ bool RadialPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_p
 {
 	unsigned int numVectors = 0;
 	unsigned int vectorSize = 0;
+	const int DRAW_METHOD = 1;
 
 	//Iterate over each data class and generate lines
 	unsigned int classIdx = 0;
@@ -51,17 +52,26 @@ bool RadialPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_p
 
 		classIdx++;
 	}
-
 	//Generate indices for lines
 	for (unsigned int baseIndex = 0; baseIndex < numVectors; ++baseIndex)
 	{
 		for (unsigned int i = 1, j = 0; i < vectorSize; ++i)
 		{
-			if ((i + (baseIndex * vectorSize)) % (vectorSize / 2) == 0) {
-				j += vectorSize / 2;
+			switch (DRAW_METHOD) {
+			case 0:
+				if ((i + (baseIndex * vectorSize)) % (vectorSize / 2) == 0) {
+					j += vectorSize / 2;
+				}
+				indicesOut.push_back(j + (baseIndex * vectorSize));
+				indicesOut.push_back(i + (baseIndex * vectorSize));
+				break;
+			case 1:
+				if ((i + (baseIndex * vectorSize)) % (vectorSize / 2) != 0) {
+					indicesOut.push_back(i + (baseIndex * vectorSize) - 1);
+					indicesOut.push_back(i + (baseIndex * vectorSize));
+				}
+				break;
 			}
-			indicesOut.push_back(j + (baseIndex * vectorSize));
-			indicesOut.push_back(i + (baseIndex * vectorSize));
 		}
 	}
 
