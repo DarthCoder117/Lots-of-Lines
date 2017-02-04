@@ -37,7 +37,7 @@ namespace LotsOfLines
 		virtual std::string getTypeName() = 0;
 
 		///@brief Generate a vertex buffer for the visualization.
-		virtual bool generateVBO(std::shared_ptr<DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, const VisualizationOptions& options = VisualizationOptions()) = 0;
+		virtual bool generateVBO(const std::shared_ptr<const DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, const VisualizationOptions& options = VisualizationOptions()) = 0;
 
 		///@brief Should return the navigation options for the rendering method (X scroll lock, etc)
 		virtual void getNavigationOptions(NavigationOptions& optionsOut) = 0;

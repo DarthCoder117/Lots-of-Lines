@@ -163,8 +163,8 @@ void RenderingSystem::draw(float r, float g, float b)
 
 	//Begin drawing frame
 	m_driver->setViewport(0, 0, m_screenWidth, m_screenWidth);
-	m_driver->clearScreen(r, g, b);
 	m_driver->beginDraw();
+	m_driver->clearScreen(r, g, b);
 
 	for (unsigned short i = 0; i < m_splitScreenCount || i < 1; ++i)
 	{
@@ -182,8 +182,8 @@ void RenderingSystem::draw(float r, float g, float b)
 
 		//Set viewport for current screen being drawn
 		updateViewport(i);
-		float c = ((float)((i + 1) % 4)) * 0.005f;
-		m_driver->clearScreen(r + c, g + c, b + c);
+		/*float c = ((float)((i + 1) % 4)) * 0.005f;
+		m_driver->clearScreen(r + c, g + c, b + c);*/
 		
 		drawVisualization();
 	}

@@ -15,7 +15,7 @@ namespace LotsOfLines
 			optionsOut = NavigationOptions(true, false, true);
 		}
 
-		bool generateVBO(std::shared_ptr<DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, const VisualizationOptions& options);
+		bool generateVBO(const std::shared_ptr<const DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, const VisualizationOptions& options);
 	};
 }
 

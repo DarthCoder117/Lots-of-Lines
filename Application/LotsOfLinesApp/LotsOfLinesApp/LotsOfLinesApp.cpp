@@ -88,6 +88,6 @@ void LotsOfLinesApp::onVisualizationChecked(int state)
 {
 	VisualizationTypeCheckbox* checkbox = (VisualizationTypeCheckbox*)sender();
 	m_renderingSystem->enableVisualizationType(checkbox->getVisualizationType(), (bool)state);
-	m_renderingSystem->setSplitScreen(4); //m_renderingSystem->getEnabledVisualizationTypes().size());
+	m_renderingSystem->setSplitScreen(m_renderingSystem->getEnabledVisualizationTypes().size());
 	m_renderingSystem->autoViewTransform();
 }
