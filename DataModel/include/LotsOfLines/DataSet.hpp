@@ -25,7 +25,7 @@ namespace LotsOfLines
 			bool hasNext() const;
 
 			///@return Vector in the DataSet, or nullptr if the end has been reached.
-			const Vector* vector();
+			const Vector& vector();
 
 			///@return The class index of the current vector.
 			unsigned int classIndex() const;
@@ -41,6 +41,7 @@ namespace LotsOfLines
 			std::vector<std::string> m_classNames;
 
 			unsigned int m_classIdx, m_vectorIdx;
+			const std::vector<Vector>* m_currentVectorClass;
 		};
 
 		///@return An iterator that can be used to traverse this dataset.

@@ -81,6 +81,9 @@ DataSet::Iterator::Iterator(const DataSet* dataSet)
 	{
 		m_classNames.push_back(iter);
 	}
+
+	//Get current vector class
+	m_currentVectorClass = &m_dataSet->getVectors(m_classNames[m_classIdx]);
 }
 
 bool DataSet::Iterator::hasNext() const
@@ -90,21 +93,27 @@ bool DataSet::Iterator::hasNext() const
 
 DataSet::Iterator& DataSet::Iterator::operator ++ (int)
 {
-	auto currentClass = m_dataSet->getVectors(m_classNames[m_classIdx]);
-
 	m_vectorIdx++;
-	if (m_vectorIdx >= currentClass.size())
+
+	//If the end of the current vector class is reached, then update the current vector class.
+	if (m_currentVectorClass && m_vectorIdx >= m_currentVectorClass->size())
 	{
 		m_vectorIdx = 0;
 		m_classIdx++;
+
+		//Update pointer to current vector class to avoid more name lookups
+		if (m_classIdx < m_classNames.size())
+		{
+			m_currentVectorClass = &m_dataSet->getVectors(m_classNames[m_classIdx]);
+		}
 	}
 
 	return *this;
 }
 
-const Vector* DataSet::Iterator::vector()
+const Vector& DataSet::Iterator::vector()
 {
-	return &m_dataSet->getVectors(m_classNames[m_classIdx])[m_vectorIdx];
+	return (*m_currentVectorClass)[m_vectorIdx];
 }
 
 unsigned int DataSet::Iterator::classIndex() const

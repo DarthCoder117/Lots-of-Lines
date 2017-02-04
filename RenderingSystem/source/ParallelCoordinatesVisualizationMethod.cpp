@@ -18,7 +18,7 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 		lineIdx++;
 
 		//Generate vertices to draw vector as line
-		const Vector& vec = *iter.vector();
+		const Vector& vec = iter.vector();
 		vectorSize = vec.size();
 		for (unsigned int x = 0; x < vec.size(); ++x)
 		{
