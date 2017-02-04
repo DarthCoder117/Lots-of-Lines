@@ -162,24 +162,44 @@ void RenderingSystem::draw(float r, float g, float b)
 	setViewTransform(m_camX, m_camY, m_zoomX, m_zoomY);
 
 	//Begin drawing frame
+	m_driver->setViewport(0, 0, m_screenWidth, m_screenWidth);
+	m_driver->clearScreen(r, g, b);
 	m_driver->beginDraw();
 
-	for (unsigned short i = 0; i < m_splitScreenCount; ++i)
+	for (unsigned short i = 0; i < m_splitScreenCount || i < 1; ++i)
 	{
 		//Set the current visualization type to render
-		setVisualizationType(m_enabledVisualizationTypes[i % m_enabledVisualizationTypes.size()]);
+		if (!m_enabledVisualizationTypes.empty())
+		{
+			setVisualizationType(m_enabledVisualizationTypes[i % m_enabledVisualizationTypes.size()]);
+		}
+
+		//Automatically transform the view if it needs to be updated
+		if (m_autoViewTransformFlag)
+		{
+			autoViewTransformImpl();
+		}
 
 		//Set viewport for current screen being drawn
 		updateViewport(i);
-		m_driver->clearScreen(r, g, b);
+		float c = ((float)((i + 1) % 4)) * 0.005f;
+		m_driver->clearScreen(r + c, g + c, b + c);
 		
 		drawVisualization();
 	}
+
+	//Clear view transform flag after the frame is done.
+	m_autoViewTransformFlag = false;
 
 	m_driver->endDraw();
 }
 
 void RenderingSystem::autoViewTransform()
+{
+	m_autoViewTransformFlag = true;
+}
+
+void RenderingSystem::autoViewTransformImpl()
 {
 	const Vector& maxValues = m_dataSet->getMaxValues();
 	const Vector& minValues = m_dataSet->getMinValues();
@@ -266,11 +286,10 @@ void RenderingSystem::setVisualizationType(E_VISUALIZATION_TYPE type)
 		{
 			std::vector<Vertex> vertices;
 			m_vboCache[type] = generateFromDataSet(m_dataSet, type, vertices);
-			m_vertices[type] = vertices;
 		}
 	}
 	// Apply auto transform
-	autoViewTransform();
+	//autoViewTransform();
 }
 
 void RenderingSystem::enableVisualizationType(E_VISUALIZATION_TYPE type, bool enabled)
@@ -312,12 +331,11 @@ void RenderingSystem::setDataSet(std::shared_ptr<DataSet> dataSet)
 		m_dataSet = dataSet;
 
 		//Generate VBO buffer if needed
-		if (m_vboCache.find(m_currentVisualizationType) == m_vboCache.end())
+		/*if (m_vboCache.find(m_currentVisualizationType) == m_vboCache.end())
 		{
 			std::vector<Vertex> vertices;
 			m_vboCache[m_currentVisualizationType] = generateFromDataSet(m_dataSet, m_currentVisualizationType, vertices);
-			m_vertices[m_currentVisualizationType] = vertices;
-		}
+		}*/
 	}
 }
 
@@ -340,10 +358,11 @@ std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::s
 
 	std::shared_ptr<IVisualizationMethod> method = iter->second;
 
+	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
-	if (method->generateVBO(dataSet, verticesOut, indices))
+	if (method->generateVBO(dataSet, vertices, indices))
 	{
-		return m_driver->createVBO(verticesOut, indices);
+		return m_driver->createVBO(vertices, indices);
 	}
 
 	return nullptr;

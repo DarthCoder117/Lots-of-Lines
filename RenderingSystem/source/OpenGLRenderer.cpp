@@ -181,8 +181,6 @@ void OpenGLRenderer::setViewTransform(float camX, float camY, float zoomX, float
 
 void OpenGLRenderer::drawVBO(std::shared_ptr<IVertexBufferObject> vbo)
 {
-	glBlendFunc(GL_ONE, GL_ONE);
-
 	std::static_pointer_cast<OpenGLVertexBufferObject, IVertexBufferObject>(vbo)->draw();
 }
 

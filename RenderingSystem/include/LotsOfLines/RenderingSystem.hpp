@@ -104,6 +104,7 @@ namespace LotsOfLines
 		///@param count Number of screens to split to (either 1, 2 or 4).
 		void setSplitScreen(unsigned short count);
 
+		///@brief Scales the view to the current visualization automatically.
 		void autoViewTransform();
 
 		void setViewTransform(float camX, float camY, float zoomX, float zoomY);
@@ -116,6 +117,11 @@ namespace LotsOfLines
 		unsigned int getClosestLine(float x, float y);
 
 	private:
+
+		///@brief Automatically adjusts the viewport
+		void autoViewTransformImpl();
+
+		bool m_autoViewTransformFlag = false;
 
 		///@brief Draw the current visualization to the screen.
 		void drawVisualization();
