@@ -23,6 +23,9 @@ public slots:
 
 protected:
 
+	///@brief Reloads the tabs and table models for the data table view.
+	void reloadDataTable();
+
     Ui::LotsOfLinesAppClass ui;
 
 	std::shared_ptr<LotsOfLines::DataSet> m_dataSet;

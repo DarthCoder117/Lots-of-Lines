@@ -138,6 +138,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DataTableModel.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_LoadDataDialog.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -255,6 +256,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DataTableModel.h" />
     <ClInclude Include="GeneratedFiles\ui_LoadDataDialog.h" />
     <ClInclude Include="GeneratedFiles\ui_LotsOfLinesApp.h" />
   </ItemGroup>

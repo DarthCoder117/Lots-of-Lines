@@ -2,7 +2,9 @@
 #include <QFileDialog>
 #include <QCheckBox>
 #include <QMessageBox>
+#include <QTableView>
 #include "LoadDataDialog.h"
+#include "DataTableModel.h"
 #include <LotsOfLines/RenderingSystem.hpp>
 #include <LotsOfLines/IVisualizationMethod.hpp>
 
@@ -63,7 +65,33 @@ void LotsOfLinesApp::loadFile(const QString& filename, const LotsOfLines::LoadOp
 
 	//Pass data along to rendering system
 	m_renderingSystem->setDataSet(m_dataSet);
+
+	reloadDataTable();
+	
+	
 	//m_renderingSystem->enableVisualizationType(LotsOfLines::EVT_PARALLEL_COORDINATES);
+}
+
+void LotsOfLinesApp::reloadDataTable()
+{
+	//Delete all tabs
+	for (unsigned int i = 0; i < ui.dataClassTabs->count(); ++i)
+	{
+		QWidget* tab = ui.dataClassTabs;
+		delete tab;
+	}
+	ui.dataClassTabs->clear();
+
+	//Generate new tabs for each data class
+	for (auto dataClass : m_dataSet->getClasses())
+	{
+		QTableView* dataTable = new QTableView(ui.dataClassTabs);
+		dataTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+		dataTable->setModel(new DataTableModel(m_dataSet, dataClass));
+		dataTable->setSelectionMode(QAbstractItemView::NoSelection);
+
+		ui.dataClassTabs->addTab(dataTable, QString::fromStdString(dataClass));
+	}
 }
 
 void LotsOfLinesApp::onLoadFile()

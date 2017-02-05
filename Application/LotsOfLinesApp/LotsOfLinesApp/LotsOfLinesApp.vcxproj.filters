@@ -90,6 +90,9 @@
     <ClCompile Include="GeneratedFiles\qrc_LotsOfLinesApp.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="DataTableModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="LoadDataDialog.h">
@@ -129,6 +132,9 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_LotsOfLinesApp.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataTableModel.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -26,6 +26,7 @@
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTabWidget>
 #include <QtWidgets/QToolBox>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -66,6 +67,8 @@ public:
     QPushButton *loadFileButton;
     QDockWidget *dataTableDock;
     QWidget *dockWidgetContents_2;
+    QGridLayout *gridLayout;
+    QTabWidget *dataClassTabs;
 
     void setupUi(QMainWindow *LotsOfLinesAppClass)
     {
@@ -130,7 +133,7 @@ public:
         sidebarScrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 185, 480));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 133, 472));
         verticalLayout_2 = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -149,7 +152,7 @@ public:
 "}"));
         visualizationTypeArea = new QWidget();
         visualizationTypeArea->setObjectName(QStringLiteral("visualizationTypeArea"));
-        visualizationTypeArea->setGeometry(QRect(0, 0, 147, 104));
+        visualizationTypeArea->setGeometry(QRect(0, 0, 95, 96));
         visualizationTypeLayout = new QVBoxLayout(visualizationTypeArea);
         visualizationTypeLayout->setSpacing(6);
         visualizationTypeLayout->setContentsMargins(11, 11, 11, 11);
@@ -219,6 +222,15 @@ public:
         dataTableDock->setObjectName(QStringLiteral("dataTableDock"));
         dockWidgetContents_2 = new QWidget();
         dockWidgetContents_2->setObjectName(QStringLiteral("dockWidgetContents_2"));
+        gridLayout = new QGridLayout(dockWidgetContents_2);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        dataClassTabs = new QTabWidget(dockWidgetContents_2);
+        dataClassTabs->setObjectName(QStringLiteral("dataClassTabs"));
+
+        gridLayout->addWidget(dataClassTabs, 0, 0, 1, 1);
+
         dataTableDock->setWidget(dockWidgetContents_2);
         LotsOfLinesAppClass->addDockWidget(static_cast<Qt::DockWidgetArea>(8), dataTableDock);
 
@@ -230,6 +242,7 @@ public:
         QObject::connect(loadFileButton, SIGNAL(clicked()), actionLoad, SLOT(trigger()));
 
         toolBox->setCurrentIndex(0);
+        dataClassTabs->setCurrentIndex(-1);
 
 
         QMetaObject::connectSlotsByName(LotsOfLinesAppClass);
