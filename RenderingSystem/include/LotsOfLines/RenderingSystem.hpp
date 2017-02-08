@@ -57,15 +57,7 @@ namespace LotsOfLines
 
 	private:
 
-		///@return The currently active visualization method.
-		std::shared_ptr<IVisualizationMethod> getCurrentVisualizationMethod();
-
-		///@brief Set the active visualization type.
-		void setVisualizationType(E_VISUALIZATION_TYPE type);
-
 		std::vector<E_VISUALIZATION_TYPE> m_enabledVisualizationTypes;
-
-		E_VISUALIZATION_TYPE m_currentVisualizationType = EVT_PARALLEL_COORDINATES;
 
 		std::map<E_VISUALIZATION_TYPE, std::shared_ptr<IVisualizationMethod> > m_visualizationMethods;
 
@@ -119,12 +111,12 @@ namespace LotsOfLines
 	private:
 
 		///@brief Automatically adjusts the viewport
-		void autoViewTransformImpl();
+		void autoViewTransformImpl(E_VISUALIZATION_TYPE type);
 
 		bool m_autoViewTransformFlag = false;
 
 		///@brief Draw the current visualization to the screen.
-		void drawVisualization();
+		void drawVisualization(E_VISUALIZATION_TYPE type);
 
 		unsigned int m_screenWidth = 0;
 		unsigned int m_screenHeight = 0;

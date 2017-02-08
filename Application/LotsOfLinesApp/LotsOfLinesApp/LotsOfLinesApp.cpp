@@ -77,7 +77,7 @@ void LotsOfLinesApp::reloadDataTable()
 	//Delete all tabs
 	for (unsigned int i = 0; i < ui.dataClassTabs->count(); ++i)
 	{
-		QWidget* tab = ui.dataClassTabs;
+		QWidget* tab = ui.dataClassTabs->widget(i);
 		delete tab;
 	}
 	ui.dataClassTabs->clear();
