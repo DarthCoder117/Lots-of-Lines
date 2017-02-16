@@ -5,12 +5,8 @@ using namespace LotsOfLines;
 
 bool RadialPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<const DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, const VisualizationOptions& options)
 {
-	unsigned int numVectors = 0;
-	unsigned int vectorSize = 0;
+	// Hardcoded draw method
 	const int DRAW_METHOD = 1;
-
-	//Iterate over each data class and generate lines
-	unsigned int classIdx = 0;
 
 	float colors[][3] = {
 		{ 1.0f, 0.0f, 0.0f },
@@ -18,41 +14,40 @@ bool RadialPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_p
 		{ 0.0f, 0.0f, 1.0f }
 	};
 
-	//Generate vertices for each data class
-	for (auto dataClass : dataSet->getClasses())
+	unsigned int lineIdx = 0;
+	unsigned int vectorSize = 0;
+
+	for (auto iter = dataSet->iterator(); iter.hasNext(); iter++)
 	{
-		VectorClass vectors = dataSet->getVectors(dataClass);
-		numVectors += vectors.size();
+		lineIdx++;
 
-		for (unsigned int i = 0; i < vectors.size(); ++i)
+		const Vector& vec = iter.vector();
+		vectorSize = vec.size();
+		for (unsigned int x = 1; x < vec.size(); x += 2)
 		{
-			//Generate vertices to draw vector as line
-			const Vector& vec = vectors[i];
-			vectorSize = vec.size();
-
-			for (unsigned int x = 1; x < vec.size(); x += 2)
+			Vertex v = (x == 1) ?
+				Vertex((float)vec[x - 1], (float)vec[x]) :
+				Vertex((float)(vec[0] + vec[x - 1]), (float)(vec[1] + vec[x]));
+			v.r = colors[iter.classIndex()][0];
+			v.g = colors[iter.classIndex()][1];
+			v.b = colors[iter.classIndex()][2];
+			v.lineIndex = lineIdx;
+			verticesOut.push_back(v);
+			// If single left over vector
+			if (x == vectorSize - 2)
 			{
-				Vertex v = (x == 1) ?
-					Vertex((float)vec[x - 1], (float)vec[x]) :
-					Vertex((float)(vec[0] + vec[x - 1]), (float)(vec[1] + vec[x]));
-				v.r = colors[classIdx][0];
-				v.g = colors[classIdx][1];
-				v.b = colors[classIdx][2];
+				lineIdx++;
+				// Or (vec[x + 1], 0)
+				v.x = (float)vec[x + 1];
+				v.y = (float)vec[x + 1];
+				v.lineIndex = lineIdx;
 				verticesOut.push_back(v);
-				// If single left over vector
-				if (x == vectorSize - 2)
-				{
-					//Or (vec[x + 1], 0)
-					v = Vertex((float)vec[x + 1], (float)vec[x + 1]);
-					verticesOut.push_back(v);
-					vectorSize++;
-				}
 			}
 		}
-
-		classIdx++;
 	}
+
 	//Generate indices for lines
+	unsigned int numVectors = dataSet->vectorCount();
 	for (unsigned int baseIndex = 0; baseIndex < numVectors; ++baseIndex)
 	{
 		for (unsigned int i = 1, j = 0; i < vectorSize; ++i)
