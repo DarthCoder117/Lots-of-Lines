@@ -27,6 +27,9 @@
     <property name="bottomMargin">
      <number>0</number>
     </property>
+    <property name="spacing">
+     <number>2</number>
+    </property>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -35,7 +38,7 @@
      <x>0</x>
      <y>0</y>
      <width>1095</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -104,8 +107,8 @@ QCheckBox{
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>133</width>
-          <height>472</height>
+          <width>156</width>
+          <height>449</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -133,8 +136,8 @@ QCheckBox{
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>95</width>
-                 <height>96</height>
+                 <width>110</width>
+                 <height>85</height>
                 </rect>
                </property>
                <attribute name="label">
@@ -147,8 +150,8 @@ QCheckBox{
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>93</width>
-                 <height>99</height>
+                 <width>115</width>
+                 <height>120</height>
                 </rect>
                </property>
                <attribute name="label">

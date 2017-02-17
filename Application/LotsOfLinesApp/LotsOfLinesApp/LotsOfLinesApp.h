@@ -30,8 +30,7 @@ protected:
 
 	std::shared_ptr<LotsOfLines::DataSet> m_dataSet;
 
-	VisualizationRendererWidget* m_rendererWidget;
-
 	LotsOfLines::DataModel m_dataModel;
-	LotsOfLines::RenderingSystem* m_renderingSystem;
+
+	std::map<LotsOfLines::E_VISUALIZATION_TYPE, VisualizationRendererWidget*> m_rendererWidgets;
 };

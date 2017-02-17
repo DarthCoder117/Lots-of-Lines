@@ -45,19 +45,18 @@ namespace LotsOfLines
 		///@brief Get the list of currently registered visualization methods.
 		void getVisualizationMethods(VisualizationMethodList& visualizationMethodsOut);
 
-		///@brief Enable/disable a visualization type and manage the list of enabled visualization types.
-		///A maximum of 4 visualization types can be enabled at once. The oldest enabled method will be replaced if the maximum of 4 is reached.
-		void enableVisualizationType(E_VISUALIZATION_TYPE type, bool enabled = true);
+		///@brief Set current visualization type and regenerate vertex buffers.
+		void setVisualizationType(E_VISUALIZATION_TYPE type);
 
-		///@return The list of currently enabled visualization types.
-		const std::vector<E_VISUALIZATION_TYPE>& getEnabledVisualizationTypes();
+		///@return Shared pointer to the current visualization method.
+		std::shared_ptr<IVisualizationMethod> getCurrentVisualizationMethod();
 
 		///@brief Set the data set that will be drawn by the rendering system.
 		void setDataSet(std::shared_ptr<DataSet> dataSet);
 
 	private:
 
-		std::vector<E_VISUALIZATION_TYPE> m_enabledVisualizationTypes;
+		E_VISUALIZATION_TYPE m_currentVisualizationType = EVT_COUNT;
 
 		std::map<E_VISUALIZATION_TYPE, std::shared_ptr<IVisualizationMethod> > m_visualizationMethods;
 
@@ -100,12 +99,8 @@ namespace LotsOfLines
 		///@brief Call when the window is resized.
 		void onResize(unsigned int width, unsigned int height);
 
-		///@brief Sets the splitscreen mode.
-		///@param count Number of screens to split to (either 1, 2 or 4).
-		void setSplitScreen(unsigned short count);
-
 		///@brief Scales the view to the current visualization automatically.
-		void autoViewTransform();
+		void autoViewTransform(E_VISUALIZATION_TYPE type);
 
 		void setViewTransform(float camX, float camY, float zoomX, float zoomY);
 
@@ -118,24 +113,9 @@ namespace LotsOfLines
 
 	private:
 
-		///@brief Automatically adjusts the viewport
-		void autoViewTransformImpl(E_VISUALIZATION_TYPE type);
-
 		bool m_autoViewTransformFlag = false;
 
-		///@brief Draw the current visualization to the screen.
-		void drawVisualization(E_VISUALIZATION_TYPE type);
-
-		unsigned int m_screenWidth = 0;
-		unsigned int m_screenHeight = 0;
-		unsigned short m_splitScreenCount = 0;
-
-		///@brief Updates the viewport settings when the screen resolution or splitscreen mode changes.
-		///@param screenIdx The index of the screen viewport to update.
-		void updateViewport(unsigned short screenIdx);
-
-		std::map<E_VISUALIZATION_TYPE, std::shared_ptr<IVertexBufferObject> > m_vboCache;
-		std::map<E_VISUALIZATION_TYPE, std::vector<Vertex> > m_vertices;
+		std::shared_ptr<IVertexBufferObject> m_vbo;
 	};
 }
 

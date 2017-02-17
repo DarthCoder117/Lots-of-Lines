@@ -27,25 +27,26 @@ private:
 
 LotsOfLinesApp::LotsOfLinesApp(QWidget *parent)
 	:QMainWindow(parent),
-	m_dataSet(nullptr),
-	m_renderingSystem(nullptr)
+	m_dataSet(nullptr)
 {
 	ui.setupUi(this);
 
 	//Setup rendering window
-	m_rendererWidget = new VisualizationRendererWidget(this);
-	m_renderingSystem = m_rendererWidget->getRenderingSystem();
-	ui.centralLayout->addWidget(m_rendererWidget);
+	auto rendererWidget = new VisualizationRendererWidget(this);
+	//m_renderingSystem = m_rendererWidget->getRenderingSystem();
+	//ui.centralLayout->addWidget(m_rendererWidget);
 
 	//Populate visualization type selection menu
 	LotsOfLines::VisualizationMethodList visualizationMethods;
-	m_renderingSystem->getVisualizationMethods(visualizationMethods);
+	rendererWidget->getRenderingSystem()->getVisualizationMethods(visualizationMethods);
 	for (auto method : visualizationMethods)
 	{
 		VisualizationTypeCheckbox* methodCheckbox = new VisualizationTypeCheckbox(QString::fromStdString(method->getTypeName()), ui.visualizationTypeArea, method->getType());
 		connect(methodCheckbox, SIGNAL(stateChanged(int)), this, SLOT(onVisualizationChecked(int)));
 		ui.visualizationTypeLayout->addWidget(methodCheckbox);
 	}
+
+	delete rendererWidget;
 
 	//Setup dock widgets
 	ui.menuView->addAction(ui.sidebarDockWidget->toggleViewAction());
@@ -64,12 +65,12 @@ void LotsOfLinesApp::loadFile(const QString& filename, const LotsOfLines::LoadOp
 	}
 
 	//Pass data along to rendering system
-	m_renderingSystem->setDataSet(m_dataSet);
+	for (auto rendererWidget : m_rendererWidgets)
+	{
+		rendererWidget.second->getRenderingSystem()->setDataSet(m_dataSet);
+	}
 
 	reloadDataTable();
-	
-	
-	//m_renderingSystem->enableVisualizationType(LotsOfLines::EVT_PARALLEL_COORDINATES);
 }
 
 void LotsOfLinesApp::reloadDataTable()
@@ -115,7 +116,34 @@ void LotsOfLinesApp::onLoadFile()
 void LotsOfLinesApp::onVisualizationChecked(int state)
 {
 	VisualizationTypeCheckbox* checkbox = (VisualizationTypeCheckbox*)sender();
-	m_renderingSystem->enableVisualizationType(checkbox->getVisualizationType(), (bool)state);
-	m_renderingSystem->setSplitScreen(m_renderingSystem->getEnabledVisualizationTypes().size());
-	m_renderingSystem->autoViewTransform();
+
+	if (state)
+	{
+		VisualizationRendererWidget* rendererWidget = new VisualizationRendererWidget(this);
+		rendererWidget->setDataSet(m_dataSet);
+		rendererWidget->setVisualizationMethod(checkbox->getVisualizationType());
+
+		m_rendererWidgets[checkbox->getVisualizationType()] = rendererWidget;
+
+		unsigned int numSplitScreens = m_rendererWidgets.size();
+		unsigned int row = (numSplitScreens - 1) / 2;
+		unsigned int col = (numSplitScreens - 1) % 2;
+		ui.centralLayout->addWidget(rendererWidget, row, col);
+	}
+	else
+	{
+		for (unsigned int i = 0; i < ui.centralLayout->count(); ++i)
+		{
+			QLayoutItem* rendererLayoutItem = ui.centralLayout->itemAt(i);
+			VisualizationRendererWidget* renderWidget = (VisualizationRendererWidget*)rendererLayoutItem->widget();
+			if (renderWidget->getVisualizationMethod() == checkbox->getVisualizationType())
+			{
+				m_rendererWidgets.erase(checkbox->getVisualizationType())
+				ui.centralLayout->removeItem(rendererLayoutItem);
+				delete renderWidget;
+			}
+		}
+	}
+
+	
 }

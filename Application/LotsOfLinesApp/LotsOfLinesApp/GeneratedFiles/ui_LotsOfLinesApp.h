@@ -85,14 +85,14 @@ public:
         centralWidget = new QWidget(LotsOfLinesAppClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         centralLayout = new QGridLayout(centralWidget);
-        centralLayout->setSpacing(6);
+        centralLayout->setSpacing(2);
         centralLayout->setContentsMargins(11, 11, 11, 11);
         centralLayout->setObjectName(QStringLiteral("centralLayout"));
         centralLayout->setContentsMargins(0, 0, 0, 0);
         LotsOfLinesAppClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(LotsOfLinesAppClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1095, 21));
+        menuBar->setGeometry(QRect(0, 0, 1095, 26));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuView = new QMenu(menuBar);
@@ -133,7 +133,7 @@ public:
         sidebarScrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 133, 472));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 156, 449));
         verticalLayout_2 = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -152,7 +152,7 @@ public:
 "}"));
         visualizationTypeArea = new QWidget();
         visualizationTypeArea->setObjectName(QStringLiteral("visualizationTypeArea"));
-        visualizationTypeArea->setGeometry(QRect(0, 0, 95, 96));
+        visualizationTypeArea->setGeometry(QRect(0, 0, 110, 85));
         visualizationTypeLayout = new QVBoxLayout(visualizationTypeArea);
         visualizationTypeLayout->setSpacing(6);
         visualizationTypeLayout->setContentsMargins(11, 11, 11, 11);
@@ -160,7 +160,7 @@ public:
         toolBox->addItem(visualizationTypeArea, QStringLiteral("Display"));
         page_2 = new QWidget();
         page_2->setObjectName(QStringLiteral("page_2"));
-        page_2->setGeometry(QRect(0, 0, 93, 99));
+        page_2->setGeometry(QRect(0, 0, 115, 120));
         verticalLayout_5 = new QVBoxLayout(page_2);
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setContentsMargins(11, 11, 11, 11);

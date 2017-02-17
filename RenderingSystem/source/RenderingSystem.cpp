@@ -61,7 +61,8 @@ void RenderingSystem::onMouseMove(int x, int y)
 	if (m_mousePressed)
 	{
 		NavigationOptions options;
-		//getCurrentVisualizationMethod()->getNavigationOptions(options);
+		std::shared_ptr<IVisualizationMethod> method = getCurrentVisualizationMethod();
+		if (method) method->getNavigationOptions(options);
 
 		//Offset camera position by amount cursor moved
 		m_camX = options.lockPanX ? m_camX : m_camStartX + (float)(m_startMouseX - x) * 0.01f;
@@ -77,7 +78,8 @@ void RenderingSystem::onMouseRelease(int x, int y)
 void RenderingSystem::onMouseScroll(int delta)
 {
 	NavigationOptions options;
-	//getCurrentVisualizationMethod()->getNavigationOptions(options);
+	std::shared_ptr<IVisualizationMethod> method = getCurrentVisualizationMethod();
+	if (method) method->getNavigationOptions(options);
 
 	m_zoomX = std::fmax(0, !options.lockZoomX ? m_zoomX + delta * 0.01f : m_zoomX);
 	m_zoomY = std::fmax(0, !options.lockZoomY ? m_zoomY + delta * 0.01f : m_zoomY);
@@ -85,71 +87,7 @@ void RenderingSystem::onMouseScroll(int delta)
 
 void RenderingSystem::onResize(unsigned int width, unsigned int height)
 {
-	m_screenWidth = width;
-	m_screenHeight = height;
-}
-
-void RenderingSystem::setSplitScreen(unsigned short count)
-{
-	m_splitScreenCount = count;
-	if (m_splitScreenCount < 1) m_splitScreenCount = 1;
-}
-
-void RenderingSystem::updateViewport(unsigned short screenIdx)
-{
-	//Split screen in half
-	if (m_splitScreenCount == 2)
-	{
-		unsigned int halfWidth = m_screenWidth / 2;
-		m_driver->setViewport(screenIdx * halfWidth, 0, halfWidth, m_screenHeight);
-	}
-	//Split screen into three
-	else if (m_splitScreenCount == 3)
-	{
-		unsigned int halfWidth = m_screenWidth / 2;
-		unsigned int halfHeight = m_screenHeight / 2;
-
-		if (screenIdx == 2)
-		{
-			m_driver->setViewport(0, 0, halfWidth, m_screenHeight);
-		}
-		else if (screenIdx == 1)
-		{
-			m_driver->setViewport(halfWidth, 0, halfWidth, halfHeight);
-		}
-		else if (screenIdx == 0)
-		{
-			m_driver->setViewport(halfWidth, halfHeight, halfWidth, halfHeight);
-		}
-	}
-	//Split screen into fourths
-	else if (m_splitScreenCount == 4)
-	{
-		unsigned int halfWidth = m_screenWidth / 2;
-		unsigned int halfHeight = m_screenHeight / 2;
-
-		if (screenIdx == 0)
-		{
-			m_driver->setViewport(0, 0, halfWidth, halfHeight);
-		}
-		else if (screenIdx == 1)
-		{
-			m_driver->setViewport(halfWidth, 0, halfWidth, halfHeight);
-		}
-		else if (screenIdx == 2)
-		{
-			m_driver->setViewport(0, halfHeight, halfWidth, halfHeight);
-		}
-		else if (screenIdx == 3)
-		{
-			m_driver->setViewport(halfWidth, halfHeight, halfWidth, halfHeight);
-		}
-	}
-	//Fullscreen rendering
-	else
-	{
-		m_driver->setViewport(0, 0, m_screenWidth, m_screenHeight);
-	}
+	m_driver->setViewport(0, 0, width, height);
 }
 
 void RenderingSystem::draw(float r, float g, float b)
@@ -157,39 +95,19 @@ void RenderingSystem::draw(float r, float g, float b)
 	setViewTransform(m_camX, m_camY, m_zoomX, m_zoomY);
 
 	//Begin drawing frame
-	m_driver->setViewport(0, 0, m_screenWidth, m_screenWidth);
 	m_driver->beginDraw();
 	m_driver->clearScreen(r, g, b);
 
-	if (!m_enabledVisualizationTypes.empty())
+	//Draw visualization
+	if (m_vbo)
 	{
-		for (unsigned short i = 0; i < m_splitScreenCount || i < 1; ++i)
-		{
-			E_VISUALIZATION_TYPE type = m_enabledVisualizationTypes[i % m_enabledVisualizationTypes.size()];
-
-			//Set viewport for current screen being drawn
-			updateViewport(i);
-
-			/*float c = ((float)((i + 1) % 4)) * 0.005f;
-			m_driver->clearScreen(r + c, g + c, b + c);*/
-
-			//Draw current visualization type
-			drawVisualization(type);
-		}
+		drawVBO(m_vbo);
 	}
-
-	//Clear view transform flag after the frame is done.
-	m_autoViewTransformFlag = false;
 
 	m_driver->endDraw();
 }
 
-void RenderingSystem::autoViewTransform()
-{
-	m_autoViewTransformFlag = true;
-}
-
-void RenderingSystem::autoViewTransformImpl(E_VISUALIZATION_TYPE type)
+void RenderingSystem::autoViewTransform(E_VISUALIZATION_TYPE type)
 {
 	if (!m_dataSet) return;
 
@@ -267,36 +185,25 @@ void RenderingSystem::setViewTransform(float camX, float camY, float zoomX, floa
 	m_driver->setViewTransform(camX, camY, zoomX, zoomY);
 }
 
-void RenderingSystem::enableVisualizationType(E_VISUALIZATION_TYPE type, bool enabled)
+void RenderingSystem::setVisualizationType(E_VISUALIZATION_TYPE type)
 {
-	//Disable removes the visualization type from the enabled list
-	if (!enabled)
+	if (type != m_currentVisualizationType)
 	{
-		for (auto iter = m_enabledVisualizationTypes.begin(); iter != m_enabledVisualizationTypes.end(); ++iter)
+		m_currentVisualizationType = type;
+
+		std::vector<Vertex> vertices;
+		if (m_dataSet && type != EVT_COUNT)
 		{
-			if (*iter == type)
-			{
-				m_enabledVisualizationTypes.erase(iter);
-				break;
-			}
+			m_vbo = generateFromDataSet(m_dataSet, type, vertices);
 		}
-	}
-	//Otherwise enable the visualization type
-	else
-	{
-		//If the list is at its maximum size, then the oldest method will be disabled.
-		if (m_enabledVisualizationTypes.size() >= 4)
-		{
-			m_enabledVisualizationTypes.pop_back();
-		}
-		
-		m_enabledVisualizationTypes.push_back(type);
+
+		autoViewTransform(type);
 	}
 }
 
-const std::vector<E_VISUALIZATION_TYPE>& RenderingSystem::getEnabledVisualizationTypes()
+std::shared_ptr<IVisualizationMethod> RenderingSystem::getCurrentVisualizationMethod()
 {
-	return m_enabledVisualizationTypes;
+	return m_visualizationMethods[m_currentVisualizationType];
 }
 
 void RenderingSystem::setDataSet(std::shared_ptr<DataSet> dataSet)
@@ -304,35 +211,17 @@ void RenderingSystem::setDataSet(std::shared_ptr<DataSet> dataSet)
 	if (m_dataSet != dataSet)
 	{
 		m_dataSet = dataSet;
-
-		//Clear generated VBOs
-		m_vboCache.clear();
-
-		//Automatically transform view on next frame
-		autoViewTransform();
 	}
-}
 
-void RenderingSystem::drawVisualization(E_VISUALIZATION_TYPE type)
-{
-	//Generate VBO if one isn't cached
-	auto iter = m_vboCache.find(type);
-	if (iter == m_vboCache.end() && m_dataSet)
+	//Rebuild VBO
+	if (!m_vbo && m_currentVisualizationType != EVT_COUNT)
 	{
 		std::vector<Vertex> vertices;
-		iter = m_vboCache.insert_or_assign(type, generateFromDataSet(m_dataSet, type, vertices)).first;
+		m_vbo = generateFromDataSet(m_dataSet, m_currentVisualizationType, vertices);
 	}
 
-	//Automatically transform the view if it needs to be updated
-	if (m_autoViewTransformFlag)
-	{
-		autoViewTransformImpl(type);
-	}
-
-	if (iter != m_vboCache.end())
-	{
-		drawVBO(iter->second);
-	}
+	//Automatically transform view on next frame
+	autoViewTransform(m_currentVisualizationType);
 }
 
 std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type, std::vector<Vertex>& verticesOut)
