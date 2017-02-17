@@ -3,6 +3,8 @@
 #include <QCheckBox>
 #include <QMessageBox>
 #include <QTableView>
+#include <QtConcurrent/qtconcurrentrun.h>
+#include <qfuture.h>
 #include "LoadDataDialog.h"
 #include "DataTableModel.h"
 #include <LotsOfLines/RenderingSystem.hpp>
@@ -56,8 +58,16 @@ LotsOfLinesApp::LotsOfLinesApp(QWidget *parent)
 
 void LotsOfLinesApp::loadFile(const QString& filename, const LotsOfLines::LoadOptions& options)
 {
-	//Load data set through DataModel module.
-	m_dataSet = m_dataModel.loadData(filename.toStdString(), options);
+	//Load data set through DataModel module with QtConcurrent
+	QFuture<std::shared_ptr<LotsOfLines::DataSet>> dataSet = QtConcurrent::run(this->m_dataModel, &LotsOfLines::DataModel::loadData, filename.toStdString(), options);
+	//This will keep GUI active but does slow load down. Needs work
+	while (!dataSet.isFinished()) {
+		QCoreApplication::processEvents();
+		//Potentially get progress here
+	}
+	//Set dataset to QtConcurrent run result
+	m_dataSet = dataSet.result();
+
 	if (m_dataSet == nullptr)
 	{
 		QMessageBox::warning(this, "Failed to load", "There was an error loading the data file.");
