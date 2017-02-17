@@ -2,6 +2,7 @@
 #include <fstream>
 #include <regex>
 #include <iostream>
+#include <sstream>
 
 using namespace LotsOfLines;
 
@@ -17,24 +18,22 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 	{
 		std::shared_ptr<DataSet> dataSet = std::make_shared<DataSet>();
 
-		while (!in.eof())
-		{
-			std::string line{ "" };
-			std::getline(in, line);
+		std::string line{ "" };
+		std::istringstream is;
+
+		while (in >> line) {
 			if (line.empty()) continue;
 
-			//Each line is a new vector
+			// Each line is a new vector
 			Vector vec;
 			std::string dataClass = "default";
 
-			//Tokenize and convert to double.
-			std::regex regex("[,]");
-			std::sregex_token_iterator iter(line.begin(), line.end(), regex, -1);
-			std::sregex_token_iterator end;
-			while (iter != end)
-			{
-				std::string token = iter->str();
+			is.str(line);
+			is.clear();
+			
+			std::string token;
 
+			while (std::getline(is, token, ',')) {
 				//First try converting the token to a double and adding it to the vector
 				try
 				{
@@ -44,9 +43,7 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 				catch (std::invalid_argument e)
 				{
 					//If conversion fails then check to see if we're at the end.
-					std::sregex_token_iterator next = iter;
-					next++;
-					if (next == end)
+					if (is.peek() != ',')
 					{
 						//If so, then this token is the data class label.
 						dataClass = token;
@@ -56,8 +53,6 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 				{
 					std::cout << e.what() << "\n";
 				}
-
-				iter++;
 			}
 
 			//Add vector data
