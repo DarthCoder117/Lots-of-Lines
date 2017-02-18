@@ -29,6 +29,15 @@ bool VisualizationOptions::setString(const std::string& name, const std::string&
 	return true;
 }
 
+bool VisualizationOptions::setBool(const std::string& name, bool val)
+{
+	if (!setOptionType(name, EOT_BOOL)) return false;
+
+	m_boolOptions[name] = val;
+
+	return true;
+}
+
 int VisualizationOptions::getInt(const std::string& name, int defaultVal)
 {
 	std::map<std::string, int>::iterator iter = m_integerOptions.find(name);
@@ -47,11 +56,22 @@ std::string VisualizationOptions::getString(const std::string& name, const std::
 	return (iter != m_stringOptions.end()) ? iter->second : defaultVal;
 }
 
+bool VisualizationOptions::getBool(const std::string& name, bool defaultVal)
+{
+	std::map<std::string, bool>::iterator iter = m_boolOptions.find(name);
+	return (iter != m_boolOptions.end()) ? iter->second : defaultVal;
+}
+
 bool VisualizationOptions::setOptionType(const std::string& name, E_OPTION_TYPE type)
 {
-	if (getOptionType(name) == EOT_UNKNOWN)
+	E_OPTION_TYPE existingType = getOptionType(name);
+	if (existingType == EOT_UNKNOWN)
 	{
 		m_optionTypes[name] = type;
+		return true;
+	}
+	else if (existingType == type)
+	{
 		return true;
 	}
 

@@ -13,21 +13,17 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QScrollArea>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
-#include <QtWidgets/QToolBox>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -51,19 +47,11 @@ public:
     QScrollArea *sidebarScrollArea;
     QWidget *scrollAreaWidgetContents;
     QVBoxLayout *verticalLayout_2;
-    QGroupBox *visualizationOptionsGroupBox;
-    QVBoxLayout *verticalLayout_3;
-    QToolBox *toolBox;
-    QWidget *visualizationTypeArea;
+    QGroupBox *visualizationTypeArea;
     QVBoxLayout *visualizationTypeLayout;
-    QWidget *page_2;
-    QVBoxLayout *verticalLayout_5;
-    QPushButton *pushButton_2;
-    QPushButton *pushButton_3;
-    QPushButton *pushButton_4;
-    QLabel *label;
-    QComboBox *comboBox;
-    QSpacerItem *verticalSpacer;
+    QScrollArea *optionsScrollArea;
+    QWidget *scrollAreaWidgetContents_2;
+    QVBoxLayout *optionsScrollLayout;
     QPushButton *loadFileButton;
     QDockWidget *dataTableDock;
     QWidget *dockWidgetContents_2;
@@ -133,84 +121,45 @@ public:
         sidebarScrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 156, 449));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 225, 449));
         verticalLayout_2 = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        visualizationOptionsGroupBox = new QGroupBox(scrollAreaWidgetContents);
-        visualizationOptionsGroupBox->setObjectName(QStringLiteral("visualizationOptionsGroupBox"));
-        visualizationOptionsGroupBox->setStyleSheet(QStringLiteral(""));
-        verticalLayout_3 = new QVBoxLayout(visualizationOptionsGroupBox);
-        verticalLayout_3->setSpacing(6);
-        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
-        toolBox = new QToolBox(visualizationOptionsGroupBox);
-        toolBox->setObjectName(QStringLiteral("toolBox"));
-        toolBox->setStyleSheet(QLatin1String("QToolBox{\n"
-"	color: rgb(205, 205, 205);\n"
-"}"));
-        visualizationTypeArea = new QWidget();
+        visualizationTypeArea = new QGroupBox(scrollAreaWidgetContents);
         visualizationTypeArea->setObjectName(QStringLiteral("visualizationTypeArea"));
-        visualizationTypeArea->setGeometry(QRect(0, 0, 110, 85));
+        visualizationTypeArea->setStyleSheet(QStringLiteral(""));
+        visualizationTypeArea->setFlat(false);
         visualizationTypeLayout = new QVBoxLayout(visualizationTypeArea);
         visualizationTypeLayout->setSpacing(6);
         visualizationTypeLayout->setContentsMargins(11, 11, 11, 11);
         visualizationTypeLayout->setObjectName(QStringLiteral("visualizationTypeLayout"));
-        toolBox->addItem(visualizationTypeArea, QStringLiteral("Display"));
-        page_2 = new QWidget();
-        page_2->setObjectName(QStringLiteral("page_2"));
-        page_2->setGeometry(QRect(0, 0, 115, 120));
-        verticalLayout_5 = new QVBoxLayout(page_2);
-        verticalLayout_5->setSpacing(6);
-        verticalLayout_5->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
-        pushButton_2 = new QPushButton(page_2);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setStyleSheet(QLatin1String("QPushButton{\n"
-"	background-color: rgb(100,100, 100);\n"
-"}"));
 
-        verticalLayout_5->addWidget(pushButton_2);
+        verticalLayout_2->addWidget(visualizationTypeArea);
 
-        pushButton_3 = new QPushButton(page_2);
-        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-        pushButton_3->setStyleSheet(QStringLiteral(""));
+        optionsScrollArea = new QScrollArea(scrollAreaWidgetContents);
+        optionsScrollArea->setObjectName(QStringLiteral("optionsScrollArea"));
+        optionsScrollArea->setWidgetResizable(true);
+        scrollAreaWidgetContents_2 = new QWidget();
+        scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 201, 343));
+        optionsScrollLayout = new QVBoxLayout(scrollAreaWidgetContents_2);
+        optionsScrollLayout->setSpacing(6);
+        optionsScrollLayout->setContentsMargins(11, 11, 11, 11);
+        optionsScrollLayout->setObjectName(QStringLiteral("optionsScrollLayout"));
+        optionsScrollArea->setWidget(scrollAreaWidgetContents_2);
 
-        verticalLayout_5->addWidget(pushButton_3);
+        verticalLayout_2->addWidget(optionsScrollArea);
 
-        pushButton_4 = new QPushButton(page_2);
-        pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
-
-        verticalLayout_5->addWidget(pushButton_4);
-
-        toolBox->addItem(page_2, QStringLiteral("Lines"));
-
-        verticalLayout_3->addWidget(toolBox);
-
-        label = new QLabel(visualizationOptionsGroupBox);
-        label->setObjectName(QStringLiteral("label"));
-        label->setMinimumSize(QSize(0, 54));
-        label->setStyleSheet(QStringLiteral(""));
-
-        verticalLayout_3->addWidget(label);
-
-        comboBox = new QComboBox(visualizationOptionsGroupBox);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
-
-        verticalLayout_3->addWidget(comboBox);
-
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_3->addItem(verticalSpacer);
-
-        loadFileButton = new QPushButton(visualizationOptionsGroupBox);
+        loadFileButton = new QPushButton(scrollAreaWidgetContents);
         loadFileButton->setObjectName(QStringLiteral("loadFileButton"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(loadFileButton->sizePolicy().hasHeightForWidth());
+        loadFileButton->setSizePolicy(sizePolicy);
 
-        verticalLayout_3->addWidget(loadFileButton);
-
-
-        verticalLayout_2->addWidget(visualizationOptionsGroupBox);
+        verticalLayout_2->addWidget(loadFileButton);
 
         sidebarScrollArea->setWidget(scrollAreaWidgetContents);
 
@@ -241,7 +190,6 @@ public:
         retranslateUi(LotsOfLinesAppClass);
         QObject::connect(loadFileButton, SIGNAL(clicked()), actionLoad, SLOT(trigger()));
 
-        toolBox->setCurrentIndex(0);
         dataClassTabs->setCurrentIndex(-1);
 
 
@@ -257,19 +205,7 @@ public:
         menuFile->setTitle(QApplication::translate("LotsOfLinesAppClass", "File", Q_NULLPTR));
         menuView->setTitle(QApplication::translate("LotsOfLinesAppClass", "View", Q_NULLPTR));
         sidebarDockWidget->setWindowTitle(QApplication::translate("LotsOfLinesAppClass", "Menu Bar", Q_NULLPTR));
-        visualizationOptionsGroupBox->setTitle(QApplication::translate("LotsOfLinesAppClass", "Visualization Type", Q_NULLPTR));
-        toolBox->setItemText(toolBox->indexOf(visualizationTypeArea), QApplication::translate("LotsOfLinesAppClass", "Display", Q_NULLPTR));
-        pushButton_2->setText(QApplication::translate("LotsOfLinesAppClass", "Remove Line", Q_NULLPTR));
-        pushButton_3->setText(QApplication::translate("LotsOfLinesAppClass", "Show Line", Q_NULLPTR));
-        pushButton_4->setText(QApplication::translate("LotsOfLinesAppClass", "Isolate Line", Q_NULLPTR));
-        toolBox->setItemText(toolBox->indexOf(page_2), QApplication::translate("LotsOfLinesAppClass", "Lines", Q_NULLPTR));
-        label->setText(QApplication::translate("LotsOfLinesAppClass", "Line Orientation", Q_NULLPTR));
-        comboBox->clear();
-        comboBox->insertItems(0, QStringList()
-         << QApplication::translate("LotsOfLinesAppClass", "Normal", Q_NULLPTR)
-         << QApplication::translate("LotsOfLinesAppClass", "PC Adaptation", Q_NULLPTR)
-         << QApplication::translate("LotsOfLinesAppClass", "Non-PC", Q_NULLPTR)
-        );
+        visualizationTypeArea->setTitle(QApplication::translate("LotsOfLinesAppClass", "Visualization Type", Q_NULLPTR));
         loadFileButton->setText(QApplication::translate("LotsOfLinesAppClass", "Load File", Q_NULLPTR));
         dataTableDock->setWindowTitle(QApplication::translate("LotsOfLinesAppClass", "Data Table", Q_NULLPTR));
     } // retranslateUi

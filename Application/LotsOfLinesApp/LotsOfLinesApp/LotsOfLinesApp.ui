@@ -107,146 +107,54 @@ QCheckBox{
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>156</width>
+          <width>225</width>
           <height>449</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QGroupBox" name="visualizationOptionsGroupBox">
+          <widget class="QGroupBox" name="visualizationTypeArea">
            <property name="styleSheet">
             <string notr="true"/>
            </property>
            <property name="title">
             <string>Visualization Type</string>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_3">
-            <item>
-             <widget class="QToolBox" name="toolBox">
-              <property name="styleSheet">
-               <string notr="true">QToolBox{
-	color: rgb(205, 205, 205);
-}</string>
-              </property>
-              <property name="currentIndex">
-               <number>0</number>
-              </property>
-              <widget class="QWidget" name="visualizationTypeArea">
-               <property name="geometry">
-                <rect>
-                 <x>0</x>
-                 <y>0</y>
-                 <width>110</width>
-                 <height>85</height>
-                </rect>
-               </property>
-               <attribute name="label">
-                <string>Display</string>
-               </attribute>
-               <layout class="QVBoxLayout" name="visualizationTypeLayout"/>
-              </widget>
-              <widget class="QWidget" name="page_2">
-               <property name="geometry">
-                <rect>
-                 <x>0</x>
-                 <y>0</y>
-                 <width>115</width>
-                 <height>120</height>
-                </rect>
-               </property>
-               <attribute name="label">
-                <string>Lines</string>
-               </attribute>
-               <layout class="QVBoxLayout" name="verticalLayout_5">
-                <item>
-                 <widget class="QPushButton" name="pushButton_2">
-                  <property name="styleSheet">
-                   <string notr="true">QPushButton{
-	background-color: rgb(100,100, 100);
-}</string>
-                  </property>
-                  <property name="text">
-                   <string>Remove Line</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_3">
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string>Show Line</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_4">
-                  <property name="text">
-                   <string>Isolate Line</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>54</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="text">
-               <string>Line Orientation</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox">
-              <item>
-               <property name="text">
-                <string>Normal</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>PC Adaptation</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Non-PC</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QPushButton" name="loadFileButton">
-              <property name="text">
-               <string>Load File</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <property name="flat">
+            <bool>false</bool>
+           </property>
+           <layout class="QVBoxLayout" name="visualizationTypeLayout"/>
+          </widget>
+         </item>
+         <item>
+          <widget class="QScrollArea" name="optionsScrollArea">
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
+           <widget class="QWidget" name="scrollAreaWidgetContents_2">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>201</width>
+              <height>343</height>
+             </rect>
+            </property>
+            <layout class="QVBoxLayout" name="optionsScrollLayout"/>
+           </widget>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="loadFileButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Load File</string>
+           </property>
           </widget>
          </item>
         </layout>

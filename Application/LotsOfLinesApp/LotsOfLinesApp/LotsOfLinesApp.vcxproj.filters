@@ -93,6 +93,15 @@
     <ClCompile Include="DataTableModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_OptionEditorWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_OptionEditorWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionEditorWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="LoadDataDialog.h">
@@ -102,6 +111,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="VisualizationRendererWidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="OptionEditorWidget.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

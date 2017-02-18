@@ -3,6 +3,7 @@
 #include <QCheckBox>
 #include <QMessageBox>
 #include <QTableView>
+#include "OptionEditorWidget.h"
 #include "LoadDataDialog.h"
 #include "DataTableModel.h"
 #include <LotsOfLines/RenderingSystem.hpp>
@@ -119,6 +120,7 @@ void LotsOfLinesApp::onVisualizationChecked(int state)
 
 	if (state)
 	{
+		//Create widget for screen section
 		VisualizationRendererWidget* rendererWidget = new VisualizationRendererWidget(this);
 		rendererWidget->setDataSet(m_dataSet);
 		rendererWidget->setVisualizationMethod(checkbox->getVisualizationType());
@@ -129,6 +131,17 @@ void LotsOfLinesApp::onVisualizationChecked(int state)
 		unsigned int row = (numSplitScreens - 1) / 2;
 		unsigned int col = (numSplitScreens - 1) % 2;
 		ui.centralLayout->addWidget(rendererWidget, row, col);
+
+		//Add options widget for visualization method
+		//std::shared_ptr<LotsOfLines::IVisualizationMethod> method = rendererWidget->getRenderingSystem()->getCurrentVisualizationMethod();
+		LotsOfLines::VisualizationOptions* options = new LotsOfLines::VisualizationOptions();
+		options->setBool("Test Flag", false);
+		options->setBool("Test Flag 2", true);
+		options->setString("Test String", "test value");
+		options->setInt("Test Int", 123);
+		options->setDouble("Test Double", 3.1415);
+		OptionEditorWidget* editorWidget = new OptionEditorWidget("Test Options", *options, ui.optionsScrollArea);
+		ui.optionsScrollLayout->addWidget(editorWidget);
 	}
 	else
 	{
@@ -138,7 +151,7 @@ void LotsOfLinesApp::onVisualizationChecked(int state)
 			VisualizationRendererWidget* renderWidget = (VisualizationRendererWidget*)rendererLayoutItem->widget();
 			if (renderWidget->getVisualizationMethod() == checkbox->getVisualizationType())
 			{
-				m_rendererWidgets.erase(checkbox->getVisualizationType())
+				m_rendererWidgets.erase(checkbox->getVisualizationType());
 				ui.centralLayout->removeItem(rendererLayoutItem);
 				delete renderWidget;
 			}
