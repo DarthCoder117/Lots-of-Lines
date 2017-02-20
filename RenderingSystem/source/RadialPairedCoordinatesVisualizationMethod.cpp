@@ -52,7 +52,7 @@ bool RadialPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_p
 	{
 		for (unsigned int i = 1, j = 0; i < vectorSize; ++i)
 		{
-			if (DRAW_SEQUENTIALLY)
+			if (drawSequentially)
 			{
 				if ((i + (baseIndex * vectorSize)) % (vectorSize / 2) != 0) {
 					indicesOut.push_back(i + (baseIndex * vectorSize) - 1);
