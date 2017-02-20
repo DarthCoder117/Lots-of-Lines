@@ -20,6 +20,11 @@ public slots:
 	void onIntChanged(int n);
 	void onDoubleChanged(double n);
 
+signals:
+	
+	///@brief Signal emitted when an option changes.
+	void optionChanged(const std::string& name);
+
 private:
 
 	LotsOfLines::VisualizationOptions& m_options;

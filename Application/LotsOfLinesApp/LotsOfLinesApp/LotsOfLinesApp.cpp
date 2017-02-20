@@ -53,6 +53,7 @@ LotsOfLinesApp::LotsOfLinesApp(QWidget *parent)
 	ui.menuView->addAction(ui.sidebarDockWidget->toggleViewAction());
 	ui.menuView->addAction(ui.dataTableDock->toggleViewAction());
 
+	//Connect signals and slots
 	connect(ui.actionLoad, SIGNAL(triggered()), this, SLOT(onLoadFile()));
 }
 
@@ -68,7 +69,9 @@ void LotsOfLinesApp::loadFile(const QString& filename, const LotsOfLines::LoadOp
 	//Pass data along to rendering system
 	for (auto rendererWidget : m_rendererWidgets)
 	{
-		rendererWidget.second->getRenderingSystem()->setDataSet(m_dataSet);
+		auto renderingSystem = rendererWidget.second->getRenderingSystem();
+		renderingSystem->setDataSet(m_dataSet);
+		renderingSystem->redraw();
 	}
 
 	reloadDataTable();
@@ -127,6 +130,7 @@ void LotsOfLinesApp::onVisualizationChecked(int state)
 			//Set visualization type and dataset now that OpenGL is initialized
 			renderingSystem->setDataSet(m_dataSet);
 			renderingSystem->setVisualizationType(visualizationType);
+			renderingSystem->redraw();
 
 			//Add options editor widget for visualization method
 			OptionEditorWidget* editorWidget = new OptionEditorWidget(
@@ -135,6 +139,9 @@ void LotsOfLinesApp::onVisualizationChecked(int state)
 				ui.optionsScrollArea
 				);
 			ui.optionsScrollLayout->addWidget(editorWidget);
+
+			//Connect option editing signal so that the visualization can be redrawn when options are changed
+			connect(editorWidget, SIGNAL(optionChanged(const std::string&)), this, SLOT(onVisualizationOptionsChanged(const std::string&)));
 		};
 
 		//Create widget for screen section and use init callback to set parameters
@@ -146,6 +153,15 @@ void LotsOfLinesApp::onVisualizationChecked(int state)
 	{
 		m_rendererWidgets.erase(checkbox->getVisualizationType());
 		reorderSplitScreens();
+	}
+}
+
+void LotsOfLinesApp::onVisualizationOptionsChanged(const std::string& name)
+{
+	for (auto rendererWidget : m_rendererWidgets)
+	{
+		auto renderingSystem = rendererWidget.second->getRenderingSystem();
+		renderingSystem->redraw();
 	}
 }
 

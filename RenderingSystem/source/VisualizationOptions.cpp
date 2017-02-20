@@ -38,27 +38,27 @@ bool VisualizationOptions::setBool(const std::string& name, bool val)
 	return true;
 }
 
-int VisualizationOptions::getInt(const std::string& name, int defaultVal)
+int VisualizationOptions::getInt(const std::string& name, int defaultVal) const
 {
-	std::map<std::string, int>::iterator iter = m_integerOptions.find(name);
+	std::map<std::string, int>::const_iterator iter = m_integerOptions.find(name);
 	return (iter != m_integerOptions.end()) ? iter->second : defaultVal;
 }
 
-double VisualizationOptions::getDouble(const std::string& name, double defaultVal)
+double VisualizationOptions::getDouble(const std::string& name, double defaultVal) const
 {
-	std::map<std::string, double>::iterator iter = m_doubleOptions.find(name);
+	std::map<std::string, double>::const_iterator iter = m_doubleOptions.find(name);
 	return (iter != m_doubleOptions.end()) ? iter->second : defaultVal;
 }
 
-std::string VisualizationOptions::getString(const std::string& name, const std::string& defaultVal)
+std::string VisualizationOptions::getString(const std::string& name, const std::string& defaultVal) const
 {
-	std::map<std::string, std::string>::iterator iter = m_stringOptions.find(name);
+	std::map<std::string, std::string>::const_iterator iter = m_stringOptions.find(name);
 	return (iter != m_stringOptions.end()) ? iter->second : defaultVal;
 }
 
-bool VisualizationOptions::getBool(const std::string& name, bool defaultVal)
+bool VisualizationOptions::getBool(const std::string& name, bool defaultVal) const
 {
-	std::map<std::string, bool>::iterator iter = m_boolOptions.find(name);
+	std::map<std::string, bool>::const_iterator iter = m_boolOptions.find(name);
 	return (iter != m_boolOptions.end()) ? iter->second : defaultVal;
 }
 

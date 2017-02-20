@@ -13,6 +13,10 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 	unsigned int lineIdx = 0;
 	unsigned int vectorSize = 0;
 
+	//Get options
+	bool fitToScreenHorizontal = options.getBool(FIT_TO_SCREEN_HORIZONTAL);
+	double axisSpacing = options.getDouble(AXIS_SPACING);
+
 	for (auto iter = dataSet->iterator(); iter.hasNext(); iter++)
 	{
 		lineIdx++;
@@ -22,7 +26,8 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 		vectorSize = vec.size();
 		for (unsigned int x = 0; x < vec.size(); ++x)
 		{
-			float interval = 2.0f / ((float)vectorSize - 1);//Screen is 2 screen units wide
+			//Scale to 2 screen units if fit to screen is enabled, otherwise just use the requested spacing
+			float interval = fitToScreenHorizontal ? 2.0f / ((float)vectorSize - 1) : axisSpacing;
 
 			Vertex v(-1.0f + (float)x * interval, (float)vec[x]);
 			v.r = colors[iter.classIndex()][0];

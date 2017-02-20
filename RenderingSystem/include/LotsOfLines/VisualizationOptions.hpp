@@ -35,13 +35,13 @@ namespace LotsOfLines
 		bool setBool(const std::string& name, bool val);
 
 		///@return The value of the named integer option, or the specified default if it doesn't exist.
-		int getInt(const std::string& name, int defaultVal = 0);
+		int getInt(const std::string& name, int defaultVal = 0) const;
 		///@return The value of the named double option, or the specified default if it doesn't exist.
-		double getDouble(const std::string& name, double defaultVal = 0);
+		double getDouble(const std::string& name, double defaultVal = 0) const;
 		///@return The value of the named string option, or the specified default if it doesn't exist.
-		std::string getString(const std::string& name, const std::string& defaultVal = "");
+		std::string getString(const std::string& name, const std::string& defaultVal = "") const;
 		///@return The value of the named bool option, or the specified default if it doesn't exist.
-		bool getBool(const std::string& name, bool defaultVal = false);
+		bool getBool(const std::string& name, bool defaultVal = false) const;
 
 		///@brief Remove all options.
 		void clear();

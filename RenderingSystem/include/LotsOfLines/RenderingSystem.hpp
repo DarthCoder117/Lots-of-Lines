@@ -49,6 +49,9 @@ namespace LotsOfLines
 		///@brief Set current visualization type and regenerate vertex buffers.
 		void setVisualizationType(E_VISUALIZATION_TYPE type);
 
+		///@brief Regenerate the visualization after options or datasets have changed.
+		void redraw();
+
 		///@return Shared pointer to the current visualization method.
 		std::shared_ptr<IVisualizationMethod> getCurrentVisualizationMethod();
 

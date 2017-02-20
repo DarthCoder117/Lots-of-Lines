@@ -194,16 +194,6 @@ void RenderingSystem::setVisualizationType(E_VISUALIZATION_TYPE type)
 		//Setup default options
 		m_options.clear();
 		getCurrentVisualizationMethod()->getDefaultOptions(m_options);
-
-		//Generate vertex buffer
-		std::vector<Vertex> vertices;
-		if (m_dataSet && type != EVT_COUNT)
-		{
-			m_vbo = generateFromDataSet(m_dataSet, type, vertices);
-		}
-
-		//Scale view to fit
-		autoViewTransform(type);
 	}
 }
 
@@ -218,21 +208,24 @@ void RenderingSystem::setDataSet(std::shared_ptr<DataSet> dataSet)
 	{
 		m_dataSet = dataSet;
 	}
-
-	//Rebuild VBO
-	if (!m_vbo && m_currentVisualizationType != EVT_COUNT)
-	{
-		std::vector<Vertex> vertices;
-		m_vbo = generateFromDataSet(m_dataSet, m_currentVisualizationType, vertices);
-	}
-
-	//Automatically transform view on next frame
-	autoViewTransform(m_currentVisualizationType);
 }
 
 VisualizationOptions& RenderingSystem::getVisualizationOptions()
 {
 	return m_options;
+}
+
+void RenderingSystem::redraw()
+{
+	//Generate vertex buffer
+	std::vector<Vertex> vertices;
+	if (m_dataSet && m_currentVisualizationType != EVT_COUNT)
+	{
+		m_vbo = generateFromDataSet(m_dataSet, m_currentVisualizationType, vertices);
+	}
+
+	//Scale view to fit
+	autoViewTransform(m_currentVisualizationType);
 }
 
 std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type, std::vector<Vertex>& verticesOut)

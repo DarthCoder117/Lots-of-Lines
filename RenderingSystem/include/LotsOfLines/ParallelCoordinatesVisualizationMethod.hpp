@@ -7,8 +7,11 @@ namespace LotsOfLines
 	class ParallelCoordinatesVisualizationMethod : public IVisualizationMethod
 	{
 	public:
-
+		
 		VISUALIZATION_METHOD("Parallel Coordinates", EVT_PARALLEL_COORDINATES)
+
+		const char* FIT_TO_SCREEN_HORIZONTAL = "Fit horizontal";
+		const char* AXIS_SPACING = "Axis spacing";
 
 		void getNavigationOptions(NavigationOptions& optionsOut) 
 		{
@@ -17,7 +20,8 @@ namespace LotsOfLines
 
 		void getDefaultOptions(VisualizationOptions& options)
 		{
-			options.setBool("Flatten Axes", false);
+			options.setBool(FIT_TO_SCREEN_HORIZONTAL, true);
+			options.setDouble(AXIS_SPACING, 0.2);
 		}
 
 		bool generateVBO(const std::shared_ptr<const DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, const VisualizationOptions& options);

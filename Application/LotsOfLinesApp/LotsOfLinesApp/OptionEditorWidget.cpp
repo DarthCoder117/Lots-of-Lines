@@ -61,22 +61,30 @@ void OptionEditorWidget::onCheckboxChanged(int state)
 {
 	QCheckBox* checkbox = (QCheckBox*)sender();
 	m_options.setBool(checkbox->objectName().toStdString(), (bool)state);
+
+	emit optionChanged(checkbox->objectName().toStdString());
 }
 
 void OptionEditorWidget::onTextEdited(const QString& text)
 {
 	QLineEdit* lineEdit = (QLineEdit*)sender();
 	m_options.setString(lineEdit->objectName().toStdString(), text.toStdString());
+
+	emit optionChanged(lineEdit->objectName().toStdString());
 }
 
 void OptionEditorWidget::onIntChanged(int n)
 {
 	QSpinBox* spinBox = (QSpinBox*)sender();
 	m_options.setInt(spinBox->objectName().toStdString(), n);
+
+	emit optionChanged(spinBox->objectName().toStdString());
 }
 
 void OptionEditorWidget::onDoubleChanged(double n)
 {
 	QDoubleSpinBox* spinBox = (QDoubleSpinBox*)sender();
 	m_options.setDouble(spinBox->objectName().toStdString(), n);
+
+	emit optionChanged(spinBox->objectName().toStdString());
 }
