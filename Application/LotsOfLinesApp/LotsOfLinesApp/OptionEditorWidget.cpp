@@ -55,6 +55,12 @@ OptionEditorWidget::OptionEditorWidget(const QString& title, LotsOfLines::Visual
 			m_layout.addWidget(editorWidget);
 		}
 	}
+
+	//If there were no options, then just display a label
+	if (optionList.empty())
+	{
+		m_layout.addWidget(new QLabel("No options available", this));
+	}
 }
 
 void OptionEditorWidget::onCheckboxChanged(int state)

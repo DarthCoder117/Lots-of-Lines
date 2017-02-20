@@ -3,7 +3,6 @@
 #include <QCheckBox>
 #include <QMessageBox>
 #include <QTableView>
-#include "OptionEditorWidget.h"
 #include "LoadDataDialog.h"
 #include "DataTableModel.h"
 #include <LotsOfLines/RenderingSystem.hpp>
@@ -138,6 +137,7 @@ void LotsOfLinesApp::onVisualizationChecked(int state)
 				renderingSystem->getVisualizationOptions(),
 				ui.optionsScrollArea
 				);
+			m_optionEditorWidgets[visualizationType] = editorWidget;
 			ui.optionsScrollLayout->addWidget(editorWidget);
 
 			//Connect option editing signal so that the visualization can be redrawn when options are changed
@@ -151,8 +151,18 @@ void LotsOfLinesApp::onVisualizationChecked(int state)
 	}
 	else
 	{
-		m_rendererWidgets.erase(checkbox->getVisualizationType());
+		//Remove visualization type from splitscreen display
+		m_rendererWidgets.erase(visualizationType);
 		reorderSplitScreens();
+
+		//Remove editor widget
+		auto optionEditorWidget = m_optionEditorWidgets.find(visualizationType);
+		if (optionEditorWidget != m_optionEditorWidgets.end())
+		{
+			ui.optionsScrollLayout->removeWidget(optionEditorWidget->second);
+			delete optionEditorWidget->second;
+			m_optionEditorWidgets.erase(optionEditorWidget);
+		}
 	}
 }
 

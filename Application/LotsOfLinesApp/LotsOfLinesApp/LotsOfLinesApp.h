@@ -3,6 +3,7 @@
 #include <QMainWindow>
 #include <LotsOfLines/DataModel.hpp>
 #include "VisualizationRendererWidget.h"
+#include "OptionEditorWidget.h"
 #include "ui_LotsOfLinesApp.h"
 
 class LotsOfLinesApp : public QMainWindow
@@ -37,4 +38,5 @@ protected:
 	LotsOfLines::DataModel m_dataModel;
 
 	std::map<LotsOfLines::E_VISUALIZATION_TYPE, VisualizationRendererWidget*> m_rendererWidgets;
+	std::map<LotsOfLines::E_VISUALIZATION_TYPE, OptionEditorWidget*> m_optionEditorWidgets;
 };
