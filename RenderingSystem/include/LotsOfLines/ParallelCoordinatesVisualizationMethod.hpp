@@ -15,6 +15,11 @@ namespace LotsOfLines
 			optionsOut = NavigationOptions(true, false, true);
 		}
 
+		void getDefaultOptions(VisualizationOptions& options)
+		{
+			options.setBool("Flatten Axes", false);
+		}
+
 		bool generateVBO(const std::shared_ptr<const DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, const VisualizationOptions& options);
 	};
 }

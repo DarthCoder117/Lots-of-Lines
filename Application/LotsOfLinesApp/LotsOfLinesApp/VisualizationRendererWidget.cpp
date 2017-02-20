@@ -2,9 +2,10 @@
 #include <LotsOfLines/OpenGLRenderer.hpp>
 #include <QMouseEvent>
 
-VisualizationRendererWidget::VisualizationRendererWidget(QWidget* parent)
+VisualizationRendererWidget::VisualizationRendererWidget(QWidget* parent, std::function<void(LotsOfLines::RenderingSystem*)> initCallback)
 	:QOpenGLWidget(parent),
-	m_renderingSystem(new LotsOfLines::OpenGLRenderer())
+	m_renderingSystem(new LotsOfLines::OpenGLRenderer()),
+	m_initCallback(initCallback)
 {
 
 }
@@ -12,21 +13,6 @@ VisualizationRendererWidget::VisualizationRendererWidget(QWidget* parent)
 LotsOfLines::RenderingSystem* VisualizationRendererWidget::getRenderingSystem()
 {
 	return &m_renderingSystem;
-}
-
-void VisualizationRendererWidget::setDataSet(std::shared_ptr<LotsOfLines::DataSet> dataSet)
-{
-	m_dataSet = dataSet;
-}
-
-void VisualizationRendererWidget::setVisualizationMethod(LotsOfLines::E_VISUALIZATION_TYPE method)
-{
-	m_visualizationMethod = method;
-}
-
-LotsOfLines::E_VISUALIZATION_TYPE VisualizationRendererWidget::getVisualizationMethod()
-{
-	return m_visualizationMethod;
 }
 
 void VisualizationRendererWidget::mousePressEvent(QMouseEvent* eventMove)
@@ -52,8 +38,11 @@ void VisualizationRendererWidget::wheelEvent(QWheelEvent* wheelEvent)
 void VisualizationRendererWidget::initializeGL()
 {
 	m_renderingSystem.init();
-	m_renderingSystem.setDataSet(m_dataSet);
-	m_renderingSystem.setVisualizationType(m_visualizationMethod);
+
+	if (m_initCallback)
+	{
+		m_initCallback(&m_renderingSystem);
+	}
 }
 
 void VisualizationRendererWidget::resizeGL(int w, int h)

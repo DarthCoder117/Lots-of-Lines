@@ -43,6 +43,9 @@ namespace LotsOfLines
 		///@return The value of the named bool option, or the specified default if it doesn't exist.
 		bool getBool(const std::string& name, bool defaultVal = false);
 
+		///@brief Remove all options.
+		void clear();
+
 		///@return The type of the named option.
 		E_OPTION_TYPE getOptionType(const std::string& name);
 

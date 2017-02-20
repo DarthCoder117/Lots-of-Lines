@@ -25,6 +25,9 @@ protected:
 
 	///@brief Reloads the tabs and table models for the data table view.
 	void reloadDataTable();
+	///@brief Reorder the positions of each screen in the splitscreen layout.
+	///This must be called whenever the splitscreen widgets change, or else holes can appear in the layout.
+	void reorderSplitScreens();
 
     Ui::LotsOfLinesAppClass ui;
 

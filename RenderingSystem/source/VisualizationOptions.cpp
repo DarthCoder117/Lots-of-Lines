@@ -62,6 +62,14 @@ bool VisualizationOptions::getBool(const std::string& name, bool defaultVal)
 	return (iter != m_boolOptions.end()) ? iter->second : defaultVal;
 }
 
+void VisualizationOptions::clear()
+{
+	m_integerOptions.clear();
+	m_stringOptions.clear();
+	m_doubleOptions.clear();
+	m_boolOptions.clear();
+}
+
 bool VisualizationOptions::setOptionType(const std::string& name, E_OPTION_TYPE type)
 {
 	E_OPTION_TYPE existingType = getOptionType(name);

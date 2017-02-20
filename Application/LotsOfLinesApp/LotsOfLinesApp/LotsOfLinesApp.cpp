@@ -117,46 +117,64 @@ void LotsOfLinesApp::onLoadFile()
 void LotsOfLinesApp::onVisualizationChecked(int state)
 {
 	VisualizationTypeCheckbox* checkbox = (VisualizationTypeCheckbox*)sender();
+	LotsOfLines::E_VISUALIZATION_TYPE visualizationType = checkbox->getVisualizationType();
 
 	if (state)
 	{
-		//Create widget for screen section
-		VisualizationRendererWidget* rendererWidget = new VisualizationRendererWidget(this);
-		rendererWidget->setDataSet(m_dataSet);
-		rendererWidget->setVisualizationMethod(checkbox->getVisualizationType());
+		//Init callback will be called by the rendering widget after OpenGL loads
+		auto initCallback = [this, visualizationType](LotsOfLines::RenderingSystem* renderingSystem)
+		{
+			//Set visualization type and dataset now that OpenGL is initialized
+			renderingSystem->setDataSet(m_dataSet);
+			renderingSystem->setVisualizationType(visualizationType);
 
+			//Add options editor widget for visualization method
+			OptionEditorWidget* editorWidget = new OptionEditorWidget(
+				QString::fromStdString(renderingSystem->getCurrentVisualizationMethod()->getTypeName()),
+				renderingSystem->getVisualizationOptions(),
+				ui.optionsScrollArea
+				);
+			ui.optionsScrollLayout->addWidget(editorWidget);
+		};
+
+		//Create widget for screen section and use init callback to set parameters
+		VisualizationRendererWidget* rendererWidget = new VisualizationRendererWidget(this, initCallback);
 		m_rendererWidgets[checkbox->getVisualizationType()] = rendererWidget;
-
-		unsigned int numSplitScreens = m_rendererWidgets.size();
-		unsigned int row = (numSplitScreens - 1) / 2;
-		unsigned int col = (numSplitScreens - 1) % 2;
-		ui.centralLayout->addWidget(rendererWidget, row, col);
-
-		//Add options widget for visualization method
-		//std::shared_ptr<LotsOfLines::IVisualizationMethod> method = rendererWidget->getRenderingSystem()->getCurrentVisualizationMethod();
-		LotsOfLines::VisualizationOptions* options = new LotsOfLines::VisualizationOptions();
-		options->setBool("Test Flag", false);
-		options->setBool("Test Flag 2", true);
-		options->setString("Test String", "test value");
-		options->setInt("Test Int", 123);
-		options->setDouble("Test Double", 3.1415);
-		OptionEditorWidget* editorWidget = new OptionEditorWidget("Test Options", *options, ui.optionsScrollArea);
-		ui.optionsScrollLayout->addWidget(editorWidget);
+		reorderSplitScreens();
 	}
 	else
 	{
-		for (unsigned int i = 0; i < ui.centralLayout->count(); ++i)
+		m_rendererWidgets.erase(checkbox->getVisualizationType());
+		reorderSplitScreens();
+	}
+}
+
+void LotsOfLinesApp::reorderSplitScreens()
+{
+	//Clear layout
+	while (ui.centralLayout->count() > 0)
+	{
+		QLayoutItem* rendererLayoutItem = ui.centralLayout->itemAt(0);
+		VisualizationRendererWidget* renderWidget = (VisualizationRendererWidget*)rendererLayoutItem->widget();
+		LotsOfLines::E_VISUALIZATION_TYPE visualizationType = renderWidget->getRenderingSystem()->getCurrentVisualizationMethod()->getType();
+
+		ui.centralLayout->removeItem(rendererLayoutItem);
+
+		//If the visualization method has been disabled, then delete the rendering widget.
+		if (m_rendererWidgets.find(visualizationType) == m_rendererWidgets.end())
 		{
-			QLayoutItem* rendererLayoutItem = ui.centralLayout->itemAt(i);
-			VisualizationRendererWidget* renderWidget = (VisualizationRendererWidget*)rendererLayoutItem->widget();
-			if (renderWidget->getVisualizationMethod() == checkbox->getVisualizationType())
-			{
-				m_rendererWidgets.erase(checkbox->getVisualizationType());
-				ui.centralLayout->removeItem(rendererLayoutItem);
-				delete renderWidget;
-			}
+			delete renderWidget;
 		}
 	}
 
-	
+	//Assign based on index
+	unsigned int idx = 0;
+	for (auto widget : m_rendererWidgets)
+	{
+		unsigned int row = idx  / 2;
+		unsigned int col = idx % 2;
+		ui.centralLayout->addWidget(widget.second, row, col);
+
+		idx++;
+	}
 }

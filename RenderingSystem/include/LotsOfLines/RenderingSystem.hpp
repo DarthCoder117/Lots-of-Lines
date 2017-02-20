@@ -3,6 +3,7 @@
 #include "LotsOfLines/IRenderer.hpp"
 #include "LotsOfLines/DataModel.hpp"
 #include "LotsOfLines/IVertexBufferObject.hpp"
+#include "LotsOfLines/VisualizationOptions.hpp"
 #include <vector>
 
 namespace LotsOfLines
@@ -54,6 +55,9 @@ namespace LotsOfLines
 		///@brief Set the data set that will be drawn by the rendering system.
 		void setDataSet(std::shared_ptr<DataSet> dataSet);
 
+		///@return Current visualization options in use.
+		VisualizationOptions& getVisualizationOptions();
+
 	private:
 
 		E_VISUALIZATION_TYPE m_currentVisualizationType = EVT_COUNT;
@@ -61,6 +65,8 @@ namespace LotsOfLines
 		std::map<E_VISUALIZATION_TYPE, std::shared_ptr<IVisualizationMethod> > m_visualizationMethods;
 
 		std::shared_ptr<DataSet> m_dataSet = nullptr;
+
+		VisualizationOptions m_options;
 
 		///@brief Generate a VBO from a data set.
 		std::shared_ptr<IVertexBufferObject> generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type, std::vector<Vertex>& verticesOut);

@@ -1,5 +1,5 @@
 #pragma once
-
+#include <functional>
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 #include <LotsOfLines/RenderingSystem.hpp>
@@ -10,17 +10,9 @@ class VisualizationRendererWidget : public QOpenGLWidget, protected QOpenGLFunct
 
 public:
 
-	explicit VisualizationRendererWidget(QWidget* parent);
+	explicit VisualizationRendererWidget(QWidget* parent, std::function<void (LotsOfLines::RenderingSystem*)> initCallback = nullptr);
 
 	LotsOfLines::RenderingSystem* getRenderingSystem();
-
-	///@brief Set the data set that this rendering widget will use
-	void setDataSet(std::shared_ptr<LotsOfLines::DataSet> dataSet);
-
-	///@brief Set the visualization method used by this rendering widget.
-	void setVisualizationMethod(LotsOfLines::E_VISUALIZATION_TYPE method);
-	///@return The current visualization method used by this rendering widget.
-	LotsOfLines::E_VISUALIZATION_TYPE getVisualizationMethod();
 
 	void mousePressEvent(QMouseEvent *eventPress);
 	void mouseMoveEvent(QMouseEvent* eventMove);
@@ -31,8 +23,7 @@ protected:
 
 	LotsOfLines::RenderingSystem m_renderingSystem;
 
-	std::shared_ptr<LotsOfLines::DataSet> m_dataSet;
-	LotsOfLines::E_VISUALIZATION_TYPE m_visualizationMethod;
+	std::function<void(LotsOfLines::RenderingSystem*)> m_initCallback;
 
 	void initializeGL();
 	void resizeGL(int w, int h);

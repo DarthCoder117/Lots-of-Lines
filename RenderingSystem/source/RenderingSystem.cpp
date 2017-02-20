@@ -191,12 +191,18 @@ void RenderingSystem::setVisualizationType(E_VISUALIZATION_TYPE type)
 	{
 		m_currentVisualizationType = type;
 
+		//Setup default options
+		m_options.clear();
+		getCurrentVisualizationMethod()->getDefaultOptions(m_options);
+
+		//Generate vertex buffer
 		std::vector<Vertex> vertices;
 		if (m_dataSet && type != EVT_COUNT)
 		{
 			m_vbo = generateFromDataSet(m_dataSet, type, vertices);
 		}
 
+		//Scale view to fit
 		autoViewTransform(type);
 	}
 }
@@ -224,6 +230,11 @@ void RenderingSystem::setDataSet(std::shared_ptr<DataSet> dataSet)
 	autoViewTransform(m_currentVisualizationType);
 }
 
+VisualizationOptions& RenderingSystem::getVisualizationOptions()
+{
+	return m_options;
+}
+
 std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type, std::vector<Vertex>& verticesOut)
 {
 	auto iter = m_visualizationMethods.find(type);
@@ -236,7 +247,7 @@ std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::s
 
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
-	if (method->generateVBO(dataSet, vertices, indices))
+	if (method->generateVBO(dataSet, vertices, indices, m_options))
 	{
 		return m_driver->createVBO(vertices, indices);
 	}
