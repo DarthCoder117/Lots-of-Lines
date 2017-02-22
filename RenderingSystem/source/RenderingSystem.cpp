@@ -225,7 +225,7 @@ void RenderingSystem::redraw()
 	}
 
 	//Scale view to fit
-	autoViewTransform(m_currentVisualizationType);
+	//autoViewTransform(m_currentVisualizationType);
 }
 
 std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type, std::vector<Vertex>& verticesOut)
