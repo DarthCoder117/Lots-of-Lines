@@ -15,75 +15,62 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 	unsigned int lineIdx = 0;
 	unsigned int vectorSize = 0;
 
-	// Hard Coded Parameters
-	enum ShiftedPairedCoordinatesType {
-		AUTO_STEP,
-		CUSTOM_STEP,
-		HORIZONTAL_LINE,
-		NON_INTERSECTING,
-		HORIZONTAL_NON_INTERSECTING,
-		COLLAPSED,
-		INCREASING
-	};
+	// Read in options
+	const bool autoStep = options.getBool(AUTO_STEP),
+		horizontal = options.getBool(HORIZONTAL),
+		nonIntersecting = options.getBool(NON_INTERSECTING),
+		collapsed = options.getBool(COLLAPSED),
+		increasing = options.getBool(INCREASING);
 
 	// Get distance between first two pair X values
 	// This is semi-hardcoded shift value, though might be final variant
 	const Vector& firstVec = dataSet->getVectors(*dataSet->getClasses().begin())[0];
-	double distance;
+	double distance = options.getDouble(STEP);
 	Vector shiftVec = Vector();
-	// Or just hard:
-	// double distance = 1.0;
 
-	// Another parameter
+	// Another potential parameter
 	unsigned int selectedLine = 0;
-	ShiftedPairedCoordinatesType type = COLLAPSED;
-	const Vector& selectedVec = dataSet->getVectors(*dataSet->getClasses().begin())[0];
 
-	switch (type)
+	// Add a normal step
+	if (autoStep)
 	{
-	case AUTO_STEP:
 		distance = firstVec[2] ? abs(firstVec[0] - firstVec[2]) : 0;
+		double shift = 0.0;
 		// Assign values to shift vector
 		for (int i = 0; i < firstVec.size(); i++)
 		{
-			shiftVec.push_back(distance);
+			shiftVec.push_back(shift);
+			if (i % 2 == 1) shift += distance;
 		}
-		break;
-	case CUSTOM_STEP:
-		distance = 1.0;
-		// Assign distance to shift vector
+	}
+	else if (horizontal)
+	{
+		// Merely using first vec here for ease of test
 		for (int i = 0; i < firstVec.size(); i++)
 		{
-			shiftVec.push_back(distance);
-		}
-		break;
-	case HORIZONTAL_LINE:
-		// Merely using first vec here for ease of test
-		for (int i = 0; i < selectedVec.size(); i++)
-		{
-			if (i % 2 == 0) shiftVec.push_back(selectedVec[0] - selectedVec[i]);
+			if (i % 2 == 1 && i > 2) shiftVec.push_back(firstVec[1] - firstVec[i]);
 			else shiftVec.push_back(0);
 		}
-		break;
-	case NON_INTERSECTING:
-		break;
-	case HORIZONTAL_NON_INTERSECTING:
-		break;
-	case COLLAPSED:
+	}
+	else if (collapsed)
+	{
+		// Using first vec again
 		for (int i = 0; i < firstVec.size(); i++)
 		{
-			if (i % 2 == 0) shiftVec.push_back(firstVec[0] - firstVec[i]);
-			else shiftVec.push_back(firstVec[1] - firstVec[i]);
+			if (i % 2 == 0 && i > 1) shiftVec.push_back(firstVec[0] - firstVec[i]);
+			else if (i % 2 == 1 && i > 2) shiftVec.push_back(firstVec[1] - firstVec[i]);
+			else shiftVec.push_back(0);
 		}
-		break;
-	case INCREASING:
-		break;
-	default:
-		distance = 0.0;
+	}
+	else // Custom step
+	{
+		double shift = 0.0;
 		// Assign distance to shift vector
 		for (int i = 0; i < firstVec.size(); i++)
-			shiftVec.push_back(distance);
-		break;
+		{
+			shiftVec.push_back(shift);
+			if (i % 2 == 1) shift += distance;
+		}
 	}
 
 	// Iterate through dataset
@@ -96,20 +83,19 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 		vectorSize = vec.size();
 		for (unsigned int x = 1; x < vec.size(); x += 2)
 		{
-			Vertex v((float)(vec[x - 1] + shift), (float)(vec[x] + shift));
+			Vertex v((float)(vec[x - 1] + shiftVec[x - 1]), (float)(vec[x] + shiftVec[x]));
 			v.r = colors[iter.classIndex()][0];
 			v.g = colors[iter.classIndex()][1];
 			v.b = colors[iter.classIndex()][2];
 			v.lineIndex = lineIdx;
 			verticesOut.push_back(v);
-			shift += shiftVec[x];
 			// If single left over vector
 			if (x == vectorSize - 2)
 			{
 				lineIdx++;
 				// Or (vec[x + 1], 0)
-				v.x = (float)(vec[x + 1] + shift);
-				v.y = (float)(vec[x + 1] + shift);
+				v.x = (float)(vec[x + 1] + shiftVec[x + 1]);
+				v.y = (float)(vec[x + 1] + shiftVec[x + 1]);
 				v.lineIndex = lineIdx;
 				verticesOut.push_back(v);
 			}
