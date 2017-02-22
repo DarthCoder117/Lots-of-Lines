@@ -35,16 +35,16 @@ void DataSet::addVector(const Vector& vec, const std::string& vectorClass)
 {
 	if (vectorClass.empty()) return;
 
-	if (m_maxValues.empty())
+	if (m_maxValues[vectorClass].empty())
 	{
-		m_maxValues.resize(vec.size(), -INFINITY);
-		m_minValues.resize(vec.size(), INFINITY);
+		m_maxValues[vectorClass].resize(vec.size(), -INFINITY);
+		m_minValues[vectorClass].resize(vec.size(), INFINITY);
 	}
 
 	for (unsigned int i = 0; i < vec.size(); ++i)
 	{
-		if (m_maxValues[i] < vec[i]) m_maxValues[i] = vec[i];
-		if (m_minValues[i] > vec[i]) m_minValues[i] = vec[i];
+		if (m_maxValues[vectorClass][i] < vec[i]) m_maxValues[vectorClass][i] = vec[i];
+		if (m_minValues[vectorClass][i] > vec[i]) m_minValues[vectorClass][i] = vec[i];
 	}
 
 	m_dataClasses.insert(vectorClass);
@@ -66,6 +66,41 @@ unsigned int DataSet::vectorCount() const
 DataSet::Iterator DataSet::iterator() const
 {
 	return Iterator(this);
+}
+
+const static Vector EMPTY_VECTOR;
+
+const Vector& DataSet::getMaxValues(const std::string& vectorClass) const
+{
+	auto iter = m_maxValues.find(vectorClass);
+	return iter != m_maxValues.end() ? iter->second : EMPTY_VECTOR;
+}
+
+const Vector& DataSet::getMinValues(const std::string& vectorClass) const
+{ 
+	auto iter = m_minValues.find(vectorClass);
+	return iter != m_minValues.end() ? iter->second : EMPTY_VECTOR;
+}
+
+void DataSet::normalizeData()
+{
+	for (auto dataClass : m_dataClasses)
+	{
+		const Vector& maxVals = getMaxValues(dataClass);
+		const Vector& minVals = getMinValues(dataClass);
+
+		VectorClass& vectors = m_vectorData[dataClass];
+		for (auto vector : vectors)
+		{
+			for (unsigned int i = 0; i < vector.size(); ++i)
+			{
+				const double max = maxVals[i];
+				const double min = minVals[i];
+				const double x = vector[i];
+				vector[i] = (2.0 * ((x - min) / (max - min))) - 1.0;
+			}
+		}
+	}
 }
 
 //===============================================================================

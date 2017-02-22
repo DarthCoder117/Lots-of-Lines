@@ -68,8 +68,12 @@ namespace LotsOfLines
 		///@param vec The vector data to add.
 		void addVector(const Vector& vec, const std::string& vectorClass = "default");
 
-		const Vector& getMaxValues() const { return m_maxValues; }
-		const Vector& getMinValues() const { return m_minValues; }
+		const Vector& getMaxValues(const std::string& vectorClass = "default") const;
+		const Vector& getMinValues(const std::string& vectorClass = "default") const;
+
+		///@brief Normalize the vector data to the -1.0 to 1.0 range.
+		///This should only be called once all vectors have been loaded to the dataset.
+		void normalizeData();
 
 	private:
 
@@ -78,8 +82,8 @@ namespace LotsOfLines
 		std::set<std::string> m_dataClasses;
 		std::map<std::string, VectorClass> m_vectorData;
 
-		Vector m_maxValues;
-		Vector m_minValues;
+		std::map<std::string, Vector> m_maxValues;
+		std::map<std::string, Vector> m_minValues;
 	};
 }
 
