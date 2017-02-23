@@ -117,6 +117,9 @@ namespace LotsOfLines
 
 		void drawVBO(std::shared_ptr<IVertexBufferObject> vbo);
 
+		///@brief Set the line that's selected.
+		void setSelectedLine(unsigned int lineIndex);
+
 		///@brief Gets index of the closest line to the 
 		unsigned int getClosestLine(float x, float y);
 
@@ -125,6 +128,7 @@ namespace LotsOfLines
 		bool m_autoViewTransformFlag = false;
 
 		std::shared_ptr<IVertexBufferObject> m_vbo;
+		std::vector<Vertex> m_vertices;
 	};
 }
 

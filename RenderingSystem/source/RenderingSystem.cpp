@@ -73,6 +73,9 @@ void RenderingSystem::onMouseMove(int x, int y)
 void RenderingSystem::onMouseRelease(int x, int y)
 {
 	m_mousePressed = false;
+
+	//Select line if drag didn't occur
+	setSelectedLine(0);
 }
 
 void RenderingSystem::onMouseScroll(int delta)
@@ -218,10 +221,10 @@ VisualizationOptions& RenderingSystem::getVisualizationOptions()
 void RenderingSystem::redraw()
 {
 	//Generate vertex buffer
-	std::vector<Vertex> vertices;
+	m_vertices.clear();
 	if (m_dataSet && m_currentVisualizationType != EVT_COUNT)
 	{
-		m_vbo = generateFromDataSet(m_dataSet, m_currentVisualizationType, vertices);
+		m_vbo = generateFromDataSet(m_dataSet, m_currentVisualizationType, m_vertices);
 	}
 
 	//Scale view to fit
@@ -238,11 +241,10 @@ std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::s
 
 	std::shared_ptr<IVisualizationMethod> method = iter->second;
 
-	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
-	if (method->generateVBO(dataSet, vertices, indices, m_options))
+	if (method->generateVBO(dataSet, verticesOut, indices, m_options))
 	{
-		return m_driver->createVBO(vertices, indices);
+		return m_driver->createVBO(verticesOut, indices);
 	}
 
 	return nullptr;
@@ -253,11 +255,16 @@ void RenderingSystem::drawVBO(std::shared_ptr<IVertexBufferObject> vbo)
 	m_driver->drawVBO(vbo);
 }
 
+void RenderingSystem::setSelectedLine(unsigned int lineIndex)
+{
+	m_driver->setSelectedLine(lineIndex);
+}
+
 unsigned int RenderingSystem::getClosestLine(float x, float y)
 {
 	float closestDist = std::numeric_limits<float>::max();
 	unsigned int closestLine = 0;
-	/*for (auto vertex : m_vertices[m_currentVisualizationType])
+	for (auto vertex : m_vertices)
 	{
 		glm::vec2 m(x, y);
 		glm::vec2 v(vertex.x, vertex.y);
@@ -267,7 +274,7 @@ unsigned int RenderingSystem::getClosestLine(float x, float y)
 			closestDist = dist;
 			closestLine = vertex.lineIndex;
 		}
-	}*/
+	}
 
 	return closestLine;
 }

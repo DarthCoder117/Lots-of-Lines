@@ -14,14 +14,23 @@ static const char* vertex_shader_text =
 "#version 330 core\n"
 "uniform mat4 MVP;\n"
 "uniform uint selectedLine;\n"
-"in vec3 pos;\n"
-"in vec3 vertexColor;\n"
-"attribute uint lineIndex;\n"
+"layout(location = 0) in vec3 pos;\n"
+"layout(location = 1) in vec3 vertexColor;\n"
+"layout(location = 2) in uint lineIndex;\n"
 "out vec3 fragmentColor;\n"
 "void main()\n"
 "{\n"
 "   gl_Position = MVP * vec4(pos, 1.0);\n"
-"	fragmentColor = vertexColor;\n"
+
+"	if (lineIndex == selectedLine)\n"
+"	{\n"
+//"		gl_Position.z = 2.0f;\n"
+"		fragmentColor = vec3(1.0);\n"
+"	}\n"
+"	else\n"
+"	{\n"
+"		fragmentColor = vertexColor;\n"
+"	}\n"
 "}\n";
 
 static const char* fragment_shader_text =
@@ -153,10 +162,10 @@ void OpenGLRenderer::beginDraw()
 	glm::mat4x4 mvp = zoom * translate;
 
 	//Set uniforms
-	GLuint MatrixID = glGetUniformLocation(m_program, "MVP");
+	GLint MatrixID = glGetUniformLocation(m_program, "MVP");
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
 
-	GLuint selectedLineID = glGetUniformLocation(m_program, "selectedLine");
+	GLint selectedLineID = glGetUniformLocation(m_program, "selectedLine");
 	glUniform1ui(selectedLineID, m_selectedLine);
 }
 
@@ -186,7 +195,7 @@ void OpenGLRenderer::drawVBO(std::shared_ptr<IVertexBufferObject> vbo)
 
 void OpenGLRenderer::setSelectedLine(unsigned int selectedLine)
 {
-	m_selectedLine = selectedLine;
+	m_selectedLine++;
 }
 
 std::shared_ptr<IVertexBufferObject> OpenGLRenderer::createVBO(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices)

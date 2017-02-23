@@ -43,7 +43,7 @@ namespace LotsOfLines
 		float m_zoomX = 1.0f;
 		float m_zoomY = 1.0f;
 
-		unsigned int m_selectedLine;
+		unsigned int m_selectedLine = 0;
 	};
 }
 
