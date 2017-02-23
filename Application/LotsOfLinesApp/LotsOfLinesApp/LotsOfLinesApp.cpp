@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QTableView>
 #include "LoadDataDialog.h"
+#include "PreferencesDialog.h"
 #include "DataTableModel.h"
 #include <LotsOfLines/RenderingSystem.hpp>
 #include <LotsOfLines/IVisualizationMethod.hpp>
@@ -54,6 +55,7 @@ LotsOfLinesApp::LotsOfLinesApp(QWidget *parent)
 
 	//Connect signals and slots
 	connect(ui.actionLoad, SIGNAL(triggered()), this, SLOT(onLoadFile()));
+	connect(ui.actionPreferences, SIGNAL(triggered()), this, SLOT(onOpenPreferences()));
 }
 
 void LotsOfLinesApp::loadFile(const QString& filename, const LotsOfLines::LoadOptions& options)
@@ -114,6 +116,12 @@ void LotsOfLinesApp::onLoadFile()
 		LotsOfLines::LoadOptions options = dlg.getLoadOptions();
 		loadFile(file, options);
 	}
+}
+
+void LotsOfLinesApp::onOpenPreferences()
+{
+	PreferencesDialog dlg(this);
+	dlg.exec();
 }
 
 void LotsOfLinesApp::onVisualizationChecked(int state)

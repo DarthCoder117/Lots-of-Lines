@@ -38,7 +38,7 @@
      <x>0</x>
      <y>0</y>
      <width>1095</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -46,6 +46,7 @@
      <string>File</string>
     </property>
     <addaction name="actionLoad"/>
+    <addaction name="actionPreferences"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -107,8 +108,8 @@ QCheckBox{
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>225</width>
-          <height>449</height>
+          <width>122</width>
+          <height>472</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -136,8 +137,8 @@ QCheckBox{
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>201</width>
-              <height>343</height>
+              <width>102</width>
+              <height>384</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="optionsScrollLayout"/>
@@ -199,6 +200,11 @@ QCheckBox{
    </property>
    <property name="text">
     <string>Visualization Options</string>
+   </property>
+  </action>
+  <action name="actionPreferences">
+   <property name="text">
+    <string>Preferences</string>
    </property>
   </action>
  </widget>

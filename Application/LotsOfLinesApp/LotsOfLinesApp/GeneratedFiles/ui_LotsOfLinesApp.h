@@ -35,6 +35,7 @@ public:
     QAction *actionLoad;
     QAction *actionWindows;
     QAction *actionVisualization_Options;
+    QAction *actionPreferences;
     QWidget *centralWidget;
     QGridLayout *centralLayout;
     QMenuBar *menuBar;
@@ -70,6 +71,8 @@ public:
         actionVisualization_Options = new QAction(LotsOfLinesAppClass);
         actionVisualization_Options->setObjectName(QStringLiteral("actionVisualization_Options"));
         actionVisualization_Options->setCheckable(true);
+        actionPreferences = new QAction(LotsOfLinesAppClass);
+        actionPreferences->setObjectName(QStringLiteral("actionPreferences"));
         centralWidget = new QWidget(LotsOfLinesAppClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         centralLayout = new QGridLayout(centralWidget);
@@ -80,7 +83,7 @@ public:
         LotsOfLinesAppClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(LotsOfLinesAppClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1095, 26));
+        menuBar->setGeometry(QRect(0, 0, 1095, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuView = new QMenu(menuBar);
@@ -121,7 +124,7 @@ public:
         sidebarScrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 225, 449));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 122, 472));
         verticalLayout_2 = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -142,7 +145,7 @@ public:
         optionsScrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 201, 343));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 102, 384));
         optionsScrollLayout = new QVBoxLayout(scrollAreaWidgetContents_2);
         optionsScrollLayout->setSpacing(6);
         optionsScrollLayout->setContentsMargins(11, 11, 11, 11);
@@ -186,6 +189,7 @@ public:
         menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuView->menuAction());
         menuFile->addAction(actionLoad);
+        menuFile->addAction(actionPreferences);
 
         retranslateUi(LotsOfLinesAppClass);
         QObject::connect(loadFileButton, SIGNAL(clicked()), actionLoad, SLOT(trigger()));
@@ -202,6 +206,7 @@ public:
         actionLoad->setText(QApplication::translate("LotsOfLinesAppClass", "Load", Q_NULLPTR));
         actionWindows->setText(QApplication::translate("LotsOfLinesAppClass", "Windows", Q_NULLPTR));
         actionVisualization_Options->setText(QApplication::translate("LotsOfLinesAppClass", "Visualization Options", Q_NULLPTR));
+        actionPreferences->setText(QApplication::translate("LotsOfLinesAppClass", "Preferences", Q_NULLPTR));
         menuFile->setTitle(QApplication::translate("LotsOfLinesAppClass", "File", Q_NULLPTR));
         menuView->setTitle(QApplication::translate("LotsOfLinesAppClass", "View", Q_NULLPTR));
         sidebarDockWidget->setWindowTitle(QApplication::translate("LotsOfLinesAppClass", "Menu Bar", Q_NULLPTR));

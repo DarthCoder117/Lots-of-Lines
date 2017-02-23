@@ -20,6 +20,7 @@ public:
 public slots:
 
 	void onLoadFile();
+	void onOpenPreferences();
 	void onVisualizationChecked(int state);
 	void onVisualizationOptionsChanged(const std::string& name);
 

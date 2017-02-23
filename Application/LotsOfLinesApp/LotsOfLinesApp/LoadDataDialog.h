@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LOAD_DATA_DIALOG_H
+#define LOAD_DATA_DIALOG_H
 #include <QDialog>
 #include <LotsOfLines/DataModel.hpp>
 #include "ui_LoadDataDialog.h"
@@ -13,3 +14,5 @@ public:
 
 	LotsOfLines::LoadOptions getLoadOptions();
 };
+
+#endif
