@@ -5,12 +5,6 @@ using namespace LotsOfLines;
 
 bool RadialPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<const DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, const VisualizationOptions& options)
 {
-	float colors[][3] = {
-		{ 1.0f, 0.0f, 0.0f },
-		{ 0.0f, 1.0f, 0.0f },
-		{ 0.0f, 0.0f, 1.0f }
-	};
-
 	unsigned int lineIdx = 0;
 	unsigned int vectorSize = 0;
 
@@ -28,9 +22,6 @@ bool RadialPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_p
 			Vertex v = (x == 1) ?
 				Vertex((float)vec[x - 1], (float)vec[x]) :
 				Vertex((float)(vec[0] + vec[x - 1]), (float)(vec[1] + vec[x]));
-			//v.r = colors[iter.classIndex()][0];
-			//v.g = colors[iter.classIndex()][1];
-			//v.b = colors[iter.classIndex()][2];
 			v.dataClassIndex = iter.classIndex();
 			v.lineIndex = lineIdx;
 			verticesOut.push_back(v);

@@ -4,12 +4,6 @@ using namespace LotsOfLines;
 
 bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<const DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, const VisualizationOptions& options)
 {
-	float colors[][3] = {
-		{ 1.0f, 0.0f, 0.0f },
-		{ 0.0f, 1.0f, 0.0f },
-		{ 0.0f, 0.0f, 1.0f }
-	};
-
 	unsigned int lineIdx = 0;
 	unsigned int vectorSize = 0;
 

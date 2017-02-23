@@ -6,12 +6,6 @@ using namespace LotsOfLines;
 // Shifted paired coordinates with steps
 bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<const DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, const VisualizationOptions& options)
 {
-	float colors[][3] = {
-		{ 1.0f, 0.0f, 0.0f },
-		{ 0.0f, 1.0f, 0.0f },
-		{ 0.0f, 0.0f, 1.0f }
-	};
-
 	unsigned int lineIdx = 0;
 	unsigned int vectorSize = 0;
 
@@ -84,9 +78,6 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 		for (unsigned int x = 1; x < vec.size(); x += 2)
 		{
 			Vertex v((float)(vec[x - 1] + shiftVec[x - 1]), (float)(vec[x] + shiftVec[x]));
-			//v.r = colors[iter.classIndex()][0];
-			//v.g = colors[iter.classIndex()][1];
-			//v.b = colors[iter.classIndex()][2];
 			v.dataClassIndex = iter.classIndex();
 			v.lineIndex = lineIdx;
 			verticesOut.push_back(v);
