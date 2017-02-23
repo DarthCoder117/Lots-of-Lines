@@ -61,7 +61,30 @@ namespace LotsOfLines
 		///@return Current visualization options in use.
 		VisualizationOptions& getVisualizationOptions();
 
+		///@brief Set the color to use when rendering a data class.
+		void setDataClassColor(unsigned int classIdx, float r, float g, float b);
+		///@return 3-element float array with data class color.
+		const float* getDataClassColor(unsigned int classIdx) const;
+		///@return The full array of data class colors
+		const float** getDataClassColors() const;
+		///@return The total number of data class colors that have been configured.
+		unsigned int getDataClassColorCount() const;
+
 	private:
+
+		float m_dataClassColors[10][3] = 
+		{
+			{ 1.0f, 0.0f, 0.0f },
+			{ 0.0f, 1.0f, 0.0f },
+			{ 0.0f, 0.0f, 1.0f },
+			{ 1.0f, 1.0f, 1.0f },
+			{ 1.0f, 1.0f, 1.0f },
+			{ 1.0f, 1.0f, 1.0f },
+			{ 1.0f, 1.0f, 1.0f },
+			{ 1.0f, 1.0f, 1.0f },
+			{ 1.0f, 1.0f, 1.0f },
+			{ 1.0f, 1.0f, 1.0f }
+		};
 
 		E_VISUALIZATION_TYPE m_currentVisualizationType = EVT_COUNT;
 

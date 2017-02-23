@@ -12,11 +12,15 @@ using namespace LotsOfLines;
 
 static const char* vertex_shader_text =
 "#version 330 core\n"
+
 "uniform mat4 MVP;\n"
 "uniform uint selectedLine;\n"
+"uniform vec3 dataClassColors[10];\n"
+
 "layout(location = 0) in vec3 pos;\n"
-"layout(location = 1) in vec3 vertexColor;\n"
+"layout(location = 1) in uint classIndex;\n"
 "layout(location = 2) in uint lineIndex;\n"
+
 "out vec3 fragmentColor;\n"
 "void main()\n"
 "{\n"
@@ -29,7 +33,7 @@ static const char* vertex_shader_text =
 "	}\n"
 "	else\n"
 "	{\n"
-"		fragmentColor = vertexColor;\n"
+"		fragmentColor = dataClassColors[classIndex];\n"
 "	}\n"
 "}\n";
 
@@ -167,6 +171,24 @@ void OpenGLRenderer::beginDraw()
 
 	GLint selectedLineID = glGetUniformLocation(m_program, "selectedLine");
 	glUniform1ui(selectedLineID, m_selectedLine);
+
+	GLint dataClassColorsID = glGetUniformLocation(m_program, "dataClassColors");
+
+	float colors[10][3] =
+	{
+		{ 1.0f, 0.0f, 0.0f },
+		{ 0.0f, 1.0f, 0.0f },
+		{ 0.0f, 0.0f, 1.0f },
+		{ 1.0f, 1.0f, 1.0f },
+		{ 1.0f, 1.0f, 1.0f },
+		{ 1.0f, 1.0f, 1.0f },
+		{ 1.0f, 1.0f, 1.0f },
+		{ 1.0f, 1.0f, 1.0f },
+		{ 1.0f, 1.0f, 1.0f },
+		{ 1.0f, 1.0f, 1.0f }
+	};
+
+	glUniform3fv(dataClassColorsID, 10, (float*)colors);
 }
 
 void OpenGLRenderer::endDraw()

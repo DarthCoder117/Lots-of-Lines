@@ -10,12 +10,12 @@ namespace LotsOfLines
 	{
 		Vertex(float x, float y)
 			:x(x), y(y), z(0.0f),
-			r(1.0f), g(0.5f), b(0.5f),
+			dataClassIndex(0),
 			lineIndex(0)
 		{}
 
 		float x, y, z;
-		float r, g, b;
+		std::uint32_t dataClassIndex;
 		std::uint32_t lineIndex;
 	};
 

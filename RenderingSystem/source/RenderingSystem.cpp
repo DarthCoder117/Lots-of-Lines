@@ -218,6 +218,28 @@ VisualizationOptions& RenderingSystem::getVisualizationOptions()
 	return m_options;
 }
 
+void RenderingSystem::setDataClassColor(unsigned int classIdx, float r, float g, float b)
+{
+	m_dataClassColors[classIdx][0] = r;
+	m_dataClassColors[classIdx][1] = g;
+	m_dataClassColors[classIdx][2] = b;
+}
+
+const float* RenderingSystem::getDataClassColor(unsigned int classIdx) const
+{
+	return m_dataClassColors[classIdx];
+}
+
+const float** RenderingSystem::getDataClassColors() const
+{
+	return (const float**)m_dataClassColors;
+}
+
+unsigned int RenderingSystem::getDataClassColorCount() const
+{
+	return sizeof(m_dataClassColors);
+}
+
 void RenderingSystem::redraw()
 {
 	//Generate vertex buffer

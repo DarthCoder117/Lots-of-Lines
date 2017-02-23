@@ -34,9 +34,7 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 			}
 
 			Vertex v(-1.0f + (float)x * interval, (float)vec[x]);
-			v.r = colors[iter.classIndex()][0];
-			v.g = colors[iter.classIndex()][1];
-			v.b = colors[iter.classIndex()][2];
+			v.dataClassIndex = iter.classIndex();
 			v.lineIndex = lineIdx;
 			verticesOut.push_back(v);
 		}

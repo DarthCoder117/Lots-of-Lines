@@ -23,9 +23,10 @@ bool CollocatedPairedCoordinatesVisualizationMethod::generateVBO(const std::shar
 		for (unsigned int x = 1; x < vec.size(); x += 2)
 		{
 			Vertex v((float)vec[x - 1], (float)vec[x]);
-			v.r = colors[iter.classIndex()][0];
-			v.g = colors[iter.classIndex()][1];
-			v.b = colors[iter.classIndex()][2];
+			//v.r = colors[iter.classIndex()][0];
+			//v.g = colors[iter.classIndex()][1];
+			//v.b = colors[iter.classIndex()][2];
+			v.dataClassIndex = iter.classIndex();
 			v.lineIndex = lineIdx;
 			verticesOut.push_back(v);
 			// If single left over vector

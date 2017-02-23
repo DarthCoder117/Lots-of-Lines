@@ -46,15 +46,14 @@ void OpenGLVertexBufferObject::draw()
 	);
 	offset += sizeof(float) * 3;
 
-	glVertexAttribPointer(
+	glVertexAttribIPointer(
 		1,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
-		3,                  // size
-		GL_FLOAT,           // type
-		GL_FALSE,           // normalized?
+		1,                  // size
+		GL_UNSIGNED_INT,           // type
 		sizeof(Vertex),                  // stride
 		(void*)offset            // array buffer offset
 	);
-	offset += sizeof(float) * 3;
+	offset += sizeof(unsigned int);
 
 	glVertexAttribIPointer(
 		2,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
