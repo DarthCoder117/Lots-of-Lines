@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include "ben-strasser/csv.h"
 
 using namespace LotsOfLines;
 
@@ -12,149 +13,63 @@ bool DataFileLoader::supportsFormat(const std::string& path)
 
 std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const LoadOptions& options) const
 {
-	// Load file
-	std::ifstream in(path, std::ios::binary);
+	io::LineReader in(path);
+	std::shared_ptr<DataSet> dataSet = std::make_shared<DataSet>();
 
-	//// Get file size (for buffer)
-	//std::streampos begin = in.tellg(), end;
-	//in.seekg(0, std::ios::end);
-	//end = in.tellg() - begin;
-	//in.seekg(0, std::ios::beg);
-	//off_t length = end - begin;
+	// Skip first line for CSV format
+	in.next_line();
+	std::istringstream is;
 
-	if (in)
-	{
-		// Init dataset and other variables
-		std::shared_ptr<DataSet> dataSet = std::make_shared<DataSet>();
-	    std::string line{ "" };
-		std::istringstream is, linestream;
+	Vector vec;
+	std::string dataClass, token;
+	double xn;
+	int column = 0, classC = 0;
+	while (char *line = in.next_line()) {
 
-		// Declare items outside of loop
-		Vector vec;
-		std::string dataClass, token;
-		double xn;
-
-		////// BUFFER ATTEMPT ////
-		//// Create buffer
-		//char *buffer = (char *)malloc(sizeof(char) * (length + 1));
-
-		//// Read in the whole file
-		//in.read(buffer, length);	
-		//// Null terminate the buffer
-		//buffer[length] = '\0';
-		//// Default class name
-		//dataClass = "default";
-
-		//// Set buffer to stream
-		//is.str(buffer);
-		//is.clear();
-
-		//int column = 0, classC = 0;
-		//while (std::getline(is, line)) {
-		//	// Check it has data
-		//	if (line.empty()) continue;
-		//	// Set line to stream
-		//	linestream.str(line);
-		//	linestream.clear();
-		//	vec.clear();
-		//	while (std::getline(linestream, token, ',')) {
-		//		//Initally remove any trailing char
-		//		if (!token.empty() && token[token.size() - 1] == '\r')
-		//			token.erase(token.size() - 1);
-		//		//Convert to class
-		//		//if (column == classC) dataClass = token;
-		//		//First try converting the token to a double and adding it to the vector
-		//		//else {
-		//			try
-		//			{
-		//				xn = std::stod(token);
-		//				vec.push_back(xn);
-		//			}
-		//			catch (std::invalid_argument e)
-		//			{
-		//				//If conversion fails then check to see if we're at the end.
-		//				if (is.peek() != ',')
-		//				{
-		//					//If so, then this token is the data class label.
-		//					dataClass = token;
-		//				}
-		//			}
-		//			catch (std::out_of_range e)
-		//			{
-		//				std::cout << e.what() << "\n";
-		//			}
-		//		//}
-		//		column++;
-		//	}
-		//	column = 0;
-		//	//Add vector data
-		//	dataSet->addVector(vec, dataClass);
-		//}
-		//free(buffer);
-		
-		// Current optimal loading
-		int column = 0, classC = 0;
-		while (in >> line) {
-			if (line.empty()) continue;
-
-			dataClass = "default";
-			vec.clear();
-
-			is.str(line);
-			is.clear();
-
-			while (std::getline(is, token, ',')) {
-				//if (column == classC) // Doesn't really work
-				//	dataClass = token;
-				//else {
-					try
-					{
-						xn = std::stod(token);
-						vec.push_back(xn);
-					}
-					catch (std::invalid_argument e)
-					{
-						if (is.peek() != ',')
-						{
-							//If so, then this token is the data class label.
-							dataClass = token;
-						}
-						else
-						{
-							//If not double, then attempt to convert to an appropriate numeric value
-							std::string months[]{ "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
-							std::string days[]{ "sun", "mon", "tue", "wed", "thur", "fri", "sat" };
-
-							//Try month or day conversion
-							ptrdiff_t month_pos = std::find(std::begin(months), std::end(months), token) - std::begin(months);
-							ptrdiff_t day_pos = std::find(std::begin(days), std::end(days), token) - std::begin(days);
-							if (month_pos < sizeof(months) / sizeof(*months))
-							{
-								vec.push_back((double)month_pos);
-							}
-							else if (day_pos < sizeof(days) / sizeof(*days))
-							{
-								vec.push_back((double)day_pos);
-							}
-						}
-					}
-					catch (std::out_of_range e)
-					{
-						std::cout << e.what() << "\n";
-					}
-				//}
-				// Increment column
-				column++;
+		dataClass = "default";
+		vec.clear();
+		is.str(line);
+		is.clear();
+		while (std::getline(is, token, ',')) {
+			try
+			{
+				xn = std::stod(token);
+				vec.push_back(xn);
 			}
-			// Reset column
-			column = 0;
+			catch (std::invalid_argument e)
+			{
+				if (is.peek() != ',')
+				{
+					//If so, then this token is the data class label.
+					dataClass = token;
+				}
+				else
+				{
+					//If not double, then attempt to convert to an appropriate numeric value
+					std::string months[]{ "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
+					std::string days[]{ "sun", "mon", "tue", "wed", "thur", "fri", "sat" };
 
-			//Add vector data
-			dataSet->addVector(vec, dataClass);
+					//Try month or day conversion
+					ptrdiff_t month_pos = std::find(std::begin(months), std::end(months), token) - std::begin(months);
+					ptrdiff_t day_pos = std::find(std::begin(days), std::end(days), token) - std::begin(days);
+					if (month_pos < sizeof(months) / sizeof(*months))
+					{
+						vec.push_back((double)month_pos);
+					}
+					else if (day_pos < sizeof(days) / sizeof(*days))
+					{
+						vec.push_back((double)day_pos);
+					}
+				}
+			}
+			catch (std::out_of_range e)
+			{
+				std::cout << e.what() << std::endl;
+			}
+			column++;
 		}
-
-		in.close();
-		return dataSet;
+		column = 0;
+		dataSet->addVector(vec, dataClass);
 	}
-	return nullptr;
+	return dataSet;
 }
