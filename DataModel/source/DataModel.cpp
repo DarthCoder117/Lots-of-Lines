@@ -33,7 +33,7 @@ std::shared_ptr<DataSet> DataModel::loadData(const std::string& path, const Load
 			std::shared_ptr<DataSet> dataSet = (*iter)->loadData(path, options);
 			if (dataSet != nullptr)
 			{
-				dataSet->normalizeData(EDNM_GLOBAL_MIN_MAX);
+				dataSet->normalizeData(options.dataNormalizationMode);
 				return dataSet;
 			}
 		}

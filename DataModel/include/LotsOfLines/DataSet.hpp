@@ -12,9 +12,9 @@ namespace LotsOfLines
 	enum E_DATA_NORMALIZATION_MODE
 	{
 		EDNM_NONE,
-		EDNM_PER_CLASS,///< Use global min and max for whole data class.
 		EDNM_PER_VARIABLE,///< Use min and max for each variable in each data class.
-		EDNM_GLOBAL_MIN_MAX///< Use global min and max for whole data set.
+		EDNM_GLOBAL_MIN_MAX,///< Use global min and max for whole data set.
+		EDNM_PER_CLASS,///< Use global min and max for whole data class.
 	};
 
 	///@brief DataSet holds the data for multiple classes of vector data

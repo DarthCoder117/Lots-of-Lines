@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QFormLayout>
 #include <QtWidgets/QGroupBox>
@@ -36,6 +37,8 @@ public:
     QFormLayout *formLayout;
     QLabel *label;
     QSpinBox *classColumnSelect;
+    QLabel *label_2;
+    QComboBox *normalizationMethodSelect;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer;
@@ -46,7 +49,7 @@ public:
     {
         if (LoadDataDialog->objectName().isEmpty())
             LoadDataDialog->setObjectName(QStringLiteral("LoadDataDialog"));
-        LoadDataDialog->resize(285, 134);
+        LoadDataDialog->resize(400, 153);
         verticalLayout = new QVBoxLayout(LoadDataDialog);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         selectedFile = new QLineEdit(LoadDataDialog);
@@ -63,12 +66,22 @@ public:
         label = new QLabel(optionsGroupBox);
         label->setObjectName(QStringLiteral("label"));
 
-        formLayout->setWidget(0, QFormLayout::LabelRole, label);
+        formLayout->setWidget(1, QFormLayout::LabelRole, label);
 
         classColumnSelect = new QSpinBox(optionsGroupBox);
         classColumnSelect->setObjectName(QStringLiteral("classColumnSelect"));
 
-        formLayout->setWidget(0, QFormLayout::FieldRole, classColumnSelect);
+        formLayout->setWidget(1, QFormLayout::FieldRole, classColumnSelect);
+
+        label_2 = new QLabel(optionsGroupBox);
+        label_2->setObjectName(QStringLiteral("label_2"));
+
+        formLayout->setWidget(0, QFormLayout::LabelRole, label_2);
+
+        normalizationMethodSelect = new QComboBox(optionsGroupBox);
+        normalizationMethodSelect->setObjectName(QStringLiteral("normalizationMethodSelect"));
+
+        formLayout->setWidget(0, QFormLayout::FieldRole, normalizationMethodSelect);
 
 
         verticalLayout->addWidget(optionsGroupBox);
@@ -112,6 +125,14 @@ public:
 #ifndef QT_NO_TOOLTIP
         classColumnSelect->setToolTip(QApplication::translate("LoadDataDialog", "The column index that will be used as the data class.", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
+        label_2->setText(QApplication::translate("LoadDataDialog", "Normalization Method", Q_NULLPTR));
+        normalizationMethodSelect->clear();
+        normalizationMethodSelect->insertItems(0, QStringList()
+         << QApplication::translate("LoadDataDialog", "no normalization", Q_NULLPTR)
+         << QApplication::translate("LoadDataDialog", "per variable", Q_NULLPTR)
+         << QApplication::translate("LoadDataDialog", "global min/max", Q_NULLPTR)
+         << QApplication::translate("LoadDataDialog", "per class", Q_NULLPTR)
+        );
         cancelButton->setText(QApplication::translate("LoadDataDialog", "Cancel", Q_NULLPTR));
         okButton->setText(QApplication::translate("LoadDataDialog", "OK", Q_NULLPTR));
     } // retranslateUi

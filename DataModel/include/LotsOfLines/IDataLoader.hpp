@@ -9,11 +9,14 @@ namespace LotsOfLines
 	struct LoadOptions
 	{
 		LoadOptions()
-			:classColumn(0)
+			:dataNormalizationMode(EDNM_NONE),
+			classColumn(0)
 		{}
 
 		static const LoadOptions default;
 
+		///@brief Mode of normalization to use after loading.
+		E_DATA_NORMALIZATION_MODE dataNormalizationMode;
 		///@brief Column to use as data class label
 		unsigned int classColumn;
 		///@brief Array of columns to ignore when loading the data.
