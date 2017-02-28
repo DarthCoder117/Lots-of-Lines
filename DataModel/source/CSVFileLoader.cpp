@@ -20,6 +20,7 @@ std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path, const 
 
 		// Skip first line for CSV format
 		std::string line{ "" };
+		std::getline(in, line);
 		std::istringstream is;
 
 		Vector vec;
