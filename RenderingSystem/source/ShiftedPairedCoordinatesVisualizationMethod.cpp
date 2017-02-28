@@ -31,7 +31,7 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 		distance = firstVec[2] ? abs(firstVec[0] - firstVec[2]) : 0;
 		double shift = 0.0;
 		// Assign values to shift vector
-		for (int i = 0; i < firstVec.size(); i++)
+		for (unsigned int i = 0; i < firstVec.size(); i++)
 		{
 			shiftVec.push_back(shift);
 			if (i % 2 == 1) shift += distance;
@@ -40,7 +40,7 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 	else if (horizontal)
 	{
 		// Merely using first vec here for ease of test
-		for (int i = 0; i < firstVec.size(); i++)
+		for (unsigned int i = 0; i < firstVec.size(); i++)
 		{
 			if (i % 2 == 1 && i > 2) shiftVec.push_back(firstVec[1] - firstVec[i]);
 			else shiftVec.push_back(0);
@@ -49,7 +49,7 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 	else if (collapsed)
 	{
 		// Using first vec again
-		for (int i = 0; i < firstVec.size(); i++)
+		for (unsigned int i = 0; i < firstVec.size(); i++)
 		{
 			if (i % 2 == 0 && i > 1) shiftVec.push_back(firstVec[0] - firstVec[i]);
 			else if (i % 2 == 1 && i > 2) shiftVec.push_back(firstVec[1] - firstVec[i]);
@@ -60,7 +60,7 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 	{
 		double shift = 0.0;
 		// Assign distance to shift vector
-		for (int i = 0; i < firstVec.size(); i++)
+		for (unsigned int i = 0; i < firstVec.size(); i++)
 		{
 			shiftVec.push_back(shift);
 			if (i % 2 == 1) shift += distance;

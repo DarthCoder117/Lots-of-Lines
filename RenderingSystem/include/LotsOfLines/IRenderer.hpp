@@ -45,6 +45,9 @@ namespace LotsOfLines
 		///@brief Flips buffers to screen.
 		virtual void endDraw() = 0;
 
+		///@brief Set the 10x3 array of floats for colors to use when rendering the data class.
+		virtual void setClassColors(float* colors) = 0;
+
 		///@brief Set the viewport
 		virtual void setViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height) = 0;
 

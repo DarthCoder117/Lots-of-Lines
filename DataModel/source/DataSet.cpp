@@ -82,22 +82,106 @@ const Vector& DataSet::getMinValues(const std::string& vectorClass) const
 	return iter != m_minValues.end() ? iter->second : EMPTY_VECTOR;
 }
 
-void DataSet::normalizeData()
+void DataSet::normalizeData(E_DATA_NORMALIZATION_MODE mode)
 {
-	for (auto dataClass : m_dataClasses)
+	if (mode == EDNM_PER_VARIABLE)
 	{
-		const Vector& maxVals = getMaxValues(dataClass);
-		const Vector& minVals = getMinValues(dataClass);
-
-		VectorClass& vectors = m_vectorData[dataClass];
-		for (auto vector : vectors)
+		for (auto dataClass : m_dataClasses)
 		{
-			for (unsigned int i = 0; i < vector.size(); ++i)
+			//Use maximum values for each class and seperately for each variable
+			const Vector& maxVals = getMaxValues(dataClass);
+			const Vector& minVals = getMinValues(dataClass);
+
+			VectorClass& vectors = m_vectorData[dataClass];
+			for (Vector& vector : vectors)
 			{
-				const double max = maxVals[i];
-				const double min = minVals[i];
-				const double x = vector[i];
-				vector[i] = (2.0 * ((x - min) / (max - min))) - 1.0;
+				for (unsigned int i = 0; i < vector.size(); ++i)
+				{
+					const double max = maxVals[i];
+					const double min = minVals[i];
+					const double x = vector[i];
+					vector[i] = (2.0 * ((x - min) / (max - min))) - 1.0;
+				}
+			}
+		}
+	}
+	else if (mode == EDNM_PER_CLASS)
+	{
+		//Collect min/max for each class
+		for (auto dataClass : m_dataClasses)
+		{
+			const Vector& maxVals = getMaxValues(dataClass);
+			const Vector& minVals = getMinValues(dataClass);
+
+			double classMax = 0.0;
+			double classMin = 0.0;
+
+			for (auto val : maxVals)
+			{
+				if (classMax < val)
+				{
+					classMax = val;
+				}
+			}
+
+			for (auto val : minVals)
+			{
+				if (classMin > val)
+				{
+					classMin = val;
+				}
+			}
+
+			VectorClass& vectors = m_vectorData[dataClass];
+			for (Vector& vector : vectors)
+			{
+				for (unsigned int i = 0; i < vector.size(); ++i)
+				{
+					const double max = classMax;
+					const double min = classMin;
+					const double x = vector[i];
+					vector[i] = (2.0 * ((x - min) / (max - min))) - 1.0;
+				}
+			}
+		}
+	}
+	else if (mode == EDNM_GLOBAL_MIN_MAX)
+	{
+		//Collect min/max for each class
+		double globalMax = 0.0;
+		double globalMin = 0.0;
+		for (auto dataClass : m_dataClasses)
+		{
+			const Vector& maxVals = getMaxValues(dataClass);
+			for (auto val : maxVals)
+			{
+				if (globalMax < val)
+				{
+					globalMax = val;
+				}
+			}
+			const Vector& minVals = getMinValues(dataClass);
+			for (auto val : minVals)
+			{
+				if (globalMin > val)
+				{
+					globalMin = val;
+				}
+			}
+		}
+
+		for (auto dataClass : m_dataClasses)
+		{
+			VectorClass& vectors = m_vectorData[dataClass];
+			for (Vector& vector : vectors)
+			{
+				for (unsigned int i = 0; i < vector.size(); ++i)
+				{
+					const double max = globalMax;
+					const double min = globalMin;
+					const double x = vector[i];
+					vector[i] = (2.0 * ((x - min) / (max - min))) - 1.0;
+				}
 			}
 		}
 	}

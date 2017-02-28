@@ -9,6 +9,14 @@ namespace LotsOfLines
 	typedef std::vector<double> Vector;
 	typedef std::vector<Vector> VectorClass;
 
+	enum E_DATA_NORMALIZATION_MODE
+	{
+		EDNM_NONE,
+		EDNM_PER_CLASS,///< Use global min and max for whole data class.
+		EDNM_PER_VARIABLE,///< Use min and max for each variable in each data class.
+		EDNM_GLOBAL_MIN_MAX///< Use global min and max for whole data set.
+	};
+
 	///@brief DataSet holds the data for multiple classes of vector data
 	class DataSet
 	{
@@ -73,7 +81,7 @@ namespace LotsOfLines
 
 		///@brief Normalize the vector data to the -1.0 to 1.0 range.
 		///This should only be called once all vectors have been loaded to the dataset.
-		void normalizeData();
+		void normalizeData(E_DATA_NORMALIZATION_MODE mode);
 
 	private:
 

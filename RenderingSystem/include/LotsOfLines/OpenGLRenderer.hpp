@@ -22,6 +22,8 @@ namespace LotsOfLines
 
 		void endDraw();
 
+		void setClassColors(float* colors);
+
 		void setViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
 
 		void setViewTransform(float camX, float camY, float zoomX, float zoomY);
@@ -33,6 +35,8 @@ namespace LotsOfLines
 		std::shared_ptr<IVertexBufferObject> createVBO(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
 
 	private:
+
+		float* m_dataClassColors;///< 10x3 array of floats
 
 		void initShaders();
 

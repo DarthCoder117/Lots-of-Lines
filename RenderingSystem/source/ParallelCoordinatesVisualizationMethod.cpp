@@ -21,13 +21,13 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 		for (unsigned int x = 0; x < vec.size(); ++x)
 		{
 			//Scale to 2 screen units if fit to screen is enabled, otherwise just use the requested spacing
-			float interval = 2.0f / ((float)vectorSize - 1);
+			double interval = 2.0 / ((double)vectorSize - 1);
 			if (!fitToScreenHorizontal)
 			{
 				interval = std::fmax(interval, axisSpacing);
 			}
 
-			Vertex v(-1.0f + (float)x * interval, (float)vec[x]);
+			Vertex v(-1.0f + (float)(x * interval), (float)vec[x]);
 			v.dataClassIndex = iter.classIndex();
 			v.lineIndex = lineIdx;
 			verticesOut.push_back(v);

@@ -173,27 +173,21 @@ void OpenGLRenderer::beginDraw()
 	glUniform1ui(selectedLineID, m_selectedLine);
 
 	GLint dataClassColorsID = glGetUniformLocation(m_program, "dataClassColors");
-
-	float colors[10][3] =
+	
+	if (m_dataClassColors)
 	{
-		{ 1.0f, 0.0f, 0.0f },
-		{ 0.0f, 1.0f, 0.0f },
-		{ 0.0f, 0.0f, 1.0f },
-		{ 1.0f, 1.0f, 1.0f },
-		{ 1.0f, 1.0f, 1.0f },
-		{ 1.0f, 1.0f, 1.0f },
-		{ 1.0f, 1.0f, 1.0f },
-		{ 1.0f, 1.0f, 1.0f },
-		{ 1.0f, 1.0f, 1.0f },
-		{ 1.0f, 1.0f, 1.0f }
-	};
-
-	glUniform3fv(dataClassColorsID, 10, (float*)colors);
+		glUniform3fv(dataClassColorsID, 10, (float*)m_dataClassColors);
+	}
 }
 
 void OpenGLRenderer::endDraw()
 {
 	
+}
+
+void OpenGLRenderer::setClassColors(float* colors)
+{
+	m_dataClassColors = colors;
 }
 
 void OpenGLRenderer::setViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height)

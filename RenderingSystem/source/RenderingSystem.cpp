@@ -23,7 +23,11 @@ RenderingSystem::RenderingSystem(IRenderer* driver)
 
 bool RenderingSystem::init()
 {
-	return m_driver->init();
+	if (!m_driver->init()) return false;
+
+	m_driver->setClassColors((float*)m_dataClassColors);
+
+	return true;
 }
 
 void RenderingSystem::registerVisualizationMethod(E_VISUALIZATION_TYPE type, std::shared_ptr<IVisualizationMethod> visMethod)
@@ -84,8 +88,8 @@ void RenderingSystem::onMouseScroll(int delta)
 	std::shared_ptr<IVisualizationMethod> method = getCurrentVisualizationMethod();
 	if (method) method->getNavigationOptions(options);
 
-	m_zoomX = std::fmax(0, !options.lockZoomX ? m_zoomX + delta * 0.01f : m_zoomX);
-	m_zoomY = std::fmax(0, !options.lockZoomY ? m_zoomY + delta * 0.01f : m_zoomY);
+	m_zoomX = std::fmax(0.0f, !options.lockZoomX ? m_zoomX + delta * 0.01f : m_zoomX);
+	m_zoomY = std::fmax(0.0f, !options.lockZoomY ? m_zoomY + delta * 0.01f : m_zoomY);
 }
 
 void RenderingSystem::onResize(unsigned int width, unsigned int height)
@@ -223,6 +227,8 @@ void RenderingSystem::setDataClassColor(unsigned int classIdx, float r, float g,
 	m_dataClassColors[classIdx][0] = r;
 	m_dataClassColors[classIdx][1] = g;
 	m_dataClassColors[classIdx][2] = b;
+
+	m_driver->setClassColors((float*)m_dataClassColors);
 }
 
 const float* RenderingSystem::getDataClassColor(unsigned int classIdx) const
