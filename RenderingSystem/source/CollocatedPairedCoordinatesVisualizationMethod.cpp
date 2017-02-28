@@ -45,6 +45,7 @@ bool CollocatedPairedCoordinatesVisualizationMethod::generateVBO(const std::shar
 			}
 		}
 	}
+	
 
 	return true;
 }
