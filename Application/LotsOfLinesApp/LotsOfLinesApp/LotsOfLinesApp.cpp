@@ -4,6 +4,8 @@
 #include <QMessageBox>
 #include <QTableView>
 #include <QtConcurrent/qtconcurrentrun.h>
+#include <QtWidgets/qprogressdialog.h>
+#include <qfuturewatcher.h>
 #include <qfuture.h>
 #include "LoadDataDialog.h"
 #include "PreferencesDialog.h"
@@ -62,15 +64,21 @@ LotsOfLinesApp::LotsOfLinesApp(QWidget *parent)
 
 void LotsOfLinesApp::loadFile(const QString& filename, const LotsOfLines::LoadOptions& options)
 {
+	QProgressDialog dialog;
+	dialog.setLabelText("Please wait while loading file...");
+	dialog.setMaximum(0); // Marquee style
+	QFutureWatcher<std::shared_ptr<LotsOfLines::DataSet>> future;
+	QObject::connect(&future, SIGNAL(finished()), &dialog, SLOT(reset()));
+	QObject::connect(&dialog, SIGNAL(canceled()), &future, SLOT(cancel()));
 	//Load data set through DataModel module with QtConcurrent
-	QFuture<std::shared_ptr<LotsOfLines::DataSet>> dataSet = QtConcurrent::run(this->m_dataModel, &LotsOfLines::DataModel::loadData, filename.toStdString(), options);
-	//This will keep GUI active but does slow load down. Needs work
-	while (!dataSet.isFinished()) {
+	future.setFuture(QtConcurrent::run(this->m_dataModel, &LotsOfLines::DataModel::loadData, filename.toStdString(), options));
+	dialog.exec();
+	while (!future.future().isFinished()) {
 		QCoreApplication::processEvents();
-		//Potentially get progress here
+		if (future.future().isCanceled()) return;
 	}
 	//Set dataset to QtConcurrent run result
-	m_dataSet = dataSet.result();
+	m_dataSet = future.future().result();
 
 	if (m_dataSet == nullptr)
 	{
