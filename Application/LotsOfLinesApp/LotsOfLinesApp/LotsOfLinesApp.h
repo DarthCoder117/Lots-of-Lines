@@ -1,7 +1,9 @@
 #pragma once
 
 #include <QMainWindow>
+#include <QtWidgets/qprogressdialog.h>
 #include <LotsOfLines/DataModel.hpp>
+#include <LotsOfLines/DataSet.hpp>
 #include "VisualizationRendererWidget.h"
 #include "OptionEditorWidget.h"
 #include "ui_LotsOfLinesApp.h"
@@ -19,10 +21,14 @@ public:
 
 public slots:
 
+	void addNewDataset(std::shared_ptr<LotsOfLines::DataSet>);
 	void onLoadFile();
 	void onOpenPreferences();
 	void onVisualizationChecked(int state);
 	void onVisualizationOptionsChanged(const std::string& name);
+
+signals:
+	void requestDatasetUpdate(const QString& filename, const LotsOfLines::LoadOptions& options = LotsOfLines::LoadOptions::default);
 
 protected:
 
@@ -35,8 +41,6 @@ protected:
     Ui::LotsOfLinesAppClass ui;
 
 	std::shared_ptr<LotsOfLines::DataSet> m_dataSet;
-
-	LotsOfLines::DataModel m_dataModel;
 
 	std::map<LotsOfLines::E_VISUALIZATION_TYPE, VisualizationRendererWidget*> m_rendererWidgets;
 	std::map<LotsOfLines::E_VISUALIZATION_TYPE, OptionEditorWidget*> m_optionEditorWidgets;

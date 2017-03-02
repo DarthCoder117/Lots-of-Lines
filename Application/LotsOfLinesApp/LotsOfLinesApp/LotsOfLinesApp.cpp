@@ -2,14 +2,12 @@
 #include <QFileDialog>
 #include <QCheckBox>
 #include <QMessageBox>
+#include <QMetaType>
 #include <QTableView>
-#include <QtConcurrent/qtconcurrentrun.h>
-#include <QtWidgets/qprogressdialog.h>
-#include <qfuturewatcher.h>
-#include <qfuture.h>
 #include "LoadDataDialog.h"
 #include "PreferencesDialog.h"
 #include "DataTableModel.h"
+#include "LoadingWorker.h"
 #include <LotsOfLines/RenderingSystem.hpp>
 #include <LotsOfLines/IVisualizationMethod.hpp>
 
@@ -57,6 +55,10 @@ LotsOfLinesApp::LotsOfLinesApp(QWidget *parent)
 	ui.menuView->addAction(ui.sidebarDockWidget->toggleViewAction());
 	ui.menuView->addAction(ui.dataTableDock->toggleViewAction());
 
+	// Register data types with meta system
+	qRegisterMetaType<LotsOfLines::LoadOptions>("LotsOfLines::LoadOptions");
+	qRegisterMetaType<std::shared_ptr<LotsOfLines::DataSet>>("std::shared_ptr<LotsOfLines::DataSet>");
+
 	//Connect signals and slots
 	connect(ui.actionLoad, SIGNAL(triggered()), this, SLOT(onLoadFile()));
 	connect(ui.actionPreferences, SIGNAL(triggered()), this, SLOT(onOpenPreferences()));
@@ -64,36 +66,32 @@ LotsOfLinesApp::LotsOfLinesApp(QWidget *parent)
 
 void LotsOfLinesApp::loadFile(const QString& filename, const LotsOfLines::LoadOptions& options)
 {
-	QProgressDialog dialog;
-	dialog.setLabelText("Please wait while loading file...");
-	dialog.setMaximum(0); // Marquee style
-	QFutureWatcher<std::shared_ptr<LotsOfLines::DataSet>> future;
-	QObject::connect(&future, SIGNAL(finished()), &dialog, SLOT(reset()));
-	QObject::connect(&dialog, SIGNAL(canceled()), &future, SLOT(cancel()));
-	//Load data set through DataModel module with QtConcurrent
-	future.setFuture(QtConcurrent::run(this->m_dataModel, &LotsOfLines::DataModel::loadData, filename.toStdString(), options));
-	dialog.exec();
-	while (!future.future().isFinished()) {
-		QCoreApplication::processEvents();
-		if (future.future().isCanceled()) return;
-	}
-	//Set dataset to QtConcurrent run result
-	m_dataSet = future.future().result();
-
-	if (m_dataSet == nullptr)
+	// Initialize progress dialog
+	QProgressDialog progressDialog(this);
+	progressDialog.setLabelText("Please wait while loading the data file. This may take awhile depending on the size.");
+	progressDialog.setMaximum(0);
+	// Initialize thread and loader
+	QThread *loadingThread = new QThread();
+	LoadingWorker *loader = new LoadingWorker();
+	loader->moveToThread(loadingThread);
+	// Connect signals and slots
+	connect(this, SIGNAL(requestDatasetUpdate(const QString&, const LotsOfLines::LoadOptions&)),
+		loader, SLOT(updateDataset(const QString&, const LotsOfLines::LoadOptions&)));
+	connect(loader, SIGNAL(datasetUpdated(std::shared_ptr<LotsOfLines::DataSet>)),
+		this, SLOT(addNewDataset(std::shared_ptr<LotsOfLines::DataSet>)));
+	connect(loader, SIGNAL(datasetUpdated(std::shared_ptr<LotsOfLines::DataSet>)), loadingThread, SLOT(quit()));
+	connect(loadingThread, SIGNAL(finished()), &progressDialog, SLOT(reset()));
+	connect(&progressDialog, SIGNAL(canceled()), loadingThread, SLOT(terminate()));
+	// Start thread and emit request
+	loadingThread->start();
+	emit requestDatasetUpdate(filename, options);
+	// Display dialog
+	progressDialog.exec();
+	// If load canceled, make sure to set nullptr dataset
+	if (progressDialog.wasCanceled())
 	{
-		QMessageBox::warning(this, "Failed to load", "There was an error loading the data file.");
+		addNewDataset(nullptr);
 	}
-
-	//Pass data along to rendering system
-	for (auto rendererWidget : m_rendererWidgets)
-	{
-		auto renderingSystem = rendererWidget.second->getRenderingSystem();
-		renderingSystem->setDataSet(m_dataSet);
-		renderingSystem->redraw();
-	}
-
-	reloadDataTable();
 }
 
 void LotsOfLinesApp::reloadDataTable()
@@ -116,6 +114,25 @@ void LotsOfLinesApp::reloadDataTable()
 
 		ui.dataClassTabs->addTab(dataTable, QString::fromStdString(dataClass));
 	}
+}
+
+void LotsOfLinesApp::addNewDataset(std::shared_ptr<LotsOfLines::DataSet> dataSet)
+{
+	m_dataSet = dataSet;
+	if (m_dataSet == nullptr)
+	{
+		QMessageBox::warning(this, "Failed to load", "There was an error loading the data file.");
+	}
+
+	//Pass data along to rendering system
+	for (auto rendererWidget : m_rendererWidgets)
+	{
+		auto renderingSystem = rendererWidget.second->getRenderingSystem();
+		renderingSystem->setDataSet(m_dataSet);
+		renderingSystem->redraw();
+	}
+
+	reloadDataTable();
 }
 
 void LotsOfLinesApp::onLoadFile()
