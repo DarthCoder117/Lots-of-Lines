@@ -14,7 +14,7 @@ int DataTableModel::rowCount(const QModelIndex& parent) const
 
 int DataTableModel::columnCount(const QModelIndex& parent) const
 {
-	return 4;
+	return m_dataSet->getVectors(m_dataClass).at(0).size();
 }
 
 QVariant DataTableModel::data(const QModelIndex& index, int role) const

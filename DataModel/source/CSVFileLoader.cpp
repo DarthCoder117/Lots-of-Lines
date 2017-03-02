@@ -33,7 +33,7 @@ std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path, const 
 		Vector vec;
 		std::string dataClass, token;
 		double xn;
-		int column = 0, classC = 0, currentLine = 0;
+		int column = 0, classC = -1, currentLine = 0;
 		while (in >> line) {
 			currentLine++;
 			// Update progress
@@ -50,6 +50,10 @@ std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path, const 
 			is.clear();
 
 			while (std::getline(is, token, ',')) {
+				if (column++ == classC) {
+					dataClass = token;
+					continue;
+				}
 				try
 				{
 					xn = std::stod(token);
@@ -57,16 +61,14 @@ std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path, const 
 				}
 				catch (std::invalid_argument e)
 				{
-					if (is.peek() != ',')
-					{
-						//If so, then this token is the data class label.
-						dataClass = token;
-					}
+					// Empty column. Need to deal with this.
+					if (token.empty())
+						vec.push_back(0.0);
 					else
 					{
 						//If not double, then attempt to convert to an appropriate numeric value
 						std::string months[]{ "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
-						std::string days[]{ "sun", "mon", "tue", "wed", "thur", "fri", "sat" };
+						std::string days[]{ "sun", "mon", "tue", "wed", "thu", "fri", "sat" };
 
 						//Try month or day conversion
 						ptrdiff_t month_pos = std::find(std::begin(months), std::end(months), token) - std::begin(months);
@@ -85,7 +87,6 @@ std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path, const 
 				{
 					std::cout << e.what() << std::endl;
 				}
-				column++;
 			}
 			column = 0;
 			dataSet->addVector(vec, dataClass);

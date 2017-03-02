@@ -136,7 +136,7 @@ void LotsOfLinesApp::addNewDataset(std::shared_ptr<LotsOfLines::DataSet> dataSet
 		renderingSystem->setDataSet(m_dataSet);
 		renderingSystem->redraw();
 	}
-
+	// Freezes with lots of classes
 	reloadDataTable();
 }
 
