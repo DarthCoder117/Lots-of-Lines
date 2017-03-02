@@ -37,25 +37,6 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 			if (i % 2 == 1) shift += distance;
 		}
 	}
-	else if (horizontal)
-	{
-		// Merely using first vec here for ease of test
-		for (unsigned int i = 0; i < firstVec.size(); i++)
-		{
-			if (i % 2 == 1 && i > 2) shiftVec.push_back(firstVec[1] - firstVec[i]);
-			else shiftVec.push_back(0);
-		}
-	}
-	else if (collapsed)
-	{
-		// Using first vec again
-		for (unsigned int i = 0; i < firstVec.size(); i++)
-		{
-			if (i % 2 == 0 && i > 1) shiftVec.push_back(firstVec[0] - firstVec[i]);
-			else if (i % 2 == 1 && i > 2) shiftVec.push_back(firstVec[1] - firstVec[i]);
-			else shiftVec.push_back(0);
-		}
-	}
 	else // Custom step
 	{
 		double shift = 0.0;
@@ -66,6 +47,26 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 			if (i % 2 == 1) shift += distance;
 		}
 	}
+	if (horizontal)
+	{
+		// Merely using first vec here for ease of test
+		for (unsigned int i = 0; i < firstVec.size(); i++)
+		{
+			if (i % 2 == 1 && i > 2) shiftVec[i] += (firstVec[1] - firstVec[i]);
+			// else add 0
+		}
+	}
+	else if (collapsed)
+	{
+		// Using first vec again
+		for (unsigned int i = 0; i < firstVec.size(); i++)
+		{
+			if (i % 2 == 0 && i > 1) shiftVec[i] += (firstVec[0] - firstVec[i]);
+			else if (i % 2 == 1 && i > 2) shiftVec[i] += (firstVec[1] - firstVec[i]);
+			// else add 0
+		}
+	}
+	
 
 	// Iterate through dataset
 	for (auto iter = dataSet->iterator(); iter.hasNext(); iter++)
