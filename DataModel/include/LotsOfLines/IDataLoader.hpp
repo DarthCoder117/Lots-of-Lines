@@ -3,6 +3,7 @@
 #include "LotsOfLines/DataSet.hpp"
 #include <string>
 #include <memory>
+#include "ProgressMessage.hpp"
 
 namespace LotsOfLines
 {
@@ -36,7 +37,7 @@ namespace LotsOfLines
 		///@brief Load vector data from a source specified by the path and output it as an array of vectors.
 		///@param path The path (file path, URI, etc.) where the data should be loaded from. 
 		///@return The DataSet or nullptr if an error occurred.
-		virtual std::shared_ptr<DataSet> loadData(const std::string& path, const LoadOptions& options) const = 0;
+		virtual std::shared_ptr<DataSet> loadData(const std::string& path, const LoadOptions& options, ProgressMessage* progress) const = 0;
 	};
 }
 
