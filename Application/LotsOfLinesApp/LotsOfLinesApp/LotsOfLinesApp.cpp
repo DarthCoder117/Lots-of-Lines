@@ -28,6 +28,7 @@ private:
 	LotsOfLines::E_VISUALIZATION_TYPE m_visualizationType;
 };
 
+
 LotsOfLinesApp::LotsOfLinesApp(QWidget *parent)
 	:QMainWindow(parent),
 	m_dataSet(nullptr)
@@ -69,10 +70,13 @@ void LotsOfLinesApp::loadFile(const QString& filename, const LotsOfLines::LoadOp
 	// Initialize progress dialog
 	QProgressDialog progressDialog(this);
 	progressDialog.setLabelText("Please wait while loading the data file. This may take awhile depending on the size.");
-	progressDialog.setMaximum(0);
-	// Initialize thread and loader
+	progressDialog.setMaximum(100);
+	// Initialize thread
 	QThread *loadingThread = new QThread();
-	LoadingWorker *loader = new LoadingWorker();
+	// Initialize loader and progress messaging
+	ProgressMessageCallback messenger(progressDialog);
+	LotsOfLines::ProgressMessage *progress(&messenger);
+	LoadingWorker *loader = new LoadingWorker(progress);
 	loader->moveToThread(loadingThread);
 	// Connect signals and slots
 	connect(this, SIGNAL(requestDatasetUpdate(const QString&, const LotsOfLines::LoadOptions&)),

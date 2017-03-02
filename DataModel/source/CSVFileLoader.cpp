@@ -11,28 +11,44 @@ bool CSVFileLoader::supportsFormat(const std::string& path)
 	return path.find(".csv") != path.npos;
 }
 
-std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path, const LoadOptions& options) const
+std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path, const LoadOptions& options, ProgressMessage* progress) const
 {
 	std::ifstream in(path);
 	if (in)
 	{
+		// Init dataset and other variables
 		std::shared_ptr<DataSet> dataSet = std::make_shared<DataSet>();
+		std::string line{ "" };
+		std::istringstream is;
+
+		// Get line count. Necessary evil. Start at 1 just to overshoot and make sure not 0
+		int linecount = 1;
+		while (std::getline(in, line)) linecount++;
+		in.clear();
+		in.seekg(0, std::ios::beg);
 
 		// Skip first line for CSV format
-		std::string line{ "" };
 		std::getline(in, line);
-		std::istringstream is;
 
 		Vector vec;
 		std::string dataClass, token;
 		double xn;
-		int column = 0, classC = 0;
+		int column = 0, classC = 0, currentLine = 0;
 		while (in >> line) {
+			currentLine++;
+			// Update progress
+			if (progress) {
+				const int progression = (int)(currentLine / (double)linecount * 100);
+				progress->progress(progression);
+			}
 			if (line.empty()) continue;
+
 			dataClass = "default";
 			vec.clear();
+
 			is.str(line);
 			is.clear();
+
 			while (std::getline(is, token, ',')) {
 				try
 				{

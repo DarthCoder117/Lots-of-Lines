@@ -117,6 +117,9 @@
     <ClCompile Include="LoadingWorker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_LoadingWorker.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="LoadDataDialog.h">

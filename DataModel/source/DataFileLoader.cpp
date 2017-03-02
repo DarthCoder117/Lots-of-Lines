@@ -10,7 +10,7 @@ bool DataFileLoader::supportsFormat(const std::string& path)
 	return path.find(".data") != path.npos;
 }
 
-std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const LoadOptions& options) const
+std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const LoadOptions& options, ProgressMessage* progress) const
 {
 	// Load file
 	std::ifstream in(path, std::ios::binary);
@@ -28,6 +28,12 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 		std::shared_ptr<DataSet> dataSet = std::make_shared<DataSet>();
 	    std::string line{ "" };
 		std::istringstream is, linestream;
+
+		// Get line count. Necessary evil. Start at 1 just to overshoot and make sure not 0
+		int linecount = 1;
+		while (std::getline(in, line)) linecount++;
+		in.clear();
+		in.seekg(0, std::ios::beg);
 
 		// Declare items outside of loop
 		Vector vec;
@@ -93,8 +99,14 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 		//free(buffer);
 		
 		// Current optimal loading
-		int column = 0, classC = 0;
+		int column = 0, classC = 0, currentLine = 0;
 		while (in >> line) {
+			currentLine++;
+			// Update progress
+			if (progress) {
+				const int progression = (int)(currentLine / (double)linecount * 100);
+				progress->progress(progression);
+			}
 			if (line.empty()) continue;
 
 			dataClass = "default";

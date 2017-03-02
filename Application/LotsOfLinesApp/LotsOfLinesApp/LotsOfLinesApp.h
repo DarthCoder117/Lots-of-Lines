@@ -4,9 +4,27 @@
 #include <QtWidgets/qprogressdialog.h>
 #include <LotsOfLines/DataModel.hpp>
 #include <LotsOfLines/DataSet.hpp>
+#include <LotsOfLines/ProgressMessage.hpp>
 #include "VisualizationRendererWidget.h"
 #include "OptionEditorWidget.h"
 #include "ui_LotsOfLinesApp.h"
+
+class ProgressMessageCallback : public QObject, public LotsOfLines::ProgressMessage
+{
+	Q_OBJECT
+public:
+	ProgressMessageCallback(QProgressDialog &gui) : QObject(), LotsOfLines::ProgressMessage()
+	{
+		connect(this, SIGNAL(progressSignal(const int &)), &gui, SLOT(setValue(const int &)), Qt::QueuedConnection);
+	}
+	virtual void progress(int p)
+	{
+		emit progressSignal(p);
+	}
+
+signals:
+	void progressSignal(const int &p);
+};
 
 class LotsOfLinesApp : public QMainWindow
 {

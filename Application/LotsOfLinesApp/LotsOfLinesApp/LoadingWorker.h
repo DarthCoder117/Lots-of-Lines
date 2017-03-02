@@ -3,14 +3,14 @@
 #include <QtWidgets>
 #include "LotsOfLines/DataModel.hpp"
 #include "LotsOfLines/DataSet.hpp"
+#include "LotsOfLines/ProgressMessage.hpp"
 
 class LoadingWorker : public QObject
 {
 	Q_OBJECT
 
 public:
-	LoadingWorker();
-	~LoadingWorker();
+	LoadingWorker(LotsOfLines::ProgressMessage*);
 	std::shared_ptr<LotsOfLines::DataSet> loadData(const QString& path, const LotsOfLines::LoadOptions& options);
 
 public slots:
@@ -27,4 +27,5 @@ private:
 
 protected:
 	LotsOfLines::DataModel m_dataModel;
+	LotsOfLines::ProgressMessage *m_progress;
 };
