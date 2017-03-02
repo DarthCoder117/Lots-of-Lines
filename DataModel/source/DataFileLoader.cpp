@@ -99,7 +99,7 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 		//free(buffer);
 		
 		// Current optimal loading
-		int column = 0, classC = -1, currentLine = 0;
+		int column = 0, currentLine = 0;
 		while (in >> line) {
 			currentLine++;
 			// Update progress
@@ -116,7 +116,7 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 			is.clear();
 
 			while (std::getline(is, token, ',')) {
-				if (column++ == classC) {
+				if (column++ == options.classColumn) {
 					dataClass = token;
 					continue;
 				}
