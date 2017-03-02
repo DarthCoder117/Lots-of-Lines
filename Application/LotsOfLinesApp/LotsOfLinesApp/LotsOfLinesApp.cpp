@@ -28,8 +28,7 @@ private:
 	LotsOfLines::E_VISUALIZATION_TYPE m_visualizationType;
 };
 
-
-LotsOfLinesApp::LotsOfLinesApp(QWidget *parent)
+LotsOfLinesApp::LotsOfLinesApp(const QString& openFile, QWidget *parent)
 	:QMainWindow(parent),
 	m_dataSet(nullptr)
 {
@@ -63,6 +62,8 @@ LotsOfLinesApp::LotsOfLinesApp(QWidget *parent)
 	//Connect signals and slots
 	connect(ui.actionLoad, SIGNAL(triggered()), this, SLOT(onLoadFile()));
 	connect(ui.actionPreferences, SIGNAL(triggered()), this, SLOT(onOpenPreferences()));
+
+	//Open initial file
 }
 
 void LotsOfLinesApp::loadFile(const QString& filename, const LotsOfLines::LoadOptions& options)

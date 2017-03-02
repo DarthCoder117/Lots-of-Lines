@@ -32,7 +32,7 @@ class LotsOfLinesApp : public QMainWindow
 
 public:
 
-    LotsOfLinesApp(QWidget* parent = 0);
+    LotsOfLinesApp(const QString& openFile, QWidget* parent = 0);
 
 	///@brief Load a data set to be displayed.
 	void loadFile(const QString& filename, const LotsOfLines::LoadOptions& options = LotsOfLines::LoadOptions::default);
