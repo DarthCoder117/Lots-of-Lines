@@ -142,6 +142,9 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_LoadDataDialog.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_LoadingWorker.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_LotsOfLinesApp.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -176,6 +179,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="LoadDataDialog.cpp" />
+    <ClCompile Include="LoadingWorker.cpp" />
     <ClCompile Include="LotsOfLinesApp.cpp" />
     <ClCompile Include="OptionEditorWidget.cpp" />
     <ClCompile Include="PreferencesDialog.cpp" />
@@ -274,6 +278,11 @@
     <ClInclude Include="GeneratedFiles\ui_LoadDataDialog.h" />
     <ClInclude Include="GeneratedFiles\ui_LotsOfLinesApp.h" />
     <ClInclude Include="GeneratedFiles\ui_PreferencesDialog.h" />
+    <CustomBuild Include="LoadingWorker.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing LoadingWorker.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+    </CustomBuild>
     <CustomBuild Include="PreferencesDialog.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing PreferencesDialog.h...</Message>

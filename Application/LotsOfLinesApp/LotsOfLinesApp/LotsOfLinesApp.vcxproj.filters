@@ -111,6 +111,12 @@
     <ClCompile Include="PreferencesDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_LoadingWorker.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingWorker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="LoadDataDialog.h">
@@ -129,6 +135,9 @@
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="PreferencesDialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="LoadingWorker.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
