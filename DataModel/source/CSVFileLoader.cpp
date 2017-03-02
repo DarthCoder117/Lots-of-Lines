@@ -33,6 +33,8 @@ std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path, const 
 		std::string dataClass, token;
 		double xn;
 		int column = 0, currentLine = 0;
+		std::vector<unsigned int> ignoreColumns;
+		ignoreColumns.push_back(3);
 		while (in >> line) {
 			currentLine++;
 			// Update progress
@@ -49,7 +51,13 @@ std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path, const 
 			is.clear();
 
 			while (std::getline(is, token, ',')) {
-				if (column++ == options.classColumn) {
+				// Skip column if in ignoreColumn
+				if (std::find(ignoreColumns.begin(), ignoreColumns.end(), column) != ignoreColumns.end())
+				{
+					continue;
+				}
+				// Set dataclass to column if selected
+				else if (column++ == options.classColumn) {
 					dataClass = token;
 					continue;
 				}

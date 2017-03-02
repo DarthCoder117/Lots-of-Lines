@@ -100,6 +100,8 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 		
 		// Current optimal loading
 		int column = 0, currentLine = 0;
+		std::vector<unsigned int> ignoreColumns;
+		ignoreColumns.push_back(3);
 		while (in >> line) {
 			currentLine++;
 			// Update progress
@@ -116,6 +118,12 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 			is.clear();
 
 			while (std::getline(is, token, ',')) {
+				// Skip column if in ignoreColumn
+				if (std::find(ignoreColumns.begin(), ignoreColumns.end(), column) != ignoreColumns.end())
+				{
+					continue;
+				}
+				// Set dataclass to column if selected
 				if (column++ == options.classColumn) {
 					dataClass = token;
 					continue;
