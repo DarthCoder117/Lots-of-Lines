@@ -69,14 +69,10 @@ std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path, const 
 				catch (std::invalid_argument e)
 				{
 					// Empty column. Need to deal with this.
-					for (auto c = token.begin(); c != token.end(); ++c)
+					if (token.empty())
 					{
-						if (!isspace(*c)) break;
-						else if (c == token.end())
-						{
-							vec.push_back(0.0);
-							continue;
-						}
+						vec.push_back(0.0);
+						continue;
 					}
 					//If not double, then attempt to convert to an appropriate numeric value
 					std::string months[]{ "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
