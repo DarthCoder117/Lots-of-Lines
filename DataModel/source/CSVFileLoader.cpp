@@ -34,7 +34,7 @@ std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path, const 
 		double xn;
 		int column = 0, currentLine = 0;
 		std::vector<unsigned int> ignoreColumns;
-		ignoreColumns.push_back(3);
+		//ignoreColumns.push_back(3);
 		while (in >> line) {
 			currentLine++;
 			// Update progress
