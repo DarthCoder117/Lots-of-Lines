@@ -165,7 +165,7 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 			// Get column/variable count based off of first vector
 			if (currentLine == 1) columncount = column;
 			// Invalid vector size in comparison
-			else if (columncount != column) return nullptr;
+			else if (columncount != vec.size()) return nullptr;
 			// Reset column and add to dataset
 			column = 0;
 			dataSet->addVector(vec, dataClass);
