@@ -99,7 +99,7 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 		//free(buffer);
 		
 		// Current optimal loading
-		int column = 0, currentLine = 0;
+		int column = 0, columncount = 0, currentLine = 0;
 		std::vector<unsigned int> ignoreColumns;
 		//ignoreColumns.push_back(3);
 		while (in >> line) {
@@ -135,25 +135,30 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 				}
 				catch (std::invalid_argument e)
 				{
-					if (token.empty())
-						vec.push_back(0.0);
-					else
+					// Empty column. Need to deal with this.
+					for (auto c = token.begin(); c != token.end(); ++c)
 					{
-						//If not double, then attempt to convert to an appropriate numeric value
-						std::string months[]{ "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
-						std::string days[]{ "sun", "mon", "tue", "wed", "thu", "fri", "sat" };
+						if (!isspace(*c)) break;
+						else if (c == token.end())
+						{
+							vec.push_back(0.0);
+							continue;
+						}
+					}
+					//If not double, then attempt to convert to an appropriate numeric value
+					std::string months[]{ "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
+					std::string days[]{ "sun", "mon", "tue", "wed", "thu", "fri", "sat" };
 
-						//Try month or day conversion
-						ptrdiff_t month_pos = std::find(std::begin(months), std::end(months), token) - std::begin(months);
-						ptrdiff_t day_pos = std::find(std::begin(days), std::end(days), token) - std::begin(days);
-						if (month_pos < sizeof(months) / sizeof(*months))
-						{
-							vec.push_back((double)month_pos);
-						}
-						else if (day_pos < sizeof(days) / sizeof(*days))
-						{
-							vec.push_back((double)day_pos);
-						}
+					//Try month or day conversion
+					ptrdiff_t month_pos = std::find(std::begin(months), std::end(months), token) - std::begin(months);
+					ptrdiff_t day_pos = std::find(std::begin(days), std::end(days), token) - std::begin(days);
+					if (month_pos < sizeof(months) / sizeof(*months))
+					{
+						vec.push_back((double)month_pos);
+					}
+					else if (day_pos < sizeof(days) / sizeof(*days))
+					{
+						vec.push_back((double)day_pos);
 					}
 				}
 				catch (std::out_of_range e)
@@ -161,10 +166,12 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 					std::cout << e.what() << "\n";
 				}
 			}
-			// Reset column
+			// Get column/variable count based off of first vector
+			if (currentLine == 1) columncount = column;
+			// Invalid vector size in comparison
+			else if (columncount != column) return nullptr;
+			// Reset column and add to dataset
 			column = 0;
-
-			//Add vector data
 			dataSet->addVector(vec, dataClass);
 		}
 		in.close();
