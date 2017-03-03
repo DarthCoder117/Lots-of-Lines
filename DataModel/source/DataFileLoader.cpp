@@ -29,9 +29,10 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 	    std::string line{ "" };
 		std::istringstream is, linestream;
 
-		// Get line count. Necessary evil. Start at 1 just to overshoot and make sure not 0
-		int linecount = 1;
-		while (std::getline(in, line)) linecount++;
+		// Get start pos and end byte pos for progress indication
+		std::streampos start = in.tellg(), current = in.tellg();
+		in.seekg(0, std::ios::end);
+		std::streampos end = in.tellg();
 		in.clear();
 		in.seekg(0, std::ios::beg);
 
@@ -39,75 +40,19 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 		Vector vec;
 		std::string dataClass, token;
 		double xn;
-
-		////// BUFFER ATTEMPT ////
-		//// Create buffer
-		//char *buffer = (char *)malloc(sizeof(char) * (length + 1));
-
-		//// Read in the whole file
-		//in.read(buffer, length);	
-		//// Null terminate the buffer
-		//buffer[length] = '\0';
-		//// Default class name
-		//dataClass = "default";
-
-		//// Set buffer to stream
-		//is.str(buffer);
-		//is.clear();
-
-		//int column = 0, classC = 0;
-		//while (std::getline(is, line)) {
-		//	// Check it has data
-		//	if (line.empty()) continue;
-		//	// Set line to stream
-		//	linestream.str(line);
-		//	linestream.clear();
-		//	vec.clear();
-		//	while (std::getline(linestream, token, ',')) {
-		//		//Initally remove any trailing char
-		//		if (!token.empty() && token[token.size() - 1] == '\r')
-		//			token.erase(token.size() - 1);
-		//		//Convert to class
-		//		//if (column == classC) dataClass = token;
-		//		//First try converting the token to a double and adding it to the vector
-		//		//else {
-		//			try
-		//			{
-		//				xn = std::stod(token);
-		//				vec.push_back(xn);
-		//			}
-		//			catch (std::invalid_argument e)
-		//			{
-		//				//If conversion fails then check to see if we're at the end.
-		//				if (is.peek() != ',')
-		//				{
-		//					//If so, then this token is the data class label.
-		//					dataClass = token;
-		//				}
-		//			}
-		//			catch (std::out_of_range e)
-		//			{
-		//				std::cout << e.what() << "\n";
-		//			}
-		//		//}
-		//		column++;
-		//	}
-		//	column = 0;
-		//	//Add vector data
-		//	dataSet->addVector(vec, dataClass);
-		//}
-		//free(buffer);
-		
-		// Current optimal loading
 		int column = 0, columncount = 0, currentLine = 0;
+		// For numeric conversion
+		std::string months[]{ "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
+		std::string days[]{ "sun", "mon", "tue", "wed", "thu", "fri", "sat" };
+		ptrdiff_t month_pos, day_pos;
 		std::vector<unsigned int> ignoreColumns;
 		//ignoreColumns.push_back(3);
 		while (in >> line) {
 			currentLine++;
 			// Update progress
 			if (progress) {
-				const int progression = (int)(currentLine / (double)linecount * 100);
-				progress->progress(progression);
+				current = in.tellg();
+				progress->progress((current - start) / (double)(end - start) * 100);
 			}
 			if (line.empty()) continue;
 
@@ -141,13 +86,9 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 						vec.push_back(0.0);
 						continue;
 					}
-					//If not double, then attempt to convert to an appropriate numeric value
-					std::string months[]{ "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
-					std::string days[]{ "sun", "mon", "tue", "wed", "thu", "fri", "sat" };
-
 					//Try month or day conversion
-					ptrdiff_t month_pos = std::find(std::begin(months), std::end(months), token) - std::begin(months);
-					ptrdiff_t day_pos = std::find(std::begin(days), std::end(days), token) - std::begin(days);
+					month_pos = std::find(std::begin(months), std::end(months), token) - std::begin(months);
+					day_pos = std::find(std::begin(days), std::end(days), token) - std::begin(days);
 					if (month_pos < sizeof(months) / sizeof(*months))
 					{
 						vec.push_back((double)month_pos);
@@ -163,7 +104,7 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 				}
 			}
 			// Get column/variable count based off of first vector
-			if (currentLine == 1) columncount = column;
+			if (currentLine == 1) columncount = vec.size();
 			// Invalid vector size in comparison
 			else if (columncount != vec.size()) return nullptr;
 			// Reset column and add to dataset
