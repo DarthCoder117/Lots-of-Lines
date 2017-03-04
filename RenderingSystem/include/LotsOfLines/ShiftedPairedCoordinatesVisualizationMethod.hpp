@@ -13,9 +13,7 @@ namespace LotsOfLines
 		const char* STEP = "Distance of step";
 		const char* AUTO_STEP = "Auto step distance calculation";
 		const char* HORIZONTAL = "Shift around horizontal line";
-		const char* NON_INTERSECTING = "Remove intersections";
 		const char* COLLAPSED = "Collapse line to point";
-		const char* INCREASING = "Increasing lines";
 
 		void getNavigationOptions(NavigationOptions& optionsOut) 
 		{
@@ -24,12 +22,10 @@ namespace LotsOfLines
 
 		void getDefaultOptions(VisualizationOptions& options)
 		{
-			options.setDouble(STEP, 1.0);
+			options.setDouble(STEP, 0.0);
 			options.setBool(AUTO_STEP, true);
 			options.setBool(HORIZONTAL, false);
-			options.setBool(NON_INTERSECTING, false);
 			options.setBool(COLLAPSED, false);
-			options.setBool(INCREASING, false);
 		}
 
 		bool generateVBO(const std::shared_ptr<const DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, const VisualizationOptions& options);
