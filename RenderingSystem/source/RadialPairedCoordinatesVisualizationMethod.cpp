@@ -45,14 +45,14 @@ bool RadialPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_p
 		{
 			if (drawSequentially)
 			{
-				if ((i + (baseIndex * vectorSize)) % (vectorSize / 2) != 0) {
+				if ((i + (baseIndex * vectorSize)) % ((int)round(vectorSize / 2.0)) != 0) {
 					indicesOut.push_back(i + (baseIndex * vectorSize) - 1);
 					indicesOut.push_back(i + (baseIndex * vectorSize));
 				}				
 			} 
 			else
 			{
-				if ((i + (baseIndex * vectorSize)) % (vectorSize / 2) == 0) {
+				if ((i + (baseIndex * vectorSize)) % ((int)round(vectorSize / 2.0)) == 0) {
 					j += vectorSize / 2;
 				}
 				indicesOut.push_back(j + (baseIndex * vectorSize));

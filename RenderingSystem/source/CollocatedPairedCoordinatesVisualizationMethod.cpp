@@ -38,7 +38,7 @@ bool CollocatedPairedCoordinatesVisualizationMethod::generateVBO(const std::shar
 	{
 		for (unsigned int i = 1; i < vectorSize; ++i)
 		{
-			if ((i + (baseIndex * vectorSize)) % (vectorSize / 2) != 0) {
+			if ((i + (baseIndex * vectorSize)) % ((int)round(vectorSize / 2.0)) != 0) {
 				indicesOut.push_back(i + (baseIndex * vectorSize) - 1);
 				indicesOut.push_back(i + (baseIndex * vectorSize));
 			}
