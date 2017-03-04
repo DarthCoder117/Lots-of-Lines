@@ -5,6 +5,8 @@ LoadDataDialog::LoadDataDialog(QWidget * parent, const QString& filePath)
 {
 	setupUi(this);
 	selectedFile->setText(filePath);
+
+	connect(customClassColumnCheckbox, SIGNAL(stateChanged(int)), this, SLOT(customClassChecked(int)));
 }
 
 LotsOfLines::LoadOptions LoadDataDialog::getLoadOptions()
@@ -15,4 +17,9 @@ LotsOfLines::LoadOptions LoadDataDialog::getLoadOptions()
 	options.classColumn = classColumnSelect->value();
 	
 	return options;
+}
+
+void LoadDataDialog::customClassChecked(int state)
+{
+	classColumnSelect->setEnabled(customClassColumnCheckbox->checkState() == Qt::Checked);
 }

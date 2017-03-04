@@ -11,6 +11,7 @@ namespace LotsOfLines
 	{
 		LoadOptions()
 			:dataNormalizationMode(EDNM_NONE),
+			customClassColumn(false),
 			classColumn(0)
 		{}
 
@@ -18,6 +19,8 @@ namespace LotsOfLines
 
 		///@brief Mode of normalization to use after loading.
 		E_DATA_NORMALIZATION_MODE dataNormalizationMode;
+		///@brief Whether to override the class column, or to just use the last one.
+		bool customClassColumn;
 		///@brief Column to use as data class label
 		unsigned int classColumn;
 		///@brief Array of columns to ignore when loading the data.

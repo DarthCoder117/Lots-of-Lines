@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QFormLayout>
@@ -35,10 +36,10 @@ public:
     QLineEdit *selectedFile;
     QGroupBox *optionsGroupBox;
     QFormLayout *formLayout;
-    QLabel *label;
     QSpinBox *classColumnSelect;
     QLabel *label_2;
     QComboBox *normalizationMethodSelect;
+    QCheckBox *customClassColumnCheckbox;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer;
@@ -49,7 +50,7 @@ public:
     {
         if (LoadDataDialog->objectName().isEmpty())
             LoadDataDialog->setObjectName(QStringLiteral("LoadDataDialog"));
-        LoadDataDialog->resize(400, 153);
+        LoadDataDialog->resize(465, 172);
         verticalLayout = new QVBoxLayout(LoadDataDialog);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         selectedFile = new QLineEdit(LoadDataDialog);
@@ -63,15 +64,11 @@ public:
         optionsGroupBox->setObjectName(QStringLiteral("optionsGroupBox"));
         formLayout = new QFormLayout(optionsGroupBox);
         formLayout->setObjectName(QStringLiteral("formLayout"));
-        label = new QLabel(optionsGroupBox);
-        label->setObjectName(QStringLiteral("label"));
-
-        formLayout->setWidget(1, QFormLayout::LabelRole, label);
-
         classColumnSelect = new QSpinBox(optionsGroupBox);
         classColumnSelect->setObjectName(QStringLiteral("classColumnSelect"));
+        classColumnSelect->setEnabled(false);
 
-        formLayout->setWidget(1, QFormLayout::FieldRole, classColumnSelect);
+        formLayout->setWidget(3, QFormLayout::FieldRole, classColumnSelect);
 
         label_2 = new QLabel(optionsGroupBox);
         label_2->setObjectName(QStringLiteral("label_2"));
@@ -82,6 +79,11 @@ public:
         normalizationMethodSelect->setObjectName(QStringLiteral("normalizationMethodSelect"));
 
         formLayout->setWidget(0, QFormLayout::FieldRole, normalizationMethodSelect);
+
+        customClassColumnCheckbox = new QCheckBox(optionsGroupBox);
+        customClassColumnCheckbox->setObjectName(QStringLiteral("customClassColumnCheckbox"));
+
+        formLayout->setWidget(3, QFormLayout::LabelRole, customClassColumnCheckbox);
 
 
         verticalLayout->addWidget(optionsGroupBox);
@@ -121,7 +123,6 @@ public:
     {
         LoadDataDialog->setWindowTitle(QApplication::translate("LoadDataDialog", "Load Data", Q_NULLPTR));
         optionsGroupBox->setTitle(QApplication::translate("LoadDataDialog", "Options", Q_NULLPTR));
-        label->setText(QApplication::translate("LoadDataDialog", "Class Column", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
         classColumnSelect->setToolTip(QApplication::translate("LoadDataDialog", "The column index that will be used as the data class.", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
@@ -131,8 +132,8 @@ public:
          << QApplication::translate("LoadDataDialog", "no normalization", Q_NULLPTR)
          << QApplication::translate("LoadDataDialog", "per variable", Q_NULLPTR)
          << QApplication::translate("LoadDataDialog", "global min/max", Q_NULLPTR)
-         << QApplication::translate("LoadDataDialog", "per class", Q_NULLPTR)
         );
+        customClassColumnCheckbox->setText(QApplication::translate("LoadDataDialog", "Custom class column", Q_NULLPTR));
         cancelButton->setText(QApplication::translate("LoadDataDialog", "Cancel", Q_NULLPTR));
         okButton->setText(QApplication::translate("LoadDataDialog", "OK", Q_NULLPTR));
     } // retranslateUi

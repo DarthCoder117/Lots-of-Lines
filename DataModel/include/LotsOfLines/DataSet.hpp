@@ -12,9 +12,8 @@ namespace LotsOfLines
 	enum E_DATA_NORMALIZATION_MODE
 	{
 		EDNM_NONE,
-		EDNM_PER_VARIABLE,///< Use min and max for each variable in each data class.
+		EDNM_PER_VARIABLE,///< Use min and max for each variable.
 		EDNM_GLOBAL_MIN_MAX,///< Use global min and max for whole data set.
-		EDNM_PER_CLASS,///< Use global min and max for whole data class.
 	};
 
 	///@brief DataSet holds the data for multiple classes of vector data
@@ -76,8 +75,8 @@ namespace LotsOfLines
 		///@param vec The vector data to add.
 		void addVector(const Vector& vec, const std::string& vectorClass = "default");
 
-		const Vector& getMaxValues(const std::string& vectorClass = "default") const;
-		const Vector& getMinValues(const std::string& vectorClass = "default") const;
+		const Vector& getMaxValues() const;
+		const Vector& getMinValues() const;
 
 		///@brief Normalize the vector data to the -1.0 to 1.0 range.
 		///This should only be called once all vectors have been loaded to the dataset.
@@ -90,8 +89,8 @@ namespace LotsOfLines
 		std::set<std::string> m_dataClasses;
 		std::map<std::string, VectorClass> m_vectorData;
 
-		std::map<std::string, Vector> m_maxValues;
-		std::map<std::string, Vector> m_minValues;
+		Vector m_maxValues;
+		Vector m_minValues;
 	};
 }
 

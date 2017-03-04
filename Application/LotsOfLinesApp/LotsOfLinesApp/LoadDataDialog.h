@@ -13,6 +13,10 @@ public:
 	LoadDataDialog(QWidget* parent, const QString& filePath);
 
 	LotsOfLines::LoadOptions getLoadOptions();
+
+public slots:
+
+	void customClassChecked(int state);
 };
 
 #endif

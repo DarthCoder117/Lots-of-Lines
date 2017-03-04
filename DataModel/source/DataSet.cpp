@@ -35,16 +35,16 @@ void DataSet::addVector(const Vector& vec, const std::string& vectorClass)
 {
 	if (vectorClass.empty()) return;
 
-	if (m_maxValues[vectorClass].empty())
+	if (m_maxValues.empty())
 	{
-		m_maxValues[vectorClass].resize(vec.size(), -INFINITY);
-		m_minValues[vectorClass].resize(vec.size(), INFINITY);
+		m_maxValues.resize(vec.size(), -INFINITY);
+		m_minValues.resize(vec.size(), INFINITY);
 	}
 
 	for (unsigned int i = 0; i < vec.size(); ++i)
 	{
-		if (m_maxValues[vectorClass][i] < vec[i]) m_maxValues[vectorClass][i] = vec[i];
-		if (m_minValues[vectorClass][i] > vec[i]) m_minValues[vectorClass][i] = vec[i];
+		if (m_maxValues[i] < vec[i]) m_maxValues[i] = vec[i];
+		if (m_minValues[i] > vec[i]) m_minValues[i] = vec[i];
 	}
 
 	m_dataClasses.insert(vectorClass);
@@ -70,16 +70,14 @@ DataSet::Iterator DataSet::iterator() const
 
 const static Vector EMPTY_VECTOR;
 
-const Vector& DataSet::getMaxValues(const std::string& vectorClass) const
+const Vector& DataSet::getMaxValues() const
 {
-	auto iter = m_maxValues.find(vectorClass);
-	return iter != m_maxValues.end() ? iter->second : EMPTY_VECTOR;
+	return m_maxValues;
 }
 
-const Vector& DataSet::getMinValues(const std::string& vectorClass) const
+const Vector& DataSet::getMinValues() const
 { 
-	auto iter = m_minValues.find(vectorClass);
-	return iter != m_minValues.end() ? iter->second : EMPTY_VECTOR;
+	return  m_minValues;
 }
 
 void DataSet::normalizeData(E_DATA_NORMALIZATION_MODE mode)
@@ -89,8 +87,8 @@ void DataSet::normalizeData(E_DATA_NORMALIZATION_MODE mode)
 		for (auto dataClass : m_dataClasses)
 		{
 			//Use maximum values for each class and seperately for each variable
-			const Vector& maxVals = getMaxValues(dataClass);
-			const Vector& minVals = getMinValues(dataClass);
+			const Vector& maxVals = getMaxValues();
+			const Vector& minVals = getMinValues();
 
 			VectorClass& vectors = m_vectorData[dataClass];
 			for (Vector& vector : vectors)
@@ -105,46 +103,6 @@ void DataSet::normalizeData(E_DATA_NORMALIZATION_MODE mode)
 			}
 		}
 	}
-	else if (mode == EDNM_PER_CLASS)
-	{
-		//Collect min/max for each class
-		for (auto dataClass : m_dataClasses)
-		{
-			const Vector& maxVals = getMaxValues(dataClass);
-			const Vector& minVals = getMinValues(dataClass);
-
-			double classMax = 0.0;
-			double classMin = 0.0;
-
-			for (auto val : maxVals)
-			{
-				if (classMax < val)
-				{
-					classMax = val;
-				}
-			}
-
-			for (auto val : minVals)
-			{
-				if (classMin > val)
-				{
-					classMin = val;
-				}
-			}
-
-			VectorClass& vectors = m_vectorData[dataClass];
-			for (Vector& vector : vectors)
-			{
-				for (unsigned int i = 0; i < vector.size(); ++i)
-				{
-					const double max = classMax;
-					const double min = classMin;
-					const double x = vector[i];
-					vector[i] = (2.0 * ((x - min) / (max - min))) - 1.0;
-				}
-			}
-		}
-	}
 	else if (mode == EDNM_GLOBAL_MIN_MAX)
 	{
 		//Collect min/max for each class
@@ -152,7 +110,7 @@ void DataSet::normalizeData(E_DATA_NORMALIZATION_MODE mode)
 		double globalMin = 0.0;
 		for (auto dataClass : m_dataClasses)
 		{
-			const Vector& maxVals = getMaxValues(dataClass);
+			const Vector& maxVals = getMaxValues();
 			for (auto val : maxVals)
 			{
 				if (globalMax < val)
@@ -160,7 +118,7 @@ void DataSet::normalizeData(E_DATA_NORMALIZATION_MODE mode)
 					globalMax = val;
 				}
 			}
-			const Vector& minVals = getMinValues(dataClass);
+			const Vector& minVals = getMinValues();
 			for (auto val : minVals)
 			{
 				if (globalMin > val)
