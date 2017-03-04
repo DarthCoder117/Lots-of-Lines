@@ -12,9 +12,7 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 	// Read in options
 	const bool autoStep = options.getBool(AUTO_STEP),
 		horizontal = options.getBool(HORIZONTAL),
-		nonIntersecting = options.getBool(NON_INTERSECTING),
-		collapsed = options.getBool(COLLAPSED),
-		increasing = options.getBool(INCREASING);
+		collapsed = options.getBool(COLLAPSED);
 
 	// Get distance between first two pair X values
 	// This is semi-hardcoded shift value, though might be final variant
