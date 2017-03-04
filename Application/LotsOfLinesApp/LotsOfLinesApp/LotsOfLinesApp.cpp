@@ -101,23 +101,25 @@ void LotsOfLinesApp::loadFile(const QString& filename, const LotsOfLines::LoadOp
 
 void LotsOfLinesApp::reloadDataTable()
 {
-	//Delete all tabs
-	for (unsigned int i = 0; i < ui.dataClassTabs->count(); ++i)
-	{
-		QWidget* tab = ui.dataClassTabs->widget(i);
-		delete tab;
-	}
-	ui.dataClassTabs->clear();
+	if (m_dataSet) {
+		//Delete all tabs
+		for (unsigned int i = 0; i < ui.dataClassTabs->count(); ++i)
+		{
+			QWidget* tab = ui.dataClassTabs->widget(i);
+			delete tab;
+		}
+		ui.dataClassTabs->clear();
 
-	//Generate new tabs for each data class
-	for (auto dataClass : m_dataSet->getClasses())
-	{
-		QTableView* dataTable = new QTableView(ui.dataClassTabs);
-		dataTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-		dataTable->setModel(new DataTableModel(m_dataSet, dataClass));
-		dataTable->setSelectionMode(QAbstractItemView::NoSelection);
+		//Generate new tabs for each data class
+		for (auto dataClass : m_dataSet->getClasses())
+		{
+			QTableView* dataTable = new QTableView(ui.dataClassTabs);
+			dataTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+			dataTable->setModel(new DataTableModel(m_dataSet, dataClass));
+			dataTable->setSelectionMode(QAbstractItemView::NoSelection);
 
-		ui.dataClassTabs->addTab(dataTable, QString::fromStdString(dataClass));
+			ui.dataClassTabs->addTab(dataTable, QString::fromStdString(dataClass));
+		}
 	}
 }
 
@@ -136,7 +138,7 @@ void LotsOfLinesApp::addNewDataset(std::shared_ptr<LotsOfLines::DataSet> dataSet
 		renderingSystem->setDataSet(m_dataSet);
 		renderingSystem->redraw();
 	}
-
+	// Freezes with lots of classes
 	reloadDataTable();
 }
 
