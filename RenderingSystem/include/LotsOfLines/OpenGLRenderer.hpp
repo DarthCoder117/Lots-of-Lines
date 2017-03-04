@@ -28,6 +28,9 @@ namespace LotsOfLines
 
 		void setViewTransform(float camX, float camY, float zoomX, float zoomY);
 
+		IShader* createShader();
+		void setShader(IShader* shader);
+
 		void drawVBO(std::shared_ptr<IVertexBufferObject> vbo);
 
 		void setSelectedLine(unsigned int selectedLine);

@@ -80,7 +80,7 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 		{
 			Vertex v((float)(vec[x - 1] + shiftVec[x - 1]), (float)(vec[x] + shiftVec[x]));
 			v.dataClassIndex = iter.classIndex();
-			v.lineIndex = lineIdx;
+			v.flags = 0;
 			verticesOut.push_back(v);
 			// If single left over vector
 			if (x == vectorSize - 2)
@@ -89,7 +89,7 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 				// Or (vec[x + 1], 0)
 				v.x = (float)(vec[x + 1] + shiftVec[x + 1]);
 				v.y = (float)(vec[x + 1] + shiftVec[x + 1]);
-				v.lineIndex = lineIdx;
+				v.flags = 0;
 				verticesOut.push_back(v);
 			}
 		}

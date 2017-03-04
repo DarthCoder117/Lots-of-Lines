@@ -23,7 +23,7 @@ bool RadialPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_p
 				Vertex((float)vec[x - 1], (float)vec[x]) :
 				Vertex((float)(vec[0] + vec[x - 1]), (float)(vec[1] + vec[x]));
 			v.dataClassIndex = iter.classIndex();
-			v.lineIndex = lineIdx;
+			v.flags = 0;
 			verticesOut.push_back(v);
 			// If single left over vector
 			if (x == vectorSize - 2)
@@ -32,7 +32,6 @@ bool RadialPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_p
 				// Or (vec[x + 1], 0)
 				v.x = (float)vec[x + 1];
 				v.y = (float)vec[x + 1];
-				v.lineIndex = lineIdx;
 				verticesOut.push_back(v);
 			}
 		}

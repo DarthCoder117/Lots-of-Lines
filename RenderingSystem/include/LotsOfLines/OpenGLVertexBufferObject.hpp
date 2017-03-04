@@ -13,11 +13,18 @@ namespace LotsOfLines
 		
 		bool init(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
 
+		Vertex* mapVertices(bool readOnly = false);
+		void unmapVertices();
+
+		unsigned int vertexCount() const;
+		unsigned int indexCount() const;
+
 		void draw();
 
 	private:
 
 		unsigned int m_vertexBuffer;
+		unsigned int m_vertexCount;
 
 		unsigned int m_indexBuffer;
 		unsigned int m_indexCount = 0;

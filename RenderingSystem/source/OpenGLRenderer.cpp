@@ -1,6 +1,7 @@
 #include "LotsOfLines/OpenGLRenderer.hpp"
 #include "LotsOfLines/OpenGLVertexBufferObject.hpp"
 #include "LotsOfLines/RenderingSystem.hpp"
+#include "LotsOfLines/OpenGLShader.hpp"
 #include <math.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -13,28 +14,31 @@ using namespace LotsOfLines;
 static const char* vertex_shader_text =
 "#version 330 core\n"
 
+"const uint SELECTED = 0x01;\n"
+"const uint HIDDEN = 0x02;\n"
+
 "uniform mat4 MVP;\n"
-"uniform uint selectedLine;\n"
 "uniform vec3 dataClassColors[10];\n"
 
 "layout(location = 0) in vec3 pos;\n"
 "layout(location = 1) in uint classIndex;\n"
-"layout(location = 2) in uint lineIndex;\n"
+"layout(location = 2) in uint flags;\n"
 
 "out vec3 fragmentColor;\n"
+"out uint fragmentFlags;"
 "void main()\n"
 "{\n"
 "   gl_Position = MVP * vec4(pos, 1.0);\n"
 
-"	if (lineIndex == selectedLine)\n"
+"	if (flags & SELECTED)\n"
 "	{\n"
-//"		gl_Position.z = 2.0f;\n"
 "		fragmentColor = vec3(1.0);\n"
 "	}\n"
 "	else\n"
 "	{\n"
 "		fragmentColor = dataClassColors[classIndex];\n"
 "	}\n"
+"   fragmentFlags = flags;\n"
 "}\n";
 
 static const char* fragment_shader_text =
@@ -202,6 +206,16 @@ void OpenGLRenderer::setViewTransform(float camX, float camY, float zoomX, float
 	m_camY = camY;
 	m_zoomX = zoomX;
 	m_zoomY = zoomY;
+}
+
+IShader* OpenGLRenderer::createShader()
+{
+	return new OpenGLShader();
+}
+
+void OpenGLRenderer::setShader(IShader* shader)
+{
+	glUseProgram(shader != nullptr ? ((OpenGLShader*)shader)->getProgram() : 0);
 }
 
 void OpenGLRenderer::drawVBO(std::shared_ptr<IVertexBufferObject> vbo)

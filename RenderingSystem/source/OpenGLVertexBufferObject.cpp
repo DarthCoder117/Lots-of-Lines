@@ -11,16 +11,17 @@ OpenGLVertexBufferObject::~OpenGLVertexBufferObject()
 
 bool OpenGLVertexBufferObject::init(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices)
 {
+	m_vertexCount = vertices.size();
+	m_indexCount = indices.size();
+
 	//Vertex buffer
 	glGenBuffers(1, &m_vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex)*vertices.size(), &vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex)*vertices.size(), &vertices[0], GL_DYNAMIC_COPY);
 
 	//Index buffer
 	glGenBuffers(1, &m_indexBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
-
-	m_indexCount = indices.size();
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int)*m_indexCount, &indices[0], GL_STATIC_DRAW);
 
 	return true;
@@ -37,7 +38,7 @@ void OpenGLVertexBufferObject::draw()
 
 	size_t offset = 0;
 	glVertexAttribPointer(
-		0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+		0,                  // attribute 0.
 		3,                  // size
 		GL_FLOAT,           // type
 		GL_FALSE,           // normalized?
@@ -47,7 +48,7 @@ void OpenGLVertexBufferObject::draw()
 	offset += sizeof(float) * 3;
 
 	glVertexAttribIPointer(
-		1,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+		1,                  // attribute 1.
 		1,                  // size
 		GL_UNSIGNED_INT,           // type
 		sizeof(Vertex),                  // stride
@@ -56,7 +57,7 @@ void OpenGLVertexBufferObject::draw()
 	offset += sizeof(unsigned int);
 
 	glVertexAttribIPointer(
-		2,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+		2,                  // attribute 2.
 		1,                  // size
 		GL_UNSIGNED_INT,    // type 
 		sizeof(Vertex),                 // stride
@@ -69,4 +70,25 @@ void OpenGLVertexBufferObject::draw()
 	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(0);
+}
+
+Vertex* OpenGLVertexBufferObject::mapVertices(bool readOnly)
+{
+	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
+	return (Vertex*)glMapBuffer(GL_ARRAY_BUFFER, readOnly ? GL_READ_ONLY : GL_READ_WRITE);
+}
+
+void OpenGLVertexBufferObject::unmapVertices()
+{
+	glUnmapBuffer(GL_ARRAY_BUFFER);
+}
+
+unsigned int OpenGLVertexBufferObject::vertexCount() const
+{
+	return m_vertexCount;
+}
+
+unsigned int OpenGLVertexBufferObject::indexCount() const
+{
+	return m_indexCount;
 }

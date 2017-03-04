@@ -6,20 +6,28 @@
 
 namespace LotsOfLines
 {
+	enum E_VERTEX_STATE_FLAGS
+	{
+		EVSF_SELECTED = 0x01,
+		EVSF_HIDDEN = 0x02
+	};
+
+	///@brief Vertex structure for storing data to be sent to OpenGL for rendering
 	struct Vertex
 	{
 		Vertex(float x, float y)
 			:x(x), y(y), z(0.0f),
 			dataClassIndex(0),
-			lineIndex(0)
+			flags(0)
 		{}
 
 		float x, y, z;
-		std::uint32_t dataClassIndex;
-		std::uint32_t lineIndex;
+		std::uint32_t dataClassIndex; ///< Index of data class this vertice's data belongs to
+		std::uint32_t flags;///< Vertex state flags
 	};
 
 	class RenderingSystem;
+	class IShader;
 
 	class IRenderer
 	{
@@ -53,6 +61,11 @@ namespace LotsOfLines
 
 		///@brief Set pan/zoom the view.
 		virtual void setViewTransform(float camX, float camY, float zoomX, float zoomY) = 0;
+
+		///@brief Create a new shader object.
+		virtual IShader* createShader() = 0;
+		///@brief Set the shader program to draw with.
+		virtual void setShader(IShader* shader) = 0;
 
 		///@brief Draw a VBO to the screen.
 		virtual void drawVBO(std::shared_ptr<IVertexBufferObject> vbo) = 0;

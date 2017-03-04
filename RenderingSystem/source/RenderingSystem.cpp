@@ -2,6 +2,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "LotsOfLines/RenderingSystem.hpp"
 #include "LotsOfLines/IRenderer.hpp"
+#include "LotsOfLines/Shaders.hpp"
 
 #include "LotsOfLines/ParallelCoordinatesVisualizationMethod.hpp"
 #include "LotsOfLines/CollocatedPairedCoordinatesVisualizationMethod.hpp"
@@ -24,6 +25,7 @@ RenderingSystem::RenderingSystem(IRenderer* driver)
 bool RenderingSystem::init()
 {
 	if (!m_driver->init()) return false;
+	if (!Shaders::compileShaders(m_driver)) return false;
 
 	m_driver->setClassColors((float*)m_dataClassColors);
 
@@ -300,7 +302,6 @@ unsigned int RenderingSystem::getClosestLine(float x, float y)
 		if (dist < closestDist)
 		{
 			closestDist = dist;
-			closestLine = vertex.lineIndex;
 		}
 	}
 

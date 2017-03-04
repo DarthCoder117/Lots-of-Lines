@@ -36,8 +36,6 @@ LotsOfLinesApp::LotsOfLinesApp(const QString& openFile, QWidget *parent)
 
 	//Setup rendering window
 	auto rendererWidget = new VisualizationRendererWidget(this);
-	//m_renderingSystem = m_rendererWidget->getRenderingSystem();
-	//ui.centralLayout->addWidget(m_rendererWidget);
 
 	//Populate visualization type selection menu
 	LotsOfLines::VisualizationMethodList visualizationMethods;

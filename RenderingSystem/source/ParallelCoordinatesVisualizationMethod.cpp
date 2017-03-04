@@ -29,7 +29,7 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 
 			Vertex v(-1.0f + (float)(x * interval), (float)vec[x]);
 			v.dataClassIndex = iter.classIndex();
-			v.lineIndex = lineIdx;
+			v.flags = 0;
 			verticesOut.push_back(v);
 		}
 	}
