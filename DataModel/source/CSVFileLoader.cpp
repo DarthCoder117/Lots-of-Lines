@@ -12,7 +12,7 @@ bool CSVFileLoader::supportsFormat(const std::string& path)
 
 std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path, const LoadOptions& options, ProgressMessage* progress) const
 {
-	std::ifstream in(path);
+	std::ifstream in(path, std::ios::binary);
 	if (in)
 	{
 		// Init dataset and other variables
@@ -20,15 +20,15 @@ std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path, const 
 		std::string line{ "" };
 		std::istringstream is;
 
+		// Skip first line for CSV format
+		std::getline(in, line);
+
 		// Get start pos and end byte pos for progress indication
 		std::streampos start = in.tellg(), current = in.tellg();
 		in.seekg(0, std::ios::end);
 		std::streampos end = in.tellg();
 		in.clear();
-		in.seekg(0, std::ios::beg);
-
-		// Skip first line for CSV format
-		std::getline(in, line);
+		in.seekg(start);
 
 		// Necessary initialized items (do outside of loop)
 		Vector vec;

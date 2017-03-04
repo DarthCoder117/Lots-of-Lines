@@ -34,7 +34,7 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 		in.seekg(0, std::ios::end);
 		std::streampos end = in.tellg();
 		in.clear();
-		in.seekg(0, std::ios::beg);
+		in.seekg(start);
 
 		// Declare items outside of loop
 		Vector vec;
