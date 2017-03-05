@@ -1,6 +1,8 @@
 #ifndef I_RENDERER_H
 #define I_RENDERER_H
 #include "LotsOfLines/IVertexBufferObject.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <vector>
 #include <memory>
 
@@ -59,8 +61,8 @@ namespace LotsOfLines
 		///@brief Set the viewport
 		virtual void setViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height) = 0;
 
-		///@brief Set pan/zoom the view.
-		virtual void setViewTransform(float camX, float camY, float zoomX, float zoomY) = 0;
+		///@brief Set model*view*projection matrix.
+		virtual void setModelViewProjection(const glm::mat4x4& mvp) = 0;
 
 		///@brief Create a new shader object.
 		virtual IShader* createShader() = 0;

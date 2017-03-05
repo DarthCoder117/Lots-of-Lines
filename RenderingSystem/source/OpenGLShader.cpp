@@ -22,7 +22,8 @@ bool OpenGLShader::compile(const char* vertexShaderSrc, const char* fragmentShad
 		// The maxLength includes the NULL character
 		std::vector<GLchar> errorLog(maxLength);
 		glGetShaderInfoLog(vertexShader, maxLength, &maxLength, &errorLog[0]);
-		std::cout << errorLog.data() << "\n";
+		std::string error(errorLog.data());
+		std::cout << error << "\n";
 
 		glDeleteShader(vertexShader);
 		return false;
@@ -43,7 +44,8 @@ bool OpenGLShader::compile(const char* vertexShaderSrc, const char* fragmentShad
 		// The maxLength includes the NULL character
 		std::vector<GLchar> errorLog(maxLength);
 		glGetShaderInfoLog(fragmentShader, maxLength, &maxLength, &errorLog[0]);
-		std::cout << errorLog.data() << "\n";
+		std::string error(errorLog.data());
+		std::cout << error << "\n";
 
 		glDeleteShader(fragmentShader);
 
@@ -66,7 +68,8 @@ bool OpenGLShader::compile(const char* vertexShaderSrc, const char* fragmentShad
 		//The maxLength includes the NULL character
 		std::vector<GLchar> infoLog(maxLength);
 		glGetProgramInfoLog(m_program, maxLength, &maxLength, &infoLog[0]);
-		std::cout << infoLog.data() << "\n";
+		std::string error(infoLog.data());
+		std::cout << error << "\n";
 
 		//We don't need the program anymore.
 		glDeleteProgram(m_program);

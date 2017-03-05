@@ -62,6 +62,34 @@ void RenderingSystem::onMousePress(int x, int y)
 	m_camStartY = m_camY;
 }
 
+void RenderingSystem::onRightClick(int x, int y)
+{
+	//Calculate actual mouse click position
+	float mouseX = 2.0f * x / m_windowWidth - 1;
+	float mouseY = -2.0f * y / m_windowHeight + 1;
+
+	glm::mat4x4 invMvp = glm::inverse(m_modelViewProjection);
+	glm::vec4 mousePos(mouseX, mouseY, 0.0f, 1.0f);
+	mousePos = invMvp * mousePos;
+
+	//Select all vertices below
+	if (m_vbo)
+	{
+		Vertex* vertices = m_vbo->mapVertices();
+
+		for (unsigned int i = 0; i < m_vbo->vertexCount(); ++i)
+		{
+			vertices[i].flags = 0;
+			if (vertices[i].y < mousePos.y)
+			{
+				vertices[i].flags = EVSF_SELECTED;
+			}
+		}
+
+		m_vbo->unmapVertices();
+	}
+}
+
 void RenderingSystem::onMouseMove(int x, int y)
 {
 	if (m_mousePressed)
@@ -96,12 +124,18 @@ void RenderingSystem::onMouseScroll(int delta)
 
 void RenderingSystem::onResize(unsigned int width, unsigned int height)
 {
+	m_windowWidth = width;
+	m_windowHeight = height;
 	m_driver->setViewport(0, 0, width, height);
 }
 
 void RenderingSystem::draw(float r, float g, float b)
 {
-	setViewTransform(m_camX, m_camY, m_zoomX, m_zoomY);
+	//Calculate MVP matrix
+	glm::mat4x4 zoom = glm::scale(glm::mat4x4(), glm::vec3(m_zoomX, m_zoomY, 0.0f));
+	glm::mat4x4 translate = glm::translate(glm::mat4x4(), glm::vec3(-m_camX, -m_camY, 0.0f));
+	glm::mat4x4 m_modelViewProjection = zoom * translate;
+	m_driver->setModelViewProjection(m_modelViewProjection);
 
 	//Begin drawing frame
 	m_driver->beginDraw();
@@ -110,6 +144,12 @@ void RenderingSystem::draw(float r, float g, float b)
 	//Draw visualization
 	if (m_vbo)
 	{
+		//Draw unselected lines first
+		m_driver->setShader(Shaders::defaultVisualization);
+		drawVBO(m_vbo);
+
+		//Selection gets drawn on top so that it doesn't get hidden by the other lines
+		m_driver->setShader(Shaders::selectedLine);
 		drawVBO(m_vbo);
 	}
 
@@ -191,7 +231,6 @@ void RenderingSystem::setViewTransform(float camX, float camY, float zoomX, floa
 	m_camY = camY;
 	m_zoomX = zoomX;
 	m_zoomY = zoomY;
-	m_driver->setViewTransform(camX, camY, zoomX, zoomY);
 }
 
 void RenderingSystem::setVisualizationType(E_VISUALIZATION_TYPE type)

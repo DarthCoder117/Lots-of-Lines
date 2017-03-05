@@ -101,6 +101,8 @@ namespace LotsOfLines
 
 		///@brief Call when a mouse press event occurs on the window
 		void onMousePress(int x, int y);
+		///@brief Call when a mouse press event occurs on the window
+		void onRightClick(int x, int y);
 		///@brief Call when a mouse move event occurs on the window
 		void onMouseMove(int x, int y);
 		///@brief Call when a mouse release event occurs on the window
@@ -114,17 +116,14 @@ namespace LotsOfLines
 		bool m_mousePressed = false;
 		int m_startMouseX = 0, m_startMouseY = 0;
 
-		///@brief Camera state structure to replace existing variables when the camera controls are separated
-		struct CameraState
-		{
-			float m_camX = 0.0f, m_camY = 0.0f;
-			float m_zoomX = 1.0f, m_zoomY = 1.0f;
-			float m_camStartX = 0.0f, m_camStartY = 0.0f;
-		};
-
 		float m_camX = 0.0f, m_camY = 0.0f;
 		float m_zoomX = 1.0f, m_zoomY = 1.0f;
 		float m_camStartX = 0.0f, m_camStartY = 0.0f;
+
+		unsigned int m_windowWidth;
+		unsigned int m_windowHeight;
+
+		glm::mat4x4 m_modelViewProjection;
 
 	public:
 

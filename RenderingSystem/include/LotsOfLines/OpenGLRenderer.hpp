@@ -26,7 +26,7 @@ namespace LotsOfLines
 
 		void setViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
 
-		void setViewTransform(float camX, float camY, float zoomX, float zoomY);
+		void setModelViewProjection(const glm::mat4x4& mvp);
 
 		IShader* createShader();
 		void setShader(IShader* shader);
@@ -45,10 +45,7 @@ namespace LotsOfLines
 
 		unsigned int m_program;
 
-		float m_camX = 0.0f;
-		float m_camY = 0.0f;
-		float m_zoomX = 1.0f;
-		float m_zoomY = 1.0f;
+		glm::mat4x4 m_modelViewProj;
 
 		unsigned int m_selectedLine = 0;
 	};

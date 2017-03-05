@@ -8,6 +8,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
+#include <ctime>
 
 using namespace LotsOfLines;
 
@@ -161,27 +162,7 @@ void OpenGLRenderer::clearScreen(float r, float g, float b)
 
 void OpenGLRenderer::beginDraw()
 {
-	//Set shader program
-	glUseProgram(m_program);
 
-	//Setup matrices for pan/zoom
-	glm::mat4x4 zoom = glm::scale(glm::mat4x4(), glm::vec3(m_zoomX, m_zoomY, 0.0f));
-	glm::mat4x4 translate = glm::translate(glm::mat4x4(), glm::vec3(-m_camX, -m_camY, 0.0f));
-	glm::mat4x4 mvp = zoom * translate;
-
-	//Set uniforms
-	GLint MatrixID = glGetUniformLocation(m_program, "MVP");
-	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
-
-	GLint selectedLineID = glGetUniformLocation(m_program, "selectedLine");
-	glUniform1ui(selectedLineID, m_selectedLine);
-
-	GLint dataClassColorsID = glGetUniformLocation(m_program, "dataClassColors");
-	
-	if (m_dataClassColors)
-	{
-		glUniform3fv(dataClassColorsID, 10, (float*)m_dataClassColors);
-	}
 }
 
 void OpenGLRenderer::endDraw()
@@ -200,12 +181,9 @@ void OpenGLRenderer::setViewport(unsigned int x, unsigned int y, unsigned int wi
 	glScissor(x, y, width, height);
 }
 
-void OpenGLRenderer::setViewTransform(float camX, float camY, float zoomX, float zoomY)
+void OpenGLRenderer::setModelViewProjection(const glm::mat4x4& mvp)
 {
-	m_camX = camX;
-	m_camY = camY;
-	m_zoomX = zoomX;
-	m_zoomY = zoomY;
+	m_modelViewProj = mvp;
 }
 
 IShader* OpenGLRenderer::createShader()
@@ -216,6 +194,20 @@ IShader* OpenGLRenderer::createShader()
 void OpenGLRenderer::setShader(IShader* shader)
 {
 	glUseProgram(shader != nullptr ? ((OpenGLShader*)shader)->getProgram() : 0);
+
+	//Set uniforms
+	GLint MatrixID = glGetUniformLocation(m_program, "MVP");
+	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &m_modelViewProj[0][0]);
+
+	GLint selectedLineID = glGetUniformLocation(m_program, "selectedLine");
+	glUniform1ui(selectedLineID, m_selectedLine);
+
+	GLint dataClassColorsID = glGetUniformLocation(m_program, "dataClassColors");
+
+	if (m_dataClassColors)
+	{
+		glUniform3fv(dataClassColorsID, 10, (float*)m_dataClassColors);
+	}
 }
 
 void OpenGLRenderer::drawVBO(std::shared_ptr<IVertexBufferObject> vbo)

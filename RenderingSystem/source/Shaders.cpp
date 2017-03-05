@@ -19,34 +19,47 @@ const char* defaultVisualizationVertex =
 "layout(location = 2) in uint flags;\n"
 
 "out vec3 fragmentColor;\n"
-"out uint fragmentFlags;"
+"out uint fragmentFlags;\n"
 "void main()\n"
 "{\n"
 "   gl_Position = MVP * vec4(pos, 1.0);\n"
-
-"	if (flags & SELECTED)\n"
-"	{\n"
-"		fragmentColor = vec3(1.0);\n"
-"	}\n"
-"	else\n"
-"	{\n"
-"		fragmentColor = dataClassColors[classIndex];\n"
-"	}\n"
+"	fragmentColor = dataClassColors[classIndex];\n"
 "   fragmentFlags = flags;\n"
 "}\n";
 
 const char* defaultVisualizationFragment =
 "#version 330 core\n"
-"in vec3 fragmentColor;"
+
+"const uint SELECTED = 0x01;\n"
+"const uint HIDDEN = 0x02;\n"
+
+"in vec3 fragmentColor;\n"
+"in flat uint fragmentFlags;\n"
 "out vec3 color;\n"
 "void main()\n"
 "{\n"
-"    color = fragmentColor;\n"
+"	if (fragmentFlags & SELECTED) discard;\n"
+"   color = fragmentColor;\n"
 "}\n";
 
 //==================================================================================
 // Selected line
 //==================================================================================
+
+const char* selectedLineFragment =
+"#version 330 core\n"
+
+"const uint SELECTED = 0x01;\n"
+"const uint HIDDEN = 0x02;\n"
+
+"in vec3 fragmentColor;\n"
+"in flat uint fragmentFlags;\n"
+"out vec3 color;\n"
+"void main()\n"
+"{\n"
+"	if ((fragmentFlags & SELECTED) == 0) discard;\n"
+"   color = vec3(1.0);\n"
+"}\n";
 
 IShader* Shaders::defaultVisualization = nullptr;
 IShader* Shaders::selectedLine = nullptr;
@@ -55,6 +68,9 @@ bool Shaders::compileShaders(IRenderer* driver)
 {
 	defaultVisualization = driver->createShader();
 	if (!defaultVisualization->compile(defaultVisualizationVertex, defaultVisualizationFragment)) return false;
+
+	selectedLine = driver->createShader();
+	if (!selectedLine->compile(defaultVisualizationVertex, selectedLineFragment)) return false;
 
 	return true;
 }
