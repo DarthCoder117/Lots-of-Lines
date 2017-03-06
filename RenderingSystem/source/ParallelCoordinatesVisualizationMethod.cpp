@@ -9,32 +9,38 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 
 	//Get options
 	bool fitToScreenHorizontal = options.getBool(FIT_TO_SCREEN_HORIZONTAL);
-	bool shifted = true;
+	bool shifted = options.getBool(SHIFTED);
 	double axisSpacing = options.getDouble(AXIS_SPACING);
-	//For median calculation
-	std::multimap<const double, Vector> firstVariables;
+	
+	//Shift around this line
+	Vector median = Vector(dataSet->vectorCount(), 0.0);
 
-	for (auto iter = dataSet->iterator(); iter.hasNext(); iter++)
-	{
-		const Vector& vec = iter.vector();
-		firstVariables.emplace(vec[0], vec);
-	}
+	if (shifted) {
+		//For median calculation
+		std::multimap<const double, Vector> firstVariables;
 
-	// Get median vector
-	size_t size = firstVariables.size();
-	Vector median = Vector();
-	std::multimap<const double, Vector>::iterator iter = firstVariables.begin();
-	// If even elements, get 1 of central elements. No need to be picky
-	if (size % 2 == 0)
-	{
-		std::advance(iter, size / 2 - 1);
+		for (auto iter = dataSet->iterator(); iter.hasNext(); iter++)
+		{
+			const Vector& vec = iter.vector();
+			firstVariables.emplace(vec[0], vec);
+		}
+
+		// Get median vector
+		size_t size = firstVariables.size();
+		
+		std::multimap<const double, Vector>::iterator iter = firstVariables.begin();
+		// If even elements, get 1 of central elements. No need to be picky
+		if (size % 2 == 0)
+		{
+			std::advance(iter, size / 2 - 1);
+		}
+		else
+		{
+			std::advance(iter, size / 2);
+		}
+		// Assign element
+		median = iter->second;
 	}
-	else
-	{
-		std::advance(iter, size / 2);
-	}
-	// Assign element
-	median = iter->second;
 
 	for (auto iter = dataSet->iterator(); iter.hasNext(); iter++)
 	{
