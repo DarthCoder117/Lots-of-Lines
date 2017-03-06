@@ -38,7 +38,7 @@ const char* defaultVisualizationFragment =
 "out vec3 color;\n"
 "void main()\n"
 "{\n"
-"	if (fragmentFlags & SELECTED) discard;\n"
+"	if ((fragmentFlags & SELECTED) == 1u) discard;\n"
 "   color = fragmentColor;\n"
 "}\n";
 
@@ -57,7 +57,7 @@ const char* selectedLineFragment =
 "out vec3 color;\n"
 "void main()\n"
 "{\n"
-"	if ((fragmentFlags & SELECTED) == 0) discard;\n"
+"	if ((fragmentFlags & SELECTED) == 0u) discard;\n"
 "   color = vec3(1.0);\n"
 "}\n";
 
