@@ -8,7 +8,7 @@ namespace LotsOfLines
 	{
 	public:
 
-		VISUALIZATION_METHOD("Radial Paired Coordinates", EVT_RADIAL_PAIRED_COORDINATES)
+		VISUALIZATION_METHOD("Radial (Anchored) Paired Coordinates", EVT_RADIAL_PAIRED_COORDINATES)
 
 		const char* DRAW_SEQUENTIALLY = "Draw lines sequentially";
 
