@@ -9,7 +9,7 @@ class DataTableModel : public QAbstractTableModel
 {
 public:
 
-	DataTableModel(std::shared_ptr<LotsOfLines::DataSet> dataSet, const std::string& dataClass);
+	DataTableModel(std::shared_ptr<LotsOfLines::DataSet> dataSet);
 
 	int rowCount(const QModelIndex& parent = QModelIndex()) const;
 
@@ -22,8 +22,6 @@ public:
 private:
 
 	std::shared_ptr<LotsOfLines::DataSet> m_dataSet;
-
-	std::string m_dataClass;
 };
 
 #endif

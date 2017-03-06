@@ -109,17 +109,12 @@ void LotsOfLinesApp::reloadDataTable()
 		ui.dataClassTabs->clear();
 
 		//Generate new tabs for each data class
-		std::set<std::string> dataClasses = m_dataSet->getClasses();
-		int i = 0, MAX_COLUMNS = 50;
-		for (std::set<std::string>::iterator iter = dataClasses.begin(); iter != dataClasses.end() && i < MAX_COLUMNS; ++iter, ++i)
-		{
-			QTableView* dataTable = new QTableView(ui.dataClassTabs);
-			dataTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-			dataTable->setModel(new DataTableModel(m_dataSet, *iter));
-			dataTable->setSelectionMode(QAbstractItemView::NoSelection);
+		QTableView* dataTable = new QTableView(ui.dataClassTabs);
+		dataTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+		dataTable->setModel(new DataTableModel(m_dataSet));
+		dataTable->setSelectionMode(QAbstractItemView::NoSelection);
 
-			ui.dataClassTabs->addTab(dataTable, QString::fromStdString(*iter));
-		}
+		ui.dataClassTabs->addTab(dataTable, "Data Table");
 	}
 }
 

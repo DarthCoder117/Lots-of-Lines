@@ -16,7 +16,7 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 
 	// Get distance between first two pair X values
 	// This is semi-hardcoded shift value, though might be final variant
-	const Vector& firstVec = dataSet->getVectors(*dataSet->getClasses().begin())[0];
+	const Vector& firstVec = dataSet->getVector(0);
 	double distance = options.getDouble(STEP);
 	Vector shiftVec = Vector();
 

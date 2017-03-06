@@ -36,8 +36,9 @@ namespace LotsOfLines
 
 			///@return The class index of the current vector.
 			unsigned int classIndex() const;
-			///@return The name of the vector class.
-			const std::string& className() const;
+
+			///@return The index of the current vector.
+			unsigned int lineIndex() const;
 
 		protected:
 
@@ -45,10 +46,8 @@ namespace LotsOfLines
 			Iterator(const DataSet* dataSet);
 
 			const DataSet* m_dataSet;
-			std::vector<std::string> m_classNames;
 
-			unsigned int m_classIdx, m_vectorIdx;
-			const std::vector<Vector>* m_currentVectorClass;
+			unsigned int m_vectorIdx;
 		};
 
 		///@return An iterator that can be used to traverse this dataset.
@@ -56,19 +55,23 @@ namespace LotsOfLines
 
 		///@return The number of vectors in the dataset
 		unsigned int vectorCount() const;
+		///@return The vector at the specified index.
+		Vector& getVector(unsigned int idx);
+		///@return The vector at the specified index.
+		const Vector& getVector(unsigned int idx) const;
+		///@brief subscript operator for accessing vectors at the specified index.
+		Vector& operator [] (unsigned int idx);
+		///@brief subscript operator for accessing vectors at the specified index.
+		const Vector& operator [] (unsigned int idx) const;
 
 		///@brief Default constructor to make
 		DataSet();
 		
 		///@brief Add a vector class to the dataset
-		void addVectorClass(const std::string& name);
-
-		///@return The set of vector classes contained in this DataSet.
-		const std::set<std::string>& getClasses() const;
-
-		///@brief Get the collection of vectors for a class of data
-		///@param vectorClass Data class name.
-		const VectorClass& getVectors(const std::string& vectorClass) const;
+		///@return The index of the vector class that was added.
+		unsigned int addVectorClass(const std::string& name);
+		///@brief Get class index from the class name.
+		unsigned int getClassIndex(const std::string& name);
 
 		///@brief Add a vector to the specified class.
 		///@param vectorClass Data class name.
@@ -83,11 +86,18 @@ namespace LotsOfLines
 		void normalizeData(E_DATA_NORMALIZATION_MODE mode);
 
 	private:
+		
+		std::map<std::string, unsigned int> m_vectorClassIndices;
+
+		struct VectorEntry
+		{
+			Vector data;
+			unsigned int dataClass;
+		};
+
+		std::vector<VectorEntry> m_vectorEntries;
 
 		DataSet(const DataSet& oth) {} //Dissallow copy
-
-		std::set<std::string> m_dataClasses;
-		std::map<std::string, VectorClass> m_vectorData;
 
 		Vector m_maxValues;
 		Vector m_minValues;

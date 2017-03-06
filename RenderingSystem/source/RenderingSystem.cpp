@@ -190,7 +190,7 @@ void RenderingSystem::draw(float r, float g, float b)
 
 void RenderingSystem::autoViewTransform(E_VISUALIZATION_TYPE type)
 {
-	if (!m_dataSet) return;
+	/*if (!m_dataSet) return;
 
 	const Vector& maxValues = m_dataSet->getMaxValues();
 	const Vector& minValues = m_dataSet->getMinValues();
@@ -254,7 +254,7 @@ void RenderingSystem::autoViewTransform(E_VISUALIZATION_TYPE type)
 	}
 	camY = maxY / 2.0f + minY / 2.0f;
 	zoomY /= maxY - minY;
-	setViewTransform((float)camX, (float)camY, (float)zoomX, (float)zoomY);
+	setViewTransform((float)camX, (float)camY, (float)zoomX, (float)zoomY);*/
 }
 
 void RenderingSystem::setViewTransform(float camX, float camY, float zoomX, float zoomY)

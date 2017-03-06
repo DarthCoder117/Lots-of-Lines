@@ -1,20 +1,19 @@
 #include "DataTableModel.h"
 
-DataTableModel::DataTableModel(std::shared_ptr<LotsOfLines::DataSet> dataSet, const std::string& dataClass)
-	:m_dataSet(dataSet),
-	m_dataClass(dataClass)
+DataTableModel::DataTableModel(std::shared_ptr<LotsOfLines::DataSet> dataSet)
+	:m_dataSet(dataSet)
 {
 
 }
 
 int DataTableModel::rowCount(const QModelIndex& parent) const
 {
-	return m_dataSet->getVectors(m_dataClass).size();
+	return m_dataSet->vectorCount();
 }
 
 int DataTableModel::columnCount(const QModelIndex& parent) const
 {
-	return m_dataSet->getVectors(m_dataClass).at(0).size();
+	return m_dataSet->getVector(0).size();
 }
 
 QVariant DataTableModel::data(const QModelIndex& index, int role) const
@@ -24,7 +23,7 @@ QVariant DataTableModel::data(const QModelIndex& index, int role) const
 
 	if (role == Qt::DisplayRole)
 	{
-		const LotsOfLines::Vector& vec = m_dataSet->getVectors(m_dataClass)[row];
+		const LotsOfLines::Vector& vec = m_dataSet->getVector(row);
 		return vec[col];
 	}
 	

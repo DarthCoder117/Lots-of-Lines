@@ -10,30 +10,37 @@ DataSet::DataSet()
 
 }
 
-void DataSet::addVectorClass(const std::string& vectorClass)
+unsigned int DataSet::addVectorClass(const std::string& vectorClass)
 {
+	auto iter = m_vectorClassIndices.find(vectorClass);
+	if (iter == m_vectorClassIndices.end())
+	{
+		unsigned int idx = m_vectorClassIndices.size();
+		m_vectorClassIndices[vectorClass] = idx;
+		return idx;
+	}
+
+	return iter->second;
+
+	/*
 	m_dataClasses.insert(vectorClass);
-	m_vectorData[vectorClass] = VectorClass();
+	m_vectorData[vectorClass] = VectorClass();*/
 }
 
-const std::set<std::string>& DataSet::getClasses() const
+unsigned int DataSet::getClassIndex(const std::string& name)
 {
-	return m_dataClasses;
-}
-
-const VectorClass& DataSet::getVectors(const std::string& vectorClass) const
-{
-	static const VectorClass emptyClass;
-
-	auto iter = m_vectorData.find(vectorClass);
-	if (iter != m_vectorData.end())	return iter->second;
-
-	return emptyClass;
+	auto iter = m_vectorClassIndices.find(name);
+	return iter != m_vectorClassIndices.end() ? iter->second : 0;
 }
 
 void DataSet::addVector(const Vector& vec, const std::string& vectorClass)
 {
-	if (vectorClass.empty()) return;
+	unsigned int classIdx = addVectorClass(vectorClass);
+
+	VectorEntry entry;
+	entry.data = vec;
+	entry.dataClass = classIdx;
+	m_vectorEntries.push_back(entry);
 
 	if (m_maxValues.empty())
 	{
@@ -46,21 +53,31 @@ void DataSet::addVector(const Vector& vec, const std::string& vectorClass)
 		if (m_maxValues[i] < vec[i]) m_maxValues[i] = vec[i];
 		if (m_minValues[i] > vec[i]) m_minValues[i] = vec[i];
 	}
-
-	m_dataClasses.insert(vectorClass);
-	m_vectorData[vectorClass].push_back(vec);
 }
 
 unsigned int DataSet::vectorCount() const
 {
-	unsigned int count = 0;
+	return m_vectorEntries.size();
+}
 
-	for (auto dataClass : m_dataClasses)
-	{
-		count += getVectors(dataClass).size();
-	}
+Vector& DataSet::getVector(unsigned int idx)
+{
+	return m_vectorEntries[idx].data;
+}
 
-	return count;
+const Vector& DataSet::getVector(unsigned int idx) const
+{
+	return m_vectorEntries[idx].data;
+}
+
+Vector& DataSet::operator [] (unsigned int idx)
+{
+	return getVector(idx);
+}
+
+const Vector& DataSet::operator [] (unsigned int idx) const
+{
+	return getVector(idx);
 }
 
 DataSet::Iterator DataSet::iterator() const
@@ -84,22 +101,18 @@ void DataSet::normalizeData(E_DATA_NORMALIZATION_MODE mode)
 {
 	if (mode == EDNM_PER_VARIABLE)
 	{
-		for (auto dataClass : m_dataClasses)
-		{
-			//Use maximum values for each class and seperately for each variable
-			const Vector& maxVals = getMaxValues();
-			const Vector& minVals = getMinValues();
+		//Use maximum values for each class and seperately for each variable
+		const Vector& maxVals = getMaxValues();
+		const Vector& minVals = getMinValues();
 
-			VectorClass& vectors = m_vectorData[dataClass];
-			for (Vector& vector : vectors)
+		for (VectorEntry& entry : m_vectorEntries)
+		{
+			for (unsigned int i = 0; i < entry.data.size(); ++i)
 			{
-				for (unsigned int i = 0; i < vector.size(); ++i)
-				{
-					const double max = maxVals[i];
-					const double min = minVals[i];
-					const double x = vector[i];
-					vector[i] = (2.0 * ((x - min) / (max - min))) - 1.0;
-				}
+				const double max = maxVals[i];
+				const double min = minVals[i];
+				const double x = entry.data[i];
+				entry.data[i] = (2.0 * ((x - min) / (max - min))) - 1.0;
 			}
 		}
 	}
@@ -108,38 +121,32 @@ void DataSet::normalizeData(E_DATA_NORMALIZATION_MODE mode)
 		//Collect min/max for each class
 		double globalMax = 0.0;
 		double globalMin = 0.0;
-		for (auto dataClass : m_dataClasses)
+		
+		const Vector& maxVals = getMaxValues();
+		for (auto val : maxVals)
 		{
-			const Vector& maxVals = getMaxValues();
-			for (auto val : maxVals)
+			if (globalMax < val)
 			{
-				if (globalMax < val)
-				{
-					globalMax = val;
-				}
-			}
-			const Vector& minVals = getMinValues();
-			for (auto val : minVals)
-			{
-				if (globalMin > val)
-				{
-					globalMin = val;
-				}
+				globalMax = val;
 			}
 		}
-
-		for (auto dataClass : m_dataClasses)
+		const Vector& minVals = getMinValues();
+		for (auto val : minVals)
 		{
-			VectorClass& vectors = m_vectorData[dataClass];
-			for (Vector& vector : vectors)
+			if (globalMin > val)
 			{
-				for (unsigned int i = 0; i < vector.size(); ++i)
-				{
-					const double max = globalMax;
-					const double min = globalMin;
-					const double x = vector[i];
-					vector[i] = (2.0 * ((x - min) / (max - min))) - 1.0;
-				}
+				globalMin = val;
+			}
+		}
+		
+		for (VectorEntry& entry : m_vectorEntries)
+		{
+			for (unsigned int i = 0; i < entry.data.size(); ++i)
+			{
+				const double max = globalMax;
+				const double min = globalMin;
+				const double x = entry.data[i];
+				entry.data[i] = (2.0 * ((x - min) / (max - min))) - 1.0;
 			}
 		}
 	}
@@ -150,55 +157,33 @@ void DataSet::normalizeData(E_DATA_NORMALIZATION_MODE mode)
 //===============================================================================
 DataSet::Iterator::Iterator(const DataSet* dataSet)
 	:m_dataSet(dataSet),
-	m_classIdx(0),
 	m_vectorIdx(0)
 {
-	//Get class index array
-	for (auto iter : m_dataSet->getClasses())
-	{
-		m_classNames.push_back(iter);
-	}
 
-	//Get current vector class
-	m_currentVectorClass = &m_dataSet->getVectors(m_classNames[m_classIdx]);
 }
 
 bool DataSet::Iterator::hasNext() const
 {
-	return m_classIdx < m_classNames.size();
+	return m_vectorIdx < m_dataSet->m_vectorEntries.size();
 }
 
 DataSet::Iterator& DataSet::Iterator::operator ++ (int)
 {
 	m_vectorIdx++;
-
-	//If the end of the current vector class is reached, then update the current vector class.
-	if (m_currentVectorClass && m_vectorIdx >= m_currentVectorClass->size())
-	{
-		m_vectorIdx = 0;
-		m_classIdx++;
-
-		//Update pointer to current vector class to avoid more name lookups
-		if (m_classIdx < m_classNames.size())
-		{
-			m_currentVectorClass = &m_dataSet->getVectors(m_classNames[m_classIdx]);
-		}
-	}
-
 	return *this;
 }
 
 const Vector& DataSet::Iterator::vector()
 {
-	return (*m_currentVectorClass)[m_vectorIdx];
+	return m_dataSet->m_vectorEntries[m_vectorIdx].data;
 }
 
 unsigned int DataSet::Iterator::classIndex() const
 {
-	return m_classIdx;
+	return m_dataSet->m_vectorEntries[m_vectorIdx].dataClass;
 }
 
-const std::string& DataSet::Iterator::className() const
+unsigned int DataSet::Iterator::lineIndex() const
 {
-	return m_classNames[m_classIdx];
+	return m_vectorIdx;
 }
