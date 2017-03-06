@@ -9,7 +9,32 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 
 	//Get options
 	bool fitToScreenHorizontal = options.getBool(FIT_TO_SCREEN_HORIZONTAL);
+	bool shifted = true;
 	double axisSpacing = options.getDouble(AXIS_SPACING);
+	//For median calculation
+	std::multimap<const double, Vector> firstVariables;
+
+	for (auto iter = dataSet->iterator(); iter.hasNext(); iter++)
+	{
+		const Vector& vec = iter.vector();
+		firstVariables.emplace(vec[0], vec);
+	}
+
+	// Get median vector
+	size_t size = firstVariables.size();
+	Vector median = Vector();
+	std::multimap<const double, Vector>::iterator iter = firstVariables.begin();
+	// If even elements, get 1 of central elements. No need to be picky
+	if (size % 2 == 0)
+	{
+		std::advance(iter, size / 2 - 1);
+	}
+	else
+	{
+		std::advance(iter, size / 2);
+	}
+	// Assign element
+	median = iter->second;
 
 	for (auto iter = dataSet->iterator(); iter.hasNext(); iter++)
 	{
@@ -27,7 +52,7 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 				interval = std::fmax(interval, axisSpacing);
 			}
 
-			Vertex v(-1.0f + (float)(x * interval), (float)vec[x], lineIdx);
+			Vertex v(-1.0f + (float)(x * interval), (float)vec[x] + (float)(median[0] - median[x]), lineIdx);
 			v.dataClassIndex = iter.classIndex();
 			v.flags = 0;
 			verticesOut.push_back(v);
