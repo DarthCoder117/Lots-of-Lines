@@ -7,7 +7,13 @@ VisualizationRendererWidget::VisualizationRendererWidget(QWidget* parent, std::f
 	m_renderingSystem(new LotsOfLines::OpenGLRenderer()),
 	m_initCallback(initCallback)
 {
-
+	QSurfaceFormat format;
+	format.setMajorVersion(3);
+	format.setMinorVersion(3);
+	format.setProfile(QSurfaceFormat::CompatibilityProfile);
+	format.setRenderableType(QSurfaceFormat::OpenGL);
+	format.setSamples(8);
+	setFormat(format);
 }
 
 LotsOfLines::RenderingSystem* VisualizationRendererWidget::getRenderingSystem()

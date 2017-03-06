@@ -145,6 +145,18 @@ bool OpenGLRenderer::init()
 		return false;
 	}
 
+	std::string versionInfo = "";
+	versionInfo.append((const char*)glGetString(GL_VERSION)).append("\n");
+	versionInfo.append((const char*)glGetString(GL_SHADING_LANGUAGE_VERSION)).append("\n");
+	versionInfo.append((const char*)glGetString(GL_VENDOR)).append("\n");
+	int count = 0; 
+	glGetIntegerv(GL_NUM_EXTENSIONS, &count);
+	for (int i = 0; i < count; ++i)
+	{
+		versionInfo.append((const char*)glGetStringi(GL_EXTENSIONS, i)).append("\n");
+	}
+	printf(versionInfo.c_str());
+
 	initShaders();
 
 	//Enable scissor test so that splitscreen works.
@@ -193,20 +205,27 @@ IShader* OpenGLRenderer::createShader()
 
 void OpenGLRenderer::setShader(IShader* shader)
 {
-	glUseProgram(shader != nullptr ? ((OpenGLShader*)shader)->getProgram() : 0);
-
-	//Set uniforms
-	GLint MatrixID = glGetUniformLocation(m_program, "MVP");
-	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &m_modelViewProj[0][0]);
-
-	GLint selectedLineID = glGetUniformLocation(m_program, "selectedLine");
-	glUniform1ui(selectedLineID, m_selectedLine);
-
-	GLint dataClassColorsID = glGetUniformLocation(m_program, "dataClassColors");
-
-	if (m_dataClassColors)
+	if (shader)
 	{
-		glUniform3fv(dataClassColorsID, 10, (float*)m_dataClassColors);
+		unsigned int program = ((OpenGLShader*)shader)->getProgram();
+		glUseProgram(program);
+
+		//Set uniforms
+		GLint MatrixID = glGetUniformLocation(program, "MVP");
+		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &m_modelViewProj[0][0]);
+
+		GLint selectedLineID = glGetUniformLocation(program, "selectedLine");
+		glUniform1ui(selectedLineID, m_selectedLine);
+
+		GLint dataClassColorsID = glGetUniformLocation(program, "dataClassColors");
+		if (m_dataClassColors)
+		{
+			glUniform3fv(dataClassColorsID, 10, (float*)m_dataClassColors);
+		}
+	}
+	else
+	{
+		glUseProgram(0);
 	}
 }
 

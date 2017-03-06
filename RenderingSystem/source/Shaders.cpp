@@ -8,8 +8,8 @@ using namespace LotsOfLines;
 const char* defaultVisualizationVertex = 
 "#version 330 core\n"
 
-"const uint SELECTED = 0x01;\n"
-"const uint HIDDEN = 0x02;\n"
+"const uint SELECTED = 0x01u;\n"
+"const uint HIDDEN = 0x02u;\n"
 
 "uniform mat4 MVP;\n"
 "uniform vec3 dataClassColors[10];\n"
@@ -19,7 +19,7 @@ const char* defaultVisualizationVertex =
 "layout(location = 2) in uint flags;\n"
 
 "out vec3 fragmentColor;\n"
-"out uint fragmentFlags;\n"
+"flat out uint fragmentFlags;\n"
 "void main()\n"
 "{\n"
 "   gl_Position = MVP * vec4(pos, 1.0);\n"
@@ -30,15 +30,15 @@ const char* defaultVisualizationVertex =
 const char* defaultVisualizationFragment =
 "#version 330 core\n"
 
-"const uint SELECTED = 0x01;\n"
-"const uint HIDDEN = 0x02;\n"
+"const uint SELECTED = 0x01u;\n"
+"const uint HIDDEN = 0x02u;\n"
 
 "in vec3 fragmentColor;\n"
-"in flat uint fragmentFlags;\n"
+"flat in uint fragmentFlags;\n"
 "out vec3 color;\n"
 "void main()\n"
 "{\n"
-"	if ((fragmentFlags & SELECTED) == 1u) discard;\n"
+"	if ((fragmentFlags & SELECTED) != 0u) discard;\n"
 "   color = fragmentColor;\n"
 "}\n";
 
@@ -49,11 +49,11 @@ const char* defaultVisualizationFragment =
 const char* selectedLineFragment =
 "#version 330 core\n"
 
-"const uint SELECTED = 0x01;\n"
-"const uint HIDDEN = 0x02;\n"
+"const uint SELECTED = 0x01u;\n"
+"const uint HIDDEN = 0x02u;\n"
 
 "in vec3 fragmentColor;\n"
-"in flat uint fragmentFlags;\n"
+"flat in uint fragmentFlags;\n"
 "out vec3 color;\n"
 "void main()\n"
 "{\n"

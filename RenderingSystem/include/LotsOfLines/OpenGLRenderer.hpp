@@ -39,7 +39,7 @@ namespace LotsOfLines
 
 	private:
 
-		float* m_dataClassColors;///< 10x3 array of floats
+		float* m_dataClassColors = nullptr;///< 10x3 array of floats
 
 		void initShaders();
 
