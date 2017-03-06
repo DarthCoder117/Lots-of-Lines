@@ -20,8 +20,8 @@ bool RadialPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_p
 		for (unsigned int x = 1; x < vec.size(); x += 2)
 		{
 			Vertex v = (x == 1) ?
-				Vertex((float)vec[x - 1], (float)vec[x]) :
-				Vertex((float)(vec[0] + vec[x - 1]), (float)(vec[1] + vec[x]));
+				Vertex((float)vec[x - 1], (float)vec[x], lineIdx) :
+				Vertex((float)(vec[0] + vec[x - 1]), (float)(vec[1] + vec[x]), lineIdx);
 			v.dataClassIndex = iter.classIndex();
 			v.flags = 0;
 			verticesOut.push_back(v);

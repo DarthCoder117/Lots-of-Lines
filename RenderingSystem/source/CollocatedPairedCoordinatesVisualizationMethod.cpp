@@ -16,7 +16,7 @@ bool CollocatedPairedCoordinatesVisualizationMethod::generateVBO(const std::shar
 		vectorSize = vec.size();
 		for (unsigned int x = 1; x < vec.size(); x += 2)
 		{
-			Vertex v((float)vec[x - 1], (float)vec[x]);
+			Vertex v((float)vec[x - 1], (float)vec[x], lineIdx);
 			v.dataClassIndex = iter.classIndex();
 			v.flags = 0;
 			verticesOut.push_back(v);

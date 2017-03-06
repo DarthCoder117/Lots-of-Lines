@@ -17,8 +17,11 @@ LotsOfLines::RenderingSystem* VisualizationRendererWidget::getRenderingSystem()
 
 void VisualizationRendererWidget::mousePressEvent(QMouseEvent* eventMove)
 {
-	m_renderingSystem.onMousePress(eventMove->pos().x(), eventMove->pos().y());
-	if (eventMove->button() == Qt::RightButton)
+	if (eventMove->button() == Qt::LeftButton)
+	{
+		m_renderingSystem.onMousePress(eventMove->pos().x(), eventMove->pos().y());
+	}
+	else if (eventMove->button() == Qt::RightButton)
 	{
 		m_renderingSystem.onRightClick(eventMove->pos().x(), eventMove->pos().y());
 	}

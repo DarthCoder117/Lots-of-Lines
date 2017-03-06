@@ -17,15 +17,17 @@ namespace LotsOfLines
 	///@brief Vertex structure for storing data to be sent to OpenGL for rendering
 	struct Vertex
 	{
-		Vertex(float x, float y)
+		Vertex(float x, float y, unsigned int lineIdx)
 			:x(x), y(y), z(0.0f),
 			dataClassIndex(0),
-			flags(0)
+			flags(0),
+			lineIndex(lineIdx)
 		{}
 
 		float x, y, z;
 		std::uint32_t dataClassIndex; ///< Index of data class this vertice's data belongs to
 		std::uint32_t flags;///< Vertex state flags
+		std::uint32_t lineIndex;///< Index of line
 	};
 
 	class RenderingSystem;

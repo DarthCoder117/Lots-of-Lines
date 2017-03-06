@@ -125,6 +125,9 @@ namespace LotsOfLines
 
 		glm::mat4x4 m_modelViewProjection;
 
+		///@brief Expands a selection from a vertex to the entire line.
+		void expandSelectionToLine(Vertex* vertices, unsigned int vertexCount, Vertex* selected);
+
 	public:
 
 		///@brief Call when the window is resized.

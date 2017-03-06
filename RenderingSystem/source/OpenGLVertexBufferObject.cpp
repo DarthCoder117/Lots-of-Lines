@@ -22,7 +22,7 @@ bool OpenGLVertexBufferObject::init(const std::vector<Vertex>& vertices, const s
 	//Index buffer
 	glGenBuffers(1, &m_indexBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int)*m_indexCount, &indices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int)*m_indexCount, &indices[0], GL_STATIC_READ);
 
 	return true;
 }
@@ -36,6 +36,7 @@ void OpenGLVertexBufferObject::draw()
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
 
+	//Position
 	size_t offset = 0;
 	glVertexAttribPointer(
 		0,                  // attribute 0.
@@ -47,6 +48,7 @@ void OpenGLVertexBufferObject::draw()
 	);
 	offset += sizeof(float) * 3;
 
+	//Data class index
 	glVertexAttribIPointer(
 		1,                  // attribute 1.
 		1,                  // size
@@ -56,6 +58,7 @@ void OpenGLVertexBufferObject::draw()
 	);
 	offset += sizeof(unsigned int);
 
+	//Flags
 	glVertexAttribIPointer(
 		2,                  // attribute 2.
 		1,                  // size
@@ -63,6 +66,16 @@ void OpenGLVertexBufferObject::draw()
 		sizeof(Vertex),                 // stride
 		(void*)offset            // array buffer offset
 	);
+	offset += sizeof(unsigned int);
+
+	//Line index
+	glVertexAttribIPointer(
+		3,                  // attribute 2.
+		1,                  // size
+		GL_UNSIGNED_INT,    // type 
+		sizeof(Vertex),                 // stride
+		(void*)offset            // array buffer offset
+		);
 	offset += sizeof(unsigned int);
 
 	glDrawElements(GL_LINES, m_indexCount, GL_UNSIGNED_INT, (void*)0);
@@ -81,6 +94,17 @@ Vertex* OpenGLVertexBufferObject::mapVertices(bool readOnly)
 void OpenGLVertexBufferObject::unmapVertices()
 {
 	glUnmapBuffer(GL_ARRAY_BUFFER);
+}
+
+unsigned int* OpenGLVertexBufferObject::mapIndices()
+{
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
+	return (unsigned int*)glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_READ_ONLY);
+}
+
+void OpenGLVertexBufferObject::unmapIndices()
+{
+	glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
 }
 
 unsigned int OpenGLVertexBufferObject::vertexCount() const

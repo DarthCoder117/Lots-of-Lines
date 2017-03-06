@@ -16,6 +16,9 @@ namespace LotsOfLines
 		Vertex* mapVertices(bool readOnly = false);
 		void unmapVertices();
 
+		unsigned int* mapIndices();
+		void unmapIndices();
+
 		unsigned int vertexCount() const;
 		unsigned int indexCount() const;
 

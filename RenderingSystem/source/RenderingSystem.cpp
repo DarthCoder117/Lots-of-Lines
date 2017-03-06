@@ -1,5 +1,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <list>
 #include "LotsOfLines/RenderingSystem.hpp"
 #include "LotsOfLines/IRenderer.hpp"
 #include "LotsOfLines/Shaders.hpp"
@@ -69,24 +70,55 @@ void RenderingSystem::onRightClick(int x, int y)
 	float mouseY = -2.0f * y / m_windowHeight + 1;
 
 	glm::mat4x4 invMvp = glm::inverse(m_modelViewProjection);
-	glm::vec4 mousePos(mouseX, mouseY, 0.0f, 1.0f);
-	mousePos = invMvp * mousePos;
+	glm::vec4 transformedMousePos(mouseX, mouseY, 1.0f, 1.0f);
+	transformedMousePos = invMvp * transformedMousePos;
+	transformedMousePos /= transformedMousePos.w;
+
+	glm::vec2 mousePos(transformedMousePos.x, transformedMousePos.y);
 
 	//Select all vertices below
 	if (m_vbo)
 	{
 		Vertex* vertices = m_vbo->mapVertices();
+		unsigned int* indices = m_vbo->mapIndices();
+		std::list<Vertex*> selectedVertices;
 
+		const float selectionDist = 0.05f;
+
+		//Iterate through each vertex and add to selection list
 		for (unsigned int i = 0; i < m_vbo->vertexCount(); ++i)
 		{
-			vertices[i].flags = 0;
-			if (vertices[i].y < mousePos.y)
+			glm::vec2 vertPos(vertices[i].x, vertices[i].y);
+
+			//Clear flags on vertex
+			vertices[i].flags &= ~EVSF_SELECTED;
+
+			//Add vertex to selected list
+			if (glm::distance(mousePos, vertPos) <= selectionDist)
 			{
-				vertices[i].flags = EVSF_SELECTED;
+				selectedVertices.push_back(&vertices[i]);
 			}
 		}
 
+		//Expand vertex selection to entire line
+		for (auto vertex : selectedVertices)
+		{
+			expandSelectionToLine(vertices, m_vbo->vertexCount(), vertex);
+		}
+
+		m_vbo->unmapIndices();
 		m_vbo->unmapVertices();
+	}
+}
+
+void RenderingSystem::expandSelectionToLine(Vertex* vertices, unsigned int vertexCount, Vertex* selected)
+{
+	for (unsigned int i = 0; i < vertexCount; ++i)
+	{
+		if (vertices[i].lineIndex == selected->lineIndex)
+		{
+			vertices[i].flags |= EVSF_SELECTED;
+		}
 	}
 }
 
@@ -132,9 +164,9 @@ void RenderingSystem::onResize(unsigned int width, unsigned int height)
 void RenderingSystem::draw(float r, float g, float b)
 {
 	//Calculate MVP matrix
-	glm::mat4x4 zoom = glm::scale(glm::mat4x4(), glm::vec3(m_zoomX, m_zoomY, 0.0f));
-	glm::mat4x4 translate = glm::translate(glm::mat4x4(), glm::vec3(-m_camX, -m_camY, 0.0f));
-	glm::mat4x4 m_modelViewProjection = zoom * translate;
+	glm::mat4x4 view = glm::translate(glm::mat4x4(), glm::vec3(-m_camX, -m_camY, 0.0f));
+	glm::mat4x4 proj = glm::ortho(-m_zoomX, m_zoomX, -m_zoomY, m_zoomX, -1.0f, 1.0f);
+	m_modelViewProjection = view * proj;
 	m_driver->setModelViewProjection(m_modelViewProjection);
 
 	//Begin drawing frame

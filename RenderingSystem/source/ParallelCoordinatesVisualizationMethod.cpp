@@ -27,7 +27,7 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 				interval = std::fmax(interval, axisSpacing);
 			}
 
-			Vertex v(-1.0f + (float)(x * interval), (float)vec[x]);
+			Vertex v(-1.0f + (float)(x * interval), (float)vec[x], lineIdx);
 			v.dataClassIndex = iter.classIndex();
 			v.flags = 0;
 			verticesOut.push_back(v);
