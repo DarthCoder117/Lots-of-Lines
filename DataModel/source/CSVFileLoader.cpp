@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 
 using namespace LotsOfLines;
 
@@ -35,6 +36,17 @@ std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path, const 
 		std::string dataClass, token;
 		double xn;
 		int column = 0, columncount = 0, currentLine = 0;
+
+		// Determine class column
+		int classColumn = options.classColumn;
+		if (!options.customClassColumn)
+		{
+			std::getline(in, line);
+			in.clear();
+			in.seekg(start);
+			classColumn = std::count(line.begin(), line.end(), ',');
+		}
+
 		// For numeric conversions
 		std::string months[]{ "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
 		std::string days[]{ "sun", "mon", "tue", "wed", "thu", "fri", "sat" };
@@ -64,7 +76,7 @@ std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path, const 
 					continue;
 				}
 				// Set dataclass to column if selected
-				else if (column++ == options.classColumn) {
+				if (column++ == classColumn) {
 					dataClass = token;
 					continue;
 				}
