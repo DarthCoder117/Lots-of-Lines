@@ -1,4 +1,5 @@
 #include "LoadDataDialog.h"
+#include <sstream>
 
 LoadDataDialog::LoadDataDialog(QWidget * parent, const QString& filePath) 
 	:QDialog(parent) 
@@ -16,6 +17,25 @@ LotsOfLines::LoadOptions LoadDataDialog::getLoadOptions()
 	options.dataNormalizationMode = (LotsOfLines::E_DATA_NORMALIZATION_MODE)normalizationMethodSelect->currentIndex();
 	options.classColumn = classColumnSelect->value();
 	options.customClassColumn = customClassColumnCheckbox->isChecked();
+	
+    std::istringstream is(ignoredColumnsLineEdit->text().toStdString());
+	std::string column;
+	
+	while (std::getline(is, column, ',')) {
+		try
+		{
+			double col = std::stod(column);
+			options.ignoreColumns.push_back(col);
+		}
+		catch (std::invalid_argument e)
+		{
+			// Invalid column
+		}
+		catch (std::out_of_range e)
+		{
+			// e.what
+		}
+	}
 	
 	return options;
 }

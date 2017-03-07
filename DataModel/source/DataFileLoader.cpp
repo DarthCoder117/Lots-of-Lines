@@ -75,16 +75,18 @@ std::shared_ptr<DataSet> DataFileLoader::loadData(const std::string& path, const
 			is.clear();
 
 			while (std::getline(is, token, ',')) {
-				// Skip column if in ignoreColumn
-				if (std::find(ignoreColumns.begin(), ignoreColumns.end(), column) != ignoreColumns.end())
-				{
-					continue;
-				}
 				// Set dataclass to column if selected
-				if (column++ == classColumn) {
+				if (column == classColumn) {
+					column++;
 					dataClass = token;
 					continue;
 				}
+				// Skip column if in ignoreColumn
+				if (std::find(options.ignoreColumns.begin(), options.ignoreColumns.end(), column++) != options.ignoreColumns.end())
+				{
+					continue;
+				}
+				
 				try
 				{
 					xn = std::stod(token);
