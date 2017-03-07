@@ -18,10 +18,10 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 		//Generate vertices to draw vector as line
 		const Vector& vec = iter.vector();
 		vectorSize = vec.size();
+		double interval = 2.0 / ((double)vectorSize - 1);
 		for (unsigned int x = 0; x < vec.size(); ++x)
 		{
 			//Scale to 2 screen units if fit to screen is enabled, otherwise just use the requested spacing
-			double interval = 2.0 / ((double)vectorSize - 1);
 			if (!fitToScreenHorizontal)
 			{
 				interval = std::fmax(interval, axisSpacing);
@@ -32,6 +32,8 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 			v.flags = 0;
 			verticesOut.push_back(v);
 		}
+
+		m_scrollLimit = ((float)interval * ((float)vectorSize - 1.0f)) - 2.0f;
 	}
 
 	//Generate indices for lines

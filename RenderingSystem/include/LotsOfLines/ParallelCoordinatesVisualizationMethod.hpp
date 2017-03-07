@@ -13,9 +13,14 @@ namespace LotsOfLines
 		const char* FIT_TO_SCREEN_HORIZONTAL = "Fit horizontal";
 		const char* AXIS_SPACING = "Axis spacing";
 
+		float m_scrollLimit = 0.0f;
+
 		void getNavigationOptions(NavigationOptions& optionsOut) 
 		{
-			optionsOut = NavigationOptions(true, false, true);
+			optionsOut = NavigationOptions(true, false);
+			optionsOut.limitScroll = true;
+			optionsOut.minScrollLimitX = 0.0f;
+			optionsOut.maxScrollLimitX = m_scrollLimit;
 		}
 
 		void getDefaultOptions(VisualizationOptions& options)
