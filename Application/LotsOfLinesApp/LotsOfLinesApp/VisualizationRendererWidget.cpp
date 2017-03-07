@@ -23,24 +23,23 @@ LotsOfLines::RenderingSystem* VisualizationRendererWidget::getRenderingSystem()
 
 void VisualizationRendererWidget::mousePressEvent(QMouseEvent* eventMove)
 {
-	if (eventMove->button() == Qt::LeftButton)
-	{
-		m_renderingSystem.onMousePress(eventMove->pos().x(), eventMove->pos().y());
-	}
-	else if (eventMove->button() == Qt::RightButton)
-	{
-		m_renderingSystem.onRightClick(eventMove->pos().x(), eventMove->pos().y());
-	}
+	bool lmb = eventMove->buttons().testFlag(Qt::LeftButton);
+	bool rmb = eventMove->buttons().testFlag(Qt::RightButton);
+	m_renderingSystem.onMousePress(eventMove->pos().x(), eventMove->pos().y(), lmb, rmb);
 }
 
 void VisualizationRendererWidget::mouseMoveEvent(QMouseEvent* eventMove)
 {
-	m_renderingSystem.onMouseMove(eventMove->pos().x(), eventMove->pos().y());
+	bool lmb = eventMove->buttons().testFlag(Qt::LeftButton);
+	bool rmb = eventMove->buttons().testFlag(Qt::RightButton);
+	m_renderingSystem.onMouseMove(eventMove->pos().x(), eventMove->pos().y(), lmb, rmb);
 }
 
 void VisualizationRendererWidget::mouseReleaseEvent(QMouseEvent* eventMove)
 {
-	m_renderingSystem.onMouseRelease(eventMove->pos().x(), eventMove->pos().y());
+	bool lmb = eventMove->buttons().testFlag(Qt::LeftButton);
+	bool rmb = eventMove->buttons().testFlag(Qt::RightButton);
+	m_renderingSystem.onMouseRelease(eventMove->pos().x(), eventMove->pos().y(), lmb, rmb);
 }
 
 void VisualizationRendererWidget::wheelEvent(QWheelEvent* wheelEvent)

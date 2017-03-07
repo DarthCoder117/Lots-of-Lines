@@ -51,19 +51,23 @@ IRenderer* RenderingSystem::getDriver() const
 	return m_driver;
 }
 
-void RenderingSystem::onMousePress(int x, int y)
+void RenderingSystem::onMousePress(int x, int y, bool lmb, bool rmb)
 {
 	//Store mouse drag start positions
-	m_mousePressed = true;
 	m_startMouseX = x;
 	m_startMouseY = y;
 
 	//Store window start drag position too
 	m_camStartX = m_camX;
 	m_camStartY = m_camY;
+
+	if (rmb)
+	{
+		singleSelect(x, y);
+	}
 }
 
-void RenderingSystem::onRightClick(int x, int y)
+void RenderingSystem::singleSelect(int x, int y)
 {
 	//Calculate actual mouse click position
 	float mouseX = 2.0f * x / m_windowWidth - 1;
@@ -80,13 +84,14 @@ void RenderingSystem::onRightClick(int x, int y)
 	if (m_vbo)
 	{
 		Vertex* vertices = m_vbo->mapVertices();
-		unsigned int* indices = m_vbo->mapIndices();
 
 		const float selectionDist = 0.05f;//Default selection radius
 
 		//Pick the closest veretex to the mouse pointer
 		Vertex* closestVertex = nullptr;
 		float shortestDist = selectionDist;
+
+		m_selectionSet.clear();
 
 		//Iterate through each vertex and add to selection list
 		for (unsigned int i = 0; i < m_vbo->vertexCount(); ++i)
@@ -108,28 +113,89 @@ void RenderingSystem::onRightClick(int x, int y)
 		//Expand vertex selection to entire line
 		if (closestVertex)
 		{
-			expandSelectionToLine(vertices, m_vbo->vertexCount(), closestVertex);
+			selectLine(closestVertex->lineIndex, vertices, m_vbo->vertexCount());
 		}
 
-		m_vbo->unmapIndices();
 		m_vbo->unmapVertices();
 	}
 }
 
-void RenderingSystem::expandSelectionToLine(Vertex* vertices, unsigned int vertexCount, Vertex* selected)
+void RenderingSystem::multiSelect(int x, int y)
 {
+	//Calculate actual mouse click position
+	float mouseX = 2.0f * x / m_windowWidth - 1;
+	float mouseY = -2.0f * y / m_windowHeight + 1;
+
+	glm::mat4x4 invMvp = glm::inverse(m_modelViewProjection);
+	glm::vec4 transformedMousePos(mouseX, mouseY, 1.0f, 1.0f);
+	transformedMousePos = invMvp * transformedMousePos;
+	transformedMousePos /= transformedMousePos.w;
+
+	glm::vec2 mousePos(transformedMousePos.x, transformedMousePos.y);
+
+	//Select all vertices below
+	if (m_vbo)
+	{
+		Vertex* vertices = m_vbo->mapVertices();
+
+		const float selectionDist = 0.05f;//Default selection radius
+
+		std::list<Vertex*> selectedVertices;
+
+		//Iterate through each vertex and add to selection list
+		for (unsigned int i = 0; i < m_vbo->vertexCount(); ++i)
+		{
+			glm::vec2 vertPos(vertices[i].x, vertices[i].y);
+
+			//Add vertex to selected list
+			float dist = glm::distance(mousePos, vertPos);
+			if (dist <= selectionDist)
+			{
+				selectedVertices.push_back(&vertices[i]);
+			}
+		}
+
+		//Expand vertex selection to entire line
+		for (Vertex* vertex : selectedVertices)
+		{
+			selectLine(vertex->lineIndex, vertices, m_vbo->vertexCount());
+		}
+
+		m_vbo->unmapVertices();
+	}
+}
+
+void RenderingSystem::selectLine(unsigned int lineIdx)
+{
+	if (m_vbo)
+	{
+		Vertex* vertices = m_vbo->mapVertices();
+		selectLine(lineIdx, vertices, m_vbo->vertexCount());
+		m_vbo->unmapVertices();
+	}
+}
+
+void RenderingSystem::selectLine(unsigned int lineIdx, Vertex* vertices, unsigned int vertexCount)
+{
+	m_selectionSet.insert(lineIdx);
+
 	for (unsigned int i = 0; i < vertexCount; ++i)
 	{
-		if (vertices[i].lineIndex == selected->lineIndex)
+		if (vertices[i].lineIndex == lineIdx)
 		{
 			vertices[i].flags |= EVSF_SELECTED;
 		}
 	}
 }
 
-void RenderingSystem::onMouseMove(int x, int y)
+const std::set<unsigned int>& RenderingSystem::getSelection() const
 {
-	if (m_mousePressed)
+	return m_selectionSet;
+}
+
+void RenderingSystem::onMouseMove(int x, int y, bool lmb, bool rmb)
+{
+	if (lmb)
 	{
 		NavigationOptions options;
 		std::shared_ptr<IVisualizationMethod> method = getCurrentVisualizationMethod();
@@ -146,11 +212,15 @@ void RenderingSystem::onMouseMove(int x, int y)
 			m_camX = std::fmin(m_camX, options.maxScrollLimitX);
 		}
 	}
+	else
+	{
+		multiSelect(x, y);
+	}
 }
 
-void RenderingSystem::onMouseRelease(int x, int y)
+void RenderingSystem::onMouseRelease(int x, int y, bool lmb, bool rmb)
 {
-	m_mousePressed = false;
+
 }
 
 void RenderingSystem::onMouseScroll(int delta)
@@ -352,7 +422,7 @@ std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::s
 	std::shared_ptr<IVisualizationMethod> method = iter->second;
 
 	std::vector<unsigned int> indices;
-	if (method->generateVBO(dataSet, verticesOut, indices, m_options))
+	if (method->generateVBO(dataSet, verticesOut, indices, this, m_options))
 	{
 		return m_driver->createVBO(verticesOut, indices);
 	}

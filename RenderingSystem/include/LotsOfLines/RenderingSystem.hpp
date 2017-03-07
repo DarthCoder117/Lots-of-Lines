@@ -110,20 +110,32 @@ namespace LotsOfLines
 	public:
 
 		///@brief Call when a mouse press event occurs on the window
-		void onMousePress(int x, int y);
-		///@brief Call when a mouse press event occurs on the window
-		void onRightClick(int x, int y);
+		void onMousePress(int x, int y, bool lmb, bool rmb);
 		///@brief Call when a mouse move event occurs on the window
-		void onMouseMove(int x, int y);
+		void onMouseMove(int x, int y, bool lmb, bool rmb);
 		///@brief Call when a mouse release event occurs on the window
-		void onMouseRelease(int x, int y);
+		void onMouseRelease(int x, int y, bool lmb, bool rmb);
 		///@brief Call when a mouse scroll wheel event occurs.
 		///@param delta The amount of degrees the mouse wheel was moved.
 		void onMouseScroll(int delta);
 
+		///@brief Select the line with the specified index.
+		void selectLine(unsigned int lineIdx);
+		///@brief Select the line with the specified index, but pass the vertex data to avoid locking multiple times.
+		void selectLine(unsigned int lineIdx, Vertex* vertices, unsigned int vertexCount);
+
+		///@return The current selection set.
+		const std::set<unsigned int>& getSelection() const;
+
 	private:
 
-		bool m_mousePressed = false;
+		std::set<unsigned int> m_selectionSet;
+
+		///@brief Select single closest line from mouse click point.
+		void singleSelect(int x, int y);
+		///@brief Select all lines in mouse radius.
+		void multiSelect(int x, int y);
+
 		int m_startMouseX = 0, m_startMouseY = 0;
 
 		float m_camX = 0.0f, m_camY = 0.0f;
@@ -134,9 +146,6 @@ namespace LotsOfLines
 		unsigned int m_windowHeight;
 
 		glm::mat4x4 m_modelViewProjection;
-
-		///@brief Expands a selection from a vertex to the entire line.
-		void expandSelectionToLine(Vertex* vertices, unsigned int vertexCount, Vertex* selected);
 
 	public:
 

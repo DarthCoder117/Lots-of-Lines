@@ -22,7 +22,7 @@ namespace LotsOfLines
 			options.setBool(DRAW_SEQUENTIALLY, true);
 		}
 
-		bool generateVBO(const std::shared_ptr<const DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, const VisualizationOptions& options);
+		bool generateVBO(const std::shared_ptr<const DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, RenderingSystem* driver, const VisualizationOptions& options);
 	};
 }
 
