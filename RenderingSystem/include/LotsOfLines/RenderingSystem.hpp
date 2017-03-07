@@ -152,12 +152,6 @@ namespace LotsOfLines
 
 		void drawVBO(std::shared_ptr<IVertexBufferObject> vbo);
 
-		///@brief Set the line that's selected.
-		void setSelectedLine(unsigned int lineIndex);
-
-		///@brief Gets index of the closest line to the 
-		unsigned int getClosestLine(float x, float y);
-
 	private:
 
 		bool m_autoViewTransformFlag = false;

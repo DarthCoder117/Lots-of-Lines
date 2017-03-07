@@ -81,9 +81,12 @@ void RenderingSystem::onRightClick(int x, int y)
 	{
 		Vertex* vertices = m_vbo->mapVertices();
 		unsigned int* indices = m_vbo->mapIndices();
-		std::list<Vertex*> selectedVertices;
 
-		const float selectionDist = 0.05f;
+		const float selectionDist = 0.05f;//Default selection radius
+
+		//Pick the closest veretex to the mouse pointer
+		Vertex* closestVertex = nullptr;
+		float shortestDist = selectionDist;
 
 		//Iterate through each vertex and add to selection list
 		for (unsigned int i = 0; i < m_vbo->vertexCount(); ++i)
@@ -94,16 +97,18 @@ void RenderingSystem::onRightClick(int x, int y)
 			vertices[i].flags &= ~EVSF_SELECTED;
 
 			//Add vertex to selected list
-			if (glm::distance(mousePos, vertPos) <= selectionDist)
+			float dist = glm::distance(mousePos, vertPos);
+			if (dist <= shortestDist)
 			{
-				selectedVertices.push_back(&vertices[i]);
+				closestVertex = &vertices[i];
+				shortestDist = dist;
 			}
 		}
 
 		//Expand vertex selection to entire line
-		for (auto vertex : selectedVertices)
+		if (closestVertex)
 		{
-			expandSelectionToLine(vertices, m_vbo->vertexCount(), vertex);
+			expandSelectionToLine(vertices, m_vbo->vertexCount(), closestVertex);
 		}
 
 		m_vbo->unmapIndices();
@@ -139,9 +144,6 @@ void RenderingSystem::onMouseMove(int x, int y)
 void RenderingSystem::onMouseRelease(int x, int y)
 {
 	m_mousePressed = false;
-
-	//Select line if drag didn't occur
-	setSelectedLine(0);
 }
 
 void RenderingSystem::onMouseScroll(int delta)
@@ -354,29 +356,6 @@ std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::s
 void RenderingSystem::drawVBO(std::shared_ptr<IVertexBufferObject> vbo)
 {
 	m_driver->drawVBO(vbo);
-}
-
-void RenderingSystem::setSelectedLine(unsigned int lineIndex)
-{
-	m_driver->setSelectedLine(lineIndex);
-}
-
-unsigned int RenderingSystem::getClosestLine(float x, float y)
-{
-	float closestDist = std::numeric_limits<float>::max();
-	unsigned int closestLine = 0;
-	for (auto vertex : m_vertices)
-	{
-		glm::vec2 m(x, y);
-		glm::vec2 v(vertex.x, vertex.y);
-		float dist = glm::distance(m, v);
-		if (dist < closestDist)
-		{
-			closestDist = dist;
-		}
-	}
-
-	return closestLine;
 }
 
 // TEMPORARY FOR GHETTO TESTING PURPOSES. TESTS WILL BE MOVED TO THE TEST FRAMEWORK SHORTLY.
