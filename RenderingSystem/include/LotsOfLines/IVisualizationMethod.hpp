@@ -12,9 +12,11 @@ namespace LotsOfLines
 	{
 		bool lockZoomX, lockZoomY;
 		bool lockPanX, lockPanY;
+		float minScrollLimitX, maxScrollLimitX;
+		bool limitScroll;
 		
-		NavigationOptions(bool zX = false, bool zY = false, bool pX = false, bool pY = false)
-			: lockZoomX(zX), lockZoomY(zY), lockPanX(pX), lockPanY(pY) {}
+		NavigationOptions(bool zX = false, bool zY = false, bool pX = false, bool pY = false, float sMinX = 0.0f, float sMaxX = 0.0f)
+			: lockZoomX(zX), lockZoomY(zY), lockPanX(pX), lockPanY(pY), minScrollLimitX(sMinX), maxScrollLimitX(sMaxX), limitScroll(false) {}
 	};
 
 	///@brief Macro for defining new visualization types easily.

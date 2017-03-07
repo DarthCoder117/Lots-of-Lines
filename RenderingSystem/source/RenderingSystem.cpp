@@ -138,6 +138,13 @@ void RenderingSystem::onMouseMove(int x, int y)
 		//Offset camera position by amount cursor moved
 		m_camX = options.lockPanX ? m_camX : m_camStartX + (float)(m_startMouseX - x) * 0.01f;
 		m_camY = options.lockPanY ? m_camY : m_camStartY + (float)(y - m_startMouseY) * 0.01f;
+
+		//Lock scroll
+		if (options.limitScroll)
+		{
+			m_camX = std::fmax(m_camX, options.minScrollLimitX);
+			m_camX = std::fmin(m_camX, options.maxScrollLimitX);
+		}
 	}
 }
 
