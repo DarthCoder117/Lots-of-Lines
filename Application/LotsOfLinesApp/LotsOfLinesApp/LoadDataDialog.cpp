@@ -24,7 +24,7 @@ LotsOfLines::LoadOptions LoadDataDialog::getLoadOptions()
 	while (std::getline(is, column, ',')) {
 		try
 		{
-			double col = std::stod(column);
+			unsigned int col = std::stoi(column);
 			options.ignoreColumns.push_back(col);
 		}
 		catch (std::invalid_argument e)
