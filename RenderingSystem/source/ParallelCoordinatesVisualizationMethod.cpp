@@ -12,23 +12,33 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 	bool shifted = options.getBool(SHIFTED);
 	double axisSpacing = options.getDouble(AXIS_SPACING);
 	
+	//Quick struct for storing vector and index
+	typedef struct VectorPair {
+		Vector vector;
+		unsigned int index;
+	} VectorPair;
+
 	//Shift around this line
-	Vector median = Vector(dataSet->vectorCount(), 0.0);
+	Vector median;
+	unsigned int medianLineIdx = 0;
 
 	if (shifted) {
 		//For median calculation
-		std::multimap<const double, Vector> firstVariables;
+		std::multimap<const double, VectorPair> firstVariables;
 
 		for (auto iter = dataSet->iterator(); iter.hasNext(); iter++)
 		{
 			const Vector& vec = iter.vector();
-			firstVariables.emplace(vec[0], vec);
+			VectorPair vector;
+			vector.vector = vec;
+			vector.index = iter.lineIndex();
+			firstVariables.emplace(vec[0], vector);
 		}
 
 		// Get median vector
 		size_t size = firstVariables.size();
 		
-		std::multimap<const double, Vector>::iterator iter = firstVariables.begin();
+		std::multimap<const double, VectorPair>::iterator iter = firstVariables.begin();
 		// If even elements, get 1 of central elements. No need to be picky
 		if (size % 2 == 0)
 		{
@@ -39,7 +49,8 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 			std::advance(iter, size / 2);
 		}
 		// Assign element
-		median = iter->second;
+		median = iter->second.vector;
+		medianLineIdx = iter->second.index;
 	}
 
 	for (auto iter = dataSet->iterator(); iter.hasNext(); iter++)
@@ -58,7 +69,7 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 				interval = std::fmax(interval, axisSpacing);
 			}
 
-			Vertex v(-1.0f + (float)(x * interval), (float)vec[x] + (float)(median[0] - median[x]), lineIdx);
+			Vertex v(-1.0f + (float)(x * interval), (float)vec[x] + (shifted ? (float)(median[0] - median[x]) : 0.0f), lineIdx);
 			v.dataClassIndex = iter.classIndex();
 			v.flags = 0;
 			verticesOut.push_back(v);
@@ -76,6 +87,10 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 			indicesOut.push_back(i + (baseIndex * vectorSize) - 1);
 			indicesOut.push_back(i + (baseIndex * vectorSize));
 		}
+	}
+
+	if (shifted) {
+		driver->selectLine(medianLineIdx);
 	}
 
 	return true;

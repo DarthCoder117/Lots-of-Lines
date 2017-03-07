@@ -21,7 +21,7 @@ namespace LotsOfLines
 	{
 	public:
 
-		///@brief Iterator class for traversing the datset easier.
+		///@brief Iterator class for traversing the dataset easier.
 		class Iterator
 		{
 		public:
