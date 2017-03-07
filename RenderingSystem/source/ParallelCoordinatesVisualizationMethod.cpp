@@ -90,7 +90,7 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 	}
 
 	if (shifted) {
-		driver->selectLine(medianLineIdx);
+		driver->selectLine(medianLineIdx + 1);
 	}
 
 	return true;
