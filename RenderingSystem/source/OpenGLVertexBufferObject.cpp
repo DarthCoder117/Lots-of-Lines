@@ -70,7 +70,7 @@ void OpenGLVertexBufferObject::draw()
 
 	//Line index
 	glVertexAttribIPointer(
-		3,                  // attribute 2.
+		3,                  // attribute 3.
 		1,                  // size
 		GL_UNSIGNED_INT,    // type 
 		sizeof(Vertex),                 // stride

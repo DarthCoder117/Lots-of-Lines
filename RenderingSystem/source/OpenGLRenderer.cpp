@@ -214,9 +214,6 @@ void OpenGLRenderer::setShader(IShader* shader)
 		GLint MatrixID = glGetUniformLocation(program, "MVP");
 		glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &m_modelViewProj[0][0]);
 
-		GLint selectedLineID = glGetUniformLocation(program, "selectedLine");
-		glUniform1ui(selectedLineID, m_selectedLine);
-
 		GLint dataClassColorsID = glGetUniformLocation(program, "dataClassColors");
 		if (m_dataClassColors)
 		{
