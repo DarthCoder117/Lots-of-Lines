@@ -70,14 +70,15 @@ std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path, const 
 			is.clear();
 
 			while (std::getline(is, token, ',')) {
-				// Skip column if in ignoreColumn
-				if (std::find(ignoreColumns.begin(), ignoreColumns.end(), column) != ignoreColumns.end())
-				{
+				// Set dataclass to column if selected
+				if (column == classColumn) {
+					column++;
+					dataClass = token;
 					continue;
 				}
-				// Set dataclass to column if selected
-				if (column++ == classColumn) {
-					dataClass = token;
+				// Skip column if in ignoreColumn
+				if (std::find(options.ignoreColumns.begin(), options.ignoreColumns.end(), column++) != options.ignoreColumns.end())
+				{
 					continue;
 				}
 				try

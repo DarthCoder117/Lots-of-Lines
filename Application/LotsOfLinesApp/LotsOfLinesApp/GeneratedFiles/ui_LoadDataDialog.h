@@ -36,11 +36,12 @@ public:
     QLineEdit *selectedFile;
     QGroupBox *optionsGroupBox;
     QFormLayout *formLayout;
-    QSpinBox *classColumnSelect;
     QLabel *label_2;
     QComboBox *normalizationMethodSelect;
     QCheckBox *customClassColumnCheckbox;
-    QSpacerItem *verticalSpacer;
+    QSpinBox *classColumnSelect;
+    QLabel *label;
+    QLineEdit *ignoredColumnsLineEdit;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer;
     QPushButton *cancelButton;
@@ -50,7 +51,7 @@ public:
     {
         if (LoadDataDialog->objectName().isEmpty())
             LoadDataDialog->setObjectName(QStringLiteral("LoadDataDialog"));
-        LoadDataDialog->resize(465, 172);
+        LoadDataDialog->resize(465, 222);
         verticalLayout = new QVBoxLayout(LoadDataDialog);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         selectedFile = new QLineEdit(LoadDataDialog);
@@ -64,12 +65,6 @@ public:
         optionsGroupBox->setObjectName(QStringLiteral("optionsGroupBox"));
         formLayout = new QFormLayout(optionsGroupBox);
         formLayout->setObjectName(QStringLiteral("formLayout"));
-        classColumnSelect = new QSpinBox(optionsGroupBox);
-        classColumnSelect->setObjectName(QStringLiteral("classColumnSelect"));
-        classColumnSelect->setEnabled(false);
-
-        formLayout->setWidget(3, QFormLayout::FieldRole, classColumnSelect);
-
         label_2 = new QLabel(optionsGroupBox);
         label_2->setObjectName(QStringLiteral("label_2"));
 
@@ -85,12 +80,24 @@ public:
 
         formLayout->setWidget(3, QFormLayout::LabelRole, customClassColumnCheckbox);
 
+        classColumnSelect = new QSpinBox(optionsGroupBox);
+        classColumnSelect->setObjectName(QStringLiteral("classColumnSelect"));
+        classColumnSelect->setEnabled(false);
+
+        formLayout->setWidget(3, QFormLayout::FieldRole, classColumnSelect);
+
+        label = new QLabel(optionsGroupBox);
+        label->setObjectName(QStringLiteral("label"));
+
+        formLayout->setWidget(4, QFormLayout::LabelRole, label);
+
+        ignoredColumnsLineEdit = new QLineEdit(optionsGroupBox);
+        ignoredColumnsLineEdit->setObjectName(QStringLiteral("ignoredColumnsLineEdit"));
+
+        formLayout->setWidget(4, QFormLayout::FieldRole, ignoredColumnsLineEdit);
+
 
         verticalLayout->addWidget(optionsGroupBox);
-
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout->addItem(verticalSpacer);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
@@ -123,9 +130,6 @@ public:
     {
         LoadDataDialog->setWindowTitle(QApplication::translate("LoadDataDialog", "Load Data", Q_NULLPTR));
         optionsGroupBox->setTitle(QApplication::translate("LoadDataDialog", "Options", Q_NULLPTR));
-#ifndef QT_NO_TOOLTIP
-        classColumnSelect->setToolTip(QApplication::translate("LoadDataDialog", "The column index that will be used as the data class.", Q_NULLPTR));
-#endif // QT_NO_TOOLTIP
         label_2->setText(QApplication::translate("LoadDataDialog", "Normalization Method", Q_NULLPTR));
         normalizationMethodSelect->clear();
         normalizationMethodSelect->insertItems(0, QStringList()
@@ -134,6 +138,10 @@ public:
          << QApplication::translate("LoadDataDialog", "global min/max", Q_NULLPTR)
         );
         customClassColumnCheckbox->setText(QApplication::translate("LoadDataDialog", "Custom class column", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        classColumnSelect->setToolTip(QApplication::translate("LoadDataDialog", "The column index that will be used as the data class.", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        label->setText(QApplication::translate("LoadDataDialog", "Ignored Columns", Q_NULLPTR));
         cancelButton->setText(QApplication::translate("LoadDataDialog", "Cancel", Q_NULLPTR));
         okButton->setText(QApplication::translate("LoadDataDialog", "OK", Q_NULLPTR));
     } // retranslateUi
