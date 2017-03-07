@@ -129,6 +129,9 @@ namespace LotsOfLines
 
 	private:
 
+		///@brief Refresh display of selected lines after redraw.
+		void refreshLineSelection();
+
 		std::set<unsigned int> m_selectionSet;
 
 		///@brief Select single closest line from mouse click point.

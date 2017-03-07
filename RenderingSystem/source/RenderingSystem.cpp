@@ -167,6 +167,8 @@ void RenderingSystem::multiSelect(int x, int y)
 
 void RenderingSystem::selectLine(unsigned int lineIdx)
 {
+	m_selectionSet.insert(lineIdx);
+
 	if (m_vbo)
 	{
 		Vertex* vertices = m_vbo->mapVertices();
@@ -191,6 +193,19 @@ void RenderingSystem::selectLine(unsigned int lineIdx, Vertex* vertices, unsigne
 const std::set<unsigned int>& RenderingSystem::getSelection() const
 {
 	return m_selectionSet;
+}
+
+void RenderingSystem::refreshLineSelection()
+{
+	Vertex* vertices = m_vbo->mapVertices();
+	for (unsigned int i = 0; i < m_vbo->vertexCount(); ++i)
+	{
+		for (unsigned int lineIdx : m_selectionSet)
+		{
+			if (vertices[i].lineIndex == lineIdx) vertices[i].flags |= EVSF_SELECTED;
+		}
+	}
+	m_vbo->unmapVertices();
 }
 
 void RenderingSystem::onMouseMove(int x, int y, bool lmb, bool rmb)
@@ -405,6 +420,10 @@ void RenderingSystem::redraw()
 	if (m_dataSet && m_currentVisualizationType != EVT_COUNT)
 	{
 		m_vbo = generateFromDataSet(m_dataSet, m_currentVisualizationType, m_vertices);
+		if (m_vbo)
+		{
+			refreshLineSelection();
+		}
 	}
 
 	//Scale view to fit
