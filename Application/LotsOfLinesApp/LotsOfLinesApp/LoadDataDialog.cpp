@@ -15,6 +15,7 @@ LotsOfLines::LoadOptions LoadDataDialog::getLoadOptions()
 	
 	options.dataNormalizationMode = (LotsOfLines::E_DATA_NORMALIZATION_MODE)normalizationMethodSelect->currentIndex();
 	options.classColumn = classColumnSelect->value();
+	options.customClassColumn = customClassColumnCheckbox->isChecked();
 	
 	return options;
 }

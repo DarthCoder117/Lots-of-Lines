@@ -39,7 +39,7 @@ std::shared_ptr<DataSet> CSVFileLoader::loadData(const std::string& path, const 
 
 		// Determine class column
 		int classColumn = options.classColumn;
-		if (options.customClassColumn)
+		if (!options.customClassColumn)
 		{
 			std::getline(in, line);
 			in.clear();
