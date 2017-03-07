@@ -17,6 +17,10 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 	// Get distance between first two pair X values
 	// This is semi-hardcoded shift value, though might be final variant
 	const Vector& firstVec = dataSet->getVector(0);
+	// Set selected vector as first in selection or if no selection, the first total
+	const Vector& selectedVec = (driver->getSelection().size() > 0) ?
+		dataSet->getVector(*driver->getSelection().begin()) : firstVec;
+	
 	double distance = options.getDouble(STEP);
 	Vector shiftVec = Vector();
 
@@ -48,19 +52,19 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 	if (horizontal)
 	{
 		// Merely using first vec here for ease of test
-		for (unsigned int i = 0; i < firstVec.size(); i++)
+		for (unsigned int i = 0; i < selectedVec.size(); i++)
 		{
-			if (i % 2 == 1 && i > 2) shiftVec[i] += (firstVec[1] - firstVec[i]);
+			if (i % 2 == 1 && i > 2) shiftVec[i] += (selectedVec[1] - selectedVec[i]);
 			// else add 0
 		}
 	}
 	else if (collapsed)
 	{
 		// Using first vec again
-		for (unsigned int i = 0; i < firstVec.size(); i++)
+		for (unsigned int i = 0; i < selectedVec.size(); i++)
 		{
-			if (i % 2 == 0 && i > 1) shiftVec[i] += (firstVec[0] - firstVec[i]);
-			else if (i % 2 == 1 && i > 2) shiftVec[i] += (firstVec[1] - firstVec[i]);
+			if (i % 2 == 0 && i > 1) shiftVec[i] += (selectedVec[0] - selectedVec[i]);
+			else if (i % 2 == 1 && i > 2) shiftVec[i] += (selectedVec[1] - selectedVec[i]);
 			// else add 0
 		}
 	}
