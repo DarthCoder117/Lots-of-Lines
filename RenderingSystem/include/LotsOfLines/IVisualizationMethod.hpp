@@ -41,6 +41,9 @@ namespace LotsOfLines
 		///@brief Generate a vertex buffer for the visualization.
 		virtual bool generateVBO(const std::shared_ptr<const DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, RenderingSystem* driver, const VisualizationOptions& options = VisualizationOptions()) = 0;
 
+		///@brief Draw axis lines and other extra features of the visualization method.
+		virtual void preDraw(RenderingSystem* driver) {}
+
 		///@brief Should return the navigation options for the rendering method (X scroll lock, etc)
 		virtual void getNavigationOptions(NavigationOptions& optionsOut) = 0;
 

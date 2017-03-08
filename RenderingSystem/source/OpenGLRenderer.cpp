@@ -12,124 +12,9 @@
 
 using namespace LotsOfLines;
 
-static const char* vertex_shader_text =
-"#version 330 core\n"
-
-"const uint SELECTED = 0x01;\n"
-"const uint HIDDEN = 0x02;\n"
-
-"uniform mat4 MVP;\n"
-"uniform vec3 dataClassColors[10];\n"
-
-"layout(location = 0) in vec3 pos;\n"
-"layout(location = 1) in uint classIndex;\n"
-"layout(location = 2) in uint flags;\n"
-
-"out vec3 fragmentColor;\n"
-"out uint fragmentFlags;"
-"void main()\n"
-"{\n"
-"   gl_Position = MVP * vec4(pos, 1.0);\n"
-
-"	if (flags & SELECTED)\n"
-"	{\n"
-"		fragmentColor = vec3(1.0);\n"
-"	}\n"
-"	else\n"
-"	{\n"
-"		fragmentColor = dataClassColors[classIndex];\n"
-"	}\n"
-"   fragmentFlags = flags;\n"
-"}\n";
-
-static const char* fragment_shader_text =
-"#version 330 core\n"
-"in vec3 fragmentColor;"
-"out vec3 color;\n"
-"void main()\n"
-"{\n"
-"    color = fragmentColor;\n"
-"}\n";
-
 OpenGLRenderer::OpenGLRenderer()
 {
 	
-}
-
-void OpenGLRenderer::initShaders()
-{
-	//Vertex shader
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertex_shader_text, NULL);
-	glCompileShader(vertexShader);
-
-	GLint isCompiled = 0;
- 	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &isCompiled);
-	if (isCompiled == GL_FALSE)
-	{
-		GLint maxLength = 0;
-		glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &maxLength);
-
-		// The maxLength includes the NULL character
-		std::vector<GLchar> errorLog(maxLength);
-		glGetShaderInfoLog(vertexShader, maxLength, &maxLength, &errorLog[0]);
-		std::cout << errorLog.data() << "\n";
-
-		glDeleteShader(vertexShader);
-		return;
-	}
-
-	//Pixel shader
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragment_shader_text, NULL);
-	glCompileShader(fragmentShader);
-
-	isCompiled = 0;
-	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &isCompiled);
-	if (isCompiled == GL_FALSE)
-	{
-		GLint maxLength = 0;
-		glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &maxLength);
-
-		// The maxLength includes the NULL character
-		std::vector<GLchar> errorLog(maxLength);
-		glGetShaderInfoLog(fragmentShader, maxLength, &maxLength, &errorLog[0]);
-		std::cout << errorLog.data() << "\n";
-
-		glDeleteShader(fragmentShader); 
-		return;
-	}
-
-	//Link both shaders
-	m_program = glCreateProgram();
-	glAttachShader(m_program, vertexShader);
-	glAttachShader(m_program, fragmentShader);
-	glLinkProgram(m_program);
-
-	GLint isLinked = 0;
-	glGetProgramiv(m_program, GL_LINK_STATUS, (int *)&isLinked);
-	if (isLinked == GL_FALSE)
-	{
-		GLint maxLength = 0;
-		glGetProgramiv(m_program, GL_INFO_LOG_LENGTH, &maxLength);
-
-		//The maxLength includes the NULL character
-		std::vector<GLchar> infoLog(maxLength);
-		glGetProgramInfoLog(m_program, maxLength, &maxLength, &infoLog[0]);
-		std::cout << infoLog.data() << "\n";
-
-		//We don't need the program anymore.
-		glDeleteProgram(m_program);
-		//Don't leak shaders either.
-		glDeleteShader(vertexShader);
-		glDeleteShader(fragmentShader);
-
-		return;
-	}
-
-	//Always detach shaders after a successful link.
-	glDetachShader(m_program, vertexShader);
-	glDetachShader(m_program, fragmentShader);
 }
 
 OpenGLRenderer::~OpenGLRenderer()
@@ -156,8 +41,6 @@ bool OpenGLRenderer::init()
 		versionInfo.append((const char*)glGetStringi(GL_EXTENSIONS, i)).append("\n");
 	}
 	printf(versionInfo.c_str());
-
-	initShaders();
 
 	//Enable scissor test so that splitscreen works.
 	glEnable(GL_SCISSOR_TEST);
@@ -198,6 +81,11 @@ void OpenGLRenderer::setModelViewProjection(const glm::mat4x4& mvp)
 	m_modelViewProj = mvp;
 }
 
+const glm::mat4x4& OpenGLRenderer::getModelViewProjection() const
+{
+	return m_modelViewProj;
+}
+
 IShader* OpenGLRenderer::createShader()
 {
 	return new OpenGLShader();
@@ -229,11 +117,6 @@ void OpenGLRenderer::setShader(IShader* shader)
 void OpenGLRenderer::drawVBO(std::shared_ptr<IVertexBufferObject> vbo, bool lines)
 {
 	std::static_pointer_cast<OpenGLVertexBufferObject, IVertexBufferObject>(vbo)->draw(lines);
-}
-
-void OpenGLRenderer::setSelectedLine(unsigned int selectedLine)
-{
-	m_selectedLine++;
 }
 
 std::shared_ptr<IVertexBufferObject> OpenGLRenderer::createVBO(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices)

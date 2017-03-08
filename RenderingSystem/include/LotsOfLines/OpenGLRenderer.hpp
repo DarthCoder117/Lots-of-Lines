@@ -27,13 +27,12 @@ namespace LotsOfLines
 		void setViewport(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
 
 		void setModelViewProjection(const glm::mat4x4& mvp);
+		const glm::mat4x4& getModelViewProjection() const;
 
 		IShader* createShader();
 		void setShader(IShader* shader);
 
 		void drawVBO(std::shared_ptr<IVertexBufferObject> vbo, bool lines);
-
-		void setSelectedLine(unsigned int selectedLine);
 
 		std::shared_ptr<IVertexBufferObject> createVBO(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
 
@@ -41,13 +40,7 @@ namespace LotsOfLines
 
 		float* m_dataClassColors = nullptr;///< 10x3 array of floats
 
-		void initShaders();
-
-		unsigned int m_program;
-
 		glm::mat4x4 m_modelViewProj;
-
-		unsigned int m_selectedLine = 0;
 	};
 }
 

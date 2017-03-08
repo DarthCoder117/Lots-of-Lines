@@ -270,6 +270,13 @@ void RenderingSystem::draw(float r, float g, float b)
 	//Draw visualization
 	if (m_vbo)
 	{
+		//Draw axis lines/other extras
+		auto visMethod = getCurrentVisualizationMethod();
+		if (visMethod)
+		{
+			visMethod->preDraw(this);
+		}
+
 		//Fix the weird bug with overlapping visualizations
 		//TODO: FIX THE UNDERLYING CAUSE
 		m_vbo->mapVertices();

@@ -32,6 +32,12 @@ namespace LotsOfLines
 		}
 
 		bool generateVBO(const std::shared_ptr<const DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, RenderingSystem* driver, const VisualizationOptions& options);
+		
+		void preDraw(RenderingSystem* driver);
+
+	private:
+
+		std::vector<float> m_axes;
 	};
 }
 

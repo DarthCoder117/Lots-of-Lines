@@ -1,4 +1,5 @@
 #include "LotsOfLines/ParallelCoordinatesVisualizationMethod.hpp"
+#include <GL/glew.h>
 
 using namespace LotsOfLines;
 
@@ -6,6 +7,9 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 {
 	unsigned int lineIdx = 0;
 	unsigned int vectorSize = 0;
+	double interval = 2.0 / 4.0;
+
+	m_axes.clear();
 
 	//Get options
 	bool fitToScreenHorizontal = options.getBool(FIT_TO_SCREEN_HORIZONTAL);
@@ -60,7 +64,7 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 		//Generate vertices to draw vector as line
 		const Vector& vec = iter.vector();
 		vectorSize = vec.size();
-		double interval = 2.0 / ((double)vectorSize - 1);
+		interval = 2.0 / ((double)vectorSize - 1);
 		for (unsigned int x = 0; x < vec.size(); ++x)
 		{
 			//Scale to 2 screen units if fit to screen is enabled, otherwise just use the requested spacing
@@ -89,9 +93,34 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 		}
 	}
 
-	if (shifted) {
+	if (shifted) 
+	{
 		driver->selectLine(medianLineIdx + 1);
 	}
 
+	//Get position for each axis line.
+	for (unsigned int i = 0; i < vectorSize; ++i)
+	{
+		m_axes.push_back(-1.0f + (float)(interval * i));
+	}
+
 	return true;
+}
+
+void ParallelCoordinatesVisualizationMethod::preDraw(RenderingSystem* driver)
+{
+	driver->getDriver()->setShader(nullptr);
+
+	glColor3f(0.6f, 0.6f, 0.6f);
+	const glm::mat4x4& mvp = driver->getDriver()->getModelViewProjection();
+	glLoadMatrixf((float*)&mvp);
+	glBegin(GL_LINES);
+
+	for (float axis : m_axes)
+	{
+		glVertex3f(axis, 1000.0f, 0.0f);
+		glVertex3f(axis, -1000.0f, 0.0f);
+	}
+
+	glEnd();
 }

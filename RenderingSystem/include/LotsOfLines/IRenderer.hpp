@@ -66,6 +66,8 @@ namespace LotsOfLines
 
 		///@brief Set model*view*projection matrix.
 		virtual void setModelViewProjection(const glm::mat4x4& mvp) = 0;
+		///@return The currently set model*view*projection matrix.
+		virtual const glm::mat4x4& getModelViewProjection() const = 0;
 
 		///@brief Create a new shader object.
 		virtual IShader* createShader() = 0;
@@ -75,9 +77,6 @@ namespace LotsOfLines
 		///@brief Draw a VBO to the screen.
 		///@param lines Whether to draw as lines or points.
 		virtual void drawVBO(std::shared_ptr<IVertexBufferObject> vbo, bool lines = true) = 0;
-
-		///@brief Sets the line that will be drawn as selected.
-		virtual void setSelectedLine(unsigned int selectedLine) = 0;
 
 		///@brief Construct a VBO from a list of vertices and indices.
 		virtual std::shared_ptr<IVertexBufferObject> createVBO(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices) = 0;

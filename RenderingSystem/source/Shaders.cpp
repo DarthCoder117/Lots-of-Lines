@@ -109,6 +109,46 @@ const char* pointFragment =
 "   color = fragmentColor;\n"
 "}\n";
 
+//==================================================================================
+// Axis lines
+//==================================================================================
+const char* axisLineVertex =
+"#version 330 core\n"
+
+"const uint SELECTED = 0x01u;\n"
+"const uint HIDDEN = 0x02u;\n"
+
+"uniform mat4 MVP;\n"
+"uniform vec3 dataClassColors[10];\n"
+
+"layout(location = 0) in vec3 pos;\n"
+"layout(location = 1) in uint classIndex;\n"
+"layout(location = 2) in uint flags;\n"
+
+"out vec3 fragmentColor;\n"
+"flat out uint fragmentFlags;\n"
+"void main()\n"
+"{\n"
+"   gl_Position = MVP * vec4(pos, 1.0);\n"
+"	fragmentColor = dataClassColors[classIndex];\n"
+"   fragmentFlags = flags;\n"
+"}\n";
+
+const char* axisLineFragment =
+"#version 330 core\n"
+
+"const uint SELECTED = 0x01u;\n"
+"const uint HIDDEN = 0x02u;\n"
+
+"in vec3 fragmentColor;\n"
+"flat in uint fragmentFlags;\n"
+"out vec3 color;\n"
+"void main()\n"
+"{\n"
+"	if ((fragmentFlags & SELECTED) != 0u) discard;\n"
+"   color = fragmentColor;\n"
+"}\n";
+
 IShader* Shaders::defaultVisualization = nullptr;
 IShader* Shaders::selectedLine = nullptr;
 IShader* Shaders::point = nullptr;
