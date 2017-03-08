@@ -270,13 +270,25 @@ void RenderingSystem::draw(float r, float g, float b)
 	//Draw visualization
 	if (m_vbo)
 	{
+		//Fix the weird bug with overlapping visualizations
+		//TODO: FIX THE UNDERLYING CAUSE
+		m_vbo->mapVertices();
+		m_vbo->unmapVertices();
+
 		//Draw unselected lines first
 		m_driver->setShader(Shaders::defaultVisualization);
-		drawVBO(m_vbo);
+		m_driver->drawVBO(m_vbo);
 
 		//Selection gets drawn on top so that it doesn't get hidden by the other lines
-		m_driver->setShader(Shaders::selectedLine);
-		drawVBO(m_vbo);
+		if (!m_selectionSet.empty())
+		{
+			m_driver->setShader(Shaders::selectedLine);
+			m_driver->drawVBO(m_vbo);
+		}
+
+		//Draw points last
+		m_driver->setShader(Shaders::point);
+		m_driver->drawVBO(m_vbo, false);
 	}
 
 	m_driver->endDraw();
@@ -416,21 +428,17 @@ unsigned int RenderingSystem::getDataClassColorCount() const
 void RenderingSystem::redraw()
 {
 	//Generate vertex buffer
-	m_vertices.clear();
 	if (m_dataSet && m_currentVisualizationType != EVT_COUNT)
 	{
-		m_vbo = generateFromDataSet(m_dataSet, m_currentVisualizationType, m_vertices);
+		m_vbo = generateFromDataSet(m_dataSet, m_currentVisualizationType);
 		if (m_vbo)
 		{
 			refreshLineSelection();
 		}
 	}
-
-	//Scale view to fit
-	//autoViewTransform(m_currentVisualizationType);
 }
 
-std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type, std::vector<Vertex>& verticesOut)
+std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type)
 {
 	auto iter = m_visualizationMethods.find(type);
 	if (iter == m_visualizationMethods.end())
@@ -441,17 +449,13 @@ std::shared_ptr<IVertexBufferObject> RenderingSystem::generateFromDataSet(std::s
 	std::shared_ptr<IVisualizationMethod> method = iter->second;
 
 	std::vector<unsigned int> indices;
-	if (method->generateVBO(dataSet, verticesOut, indices, this, m_options))
+	std::vector<Vertex> vertices;
+	if (method->generateVBO(dataSet, vertices, indices, this, m_options))
 	{
-		return m_driver->createVBO(verticesOut, indices);
+		return m_driver->createVBO(vertices, indices);
 	}
 
 	return nullptr;
-}
-
-void RenderingSystem::drawVBO(std::shared_ptr<IVertexBufferObject> vbo)
-{
-	m_driver->drawVBO(vbo);
 }
 
 // TEMPORARY FOR GHETTO TESTING PURPOSES. TESTS WILL BE MOVED TO THE TEST FRAMEWORK SHORTLY.

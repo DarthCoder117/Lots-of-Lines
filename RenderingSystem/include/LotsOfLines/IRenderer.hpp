@@ -11,7 +11,8 @@ namespace LotsOfLines
 	enum E_VERTEX_STATE_FLAGS
 	{
 		EVSF_SELECTED = 0x01,
-		EVSF_HIDDEN = 0x02
+		EVSF_HIDDEN = 0x02,
+		EVSF_DRAW_POINT = 0x04
 	};
 
 	///@brief Vertex structure for storing data to be sent to OpenGL for rendering
@@ -72,7 +73,8 @@ namespace LotsOfLines
 		virtual void setShader(IShader* shader) = 0;
 
 		///@brief Draw a VBO to the screen.
-		virtual void drawVBO(std::shared_ptr<IVertexBufferObject> vbo) = 0;
+		///@param lines Whether to draw as lines or points.
+		virtual void drawVBO(std::shared_ptr<IVertexBufferObject> vbo, bool lines = true) = 0;
 
 		///@brief Sets the line that will be drawn as selected.
 		virtual void setSelectedLine(unsigned int selectedLine) = 0;

@@ -15,6 +15,7 @@ namespace LotsOfLines
 
 		static IShader* defaultVisualization;
 		static IShader* selectedLine;
+		static IShader* point;
 	};
 }
 

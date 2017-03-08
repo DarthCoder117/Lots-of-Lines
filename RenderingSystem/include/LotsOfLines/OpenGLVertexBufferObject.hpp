@@ -22,7 +22,7 @@ namespace LotsOfLines
 		unsigned int vertexCount() const;
 		unsigned int indexCount() const;
 
-		void draw();
+		void draw(bool lines = true);
 
 	private:
 

@@ -226,9 +226,9 @@ void OpenGLRenderer::setShader(IShader* shader)
 	}
 }
 
-void OpenGLRenderer::drawVBO(std::shared_ptr<IVertexBufferObject> vbo)
+void OpenGLRenderer::drawVBO(std::shared_ptr<IVertexBufferObject> vbo, bool lines)
 {
-	std::static_pointer_cast<OpenGLVertexBufferObject, IVertexBufferObject>(vbo)->draw();
+	std::static_pointer_cast<OpenGLVertexBufferObject, IVertexBufferObject>(vbo)->draw(lines);
 }
 
 void OpenGLRenderer::setSelectedLine(unsigned int selectedLine)

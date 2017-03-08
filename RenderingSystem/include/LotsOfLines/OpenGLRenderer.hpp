@@ -31,7 +31,7 @@ namespace LotsOfLines
 		IShader* createShader();
 		void setShader(IShader* shader);
 
-		void drawVBO(std::shared_ptr<IVertexBufferObject> vbo);
+		void drawVBO(std::shared_ptr<IVertexBufferObject> vbo, bool lines);
 
 		void setSelectedLine(unsigned int selectedLine);
 

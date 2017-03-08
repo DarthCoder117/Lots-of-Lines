@@ -105,7 +105,7 @@ namespace LotsOfLines
 		VisualizationOptions m_options;
 
 		///@brief Generate a VBO from a data set.
-		std::shared_ptr<IVertexBufferObject> generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type, std::vector<Vertex>& verticesOut);
+		std::shared_ptr<IVertexBufferObject> generateFromDataSet(std::shared_ptr<DataSet> dataSet, E_VISUALIZATION_TYPE type);
 
 	public:
 
@@ -162,14 +162,11 @@ namespace LotsOfLines
 
 		void draw(float r = 0.2f, float g = 0.2f, float b = 0.2f);
 
-		void drawVBO(std::shared_ptr<IVertexBufferObject> vbo);
-
 	private:
 
 		bool m_autoViewTransformFlag = false;
 
 		std::shared_ptr<IVertexBufferObject> m_vbo;
-		std::vector<Vertex> m_vertices;
 	};
 }
 

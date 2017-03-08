@@ -27,7 +27,7 @@ bool OpenGLVertexBufferObject::init(const std::vector<Vertex>& vertices, const s
 	return true;
 }
 
-void OpenGLVertexBufferObject::draw()
+void OpenGLVertexBufferObject::draw(bool lines)
 {
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -78,8 +78,11 @@ void OpenGLVertexBufferObject::draw()
 		);
 	offset += sizeof(unsigned int);
 
-	glDrawElements(GL_LINES, m_indexCount, GL_UNSIGNED_INT, (void*)0);
+	glEnable(GL_POINT_SPRITE);
+	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 
+	glDrawElements(lines ? GL_LINES : GL_POINTS, m_indexCount, GL_UNSIGNED_INT, (void*)0);
+	
 	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(0);

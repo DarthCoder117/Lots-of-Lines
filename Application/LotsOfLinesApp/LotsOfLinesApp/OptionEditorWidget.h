@@ -13,6 +13,8 @@ public:
 
 	OptionEditorWidget(const QString& title, LotsOfLines::VisualizationOptions& options, QWidget* parent = 0);
 
+	void* userPointer = nullptr;
+
 public slots:
 
 	void onCheckboxChanged(int state);

@@ -191,14 +191,21 @@ void LotsOfLinesApp::onVisualizationChecked(int state)
 
 		//Create widget for screen section and use init callback to set parameters
 		VisualizationRendererWidget* rendererWidget = new VisualizationRendererWidget(this, initCallback);
+		rendererWidget->update();
 		m_rendererWidgets[checkbox->getVisualizationType()] = rendererWidget;
 		reorderSplitScreens();
 	}
 	else
 	{
 		//Remove visualization type from splitscreen display
-		m_rendererWidgets.erase(visualizationType);
-		reorderSplitScreens();
+		auto iter = m_rendererWidgets.find(visualizationType);
+		if (iter != m_rendererWidgets.end())
+		{
+			iter->second->disconnect();
+			delete iter->second;
+			m_rendererWidgets.erase(iter);
+			reorderSplitScreens();
+		}
 
 		//Remove editor widget
 		auto optionEditorWidget = m_optionEditorWidgets.find(visualizationType);
