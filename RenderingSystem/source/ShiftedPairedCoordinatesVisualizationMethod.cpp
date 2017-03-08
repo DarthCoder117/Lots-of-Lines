@@ -18,9 +18,14 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 	// This is semi-hardcoded shift value, though might be final variant
 	const Vector& firstVec = dataSet->getVector(0);
 	// Set selected vector as first in selection or if no selection, the first total
-	const Vector& selectedVec = (driver->getSelection().size() > 0) ?
-		dataSet->getVector(*driver->getSelection().begin() - 1) : firstVec;
+	const std::set<unsigned int> selected = driver->getSelection();
+	const Vector& selectedVec = 
+		(selected.size() > 0 && *selected.begin() - 1 < dataSet->vectorCount()) ?
+		dataSet->getVector(*selected.begin() - 1) : firstVec;
 	
+	if (selected.size() == 0 || *selected.begin() - 1 >= dataSet->vectorCount())
+		driver->selectLine(1);
+
 	double distance = options.getDouble(STEP);
 	Vector shiftVec = Vector();
 
