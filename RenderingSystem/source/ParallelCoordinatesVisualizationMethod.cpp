@@ -27,34 +27,45 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 	unsigned int medianLineIdx = 0;
 
 	if (shifted) {
-		//For median calculation
-		std::multimap<const double, VectorPair> firstVariables;
-
-		for (auto iter = dataSet->iterator(); iter.hasNext(); iter++)
+		//First try to get the selected line
+		const std::set<unsigned int> selected = driver->getSelection();
+		if (selected.size() > 0 && *selected.begin() - 1 < dataSet->vectorCount())
 		{
-			const Vector& vec = iter.vector();
-			VectorPair vector;
-			vector.vector = vec;
-			vector.index = iter.lineIndex();
-			firstVariables.emplace(vec[0], vector);
+			median = dataSet->getVector(*selected.begin() - 1);
+			medianLineIdx = *selected.begin();
 		}
-
-		// Get median vector
-		size_t size = firstVariables.size();
-		
-		std::multimap<const double, VectorPair>::iterator iter = firstVariables.begin();
-		// If even elements, get 1 of central elements. No need to be picky
-		if (size % 2 == 0)
-		{
-			std::advance(iter, size / 2 - 1);
-		}
+		//Otherwise try to find the median line based off of first variable
 		else
 		{
-			std::advance(iter, size / 2);
+			//For median calculation
+			std::multimap<const double, VectorPair> firstVariables;
+
+			for (auto iter = dataSet->iterator(); iter.hasNext(); iter++)
+			{
+				const Vector& vec = iter.vector();
+				VectorPair vector;
+				vector.vector = vec;
+				vector.index = iter.lineIndex();
+				firstVariables.emplace(vec[0], vector);
+			}
+
+			// Get median vector
+			size_t size = firstVariables.size();
+
+			std::multimap<const double, VectorPair>::iterator iter = firstVariables.begin();
+			// If even elements, get 1 of central elements. No need to be picky
+			if (size % 2 == 0)
+			{
+				std::advance(iter, size / 2 - 1);
+			}
+			else
+			{
+				std::advance(iter, size / 2);
+			}
+			// Assign element
+			median = iter->second.vector;
+			medianLineIdx = iter->second.index + 1;
 		}
-		// Assign element
-		median = iter->second.vector;
-		medianLineIdx = iter->second.index;
 	}
 
 	for (auto iter = dataSet->iterator(); iter.hasNext(); iter++)
@@ -75,7 +86,7 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 
 			Vertex v(-1.0f + (float)(x * interval), (float)vec[x] + (shifted ? (float)(median[0] - median[x]) : 0.0f), lineIdx);
 			v.dataClassIndex = iter.classIndex();
-			v.flags = 0;
+			v.flags = (medianLineIdx == lineIdx && shifted) ? EVSF_DRAW_POINT : 0;
 			verticesOut.push_back(v);
 		}
 
@@ -95,7 +106,7 @@ bool ParallelCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<c
 
 	if (shifted) 
 	{
-		driver->selectLine(medianLineIdx + 1);
+		driver->selectLine(medianLineIdx);
 	}
 
 	//Get position for each axis line.
