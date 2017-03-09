@@ -190,6 +190,21 @@ void RenderingSystem::selectLine(unsigned int lineIdx, Vertex* vertices, unsigne
 	}
 }
 
+void RenderingSystem::deselectAllLines()
+{
+	m_selectionSet.clear();
+
+	if (m_vbo)
+	{
+		Vertex* vertices = m_vbo->mapVertices();
+		for (unsigned int i = 0; i < m_vbo->vertexCount(); ++i)
+		{
+			vertices[i].flags &= ~EVSF_SELECTED;
+		}
+		m_vbo->unmapVertices();
+	}
+}
+
 const std::set<unsigned int>& RenderingSystem::getSelection() const
 {
 	return m_selectionSet;

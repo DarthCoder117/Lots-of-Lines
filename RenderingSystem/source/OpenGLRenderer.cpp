@@ -22,6 +22,25 @@ OpenGLRenderer::~OpenGLRenderer()
 	
 }
 
+void APIENTRY errorCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
+{
+	std::string severityStr = "Notification";
+	if (severity == GL_DEBUG_SEVERITY_HIGH)
+	{
+		severityStr = "High";
+	}
+	else if (severity == GL_DEBUG_SEVERITY_MEDIUM)
+	{
+		severityStr = "Medium";
+	}
+	else if (severity == GL_DEBUG_SEVERITY_LOW)
+	{
+		severityStr = "Low";
+	}
+
+	std::cout << "(" << severityStr << ") " << message << "\n";
+}
+
 bool OpenGLRenderer::init()
 {
 	//Init GLEW so that we can use modern OpenGL on Windows
@@ -41,6 +60,10 @@ bool OpenGLRenderer::init()
 		versionInfo.append((const char*)glGetStringi(GL_EXTENSIONS, i)).append("\n");
 	}
 	printf(versionInfo.c_str());
+
+	//Enable debug output
+	glEnable(GL_DEBUG_OUTPUT);
+	glDebugMessageCallback(errorCallback, nullptr);
 
 	//Enable scissor test so that splitscreen works.
 	glEnable(GL_SCISSOR_TEST);

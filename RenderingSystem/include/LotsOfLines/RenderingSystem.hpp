@@ -124,6 +124,9 @@ namespace LotsOfLines
 		///@brief Select the line with the specified index, but pass the vertex data to avoid locking multiple times.
 		void selectLine(unsigned int lineIdx, Vertex* vertices, unsigned int vertexCount);
 
+		///@brief Clear all line selections.
+		void deselectAllLines();
+
 		///@return The current selection set.
 		const std::set<unsigned int>& getSelection() const;
 
