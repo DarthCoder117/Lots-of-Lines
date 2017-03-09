@@ -7,6 +7,7 @@ using namespace LotsOfLines;
 bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<const DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, RenderingSystem* driver, const VisualizationOptions& options)
 {
 	unsigned int lineIdx = 0;
+	unsigned int selectedLineIdx = 1;
 	unsigned int vectorSize = 0;
 
 	// Read in options
@@ -16,19 +17,31 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 
 	// Get distance between first two pair X values
 	// This is semi-hardcoded shift value, though might be final variant
-	const Vector& firstVec = dataSet->getVector(0);
+	Vector firstVec = dataSet->getVector(0);
 	// Set selected vector as first in selection or if no selection, the first total
 	const std::set<unsigned int> selected = driver->getSelection();
-	const Vector& selectedVec = 
+	Vector selectedVec = 
 		(selected.size() > 0 && *selected.begin() - 1 < dataSet->vectorCount()) ?
 		dataSet->getVector(*selected.begin() - 1) : firstVec;
 	
+	// Select first line if no selected line in range
 	if (selected.size() == 0 || *selected.begin() - 1 >= dataSet->vectorCount())
 		driver->selectLine(1);
+	// Otherwise store selected line index
+	else
+		selectedLineIdx = *selected.begin();
+
+	// Take into account odd amount of variables
+	if (firstVec.size() % 2 != 0)
+	{
+		// Add an extra variable at end
+		firstVec.push_back(firstVec.at(firstVec.size() - 1));
+		selectedVec.push_back(selectedVec.at(selectedVec.size() - 1));
+	}
 
 	double distance = options.getDouble(STEP);
 	Vector shiftVec = Vector();
-
+	
 	// Another potential parameter
 	unsigned int selectedLine = 0;
 
@@ -87,16 +100,15 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 		{
 			Vertex v((float)(vec[x - 1] + shiftVec[x - 1]), (float)(vec[x] + shiftVec[x]), lineIdx);
 			v.dataClassIndex = iter.classIndex();
-			v.flags = 0;
+			v.flags = (selectedLineIdx == lineIdx) ? EVSF_DRAW_POINT : 0;
 			verticesOut.push_back(v);
 			// If single left over vector
 			if (x == vectorSize - 2)
 			{
-				lineIdx++;
 				// Or (vec[x + 1], 0)
 				v.x = (float)(vec[x + 1] + shiftVec[x + 1]);
-				v.y = (float)(vec[x + 1] + shiftVec[x + 1]);
-				v.flags = 0;
+				v.y = (float)(vec[x + 1] + shiftVec[x + 2]);
+				v.flags = (selectedLineIdx == lineIdx) ? EVSF_DRAW_POINT : 0;
 				verticesOut.push_back(v);
 			}
 		}
