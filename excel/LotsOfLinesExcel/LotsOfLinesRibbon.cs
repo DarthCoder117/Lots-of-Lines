@@ -25,7 +25,9 @@ namespace LotsOfLinesExcel
             //Create temp CSV file
             string tempPath = System.IO.Path.GetTempPath();
             string tempFile = tempPath + Guid.NewGuid().ToString() + ".csv";
-            File.Create(tempFile);
+            FileStream stream = File.Create(tempFile);
+            stream.Close();
+
             Globals.ThisAddIn.Application.ActiveWorkbook.SaveCopyAs(tempFile);
 
             //Open Lots of Lines application
@@ -66,6 +68,12 @@ namespace LotsOfLinesExcel
         private void button1_Click(object sender, RibbonControlEventArgs e)
         {
 
+        }
+
+        private void settingsButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            SettingsDialog dlg = new SettingsDialog();
+            dlg.ShowDialog();
         }
     }
 }

@@ -23,12 +23,15 @@ namespace LotsOfLinesExcel.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C://Program Files/LotsOfLines")]
         public string LotsOfLinesPath {
             get {
                 return ((string)(this["LotsOfLinesPath"]));
+            }
+            set {
+                this["LotsOfLinesPath"] = value;
             }
         }
     }
