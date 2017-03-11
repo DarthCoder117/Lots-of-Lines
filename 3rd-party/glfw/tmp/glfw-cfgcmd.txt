@@ -1,1 +1,0 @@
-cmd='C:/Program Files/CMake/bin/cmake.exe;-DGLFW_BUILD_DOCS:BOOL=OFF;-DGLFW_BUILD_TESTS:BOOL=OFF;-DGLFW_BUILD_EXAMPLES:BOOL=OFF;-GVisual Studio 14 2015;C:/Users/super/Documents/School/CS 481/Lots-of-Lines/3rd-party/glfw/src/glfw'

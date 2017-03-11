@@ -1,3 +1,0 @@
-repository='external project URL'
-module='https://github.com/glfw/glfw/archive/3.2.1.tar.gz'
-tag='SHA1=bee9cd9a8b4925184070ade5bc287c5635830eb0'
