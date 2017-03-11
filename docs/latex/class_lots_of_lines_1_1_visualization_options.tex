@@ -1,0 +1,173 @@
+\hypertarget{class_lots_of_lines_1_1_visualization_options}{}\section{Lots\+Of\+Lines\+:\+:Visualization\+Options Class Reference}
+\label{class_lots_of_lines_1_1_visualization_options}\index{Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}}
+
+
+Generic options class for visualizations.  
+
+
+
+
+{\ttfamily \#include $<$Visualization\+Options.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_lots_of_lines_1_1_visualization_options_a8a3f354ffd70587b5756d3059d944fe6}{set\+Int} (const std\+::string \&name, int val)
+\begin{DoxyCompactList}\small\item\em Set an integer option. \end{DoxyCompactList}\item 
+bool \hyperlink{class_lots_of_lines_1_1_visualization_options_ae7021819f5b5d35aeeed3e267d716594}{set\+Double} (const std\+::string \&name, double val)
+\begin{DoxyCompactList}\small\item\em Set a double option. \end{DoxyCompactList}\item 
+bool \hyperlink{class_lots_of_lines_1_1_visualization_options_ac1c82295a5dfa5c6f4f143e7a9aa999c}{set\+String} (const std\+::string \&name, const std\+::string \&val)
+\begin{DoxyCompactList}\small\item\em Set a string option. \end{DoxyCompactList}\item 
+bool \hyperlink{class_lots_of_lines_1_1_visualization_options_aa5e71fe97363193855da10026ecc7432}{set\+Bool} (const std\+::string \&name, bool val)
+\begin{DoxyCompactList}\small\item\em Set a boolean option. \end{DoxyCompactList}\item 
+int \hyperlink{class_lots_of_lines_1_1_visualization_options_aac0c439a49fc160b49c57486c424a685}{get\+Int} (const std\+::string \&name, int default\+Val=0) const 
+\item 
+double \hyperlink{class_lots_of_lines_1_1_visualization_options_a679424b8e540c4745d27c3ec8e8bde45}{get\+Double} (const std\+::string \&name, double default\+Val=0) const 
+\item 
+std\+::string \hyperlink{class_lots_of_lines_1_1_visualization_options_a1fc1958635c86f4c8b4c8bdf84736200}{get\+String} (const std\+::string \&name, const std\+::string \&default\+Val=\char`\"{}\char`\"{}) const 
+\item 
+bool \hyperlink{class_lots_of_lines_1_1_visualization_options_a3b33ac20e7d79be9c15b74878996189e}{get\+Bool} (const std\+::string \&name, bool default\+Val=false) const 
+\item 
+void \hyperlink{class_lots_of_lines_1_1_visualization_options_a1e6f0ffb2bf3c49bdf8cfbf1ad5dd2d0}{clear} ()\hypertarget{class_lots_of_lines_1_1_visualization_options_a1e6f0ffb2bf3c49bdf8cfbf1ad5dd2d0}{}\label{class_lots_of_lines_1_1_visualization_options_a1e6f0ffb2bf3c49bdf8cfbf1ad5dd2d0}
+
+\begin{DoxyCompactList}\small\item\em Remove all options. \end{DoxyCompactList}\item 
+E\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+T\+Y\+PE \hyperlink{class_lots_of_lines_1_1_visualization_options_ab0aa02018b8f80d8f9379cef84ec19f7}{get\+Option\+Type} (const std\+::string \&name)
+\item 
+const Option\+Type\+Map \& \hyperlink{class_lots_of_lines_1_1_visualization_options_a3c1438d905a5be4f0acb73f586298337}{list\+Options} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Generic options class for visualizations. 
+
+\subsection{Member Function Documentation}
+\index{Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}!get\+Bool@{get\+Bool}}
+\index{get\+Bool@{get\+Bool}!Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}}
+\subsubsection[{\texorpdfstring{get\+Bool(const std\+::string \&name, bool default\+Val=false) const }{getBool(const std::string &name, bool defaultVal=false) const }}]{\setlength{\rightskip}{0pt plus 5cm}bool Visualization\+Options\+::get\+Bool (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{name, }
+\item[{bool}]{default\+Val = {\ttfamily false}}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_lots_of_lines_1_1_visualization_options_a3b33ac20e7d79be9c15b74878996189e}{}\label{class_lots_of_lines_1_1_visualization_options_a3b33ac20e7d79be9c15b74878996189e}
+\begin{DoxyReturn}{Returns}
+The value of the named bool option, or the specified default if it doesn\textquotesingle{}t exist. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}!get\+Double@{get\+Double}}
+\index{get\+Double@{get\+Double}!Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}}
+\subsubsection[{\texorpdfstring{get\+Double(const std\+::string \&name, double default\+Val=0) const }{getDouble(const std::string &name, double defaultVal=0) const }}]{\setlength{\rightskip}{0pt plus 5cm}double Visualization\+Options\+::get\+Double (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{name, }
+\item[{double}]{default\+Val = {\ttfamily 0}}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_lots_of_lines_1_1_visualization_options_a679424b8e540c4745d27c3ec8e8bde45}{}\label{class_lots_of_lines_1_1_visualization_options_a679424b8e540c4745d27c3ec8e8bde45}
+\begin{DoxyReturn}{Returns}
+The value of the named double option, or the specified default if it doesn\textquotesingle{}t exist. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}!get\+Int@{get\+Int}}
+\index{get\+Int@{get\+Int}!Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}}
+\subsubsection[{\texorpdfstring{get\+Int(const std\+::string \&name, int default\+Val=0) const }{getInt(const std::string &name, int defaultVal=0) const }}]{\setlength{\rightskip}{0pt plus 5cm}int Visualization\+Options\+::get\+Int (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{name, }
+\item[{int}]{default\+Val = {\ttfamily 0}}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_lots_of_lines_1_1_visualization_options_aac0c439a49fc160b49c57486c424a685}{}\label{class_lots_of_lines_1_1_visualization_options_aac0c439a49fc160b49c57486c424a685}
+\begin{DoxyReturn}{Returns}
+The value of the named integer option, or the specified default if it doesn\textquotesingle{}t exist. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}!get\+Option\+Type@{get\+Option\+Type}}
+\index{get\+Option\+Type@{get\+Option\+Type}!Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}}
+\subsubsection[{\texorpdfstring{get\+Option\+Type(const std\+::string \&name)}{getOptionType(const std::string &name)}}]{\setlength{\rightskip}{0pt plus 5cm}E\+\_\+\+O\+P\+T\+I\+O\+N\+\_\+\+T\+Y\+PE Visualization\+Options\+::get\+Option\+Type (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{name}
+\end{DoxyParamCaption}
+)}\hypertarget{class_lots_of_lines_1_1_visualization_options_ab0aa02018b8f80d8f9379cef84ec19f7}{}\label{class_lots_of_lines_1_1_visualization_options_ab0aa02018b8f80d8f9379cef84ec19f7}
+\begin{DoxyReturn}{Returns}
+The type of the named option. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}!get\+String@{get\+String}}
+\index{get\+String@{get\+String}!Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}}
+\subsubsection[{\texorpdfstring{get\+String(const std\+::string \&name, const std\+::string \&default\+Val="""") const }{getString(const std::string &name, const std::string &defaultVal="") const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Visualization\+Options\+::get\+String (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{name, }
+\item[{const std\+::string \&}]{default\+Val = {\ttfamily \char`\"{}\char`\"{}}}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_lots_of_lines_1_1_visualization_options_a1fc1958635c86f4c8b4c8bdf84736200}{}\label{class_lots_of_lines_1_1_visualization_options_a1fc1958635c86f4c8b4c8bdf84736200}
+\begin{DoxyReturn}{Returns}
+The value of the named string option, or the specified default if it doesn\textquotesingle{}t exist. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}!list\+Options@{list\+Options}}
+\index{list\+Options@{list\+Options}!Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}}
+\subsubsection[{\texorpdfstring{list\+Options()}{listOptions()}}]{\setlength{\rightskip}{0pt plus 5cm}const Option\+Type\+Map \& Visualization\+Options\+::list\+Options (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_lots_of_lines_1_1_visualization_options_a3c1438d905a5be4f0acb73f586298337}{}\label{class_lots_of_lines_1_1_visualization_options_a3c1438d905a5be4f0acb73f586298337}
+\begin{DoxyReturn}{Returns}
+Map of all option names and their types. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}!set\+Bool@{set\+Bool}}
+\index{set\+Bool@{set\+Bool}!Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}}
+\subsubsection[{\texorpdfstring{set\+Bool(const std\+::string \&name, bool val)}{setBool(const std::string &name, bool val)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Visualization\+Options\+::set\+Bool (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{name, }
+\item[{bool}]{val}
+\end{DoxyParamCaption}
+)}\hypertarget{class_lots_of_lines_1_1_visualization_options_aa5e71fe97363193855da10026ecc7432}{}\label{class_lots_of_lines_1_1_visualization_options_aa5e71fe97363193855da10026ecc7432}
+
+
+Set a boolean option. 
+
+\begin{DoxyReturn}{Returns}
+True on success, or returns false if the option has already been set as a different type. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}!set\+Double@{set\+Double}}
+\index{set\+Double@{set\+Double}!Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}}
+\subsubsection[{\texorpdfstring{set\+Double(const std\+::string \&name, double val)}{setDouble(const std::string &name, double val)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Visualization\+Options\+::set\+Double (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{name, }
+\item[{double}]{val}
+\end{DoxyParamCaption}
+)}\hypertarget{class_lots_of_lines_1_1_visualization_options_ae7021819f5b5d35aeeed3e267d716594}{}\label{class_lots_of_lines_1_1_visualization_options_ae7021819f5b5d35aeeed3e267d716594}
+
+
+Set a double option. 
+
+\begin{DoxyReturn}{Returns}
+True on success, or returns false if the option has already been set as a different type. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}!set\+Int@{set\+Int}}
+\index{set\+Int@{set\+Int}!Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}}
+\subsubsection[{\texorpdfstring{set\+Int(const std\+::string \&name, int val)}{setInt(const std::string &name, int val)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Visualization\+Options\+::set\+Int (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{name, }
+\item[{int}]{val}
+\end{DoxyParamCaption}
+)}\hypertarget{class_lots_of_lines_1_1_visualization_options_a8a3f354ffd70587b5756d3059d944fe6}{}\label{class_lots_of_lines_1_1_visualization_options_a8a3f354ffd70587b5756d3059d944fe6}
+
+
+Set an integer option. 
+
+\begin{DoxyReturn}{Returns}
+True on success, or returns false if the option has already been set as a different type. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}!set\+String@{set\+String}}
+\index{set\+String@{set\+String}!Lots\+Of\+Lines\+::\+Visualization\+Options@{Lots\+Of\+Lines\+::\+Visualization\+Options}}
+\subsubsection[{\texorpdfstring{set\+String(const std\+::string \&name, const std\+::string \&val)}{setString(const std::string &name, const std::string &val)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Visualization\+Options\+::set\+String (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{name, }
+\item[{const std\+::string \&}]{val}
+\end{DoxyParamCaption}
+)}\hypertarget{class_lots_of_lines_1_1_visualization_options_ac1c82295a5dfa5c6f4f143e7a9aa999c}{}\label{class_lots_of_lines_1_1_visualization_options_ac1c82295a5dfa5c6f4f143e7a9aa999c}
+
+
+Set a string option. 
+
+\begin{DoxyReturn}{Returns}
+True on success, or returns false if the option has already been set as a different type. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Rendering\+System/Visualization\+Options.\+hpp\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Rendering\+System/Visualization\+Options.\+cpp\end{DoxyCompactItemize}

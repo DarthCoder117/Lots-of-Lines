@@ -1,0 +1,68 @@
+\hypertarget{class_lots_of_lines_1_1_c_s_v_file_loader}{}\section{Lots\+Of\+Lines\+:\+:C\+S\+V\+File\+Loader Class Reference}
+\label{class_lots_of_lines_1_1_c_s_v_file_loader}\index{Lots\+Of\+Lines\+::\+C\+S\+V\+File\+Loader@{Lots\+Of\+Lines\+::\+C\+S\+V\+File\+Loader}}
+Inheritance diagram for Lots\+Of\+Lines\+:\+:C\+S\+V\+File\+Loader\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_lots_of_lines_1_1_c_s_v_file_loader}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_lots_of_lines_1_1_c_s_v_file_loader_a745f53165fdb04a372e2311c8428cc3e}{supports\+Format} (const std\+::string \&path)
+\item 
+std\+::shared\+\_\+ptr$<$ \hyperlink{class_lots_of_lines_1_1_data_set}{Data\+Set} $>$ \hyperlink{class_lots_of_lines_1_1_c_s_v_file_loader_a7e8c7d04cf7f868ee31fc3b2d79c0a76}{load\+Data} (const std\+::string \&path, const \hyperlink{struct_lots_of_lines_1_1_load_options}{Load\+Options} \&options, \hyperlink{class_lots_of_lines_1_1_progress_message}{Progress\+Message} $\ast$progress) const 
+\begin{DoxyCompactList}\small\item\em Load vector data from a source specified by the path and output it as an array of vectors. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{Lots\+Of\+Lines\+::\+C\+S\+V\+File\+Loader@{Lots\+Of\+Lines\+::\+C\+S\+V\+File\+Loader}!load\+Data@{load\+Data}}
+\index{load\+Data@{load\+Data}!Lots\+Of\+Lines\+::\+C\+S\+V\+File\+Loader@{Lots\+Of\+Lines\+::\+C\+S\+V\+File\+Loader}}
+\subsubsection[{\texorpdfstring{load\+Data(const std\+::string \&path, const Load\+Options \&options, Progress\+Message $\ast$progress) const }{loadData(const std::string &path, const LoadOptions &options, ProgressMessage *progress) const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::shared\+\_\+ptr$<$ {\bf Data\+Set} $>$ C\+S\+V\+File\+Loader\+::load\+Data (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{path, }
+\item[{const {\bf Load\+Options} \&}]{options, }
+\item[{{\bf Progress\+Message} $\ast$}]{progress}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_lots_of_lines_1_1_c_s_v_file_loader_a7e8c7d04cf7f868ee31fc3b2d79c0a76}{}\label{class_lots_of_lines_1_1_c_s_v_file_loader_a7e8c7d04cf7f868ee31fc3b2d79c0a76}
+
+
+Load vector data from a source specified by the path and output it as an array of vectors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & The path (file path, U\+RI, etc.) where the data should be loaded from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The \hyperlink{class_lots_of_lines_1_1_data_set}{Data\+Set} or nullptr if an error occurred. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_lots_of_lines_1_1_i_data_loader_ad2e836decbe5d96e0ac2ca43a8177881}{Lots\+Of\+Lines\+::\+I\+Data\+Loader}.
+
+\index{Lots\+Of\+Lines\+::\+C\+S\+V\+File\+Loader@{Lots\+Of\+Lines\+::\+C\+S\+V\+File\+Loader}!supports\+Format@{supports\+Format}}
+\index{supports\+Format@{supports\+Format}!Lots\+Of\+Lines\+::\+C\+S\+V\+File\+Loader@{Lots\+Of\+Lines\+::\+C\+S\+V\+File\+Loader}}
+\subsubsection[{\texorpdfstring{supports\+Format(const std\+::string \&path)}{supportsFormat(const std::string &path)}}]{\setlength{\rightskip}{0pt plus 5cm}bool C\+S\+V\+File\+Loader\+::supports\+Format (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{path}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_lots_of_lines_1_1_c_s_v_file_loader_a745f53165fdb04a372e2311c8428cc3e}{}\label{class_lots_of_lines_1_1_c_s_v_file_loader_a745f53165fdb04a372e2311c8428cc3e}
+
+\begin{DoxyParams}{Parameters}
+{\em path} & The path (file path, U\+RI, etc.) where the data will be loaded from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if this loader supports loading the specified path, false otherwise. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_lots_of_lines_1_1_i_data_loader_a73f9ee96a55bd6d339d5028f951240f9}{Lots\+Of\+Lines\+::\+I\+Data\+Loader}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Data\+Model/C\+S\+V\+File\+Loader.\+hpp\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Data\+Model/C\+S\+V\+File\+Loader.\+cpp\end{DoxyCompactItemize}

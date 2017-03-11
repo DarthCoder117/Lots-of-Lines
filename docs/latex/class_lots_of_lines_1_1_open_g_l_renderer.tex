@@ -1,0 +1,102 @@
+\hypertarget{class_lots_of_lines_1_1_open_g_l_renderer}{}\section{Lots\+Of\+Lines\+:\+:Open\+G\+L\+Renderer Class Reference}
+\label{class_lots_of_lines_1_1_open_g_l_renderer}\index{Lots\+Of\+Lines\+::\+Open\+G\+L\+Renderer@{Lots\+Of\+Lines\+::\+Open\+G\+L\+Renderer}}
+
+
+Renderer implementation for drawing visualizations using Open\+GL.  
+
+
+
+
+{\ttfamily \#include $<$Open\+G\+L\+Renderer.\+hpp$>$}
+
+Inheritance diagram for Lots\+Of\+Lines\+:\+:Open\+G\+L\+Renderer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_lots_of_lines_1_1_open_g_l_renderer}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_lots_of_lines_1_1_open_g_l_renderer_a7f1cf064978a3e5f6869e54022c1d82e}{init} ()\hypertarget{class_lots_of_lines_1_1_open_g_l_renderer_a7f1cf064978a3e5f6869e54022c1d82e}{}\label{class_lots_of_lines_1_1_open_g_l_renderer_a7f1cf064978a3e5f6869e54022c1d82e}
+
+\begin{DoxyCompactList}\small\item\em Initialize the rendering driver by setting up default shaders and rendering states. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_open_g_l_renderer_aff896e674c56136200222bce15ff8f26}{clear\+Screen} (float r, float g, float b)\hypertarget{class_lots_of_lines_1_1_open_g_l_renderer_aff896e674c56136200222bce15ff8f26}{}\label{class_lots_of_lines_1_1_open_g_l_renderer_aff896e674c56136200222bce15ff8f26}
+
+\begin{DoxyCompactList}\small\item\em Clears the screen before re-\/rendering. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_open_g_l_renderer_a9c20e52e8c7f80d4fec614a25d507026}{begin\+Draw} ()\hypertarget{class_lots_of_lines_1_1_open_g_l_renderer_a9c20e52e8c7f80d4fec614a25d507026}{}\label{class_lots_of_lines_1_1_open_g_l_renderer_a9c20e52e8c7f80d4fec614a25d507026}
+
+\begin{DoxyCompactList}\small\item\em Sets up rendering states to begin a frame. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_open_g_l_renderer_a57a1941507761fb0a3e12ca2a68b0066}{end\+Draw} ()\hypertarget{class_lots_of_lines_1_1_open_g_l_renderer_a57a1941507761fb0a3e12ca2a68b0066}{}\label{class_lots_of_lines_1_1_open_g_l_renderer_a57a1941507761fb0a3e12ca2a68b0066}
+
+\begin{DoxyCompactList}\small\item\em Flips buffers to screen. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_open_g_l_renderer_aff310a706302b5961d6452451bcc9691}{set\+Class\+Colors} (float $\ast$colors)\hypertarget{class_lots_of_lines_1_1_open_g_l_renderer_aff310a706302b5961d6452451bcc9691}{}\label{class_lots_of_lines_1_1_open_g_l_renderer_aff310a706302b5961d6452451bcc9691}
+
+\begin{DoxyCompactList}\small\item\em Set the 10x3 array of floats for colors to use when rendering the data class. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_open_g_l_renderer_ae0fc80e7572adfa6c830fbe58f1c1f5e}{set\+Viewport} (unsigned int x, unsigned int y, unsigned int width, unsigned int height)\hypertarget{class_lots_of_lines_1_1_open_g_l_renderer_ae0fc80e7572adfa6c830fbe58f1c1f5e}{}\label{class_lots_of_lines_1_1_open_g_l_renderer_ae0fc80e7572adfa6c830fbe58f1c1f5e}
+
+\begin{DoxyCompactList}\small\item\em Set the viewport. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_open_g_l_renderer_afb420692fd26c88fafe39c85f29e030f}{set\+Model\+View\+Projection} (const glm\+::mat4x4 \&mvp)\hypertarget{class_lots_of_lines_1_1_open_g_l_renderer_afb420692fd26c88fafe39c85f29e030f}{}\label{class_lots_of_lines_1_1_open_g_l_renderer_afb420692fd26c88fafe39c85f29e030f}
+
+\begin{DoxyCompactList}\small\item\em Set model$\ast$view$\ast$projection matrix. \end{DoxyCompactList}\item 
+const glm\+::mat4x4 \& \hyperlink{class_lots_of_lines_1_1_open_g_l_renderer_a003e562c0f86b870e4fcc1f5ed0cabf0}{get\+Model\+View\+Projection} () const 
+\item 
+\hyperlink{class_lots_of_lines_1_1_i_shader}{I\+Shader} $\ast$ \hyperlink{class_lots_of_lines_1_1_open_g_l_renderer_afefdab5ffbe8ad3af4736ae4432f9f65}{create\+Shader} ()\hypertarget{class_lots_of_lines_1_1_open_g_l_renderer_afefdab5ffbe8ad3af4736ae4432f9f65}{}\label{class_lots_of_lines_1_1_open_g_l_renderer_afefdab5ffbe8ad3af4736ae4432f9f65}
+
+\begin{DoxyCompactList}\small\item\em Create a new shader object. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_open_g_l_renderer_a1d11632acd909487114454857454e0c2}{set\+Shader} (\hyperlink{class_lots_of_lines_1_1_i_shader}{I\+Shader} $\ast$shader)\hypertarget{class_lots_of_lines_1_1_open_g_l_renderer_a1d11632acd909487114454857454e0c2}{}\label{class_lots_of_lines_1_1_open_g_l_renderer_a1d11632acd909487114454857454e0c2}
+
+\begin{DoxyCompactList}\small\item\em Set the shader program to draw with. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_open_g_l_renderer_a64ec268afbae1693799dd34c3a4a399b}{draw\+V\+BO} (std\+::shared\+\_\+ptr$<$ \hyperlink{class_lots_of_lines_1_1_i_vertex_buffer_object}{I\+Vertex\+Buffer\+Object} $>$ vbo, bool lines)
+\begin{DoxyCompactList}\small\item\em Draw a V\+BO to the screen. \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \hyperlink{class_lots_of_lines_1_1_i_vertex_buffer_object}{I\+Vertex\+Buffer\+Object} $>$ \hyperlink{class_lots_of_lines_1_1_open_g_l_renderer_abf57938c51b34029efeac5c18f340213}{create\+V\+BO} (const std\+::vector$<$ \hyperlink{struct_lots_of_lines_1_1_vertex}{Vertex} $>$ \&vertices, const std\+::vector$<$ unsigned int $>$ \&indices)\hypertarget{class_lots_of_lines_1_1_open_g_l_renderer_abf57938c51b34029efeac5c18f340213}{}\label{class_lots_of_lines_1_1_open_g_l_renderer_abf57938c51b34029efeac5c18f340213}
+
+\begin{DoxyCompactList}\small\item\em Construct a V\+BO from a list of vertices and indices. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Renderer implementation for drawing visualizations using Open\+GL. 
+
+\subsection{Member Function Documentation}
+\index{Lots\+Of\+Lines\+::\+Open\+G\+L\+Renderer@{Lots\+Of\+Lines\+::\+Open\+G\+L\+Renderer}!draw\+V\+BO@{draw\+V\+BO}}
+\index{draw\+V\+BO@{draw\+V\+BO}!Lots\+Of\+Lines\+::\+Open\+G\+L\+Renderer@{Lots\+Of\+Lines\+::\+Open\+G\+L\+Renderer}}
+\subsubsection[{\texorpdfstring{draw\+V\+B\+O(std\+::shared\+\_\+ptr$<$ I\+Vertex\+Buffer\+Object $>$ vbo, bool lines)}{drawVBO(std::shared_ptr< IVertexBufferObject > vbo, bool lines)}}]{\setlength{\rightskip}{0pt plus 5cm}void Open\+G\+L\+Renderer\+::draw\+V\+BO (
+\begin{DoxyParamCaption}
+\item[{std\+::shared\+\_\+ptr$<$ {\bf I\+Vertex\+Buffer\+Object} $>$}]{vbo, }
+\item[{bool}]{lines}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_lots_of_lines_1_1_open_g_l_renderer_a64ec268afbae1693799dd34c3a4a399b}{}\label{class_lots_of_lines_1_1_open_g_l_renderer_a64ec268afbae1693799dd34c3a4a399b}
+
+
+Draw a V\+BO to the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lines} & Whether to draw as lines or points. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{class_lots_of_lines_1_1_i_renderer_a9d24612fea435f65dcf7d013e6693b2a}{Lots\+Of\+Lines\+::\+I\+Renderer}.
+
+\index{Lots\+Of\+Lines\+::\+Open\+G\+L\+Renderer@{Lots\+Of\+Lines\+::\+Open\+G\+L\+Renderer}!get\+Model\+View\+Projection@{get\+Model\+View\+Projection}}
+\index{get\+Model\+View\+Projection@{get\+Model\+View\+Projection}!Lots\+Of\+Lines\+::\+Open\+G\+L\+Renderer@{Lots\+Of\+Lines\+::\+Open\+G\+L\+Renderer}}
+\subsubsection[{\texorpdfstring{get\+Model\+View\+Projection() const }{getModelViewProjection() const }}]{\setlength{\rightskip}{0pt plus 5cm}const glm\+::mat4x4 \& Open\+G\+L\+Renderer\+::get\+Model\+View\+Projection (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_lots_of_lines_1_1_open_g_l_renderer_a003e562c0f86b870e4fcc1f5ed0cabf0}{}\label{class_lots_of_lines_1_1_open_g_l_renderer_a003e562c0f86b870e4fcc1f5ed0cabf0}
+\begin{DoxyReturn}{Returns}
+The currently set model$\ast$view$\ast$projection matrix. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_lots_of_lines_1_1_i_renderer_ac2c690247d805c68839ec7a831133665}{Lots\+Of\+Lines\+::\+I\+Renderer}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Rendering\+System/Open\+G\+L\+Renderer.\+hpp\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Rendering\+System/Open\+G\+L\+Renderer.\+cpp\end{DoxyCompactItemize}

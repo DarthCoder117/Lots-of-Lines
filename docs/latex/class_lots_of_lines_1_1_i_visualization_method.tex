@@ -1,0 +1,67 @@
+\hypertarget{class_lots_of_lines_1_1_i_visualization_method}{}\section{Lots\+Of\+Lines\+:\+:I\+Visualization\+Method Class Reference}
+\label{class_lots_of_lines_1_1_i_visualization_method}\index{Lots\+Of\+Lines\+::\+I\+Visualization\+Method@{Lots\+Of\+Lines\+::\+I\+Visualization\+Method}}
+
+
+Visualization method interface for generating vertex buffers based on a dataset.  
+
+
+
+
+{\ttfamily \#include $<$I\+Visualization\+Method.\+hpp$>$}
+
+Inheritance diagram for Lots\+Of\+Lines\+:\+:I\+Visualization\+Method\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.754717cm]{class_lots_of_lines_1_1_i_visualization_method}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual E\+\_\+\+V\+I\+S\+U\+A\+L\+I\+Z\+A\+T\+I\+O\+N\+\_\+\+T\+Y\+PE \hyperlink{class_lots_of_lines_1_1_i_visualization_method_a79b6c5d987437bcc7204c4e63aba7c31}{get\+Type} ()=0
+\item 
+virtual std\+::string \hyperlink{class_lots_of_lines_1_1_i_visualization_method_adbf8ab4dff252bbc3491e4acbebd0d28}{get\+Type\+Name} ()=0
+\item 
+virtual bool \hyperlink{class_lots_of_lines_1_1_i_visualization_method_ac31b5ad80f94fdfcf424a75b6afe27ea}{generate\+V\+BO} (const std\+::shared\+\_\+ptr$<$ const \hyperlink{class_lots_of_lines_1_1_data_set}{Data\+Set} $>$ data\+Set, std\+::vector$<$ \hyperlink{struct_lots_of_lines_1_1_vertex}{Vertex} $>$ \&vertices\+Out, std\+::vector$<$ unsigned int $>$ \&indices\+Out, \hyperlink{class_lots_of_lines_1_1_rendering_system}{Rendering\+System} $\ast$driver, const \hyperlink{class_lots_of_lines_1_1_visualization_options}{Visualization\+Options} \&options=\hyperlink{class_lots_of_lines_1_1_visualization_options}{Visualization\+Options}())=0\hypertarget{class_lots_of_lines_1_1_i_visualization_method_ac31b5ad80f94fdfcf424a75b6afe27ea}{}\label{class_lots_of_lines_1_1_i_visualization_method_ac31b5ad80f94fdfcf424a75b6afe27ea}
+
+\begin{DoxyCompactList}\small\item\em Generate a vertex buffer for the visualization. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_lots_of_lines_1_1_i_visualization_method_ac03a0f363501f36fec7cecdace77db0d}{pre\+Draw} (\hyperlink{class_lots_of_lines_1_1_rendering_system}{Rendering\+System} $\ast$)\hypertarget{class_lots_of_lines_1_1_i_visualization_method_ac03a0f363501f36fec7cecdace77db0d}{}\label{class_lots_of_lines_1_1_i_visualization_method_ac03a0f363501f36fec7cecdace77db0d}
+
+\begin{DoxyCompactList}\small\item\em Draw axis lines and other extra features of the visualization method. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_lots_of_lines_1_1_i_visualization_method_a4e79488141ff0b4ec79dc11c72184b2a}{get\+Navigation\+Options} (\hyperlink{struct_lots_of_lines_1_1_navigation_options}{Navigation\+Options} \&options\+Out)=0\hypertarget{class_lots_of_lines_1_1_i_visualization_method_a4e79488141ff0b4ec79dc11c72184b2a}{}\label{class_lots_of_lines_1_1_i_visualization_method_a4e79488141ff0b4ec79dc11c72184b2a}
+
+\begin{DoxyCompactList}\small\item\em Should return the navigation options for the rendering method (X scroll lock, etc) \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_lots_of_lines_1_1_i_visualization_method_a96b1bc601ba7769a1aaed16e0d55f641}{get\+Default\+Options} (\hyperlink{class_lots_of_lines_1_1_visualization_options}{Visualization\+Options} \&)\hypertarget{class_lots_of_lines_1_1_i_visualization_method_a96b1bc601ba7769a1aaed16e0d55f641}{}\label{class_lots_of_lines_1_1_i_visualization_method_a96b1bc601ba7769a1aaed16e0d55f641}
+
+\begin{DoxyCompactList}\small\item\em Should fill an empty \hyperlink{class_lots_of_lines_1_1_visualization_options}{Visualization\+Options} object with the default options to use for the visualization method. This method will be called once when the visualization method is loaded in order to generate fields for the UI system. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Visualization method interface for generating vertex buffers based on a dataset. 
+
+\subsection{Member Function Documentation}
+\index{Lots\+Of\+Lines\+::\+I\+Visualization\+Method@{Lots\+Of\+Lines\+::\+I\+Visualization\+Method}!get\+Type@{get\+Type}}
+\index{get\+Type@{get\+Type}!Lots\+Of\+Lines\+::\+I\+Visualization\+Method@{Lots\+Of\+Lines\+::\+I\+Visualization\+Method}}
+\subsubsection[{\texorpdfstring{get\+Type()=0}{getType()=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual E\+\_\+\+V\+I\+S\+U\+A\+L\+I\+Z\+A\+T\+I\+O\+N\+\_\+\+T\+Y\+PE Lots\+Of\+Lines\+::\+I\+Visualization\+Method\+::get\+Type (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{class_lots_of_lines_1_1_i_visualization_method_a79b6c5d987437bcc7204c4e63aba7c31}{}\label{class_lots_of_lines_1_1_i_visualization_method_a79b6c5d987437bcc7204c4e63aba7c31}
+\begin{DoxyReturn}{Returns}
+The enum type of the visualization method. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+I\+Visualization\+Method@{Lots\+Of\+Lines\+::\+I\+Visualization\+Method}!get\+Type\+Name@{get\+Type\+Name}}
+\index{get\+Type\+Name@{get\+Type\+Name}!Lots\+Of\+Lines\+::\+I\+Visualization\+Method@{Lots\+Of\+Lines\+::\+I\+Visualization\+Method}}
+\subsubsection[{\texorpdfstring{get\+Type\+Name()=0}{getTypeName()=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual std\+::string Lots\+Of\+Lines\+::\+I\+Visualization\+Method\+::get\+Type\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{class_lots_of_lines_1_1_i_visualization_method_adbf8ab4dff252bbc3491e4acbebd0d28}{}\label{class_lots_of_lines_1_1_i_visualization_method_adbf8ab4dff252bbc3491e4acbebd0d28}
+\begin{DoxyReturn}{Returns}
+The string type name of the visualization method. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Rendering\+System/I\+Visualization\+Method.\+hpp\end{DoxyCompactItemize}

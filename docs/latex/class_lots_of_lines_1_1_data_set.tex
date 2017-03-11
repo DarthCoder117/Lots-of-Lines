@@ -1,0 +1,137 @@
+\hypertarget{class_lots_of_lines_1_1_data_set}{}\section{Lots\+Of\+Lines\+:\+:Data\+Set Class Reference}
+\label{class_lots_of_lines_1_1_data_set}\index{Lots\+Of\+Lines\+::\+Data\+Set@{Lots\+Of\+Lines\+::\+Data\+Set}}
+
+
+\hyperlink{class_lots_of_lines_1_1_data_set}{Data\+Set} holds the data for multiple classes of vector data.  
+
+
+
+
+{\ttfamily \#include $<$Data\+Set.\+hpp$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_lots_of_lines_1_1_data_set_1_1_iterator}{Iterator}
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_lots_of_lines_1_1_data_set_1_1_iterator}{Iterator} class for traversing the dataset easier. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_lots_of_lines_1_1_data_set_1_1_iterator}{Iterator} \hyperlink{class_lots_of_lines_1_1_data_set_a10b7e2e1319d223c6365c5acec9a3f3a}{iterator} () const 
+\item 
+unsigned int \hyperlink{class_lots_of_lines_1_1_data_set_a014a459b9e76b953e541f4d528fc7cdb}{vector\+Count} () const 
+\item 
+Vector \& \hyperlink{class_lots_of_lines_1_1_data_set_a65f1a6baa7516118f6fb21f0329ab053}{get\+Vector} (unsigned int idx)
+\item 
+const Vector \& \hyperlink{class_lots_of_lines_1_1_data_set_a2f748da99b96d226d5d4e8903da5db10}{get\+Vector} (unsigned int idx) const 
+\item 
+Vector \& \hyperlink{class_lots_of_lines_1_1_data_set_ad15f040e5048686fb2e28c3e2a38775c}{operator\mbox{[}$\,$\mbox{]}} (unsigned int idx)\hypertarget{class_lots_of_lines_1_1_data_set_ad15f040e5048686fb2e28c3e2a38775c}{}\label{class_lots_of_lines_1_1_data_set_ad15f040e5048686fb2e28c3e2a38775c}
+
+\begin{DoxyCompactList}\small\item\em subscript operator for accessing vectors at the specified index. \end{DoxyCompactList}\item 
+const Vector \& \hyperlink{class_lots_of_lines_1_1_data_set_aec5ed23bf96864526ff4a62f94767ce5}{operator\mbox{[}$\,$\mbox{]}} (unsigned int idx) const \hypertarget{class_lots_of_lines_1_1_data_set_aec5ed23bf96864526ff4a62f94767ce5}{}\label{class_lots_of_lines_1_1_data_set_aec5ed23bf96864526ff4a62f94767ce5}
+
+\begin{DoxyCompactList}\small\item\em subscript operator for accessing vectors at the specified index. \end{DoxyCompactList}\item 
+\hyperlink{class_lots_of_lines_1_1_data_set_ac9b99505bafd5b1cccf8a361c3ac84a7}{Data\+Set} ()\hypertarget{class_lots_of_lines_1_1_data_set_ac9b99505bafd5b1cccf8a361c3ac84a7}{}\label{class_lots_of_lines_1_1_data_set_ac9b99505bafd5b1cccf8a361c3ac84a7}
+
+\begin{DoxyCompactList}\small\item\em Default constructor to make. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{class_lots_of_lines_1_1_data_set_aff429ddd61367950bd1289fbcd095de2}{add\+Vector\+Class} (const std\+::string \&name)
+\begin{DoxyCompactList}\small\item\em Add a vector class to the dataset. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{class_lots_of_lines_1_1_data_set_a574346ae47374acdf9a177dca226365b}{get\+Class\+Index} (const std\+::string \&name)\hypertarget{class_lots_of_lines_1_1_data_set_a574346ae47374acdf9a177dca226365b}{}\label{class_lots_of_lines_1_1_data_set_a574346ae47374acdf9a177dca226365b}
+
+\begin{DoxyCompactList}\small\item\em Get class index from the class name. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_data_set_a4f12b125c969da469677f8a5ec6be10d}{add\+Vector} (const Vector \&vec, const std\+::string \&vector\+Class=\char`\"{}default\char`\"{})
+\begin{DoxyCompactList}\small\item\em Add a vector to the specified class. \end{DoxyCompactList}\item 
+const Vector \& {\bfseries get\+Max\+Values} () const \hypertarget{class_lots_of_lines_1_1_data_set_a7c495cd8a0d584ffc352b4fbd84c6e4f}{}\label{class_lots_of_lines_1_1_data_set_a7c495cd8a0d584ffc352b4fbd84c6e4f}
+
+\item 
+const Vector \& {\bfseries get\+Min\+Values} () const \hypertarget{class_lots_of_lines_1_1_data_set_afa668a139d080386883302ee8ef03f5a}{}\label{class_lots_of_lines_1_1_data_set_afa668a139d080386883302ee8ef03f5a}
+
+\item 
+void \hyperlink{class_lots_of_lines_1_1_data_set_a4a6256527dafe3081619a48902c299bb}{normalize\+Data} (E\+\_\+\+D\+A\+T\+A\+\_\+\+N\+O\+R\+M\+A\+L\+I\+Z\+A\+T\+I\+O\+N\+\_\+\+M\+O\+DE mode)\hypertarget{class_lots_of_lines_1_1_data_set_a4a6256527dafe3081619a48902c299bb}{}\label{class_lots_of_lines_1_1_data_set_a4a6256527dafe3081619a48902c299bb}
+
+\begin{DoxyCompactList}\small\item\em Normalize the vector data to the -\/1.\+0 to 1.\+0 range. This should only be called once all vectors have been loaded to the dataset. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_lots_of_lines_1_1_data_set}{Data\+Set} holds the data for multiple classes of vector data. 
+
+\subsection{Member Function Documentation}
+\index{Lots\+Of\+Lines\+::\+Data\+Set@{Lots\+Of\+Lines\+::\+Data\+Set}!add\+Vector@{add\+Vector}}
+\index{add\+Vector@{add\+Vector}!Lots\+Of\+Lines\+::\+Data\+Set@{Lots\+Of\+Lines\+::\+Data\+Set}}
+\subsubsection[{\texorpdfstring{add\+Vector(const Vector \&vec, const std\+::string \&vector\+Class=""default"")}{addVector(const Vector &vec, const std::string &vectorClass="default")}}]{\setlength{\rightskip}{0pt plus 5cm}void Data\+Set\+::add\+Vector (
+\begin{DoxyParamCaption}
+\item[{const Vector \&}]{vec, }
+\item[{const std\+::string \&}]{vector\+Class = {\ttfamily \char`\"{}default\char`\"{}}}
+\end{DoxyParamCaption}
+)}\hypertarget{class_lots_of_lines_1_1_data_set_a4f12b125c969da469677f8a5ec6be10d}{}\label{class_lots_of_lines_1_1_data_set_a4f12b125c969da469677f8a5ec6be10d}
+
+
+Add a vector to the specified class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vector\+Class} & Data class name. \\
+\hline
+{\em vec} & The vector data to add. \\
+\hline
+\end{DoxyParams}
+\index{Lots\+Of\+Lines\+::\+Data\+Set@{Lots\+Of\+Lines\+::\+Data\+Set}!add\+Vector\+Class@{add\+Vector\+Class}}
+\index{add\+Vector\+Class@{add\+Vector\+Class}!Lots\+Of\+Lines\+::\+Data\+Set@{Lots\+Of\+Lines\+::\+Data\+Set}}
+\subsubsection[{\texorpdfstring{add\+Vector\+Class(const std\+::string \&name)}{addVectorClass(const std::string &name)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Data\+Set\+::add\+Vector\+Class (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{name}
+\end{DoxyParamCaption}
+)}\hypertarget{class_lots_of_lines_1_1_data_set_aff429ddd61367950bd1289fbcd095de2}{}\label{class_lots_of_lines_1_1_data_set_aff429ddd61367950bd1289fbcd095de2}
+
+
+Add a vector class to the dataset. 
+
+\begin{DoxyReturn}{Returns}
+The index of the vector class that was added. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Data\+Set@{Lots\+Of\+Lines\+::\+Data\+Set}!get\+Vector@{get\+Vector}}
+\index{get\+Vector@{get\+Vector}!Lots\+Of\+Lines\+::\+Data\+Set@{Lots\+Of\+Lines\+::\+Data\+Set}}
+\subsubsection[{\texorpdfstring{get\+Vector(unsigned int idx)}{getVector(unsigned int idx)}}]{\setlength{\rightskip}{0pt plus 5cm}Vector \& Data\+Set\+::get\+Vector (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{idx}
+\end{DoxyParamCaption}
+)}\hypertarget{class_lots_of_lines_1_1_data_set_a65f1a6baa7516118f6fb21f0329ab053}{}\label{class_lots_of_lines_1_1_data_set_a65f1a6baa7516118f6fb21f0329ab053}
+\begin{DoxyReturn}{Returns}
+The vector at the specified index. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Data\+Set@{Lots\+Of\+Lines\+::\+Data\+Set}!get\+Vector@{get\+Vector}}
+\index{get\+Vector@{get\+Vector}!Lots\+Of\+Lines\+::\+Data\+Set@{Lots\+Of\+Lines\+::\+Data\+Set}}
+\subsubsection[{\texorpdfstring{get\+Vector(unsigned int idx) const }{getVector(unsigned int idx) const }}]{\setlength{\rightskip}{0pt plus 5cm}const Vector \& Data\+Set\+::get\+Vector (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{idx}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_lots_of_lines_1_1_data_set_a2f748da99b96d226d5d4e8903da5db10}{}\label{class_lots_of_lines_1_1_data_set_a2f748da99b96d226d5d4e8903da5db10}
+\begin{DoxyReturn}{Returns}
+The vector at the specified index. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Data\+Set@{Lots\+Of\+Lines\+::\+Data\+Set}!iterator@{iterator}}
+\index{iterator@{iterator}!Lots\+Of\+Lines\+::\+Data\+Set@{Lots\+Of\+Lines\+::\+Data\+Set}}
+\subsubsection[{\texorpdfstring{iterator() const }{iterator() const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Data\+Set\+::\+Iterator} Data\+Set\+::iterator (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_lots_of_lines_1_1_data_set_a10b7e2e1319d223c6365c5acec9a3f3a}{}\label{class_lots_of_lines_1_1_data_set_a10b7e2e1319d223c6365c5acec9a3f3a}
+\begin{DoxyReturn}{Returns}
+An iterator that can be used to traverse this dataset. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Data\+Set@{Lots\+Of\+Lines\+::\+Data\+Set}!vector\+Count@{vector\+Count}}
+\index{vector\+Count@{vector\+Count}!Lots\+Of\+Lines\+::\+Data\+Set@{Lots\+Of\+Lines\+::\+Data\+Set}}
+\subsubsection[{\texorpdfstring{vector\+Count() const }{vectorCount() const }}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Data\+Set\+::vector\+Count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_lots_of_lines_1_1_data_set_a014a459b9e76b953e541f4d528fc7cdb}{}\label{class_lots_of_lines_1_1_data_set_a014a459b9e76b953e541f4d528fc7cdb}
+\begin{DoxyReturn}{Returns}
+The number of vectors in the dataset 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Data\+Model/Data\+Set.\+hpp\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Data\+Model/Data\+Set.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,55 @@
+\hypertarget{class_lots_of_lines_1_1_data_model}{}\section{Lots\+Of\+Lines\+:\+:Data\+Model Class Reference}
+\label{class_lots_of_lines_1_1_data_model}\index{Lots\+Of\+Lines\+::\+Data\+Model@{Lots\+Of\+Lines\+::\+Data\+Model}}
+
+
+The \hyperlink{class_lots_of_lines_1_1_data_model}{Data\+Model} class handles loading and processing datasets to convert them to a form usable by the rendering system.  
+
+
+
+
+{\ttfamily \#include $<$Data\+Model.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Data\+Model} (const Data\+Loader\+Array \&data\+Loaders)\hypertarget{class_lots_of_lines_1_1_data_model_ad16cc6c51af644c4109ce088d50c6863}{}\label{class_lots_of_lines_1_1_data_model_ad16cc6c51af644c4109ce088d50c6863}
+
+\item 
+void \hyperlink{class_lots_of_lines_1_1_data_model_a6a98b1f57a88705c93fd62e439ae0d1b}{register\+Loader} (\hyperlink{class_lots_of_lines_1_1_i_data_loader}{I\+Data\+Loader} $\ast$loader)\hypertarget{class_lots_of_lines_1_1_data_model_a6a98b1f57a88705c93fd62e439ae0d1b}{}\label{class_lots_of_lines_1_1_data_model_a6a98b1f57a88705c93fd62e439ae0d1b}
+
+\begin{DoxyCompactList}\small\item\em Register a data loader with the \hyperlink{class_lots_of_lines_1_1_data_model}{Data\+Model}. Data loaders implement the actual parsing logic. \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \hyperlink{class_lots_of_lines_1_1_data_set}{Data\+Set} $>$ \hyperlink{class_lots_of_lines_1_1_data_model_ab8b8b52feec4ea1331d3efcbe000b148}{load\+Data} (const std\+::string \&path, const \hyperlink{struct_lots_of_lines_1_1_load_options}{Load\+Options} \&options=Load\+Options\+::default, \hyperlink{class_lots_of_lines_1_1_progress_message}{Progress\+Message} $\ast$progress=nullptr) const 
+\begin{DoxyCompactList}\small\item\em Loads data from the specified source. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_lots_of_lines_1_1_data_model}{Data\+Model} class handles loading and processing datasets to convert them to a form usable by the rendering system. 
+
+\subsection{Member Function Documentation}
+\index{Lots\+Of\+Lines\+::\+Data\+Model@{Lots\+Of\+Lines\+::\+Data\+Model}!load\+Data@{load\+Data}}
+\index{load\+Data@{load\+Data}!Lots\+Of\+Lines\+::\+Data\+Model@{Lots\+Of\+Lines\+::\+Data\+Model}}
+\subsubsection[{\texorpdfstring{load\+Data(const std\+::string \&path, const Load\+Options \&options=\+Load\+Options\+::default, Progress\+Message $\ast$progress=nullptr) const }{loadData(const std::string &path, const LoadOptions &options=LoadOptions::default, ProgressMessage *progress=nullptr) const }}]{\setlength{\rightskip}{0pt plus 5cm}std\+::shared\+\_\+ptr$<$ {\bf Data\+Set} $>$ Data\+Model\+::load\+Data (
+\begin{DoxyParamCaption}
+\item[{const std\+::string \&}]{path, }
+\item[{const {\bf Load\+Options} \&}]{options = {\ttfamily LoadOptions\+:\+:default}, }
+\item[{{\bf Progress\+Message} $\ast$}]{progress = {\ttfamily nullptr}}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_lots_of_lines_1_1_data_model_ab8b8b52feec4ea1331d3efcbe000b148}{}\label{class_lots_of_lines_1_1_data_model_ab8b8b52feec4ea1331d3efcbe000b148}
+
+
+Loads data from the specified source. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & The path to load data from. The format of this parameter is to be interpreted by the loader implementation and could be a file path, a U\+RL, or something else. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A shared\+\_\+ptr to the \hyperlink{class_lots_of_lines_1_1_data_set}{Data\+Set} loaded from the path, or nullptr if an error occurred. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Data\+Model/Data\+Model.\+hpp\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Data\+Model/Data\+Model.\+cpp\end{DoxyCompactItemize}

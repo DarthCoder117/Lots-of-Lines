@@ -1,0 +1,98 @@
+\hypertarget{class_lots_of_lines_1_1_data_set_1_1_iterator}{}\section{Lots\+Of\+Lines\+:\+:Data\+Set\+:\+:Iterator Class Reference}
+\label{class_lots_of_lines_1_1_data_set_1_1_iterator}\index{Lots\+Of\+Lines\+::\+Data\+Set\+::\+Iterator@{Lots\+Of\+Lines\+::\+Data\+Set\+::\+Iterator}}
+
+
+\hyperlink{class_lots_of_lines_1_1_data_set_1_1_iterator}{Iterator} class for traversing the dataset easier.  
+
+
+
+
+{\ttfamily \#include $<$Data\+Set.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_lots_of_lines_1_1_data_set_1_1_iterator}{Iterator} \& {\bfseries operator++} (int)\hypertarget{class_lots_of_lines_1_1_data_set_1_1_iterator_a27ecd81fbc84de916319afb95b9397fc}{}\label{class_lots_of_lines_1_1_data_set_1_1_iterator_a27ecd81fbc84de916319afb95b9397fc}
+
+\item 
+bool \hyperlink{class_lots_of_lines_1_1_data_set_1_1_iterator_a560719900b7c83fa0863061614b3d38b}{has\+Next} () const 
+\item 
+const Vector \& \hyperlink{class_lots_of_lines_1_1_data_set_1_1_iterator_a986cb3be36d6d3dd3dc59ca1db5f7fb5}{vector} ()
+\item 
+unsigned int \hyperlink{class_lots_of_lines_1_1_data_set_1_1_iterator_ac76ed57d62efaecfc1baf1c3b831eae5}{class\+Index} () const 
+\item 
+unsigned int \hyperlink{class_lots_of_lines_1_1_data_set_1_1_iterator_a309c1a1a53f80c764e4d77f15ba7c171}{line\+Index} () const 
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Iterator} (const \hyperlink{class_lots_of_lines_1_1_data_set}{Data\+Set} $\ast$data\+Set)\hypertarget{class_lots_of_lines_1_1_data_set_1_1_iterator_ab697d4871ed39b319956e903104c90a3}{}\label{class_lots_of_lines_1_1_data_set_1_1_iterator_ab697d4871ed39b319956e903104c90a3}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const \hyperlink{class_lots_of_lines_1_1_data_set}{Data\+Set} $\ast$ {\bfseries m\+\_\+data\+Set}\hypertarget{class_lots_of_lines_1_1_data_set_1_1_iterator_ada58776aa7f1f0ff1d1d217e05b3dc4c}{}\label{class_lots_of_lines_1_1_data_set_1_1_iterator_ada58776aa7f1f0ff1d1d217e05b3dc4c}
+
+\item 
+unsigned int {\bfseries m\+\_\+vector\+Idx}\hypertarget{class_lots_of_lines_1_1_data_set_1_1_iterator_ae0c142ecd8398e46ef10625acdbe410d}{}\label{class_lots_of_lines_1_1_data_set_1_1_iterator_ae0c142ecd8398e46ef10625acdbe410d}
+
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries Data\+Set}\hypertarget{class_lots_of_lines_1_1_data_set_1_1_iterator_aef648af6c56fa8ee0738c93629e725dc}{}\label{class_lots_of_lines_1_1_data_set_1_1_iterator_aef648af6c56fa8ee0738c93629e725dc}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_lots_of_lines_1_1_data_set_1_1_iterator}{Iterator} class for traversing the dataset easier. 
+
+\subsection{Member Function Documentation}
+\index{Lots\+Of\+Lines\+::\+Data\+Set\+::\+Iterator@{Lots\+Of\+Lines\+::\+Data\+Set\+::\+Iterator}!class\+Index@{class\+Index}}
+\index{class\+Index@{class\+Index}!Lots\+Of\+Lines\+::\+Data\+Set\+::\+Iterator@{Lots\+Of\+Lines\+::\+Data\+Set\+::\+Iterator}}
+\subsubsection[{\texorpdfstring{class\+Index() const }{classIndex() const }}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Data\+Set\+::\+Iterator\+::class\+Index (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_lots_of_lines_1_1_data_set_1_1_iterator_ac76ed57d62efaecfc1baf1c3b831eae5}{}\label{class_lots_of_lines_1_1_data_set_1_1_iterator_ac76ed57d62efaecfc1baf1c3b831eae5}
+\begin{DoxyReturn}{Returns}
+The class index of the current vector. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Data\+Set\+::\+Iterator@{Lots\+Of\+Lines\+::\+Data\+Set\+::\+Iterator}!has\+Next@{has\+Next}}
+\index{has\+Next@{has\+Next}!Lots\+Of\+Lines\+::\+Data\+Set\+::\+Iterator@{Lots\+Of\+Lines\+::\+Data\+Set\+::\+Iterator}}
+\subsubsection[{\texorpdfstring{has\+Next() const }{hasNext() const }}]{\setlength{\rightskip}{0pt plus 5cm}bool Data\+Set\+::\+Iterator\+::has\+Next (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_lots_of_lines_1_1_data_set_1_1_iterator_a560719900b7c83fa0863061614b3d38b}{}\label{class_lots_of_lines_1_1_data_set_1_1_iterator_a560719900b7c83fa0863061614b3d38b}
+\begin{DoxyReturn}{Returns}
+True if there\textquotesingle{}s a next vector available, false if the end has been reached. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Data\+Set\+::\+Iterator@{Lots\+Of\+Lines\+::\+Data\+Set\+::\+Iterator}!line\+Index@{line\+Index}}
+\index{line\+Index@{line\+Index}!Lots\+Of\+Lines\+::\+Data\+Set\+::\+Iterator@{Lots\+Of\+Lines\+::\+Data\+Set\+::\+Iterator}}
+\subsubsection[{\texorpdfstring{line\+Index() const }{lineIndex() const }}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Data\+Set\+::\+Iterator\+::line\+Index (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_lots_of_lines_1_1_data_set_1_1_iterator_a309c1a1a53f80c764e4d77f15ba7c171}{}\label{class_lots_of_lines_1_1_data_set_1_1_iterator_a309c1a1a53f80c764e4d77f15ba7c171}
+\begin{DoxyReturn}{Returns}
+The index of the current vector. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Data\+Set\+::\+Iterator@{Lots\+Of\+Lines\+::\+Data\+Set\+::\+Iterator}!vector@{vector}}
+\index{vector@{vector}!Lots\+Of\+Lines\+::\+Data\+Set\+::\+Iterator@{Lots\+Of\+Lines\+::\+Data\+Set\+::\+Iterator}}
+\subsubsection[{\texorpdfstring{vector()}{vector()}}]{\setlength{\rightskip}{0pt plus 5cm}const Vector \& Data\+Set\+::\+Iterator\+::vector (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_lots_of_lines_1_1_data_set_1_1_iterator_a986cb3be36d6d3dd3dc59ca1db5f7fb5}{}\label{class_lots_of_lines_1_1_data_set_1_1_iterator_a986cb3be36d6d3dd3dc59ca1db5f7fb5}
+\begin{DoxyReturn}{Returns}
+Vector in the \hyperlink{class_lots_of_lines_1_1_data_set}{Data\+Set}, or nullptr if the end has been reached. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Data\+Model/Data\+Set.\+hpp\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Data\+Model/Data\+Set.\+cpp\end{DoxyCompactItemize}

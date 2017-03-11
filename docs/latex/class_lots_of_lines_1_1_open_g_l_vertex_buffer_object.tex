@@ -1,0 +1,78 @@
+\hypertarget{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object}{}\section{Lots\+Of\+Lines\+:\+:Open\+G\+L\+Vertex\+Buffer\+Object Class Reference}
+\label{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object}\index{Lots\+Of\+Lines\+::\+Open\+G\+L\+Vertex\+Buffer\+Object@{Lots\+Of\+Lines\+::\+Open\+G\+L\+Vertex\+Buffer\+Object}}
+Inheritance diagram for Lots\+Of\+Lines\+:\+:Open\+G\+L\+Vertex\+Buffer\+Object\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool {\bfseries init} (const std\+::vector$<$ \hyperlink{struct_lots_of_lines_1_1_vertex}{Vertex} $>$ \&vertices, const std\+::vector$<$ unsigned int $>$ \&indices)\hypertarget{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_a5c7e13ab9c0d5baba3aba0bf1bb2bb22}{}\label{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_a5c7e13ab9c0d5baba3aba0bf1bb2bb22}
+
+\item 
+\hyperlink{struct_lots_of_lines_1_1_vertex}{Vertex} $\ast$ \hyperlink{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_a842ae500f862c5fb011ce1fa93478236}{map\+Vertices} (bool read\+Only=false)
+\begin{DoxyCompactList}\small\item\em Map the vertex buffer for access. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_ad3e09ea6ff43545352e9df6da5072beb}{unmap\+Vertices} ()\hypertarget{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_ad3e09ea6ff43545352e9df6da5072beb}{}\label{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_ad3e09ea6ff43545352e9df6da5072beb}
+
+\begin{DoxyCompactList}\small\item\em Unmap (unlock) the vertex buffer after accessing it. \end{DoxyCompactList}\item 
+unsigned int $\ast$ \hyperlink{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_a59c71c761341ca1732b5816bdfe6d239}{map\+Indices} ()
+\begin{DoxyCompactList}\small\item\em Map the index buffer for access. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_ad0c16f10859218f09a42ffbd4dd747b0}{unmap\+Indices} ()\hypertarget{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_ad0c16f10859218f09a42ffbd4dd747b0}{}\label{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_ad0c16f10859218f09a42ffbd4dd747b0}
+
+\begin{DoxyCompactList}\small\item\em Unmap (unlock) the index buffer after accessing it. \end{DoxyCompactList}\item 
+unsigned int {\bfseries vertex\+Count} () const \hypertarget{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_af82a0102fd076c0707c6e14ef1b8eb04}{}\label{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_af82a0102fd076c0707c6e14ef1b8eb04}
+
+\item 
+unsigned int {\bfseries index\+Count} () const \hypertarget{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_a433ac651d6ba21320d40ca2dd6c3dbf6}{}\label{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_a433ac651d6ba21320d40ca2dd6c3dbf6}
+
+\item 
+void {\bfseries draw} (bool lines=true)\hypertarget{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_acb47d279820505f869807a4df6b18ace}{}\label{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_acb47d279820505f869807a4df6b18ace}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{Lots\+Of\+Lines\+::\+Open\+G\+L\+Vertex\+Buffer\+Object@{Lots\+Of\+Lines\+::\+Open\+G\+L\+Vertex\+Buffer\+Object}!map\+Indices@{map\+Indices}}
+\index{map\+Indices@{map\+Indices}!Lots\+Of\+Lines\+::\+Open\+G\+L\+Vertex\+Buffer\+Object@{Lots\+Of\+Lines\+::\+Open\+G\+L\+Vertex\+Buffer\+Object}}
+\subsubsection[{\texorpdfstring{map\+Indices()}{mapIndices()}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int $\ast$ Open\+G\+L\+Vertex\+Buffer\+Object\+::map\+Indices (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_a59c71c761341ca1732b5816bdfe6d239}{}\label{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_a59c71c761341ca1732b5816bdfe6d239}
+
+
+Map the index buffer for access. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the index buffer\textquotesingle{}s data, or N\+U\+LL if the buffer couldn\textquotesingle{}t be mapped. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_lots_of_lines_1_1_i_vertex_buffer_object_a8820943ddcb998bccb03a9769611218b}{Lots\+Of\+Lines\+::\+I\+Vertex\+Buffer\+Object}.
+
+\index{Lots\+Of\+Lines\+::\+Open\+G\+L\+Vertex\+Buffer\+Object@{Lots\+Of\+Lines\+::\+Open\+G\+L\+Vertex\+Buffer\+Object}!map\+Vertices@{map\+Vertices}}
+\index{map\+Vertices@{map\+Vertices}!Lots\+Of\+Lines\+::\+Open\+G\+L\+Vertex\+Buffer\+Object@{Lots\+Of\+Lines\+::\+Open\+G\+L\+Vertex\+Buffer\+Object}}
+\subsubsection[{\texorpdfstring{map\+Vertices(bool read\+Only=false)}{mapVertices(bool readOnly=false)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vertex} $\ast$ Open\+G\+L\+Vertex\+Buffer\+Object\+::map\+Vertices (
+\begin{DoxyParamCaption}
+\item[{bool}]{read\+Only = {\ttfamily false}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_a842ae500f862c5fb011ce1fa93478236}{}\label{class_lots_of_lines_1_1_open_g_l_vertex_buffer_object_a842ae500f862c5fb011ce1fa93478236}
+
+
+Map the vertex buffer for access. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the vertex buffer\textquotesingle{}s data, or N\+U\+LL if the buffer couldn\textquotesingle{}t be mapped. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_lots_of_lines_1_1_i_vertex_buffer_object_ae367bf3f773738ffb1bf6957dba1cc13}{Lots\+Of\+Lines\+::\+I\+Vertex\+Buffer\+Object}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Rendering\+System/Open\+G\+L\+Vertex\+Buffer\+Object.\+hpp\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Rendering\+System/Open\+G\+L\+Vertex\+Buffer\+Object.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,100 @@
+\hypertarget{class_lots_of_lines_1_1_i_renderer}{}\section{Lots\+Of\+Lines\+:\+:I\+Renderer Class Reference}
+\label{class_lots_of_lines_1_1_i_renderer}\index{Lots\+Of\+Lines\+::\+I\+Renderer@{Lots\+Of\+Lines\+::\+I\+Renderer}}
+Inheritance diagram for Lots\+Of\+Lines\+:\+:I\+Renderer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_lots_of_lines_1_1_i_renderer}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual bool \hyperlink{class_lots_of_lines_1_1_i_renderer_adc6015bfdf756f4adc59805482b71715}{init} ()=0\hypertarget{class_lots_of_lines_1_1_i_renderer_adc6015bfdf756f4adc59805482b71715}{}\label{class_lots_of_lines_1_1_i_renderer_adc6015bfdf756f4adc59805482b71715}
+
+\begin{DoxyCompactList}\small\item\em Initialize the rendering driver by setting up default shaders and rendering states. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_lots_of_lines_1_1_i_renderer_a076759fc7971de5b7deed588f1d104be}{clear\+Screen} (float r, float g, float b)=0\hypertarget{class_lots_of_lines_1_1_i_renderer_a076759fc7971de5b7deed588f1d104be}{}\label{class_lots_of_lines_1_1_i_renderer_a076759fc7971de5b7deed588f1d104be}
+
+\begin{DoxyCompactList}\small\item\em Clears the screen before re-\/rendering. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_lots_of_lines_1_1_i_renderer_a87dd1fd9695ec5722e4201527075aa51}{begin\+Draw} ()=0\hypertarget{class_lots_of_lines_1_1_i_renderer_a87dd1fd9695ec5722e4201527075aa51}{}\label{class_lots_of_lines_1_1_i_renderer_a87dd1fd9695ec5722e4201527075aa51}
+
+\begin{DoxyCompactList}\small\item\em Sets up rendering states to begin a frame. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_lots_of_lines_1_1_i_renderer_a3f06c10327391ac4f8ad9931409cdda8}{end\+Draw} ()=0\hypertarget{class_lots_of_lines_1_1_i_renderer_a3f06c10327391ac4f8ad9931409cdda8}{}\label{class_lots_of_lines_1_1_i_renderer_a3f06c10327391ac4f8ad9931409cdda8}
+
+\begin{DoxyCompactList}\small\item\em Flips buffers to screen. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_lots_of_lines_1_1_i_renderer_aabdce3cb566a653d8b47a9c6ba13a8f0}{set\+Class\+Colors} (float $\ast$colors)=0\hypertarget{class_lots_of_lines_1_1_i_renderer_aabdce3cb566a653d8b47a9c6ba13a8f0}{}\label{class_lots_of_lines_1_1_i_renderer_aabdce3cb566a653d8b47a9c6ba13a8f0}
+
+\begin{DoxyCompactList}\small\item\em Set the 10x3 array of floats for colors to use when rendering the data class. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_lots_of_lines_1_1_i_renderer_a4aa103c72ba9761bd035401bd744964f}{set\+Viewport} (unsigned int x, unsigned int y, unsigned int width, unsigned int height)=0\hypertarget{class_lots_of_lines_1_1_i_renderer_a4aa103c72ba9761bd035401bd744964f}{}\label{class_lots_of_lines_1_1_i_renderer_a4aa103c72ba9761bd035401bd744964f}
+
+\begin{DoxyCompactList}\small\item\em Set the viewport. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_lots_of_lines_1_1_i_renderer_ada3a02fd728d85fd3e16485dd0b10cf5}{set\+Model\+View\+Projection} (const glm\+::mat4x4 \&mvp)=0\hypertarget{class_lots_of_lines_1_1_i_renderer_ada3a02fd728d85fd3e16485dd0b10cf5}{}\label{class_lots_of_lines_1_1_i_renderer_ada3a02fd728d85fd3e16485dd0b10cf5}
+
+\begin{DoxyCompactList}\small\item\em Set model$\ast$view$\ast$projection matrix. \end{DoxyCompactList}\item 
+virtual const glm\+::mat4x4 \& \hyperlink{class_lots_of_lines_1_1_i_renderer_ac2c690247d805c68839ec7a831133665}{get\+Model\+View\+Projection} () const  =0
+\item 
+virtual \hyperlink{class_lots_of_lines_1_1_i_shader}{I\+Shader} $\ast$ \hyperlink{class_lots_of_lines_1_1_i_renderer_aa3d81559cc4d78fbf1dfdd85a7f34580}{create\+Shader} ()=0\hypertarget{class_lots_of_lines_1_1_i_renderer_aa3d81559cc4d78fbf1dfdd85a7f34580}{}\label{class_lots_of_lines_1_1_i_renderer_aa3d81559cc4d78fbf1dfdd85a7f34580}
+
+\begin{DoxyCompactList}\small\item\em Create a new shader object. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_lots_of_lines_1_1_i_renderer_a5ba7bf13e1fcdbfc7a8a0696a16b1a45}{set\+Shader} (\hyperlink{class_lots_of_lines_1_1_i_shader}{I\+Shader} $\ast$shader)=0\hypertarget{class_lots_of_lines_1_1_i_renderer_a5ba7bf13e1fcdbfc7a8a0696a16b1a45}{}\label{class_lots_of_lines_1_1_i_renderer_a5ba7bf13e1fcdbfc7a8a0696a16b1a45}
+
+\begin{DoxyCompactList}\small\item\em Set the shader program to draw with. \end{DoxyCompactList}\item 
+virtual void \hyperlink{class_lots_of_lines_1_1_i_renderer_a9d24612fea435f65dcf7d013e6693b2a}{draw\+V\+BO} (std\+::shared\+\_\+ptr$<$ \hyperlink{class_lots_of_lines_1_1_i_vertex_buffer_object}{I\+Vertex\+Buffer\+Object} $>$ vbo, bool lines=true)=0
+\begin{DoxyCompactList}\small\item\em Draw a V\+BO to the screen. \end{DoxyCompactList}\item 
+virtual std\+::shared\+\_\+ptr$<$ \hyperlink{class_lots_of_lines_1_1_i_vertex_buffer_object}{I\+Vertex\+Buffer\+Object} $>$ \hyperlink{class_lots_of_lines_1_1_i_renderer_a0e9e0b2bc328bd13f88fea74da6e8abc}{create\+V\+BO} (const std\+::vector$<$ \hyperlink{struct_lots_of_lines_1_1_vertex}{Vertex} $>$ \&vertices, const std\+::vector$<$ unsigned int $>$ \&indices)=0\hypertarget{class_lots_of_lines_1_1_i_renderer_a0e9e0b2bc328bd13f88fea74da6e8abc}{}\label{class_lots_of_lines_1_1_i_renderer_a0e9e0b2bc328bd13f88fea74da6e8abc}
+
+\begin{DoxyCompactList}\small\item\em Construct a V\+BO from a list of vertices and indices. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_lots_of_lines_1_1_rendering_system}{Rendering\+System} $\ast$ {\bfseries m\+\_\+rendering\+System}\hypertarget{class_lots_of_lines_1_1_i_renderer_a0bb52a5e85e8f701b5b846d9286c08f5}{}\label{class_lots_of_lines_1_1_i_renderer_a0bb52a5e85e8f701b5b846d9286c08f5}
+
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries Rendering\+System}\hypertarget{class_lots_of_lines_1_1_i_renderer_a8973bdd326799bb9e3e2d3bf6c98778d}{}\label{class_lots_of_lines_1_1_i_renderer_a8973bdd326799bb9e3e2d3bf6c98778d}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\index{Lots\+Of\+Lines\+::\+I\+Renderer@{Lots\+Of\+Lines\+::\+I\+Renderer}!draw\+V\+BO@{draw\+V\+BO}}
+\index{draw\+V\+BO@{draw\+V\+BO}!Lots\+Of\+Lines\+::\+I\+Renderer@{Lots\+Of\+Lines\+::\+I\+Renderer}}
+\subsubsection[{\texorpdfstring{draw\+V\+B\+O(std\+::shared\+\_\+ptr$<$ I\+Vertex\+Buffer\+Object $>$ vbo, bool lines=true)=0}{drawVBO(std::shared_ptr< IVertexBufferObject > vbo, bool lines=true)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Lots\+Of\+Lines\+::\+I\+Renderer\+::draw\+V\+BO (
+\begin{DoxyParamCaption}
+\item[{std\+::shared\+\_\+ptr$<$ {\bf I\+Vertex\+Buffer\+Object} $>$}]{vbo, }
+\item[{bool}]{lines = {\ttfamily true}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{class_lots_of_lines_1_1_i_renderer_a9d24612fea435f65dcf7d013e6693b2a}{}\label{class_lots_of_lines_1_1_i_renderer_a9d24612fea435f65dcf7d013e6693b2a}
+
+
+Draw a V\+BO to the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lines} & Whether to draw as lines or points. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{class_lots_of_lines_1_1_open_g_l_renderer_a64ec268afbae1693799dd34c3a4a399b}{Lots\+Of\+Lines\+::\+Open\+G\+L\+Renderer}.
+
+\index{Lots\+Of\+Lines\+::\+I\+Renderer@{Lots\+Of\+Lines\+::\+I\+Renderer}!get\+Model\+View\+Projection@{get\+Model\+View\+Projection}}
+\index{get\+Model\+View\+Projection@{get\+Model\+View\+Projection}!Lots\+Of\+Lines\+::\+I\+Renderer@{Lots\+Of\+Lines\+::\+I\+Renderer}}
+\subsubsection[{\texorpdfstring{get\+Model\+View\+Projection() const  =0}{getModelViewProjection() const  =0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual const glm\+::mat4x4\& Lots\+Of\+Lines\+::\+I\+Renderer\+::get\+Model\+View\+Projection (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{class_lots_of_lines_1_1_i_renderer_ac2c690247d805c68839ec7a831133665}{}\label{class_lots_of_lines_1_1_i_renderer_ac2c690247d805c68839ec7a831133665}
+\begin{DoxyReturn}{Returns}
+The currently set model$\ast$view$\ast$projection matrix. 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{class_lots_of_lines_1_1_open_g_l_renderer_a003e562c0f86b870e4fcc1f5ed0cabf0}{Lots\+Of\+Lines\+::\+Open\+G\+L\+Renderer}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Rendering\+System/I\+Renderer.\+hpp\end{DoxyCompactItemize}

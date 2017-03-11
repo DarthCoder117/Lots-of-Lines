@@ -1,0 +1,179 @@
+\hypertarget{class_lots_of_lines_1_1_rendering_system}{}\section{Lots\+Of\+Lines\+:\+:Rendering\+System Class Reference}
+\label{class_lots_of_lines_1_1_rendering_system}\index{Lots\+Of\+Lines\+::\+Rendering\+System@{Lots\+Of\+Lines\+::\+Rendering\+System}}
+
+
+The \hyperlink{class_lots_of_lines_1_1_rendering_system}{Rendering\+System} manages different drivers to render with and handles all visualization rendering.  
+
+
+
+
+{\ttfamily \#include $<$Rendering\+System.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Rendering\+System} (\hyperlink{class_lots_of_lines_1_1_i_renderer}{I\+Renderer} $\ast$driver)\hypertarget{class_lots_of_lines_1_1_rendering_system_a5b5b463ecfc4dd054a7e4f7e02567678}{}\label{class_lots_of_lines_1_1_rendering_system_a5b5b463ecfc4dd054a7e4f7e02567678}
+
+\item 
+bool \hyperlink{class_lots_of_lines_1_1_rendering_system_a60f98835a62cc7f99d64b796c0b03f34}{init} ()\hypertarget{class_lots_of_lines_1_1_rendering_system_a60f98835a62cc7f99d64b796c0b03f34}{}\label{class_lots_of_lines_1_1_rendering_system_a60f98835a62cc7f99d64b796c0b03f34}
+
+\begin{DoxyCompactList}\small\item\em Initialize the rendering system and its driver. \end{DoxyCompactList}\item 
+\hyperlink{class_lots_of_lines_1_1_i_renderer}{I\+Renderer} $\ast$ \hyperlink{class_lots_of_lines_1_1_rendering_system_a16779b7f56c69d2f7f0c9723f861e21a}{get\+Driver} () const 
+\item 
+void \hyperlink{class_lots_of_lines_1_1_rendering_system_aad7cff17a9e4dbe1151fb550c8595382}{register\+Visualization\+Method} (E\+\_\+\+V\+I\+S\+U\+A\+L\+I\+Z\+A\+T\+I\+O\+N\+\_\+\+T\+Y\+PE type, std\+::shared\+\_\+ptr$<$ \hyperlink{class_lots_of_lines_1_1_i_visualization_method}{I\+Visualization\+Method} $>$ vis\+Method)\hypertarget{class_lots_of_lines_1_1_rendering_system_aad7cff17a9e4dbe1151fb550c8595382}{}\label{class_lots_of_lines_1_1_rendering_system_aad7cff17a9e4dbe1151fb550c8595382}
+
+\begin{DoxyCompactList}\small\item\em Registers a visualization method and makes it available to use. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_rendering_system_a0d8e3c4c4c62f29ea004940fcff254f5}{get\+Visualization\+Methods} (Visualization\+Method\+List \&visualization\+Methods\+Out)\hypertarget{class_lots_of_lines_1_1_rendering_system_a0d8e3c4c4c62f29ea004940fcff254f5}{}\label{class_lots_of_lines_1_1_rendering_system_a0d8e3c4c4c62f29ea004940fcff254f5}
+
+\begin{DoxyCompactList}\small\item\em Get the list of currently registered visualization methods. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_rendering_system_af61a1fd1070b7b1a922a4c6a97e43840}{set\+Visualization\+Type} (E\+\_\+\+V\+I\+S\+U\+A\+L\+I\+Z\+A\+T\+I\+O\+N\+\_\+\+T\+Y\+PE type)\hypertarget{class_lots_of_lines_1_1_rendering_system_af61a1fd1070b7b1a922a4c6a97e43840}{}\label{class_lots_of_lines_1_1_rendering_system_af61a1fd1070b7b1a922a4c6a97e43840}
+
+\begin{DoxyCompactList}\small\item\em Set current visualization type and regenerate vertex buffers. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_rendering_system_a0ec96584510ae431d4536546beec87a1}{redraw} ()\hypertarget{class_lots_of_lines_1_1_rendering_system_a0ec96584510ae431d4536546beec87a1}{}\label{class_lots_of_lines_1_1_rendering_system_a0ec96584510ae431d4536546beec87a1}
+
+\begin{DoxyCompactList}\small\item\em Regenerate the visualization after options or datasets have changed. \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \hyperlink{class_lots_of_lines_1_1_i_visualization_method}{I\+Visualization\+Method} $>$ \hyperlink{class_lots_of_lines_1_1_rendering_system_aaf5b71cb1255e860deae0130cae49d10}{get\+Current\+Visualization\+Method} ()
+\item 
+void \hyperlink{class_lots_of_lines_1_1_rendering_system_abed36ac71876d41bef1a46e7855a2845}{set\+Data\+Set} (std\+::shared\+\_\+ptr$<$ \hyperlink{class_lots_of_lines_1_1_data_set}{Data\+Set} $>$ data\+Set)\hypertarget{class_lots_of_lines_1_1_rendering_system_abed36ac71876d41bef1a46e7855a2845}{}\label{class_lots_of_lines_1_1_rendering_system_abed36ac71876d41bef1a46e7855a2845}
+
+\begin{DoxyCompactList}\small\item\em Set the data set that will be drawn by the rendering system. \end{DoxyCompactList}\item 
+\hyperlink{class_lots_of_lines_1_1_visualization_options}{Visualization\+Options} \& \hyperlink{class_lots_of_lines_1_1_rendering_system_a74e541573c4d8301772c75c2ffae1bd1}{get\+Visualization\+Options} ()
+\item 
+void \hyperlink{class_lots_of_lines_1_1_rendering_system_a2fed18fe29b240103b533aabca36f2db}{set\+Data\+Class\+Color} (unsigned int class\+Idx, float r, float g, float b)\hypertarget{class_lots_of_lines_1_1_rendering_system_a2fed18fe29b240103b533aabca36f2db}{}\label{class_lots_of_lines_1_1_rendering_system_a2fed18fe29b240103b533aabca36f2db}
+
+\begin{DoxyCompactList}\small\item\em Set the color to use when rendering a data class. \end{DoxyCompactList}\item 
+const float $\ast$ \hyperlink{class_lots_of_lines_1_1_rendering_system_a5e5db48a119dc6356001b78b921698d8}{get\+Data\+Class\+Color} (unsigned int class\+Idx) const 
+\item 
+const float $\ast$$\ast$ \hyperlink{class_lots_of_lines_1_1_rendering_system_a5e8c09e5773e0a1ff9d3693333e7d7e8}{get\+Data\+Class\+Colors} () const 
+\item 
+unsigned int \hyperlink{class_lots_of_lines_1_1_rendering_system_a2dcc443e681b9fa7a75bf1fbcd40b474}{get\+Data\+Class\+Color\+Count} () const 
+\item 
+void \hyperlink{class_lots_of_lines_1_1_rendering_system_aebbe9330430f5d43cd8eba0477c81437}{on\+Mouse\+Press} (int x, int y, bool lmb, bool rmb)\hypertarget{class_lots_of_lines_1_1_rendering_system_aebbe9330430f5d43cd8eba0477c81437}{}\label{class_lots_of_lines_1_1_rendering_system_aebbe9330430f5d43cd8eba0477c81437}
+
+\begin{DoxyCompactList}\small\item\em Call when a mouse press event occurs on the window. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_rendering_system_a27e7ee61ae688282d34f5db4cd459b9c}{on\+Mouse\+Move} (int x, int y, bool lmb, bool rmb)\hypertarget{class_lots_of_lines_1_1_rendering_system_a27e7ee61ae688282d34f5db4cd459b9c}{}\label{class_lots_of_lines_1_1_rendering_system_a27e7ee61ae688282d34f5db4cd459b9c}
+
+\begin{DoxyCompactList}\small\item\em Call when a mouse move event occurs on the window. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_rendering_system_a1117104c07e5290eac92643e81a7fb7b}{on\+Mouse\+Scroll} (int delta)
+\begin{DoxyCompactList}\small\item\em Call when a mouse scroll wheel event occurs. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_rendering_system_a236e9b473df9bac1a87cd1ab647eec87}{select\+Line} (unsigned int line\+Idx)\hypertarget{class_lots_of_lines_1_1_rendering_system_a236e9b473df9bac1a87cd1ab647eec87}{}\label{class_lots_of_lines_1_1_rendering_system_a236e9b473df9bac1a87cd1ab647eec87}
+
+\begin{DoxyCompactList}\small\item\em Select the line with the specified index. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_rendering_system_a00157ef4548d93715c583ff86a316d5e}{select\+Line} (unsigned int line\+Idx, \hyperlink{struct_lots_of_lines_1_1_vertex}{Vertex} $\ast$vertices, unsigned int vertex\+Count)\hypertarget{class_lots_of_lines_1_1_rendering_system_a00157ef4548d93715c583ff86a316d5e}{}\label{class_lots_of_lines_1_1_rendering_system_a00157ef4548d93715c583ff86a316d5e}
+
+\begin{DoxyCompactList}\small\item\em Select the line with the specified index, but pass the vertex data to avoid locking multiple times. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_rendering_system_ab2b7262da1f29842106ddb68d6e29720}{deselect\+All\+Lines} ()\hypertarget{class_lots_of_lines_1_1_rendering_system_ab2b7262da1f29842106ddb68d6e29720}{}\label{class_lots_of_lines_1_1_rendering_system_ab2b7262da1f29842106ddb68d6e29720}
+
+\begin{DoxyCompactList}\small\item\em Clear all line selections. \end{DoxyCompactList}\item 
+const std\+::set$<$ unsigned int $>$ \& \hyperlink{class_lots_of_lines_1_1_rendering_system_a4a147df3651fac58149687c444ad92b7}{get\+Selection} () const 
+\item 
+void \hyperlink{class_lots_of_lines_1_1_rendering_system_a24608a65b729f0db1f77d9076450cd27}{on\+Resize} (unsigned int width, unsigned int height)\hypertarget{class_lots_of_lines_1_1_rendering_system_a24608a65b729f0db1f77d9076450cd27}{}\label{class_lots_of_lines_1_1_rendering_system_a24608a65b729f0db1f77d9076450cd27}
+
+\begin{DoxyCompactList}\small\item\em Call when the window is resized. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_rendering_system_af31099644a0b6dd010b4d0340a6866b7}{auto\+View\+Transform} (E\+\_\+\+V\+I\+S\+U\+A\+L\+I\+Z\+A\+T\+I\+O\+N\+\_\+\+T\+Y\+PE type)\hypertarget{class_lots_of_lines_1_1_rendering_system_af31099644a0b6dd010b4d0340a6866b7}{}\label{class_lots_of_lines_1_1_rendering_system_af31099644a0b6dd010b4d0340a6866b7}
+
+\begin{DoxyCompactList}\small\item\em Scales the view to the current visualization automatically. \end{DoxyCompactList}\item 
+void {\bfseries set\+View\+Transform} (float camX, float camY, float zoomX, float zoomY)\hypertarget{class_lots_of_lines_1_1_rendering_system_a9af02456bd314b8a45f871e27cfc9ae2}{}\label{class_lots_of_lines_1_1_rendering_system_a9af02456bd314b8a45f871e27cfc9ae2}
+
+\item 
+void {\bfseries draw} (float r=0.\+2f, float g=0.\+2f, float b=0.\+2f)\hypertarget{class_lots_of_lines_1_1_rendering_system_a5c75eeb1e1039e5c286ac976266713ad}{}\label{class_lots_of_lines_1_1_rendering_system_a5c75eeb1e1039e5c286ac976266713ad}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_lots_of_lines_1_1_rendering_system}{Rendering\+System} manages different drivers to render with and handles all visualization rendering. 
+
+\subsection{Member Function Documentation}
+\index{Lots\+Of\+Lines\+::\+Rendering\+System@{Lots\+Of\+Lines\+::\+Rendering\+System}!get\+Current\+Visualization\+Method@{get\+Current\+Visualization\+Method}}
+\index{get\+Current\+Visualization\+Method@{get\+Current\+Visualization\+Method}!Lots\+Of\+Lines\+::\+Rendering\+System@{Lots\+Of\+Lines\+::\+Rendering\+System}}
+\subsubsection[{\texorpdfstring{get\+Current\+Visualization\+Method()}{getCurrentVisualizationMethod()}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::shared\+\_\+ptr$<$ {\bf I\+Visualization\+Method} $>$ Rendering\+System\+::get\+Current\+Visualization\+Method (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_lots_of_lines_1_1_rendering_system_aaf5b71cb1255e860deae0130cae49d10}{}\label{class_lots_of_lines_1_1_rendering_system_aaf5b71cb1255e860deae0130cae49d10}
+\begin{DoxyReturn}{Returns}
+Shared pointer to the current visualization method. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Rendering\+System@{Lots\+Of\+Lines\+::\+Rendering\+System}!get\+Data\+Class\+Color@{get\+Data\+Class\+Color}}
+\index{get\+Data\+Class\+Color@{get\+Data\+Class\+Color}!Lots\+Of\+Lines\+::\+Rendering\+System@{Lots\+Of\+Lines\+::\+Rendering\+System}}
+\subsubsection[{\texorpdfstring{get\+Data\+Class\+Color(unsigned int class\+Idx) const }{getDataClassColor(unsigned int classIdx) const }}]{\setlength{\rightskip}{0pt plus 5cm}const float $\ast$ Rendering\+System\+::get\+Data\+Class\+Color (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{class\+Idx}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_lots_of_lines_1_1_rendering_system_a5e5db48a119dc6356001b78b921698d8}{}\label{class_lots_of_lines_1_1_rendering_system_a5e5db48a119dc6356001b78b921698d8}
+\begin{DoxyReturn}{Returns}
+3-\/element float array with data class color. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Rendering\+System@{Lots\+Of\+Lines\+::\+Rendering\+System}!get\+Data\+Class\+Color\+Count@{get\+Data\+Class\+Color\+Count}}
+\index{get\+Data\+Class\+Color\+Count@{get\+Data\+Class\+Color\+Count}!Lots\+Of\+Lines\+::\+Rendering\+System@{Lots\+Of\+Lines\+::\+Rendering\+System}}
+\subsubsection[{\texorpdfstring{get\+Data\+Class\+Color\+Count() const }{getDataClassColorCount() const }}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Rendering\+System\+::get\+Data\+Class\+Color\+Count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_lots_of_lines_1_1_rendering_system_a2dcc443e681b9fa7a75bf1fbcd40b474}{}\label{class_lots_of_lines_1_1_rendering_system_a2dcc443e681b9fa7a75bf1fbcd40b474}
+\begin{DoxyReturn}{Returns}
+The total number of data class colors that have been configured. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Rendering\+System@{Lots\+Of\+Lines\+::\+Rendering\+System}!get\+Data\+Class\+Colors@{get\+Data\+Class\+Colors}}
+\index{get\+Data\+Class\+Colors@{get\+Data\+Class\+Colors}!Lots\+Of\+Lines\+::\+Rendering\+System@{Lots\+Of\+Lines\+::\+Rendering\+System}}
+\subsubsection[{\texorpdfstring{get\+Data\+Class\+Colors() const }{getDataClassColors() const }}]{\setlength{\rightskip}{0pt plus 5cm}const float $\ast$$\ast$ Rendering\+System\+::get\+Data\+Class\+Colors (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_lots_of_lines_1_1_rendering_system_a5e8c09e5773e0a1ff9d3693333e7d7e8}{}\label{class_lots_of_lines_1_1_rendering_system_a5e8c09e5773e0a1ff9d3693333e7d7e8}
+\begin{DoxyReturn}{Returns}
+The full array of data class colors 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Rendering\+System@{Lots\+Of\+Lines\+::\+Rendering\+System}!get\+Driver@{get\+Driver}}
+\index{get\+Driver@{get\+Driver}!Lots\+Of\+Lines\+::\+Rendering\+System@{Lots\+Of\+Lines\+::\+Rendering\+System}}
+\subsubsection[{\texorpdfstring{get\+Driver() const }{getDriver() const }}]{\setlength{\rightskip}{0pt plus 5cm}{\bf I\+Renderer} $\ast$ Rendering\+System\+::get\+Driver (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_lots_of_lines_1_1_rendering_system_a16779b7f56c69d2f7f0c9723f861e21a}{}\label{class_lots_of_lines_1_1_rendering_system_a16779b7f56c69d2f7f0c9723f861e21a}
+\begin{DoxyReturn}{Returns}
+Pointer to the driver implementation. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Rendering\+System@{Lots\+Of\+Lines\+::\+Rendering\+System}!get\+Selection@{get\+Selection}}
+\index{get\+Selection@{get\+Selection}!Lots\+Of\+Lines\+::\+Rendering\+System@{Lots\+Of\+Lines\+::\+Rendering\+System}}
+\subsubsection[{\texorpdfstring{get\+Selection() const }{getSelection() const }}]{\setlength{\rightskip}{0pt plus 5cm}const std\+::set$<$ unsigned int $>$ \& Rendering\+System\+::get\+Selection (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{class_lots_of_lines_1_1_rendering_system_a4a147df3651fac58149687c444ad92b7}{}\label{class_lots_of_lines_1_1_rendering_system_a4a147df3651fac58149687c444ad92b7}
+\begin{DoxyReturn}{Returns}
+The current selection set. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Rendering\+System@{Lots\+Of\+Lines\+::\+Rendering\+System}!get\+Visualization\+Options@{get\+Visualization\+Options}}
+\index{get\+Visualization\+Options@{get\+Visualization\+Options}!Lots\+Of\+Lines\+::\+Rendering\+System@{Lots\+Of\+Lines\+::\+Rendering\+System}}
+\subsubsection[{\texorpdfstring{get\+Visualization\+Options()}{getVisualizationOptions()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Visualization\+Options} \& Rendering\+System\+::get\+Visualization\+Options (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_lots_of_lines_1_1_rendering_system_a74e541573c4d8301772c75c2ffae1bd1}{}\label{class_lots_of_lines_1_1_rendering_system_a74e541573c4d8301772c75c2ffae1bd1}
+\begin{DoxyReturn}{Returns}
+Current visualization options in use. 
+\end{DoxyReturn}
+\index{Lots\+Of\+Lines\+::\+Rendering\+System@{Lots\+Of\+Lines\+::\+Rendering\+System}!on\+Mouse\+Scroll@{on\+Mouse\+Scroll}}
+\index{on\+Mouse\+Scroll@{on\+Mouse\+Scroll}!Lots\+Of\+Lines\+::\+Rendering\+System@{Lots\+Of\+Lines\+::\+Rendering\+System}}
+\subsubsection[{\texorpdfstring{on\+Mouse\+Scroll(int delta)}{onMouseScroll(int delta)}}]{\setlength{\rightskip}{0pt plus 5cm}void Rendering\+System\+::on\+Mouse\+Scroll (
+\begin{DoxyParamCaption}
+\item[{int}]{delta}
+\end{DoxyParamCaption}
+)}\hypertarget{class_lots_of_lines_1_1_rendering_system_a1117104c07e5290eac92643e81a7fb7b}{}\label{class_lots_of_lines_1_1_rendering_system_a1117104c07e5290eac92643e81a7fb7b}
+
+
+Call when a mouse scroll wheel event occurs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta} & The amount of degrees the mouse wheel was moved. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Rendering\+System/Rendering\+System.\+hpp\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Rendering\+System/Rendering\+System.\+cpp\end{DoxyCompactItemize}

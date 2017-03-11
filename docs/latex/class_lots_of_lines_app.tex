@@ -1,0 +1,71 @@
+\hypertarget{class_lots_of_lines_app}{}\section{Lots\+Of\+Lines\+App Class Reference}
+\label{class_lots_of_lines_app}\index{Lots\+Of\+Lines\+App@{Lots\+Of\+Lines\+App}}
+Inheritance diagram for Lots\+Of\+Lines\+App\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_lots_of_lines_app}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries add\+New\+Dataset} (std\+::shared\+\_\+ptr$<$ \hyperlink{class_lots_of_lines_1_1_data_set}{Lots\+Of\+Lines\+::\+Data\+Set} $>$)\hypertarget{class_lots_of_lines_app_af33c81460bf4947644959afedfa1574b}{}\label{class_lots_of_lines_app_af33c81460bf4947644959afedfa1574b}
+
+\item 
+void {\bfseries on\+Load\+File} ()\hypertarget{class_lots_of_lines_app_a0701fd75172ff4a0cd92bd2faba9eb41}{}\label{class_lots_of_lines_app_a0701fd75172ff4a0cd92bd2faba9eb41}
+
+\item 
+void {\bfseries on\+Open\+Preferences} ()\hypertarget{class_lots_of_lines_app_aaa0caf1c43436c86db33a5ad9babd864}{}\label{class_lots_of_lines_app_aaa0caf1c43436c86db33a5ad9babd864}
+
+\item 
+void {\bfseries on\+Visualization\+Checked} (int state)\hypertarget{class_lots_of_lines_app_abe6641f9fdc77e64232686a54bde553a}{}\label{class_lots_of_lines_app_abe6641f9fdc77e64232686a54bde553a}
+
+\item 
+void {\bfseries on\+Visualization\+Options\+Changed} (const std\+::string \&)\hypertarget{class_lots_of_lines_app_a7ec3d5c0cc49b421841f2f06c939383a}{}\label{class_lots_of_lines_app_a7ec3d5c0cc49b421841f2f06c939383a}
+
+\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries request\+Dataset\+Update} (const Q\+String \&filename, const \hyperlink{struct_lots_of_lines_1_1_load_options}{Lots\+Of\+Lines\+::\+Load\+Options} \&options=Lots\+Of\+Lines\+::\+Load\+Options\+::default)\hypertarget{class_lots_of_lines_app_ac414bca34842822f3cab10f15ab8a526}{}\label{class_lots_of_lines_app_ac414bca34842822f3cab10f15ab8a526}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Lots\+Of\+Lines\+App} (const Q\+String \&open\+File, Q\+Widget $\ast$parent=0)\hypertarget{class_lots_of_lines_app_a741754c03fc7e8365a0e5db1389b4898}{}\label{class_lots_of_lines_app_a741754c03fc7e8365a0e5db1389b4898}
+
+\item 
+void \hyperlink{class_lots_of_lines_app_a1970960805f1670227d0c10bf74c8390}{load\+File} (const Q\+String \&filename, const \hyperlink{struct_lots_of_lines_1_1_load_options}{Lots\+Of\+Lines\+::\+Load\+Options} \&options=Lots\+Of\+Lines\+::\+Load\+Options\+::default)\hypertarget{class_lots_of_lines_app_a1970960805f1670227d0c10bf74c8390}{}\label{class_lots_of_lines_app_a1970960805f1670227d0c10bf74c8390}
+
+\begin{DoxyCompactList}\small\item\em Load a data set to be displayed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_lots_of_lines_app_ad855e077f621708e535bec7122e62b17}{reload\+Data\+Table} ()\hypertarget{class_lots_of_lines_app_ad855e077f621708e535bec7122e62b17}{}\label{class_lots_of_lines_app_ad855e077f621708e535bec7122e62b17}
+
+\begin{DoxyCompactList}\small\item\em Reloads the tabs and table models for the data table view. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_app_ad918b993305f06ac7dded3b6501e2957}{reorder\+Split\+Screens} ()\hypertarget{class_lots_of_lines_app_ad918b993305f06ac7dded3b6501e2957}{}\label{class_lots_of_lines_app_ad918b993305f06ac7dded3b6501e2957}
+
+\begin{DoxyCompactList}\small\item\em Reorder the positions of each screen in the splitscreen layout. This must be called whenever the splitscreen widgets change, or else holes can appear in the layout. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_ui_1_1_lots_of_lines_app_class}{Ui\+::\+Lots\+Of\+Lines\+App\+Class} {\bfseries ui}\hypertarget{class_lots_of_lines_app_a7dcf65cd508b6cf083f574a990695314}{}\label{class_lots_of_lines_app_a7dcf65cd508b6cf083f574a990695314}
+
+\item 
+std\+::shared\+\_\+ptr$<$ \hyperlink{class_lots_of_lines_1_1_data_set}{Lots\+Of\+Lines\+::\+Data\+Set} $>$ {\bfseries m\+\_\+data\+Set}\hypertarget{class_lots_of_lines_app_a58dc6cecfc94df878633f1622422b4cc}{}\label{class_lots_of_lines_app_a58dc6cecfc94df878633f1622422b4cc}
+
+\item 
+std\+::map$<$ Lots\+Of\+Lines\+::\+E\+\_\+\+V\+I\+S\+U\+A\+L\+I\+Z\+A\+T\+I\+O\+N\+\_\+\+T\+Y\+PE, \hyperlink{class_visualization_renderer_widget}{Visualization\+Renderer\+Widget} $\ast$ $>$ {\bfseries m\+\_\+renderer\+Widgets}\hypertarget{class_lots_of_lines_app_a311b80164ea07fb722dd51c4c93db430}{}\label{class_lots_of_lines_app_a311b80164ea07fb722dd51c4c93db430}
+
+\item 
+std\+::map$<$ Lots\+Of\+Lines\+::\+E\+\_\+\+V\+I\+S\+U\+A\+L\+I\+Z\+A\+T\+I\+O\+N\+\_\+\+T\+Y\+PE, \hyperlink{class_option_editor_widget}{Option\+Editor\+Widget} $\ast$ $>$ {\bfseries m\+\_\+option\+Editor\+Widgets}\hypertarget{class_lots_of_lines_app_a7df4df0a35a553e35baf49bb97e38e0a}{}\label{class_lots_of_lines_app_a7df4df0a35a553e35baf49bb97e38e0a}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/Lots\+Of\+Lines\+App.\+h\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/Lots\+Of\+Lines\+App.\+cpp\end{DoxyCompactItemize}

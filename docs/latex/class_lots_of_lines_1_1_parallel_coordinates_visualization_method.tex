@@ -1,0 +1,44 @@
+\hypertarget{class_lots_of_lines_1_1_parallel_coordinates_visualization_method}{}\section{Lots\+Of\+Lines\+:\+:Parallel\+Coordinates\+Visualization\+Method Class Reference}
+\label{class_lots_of_lines_1_1_parallel_coordinates_visualization_method}\index{Lots\+Of\+Lines\+::\+Parallel\+Coordinates\+Visualization\+Method@{Lots\+Of\+Lines\+::\+Parallel\+Coordinates\+Visualization\+Method}}
+Inheritance diagram for Lots\+Of\+Lines\+:\+:Parallel\+Coordinates\+Visualization\+Method\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_lots_of_lines_1_1_parallel_coordinates_visualization_method}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_a9fc4a16e5616115ad9e8c983fefb80ab}{get\+Navigation\+Options} (\hyperlink{struct_lots_of_lines_1_1_navigation_options}{Navigation\+Options} \&options\+Out)\hypertarget{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_a9fc4a16e5616115ad9e8c983fefb80ab}{}\label{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_a9fc4a16e5616115ad9e8c983fefb80ab}
+
+\begin{DoxyCompactList}\small\item\em Should return the navigation options for the rendering method (X scroll lock, etc) \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_a47f47082f6638364ca12c521b8520e30}{get\+Default\+Options} (\hyperlink{class_lots_of_lines_1_1_visualization_options}{Visualization\+Options} \&options)\hypertarget{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_a47f47082f6638364ca12c521b8520e30}{}\label{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_a47f47082f6638364ca12c521b8520e30}
+
+\begin{DoxyCompactList}\small\item\em Should fill an empty \hyperlink{class_lots_of_lines_1_1_visualization_options}{Visualization\+Options} object with the default options to use for the visualization method. This method will be called once when the visualization method is loaded in order to generate fields for the UI system. \end{DoxyCompactList}\item 
+bool \hyperlink{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_a4c08598cae13367a5b77828be347ac2e}{generate\+V\+BO} (const std\+::shared\+\_\+ptr$<$ const \hyperlink{class_lots_of_lines_1_1_data_set}{Data\+Set} $>$ data\+Set, std\+::vector$<$ \hyperlink{struct_lots_of_lines_1_1_vertex}{Vertex} $>$ \&vertices\+Out, std\+::vector$<$ unsigned int $>$ \&indices\+Out, \hyperlink{class_lots_of_lines_1_1_rendering_system}{Rendering\+System} $\ast$driver, const \hyperlink{class_lots_of_lines_1_1_visualization_options}{Visualization\+Options} \&options)\hypertarget{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_a4c08598cae13367a5b77828be347ac2e}{}\label{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_a4c08598cae13367a5b77828be347ac2e}
+
+\begin{DoxyCompactList}\small\item\em Generate a vertex buffer for the visualization. \end{DoxyCompactList}\item 
+void \hyperlink{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_a2df2c91354041c193e4055aeac7cfad2}{pre\+Draw} (\hyperlink{class_lots_of_lines_1_1_rendering_system}{Rendering\+System} $\ast$driver)\hypertarget{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_a2df2c91354041c193e4055aeac7cfad2}{}\label{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_a2df2c91354041c193e4055aeac7cfad2}
+
+\begin{DoxyCompactList}\small\item\em Draw axis lines and other extra features of the visualization method. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ {\bfseries F\+I\+T\+\_\+\+T\+O\+\_\+\+S\+C\+R\+E\+E\+N\+\_\+\+H\+O\+R\+I\+Z\+O\+N\+T\+AL} = \char`\"{}Fit horizontal\char`\"{}\hypertarget{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_aefad54ada3adf700219394f34e862162}{}\label{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_aefad54ada3adf700219394f34e862162}
+
+\item 
+const char $\ast$ {\bfseries S\+H\+I\+F\+T\+ED} = \char`\"{}Shift axes based around central line\char`\"{}\hypertarget{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_a6800a60bb4e99b4f58d45affdf46a314}{}\label{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_a6800a60bb4e99b4f58d45affdf46a314}
+
+\item 
+const char $\ast$ {\bfseries A\+X\+I\+S\+\_\+\+S\+P\+A\+C\+I\+NG} = \char`\"{}Axis spacing\char`\"{}\hypertarget{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_abb6773006f0f62973b62093a6b1ca987}{}\label{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_abb6773006f0f62973b62093a6b1ca987}
+
+\item 
+float {\bfseries m\+\_\+scroll\+Limit} = 0.\+0f\hypertarget{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_a70616701546af28d381850d6761d3acf}{}\label{class_lots_of_lines_1_1_parallel_coordinates_visualization_method_a70616701546af28d381850d6761d3acf}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Rendering\+System/Parallel\+Coordinates\+Visualization\+Method.\+hpp\item 
+D\+:/\+School/\+C\+W\+U/\+C\+S 481/\+Lots-\/of-\/\+Lines/source/\+Rendering\+System/Parallel\+Coordinates\+Visualization\+Method.\+cpp\end{DoxyCompactItemize}
