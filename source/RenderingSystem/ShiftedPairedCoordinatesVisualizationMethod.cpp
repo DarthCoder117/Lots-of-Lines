@@ -93,7 +93,6 @@ bool ShiftedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_
 	{
 		lineIdx++;
 
-		double shift = 0.0f;
 		Vector vec = iter.vector();
 		if (vec.size() % 2 != 0)
 		{

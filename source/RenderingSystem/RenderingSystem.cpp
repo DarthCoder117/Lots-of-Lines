@@ -51,7 +51,7 @@ IRenderer* RenderingSystem::getDriver() const
 	return m_driver;
 }
 
-void RenderingSystem::onMousePress(int x, int y, bool lmb, bool rmb)
+void RenderingSystem::onMousePress(int x, int y, bool, bool rmb)
 {
 	//Store mouse drag start positions
 	m_startMouseX = x;
@@ -223,7 +223,7 @@ void RenderingSystem::refreshLineSelection()
 	m_vbo->unmapVertices();
 }
 
-void RenderingSystem::onMouseMove(int x, int y, bool lmb, bool rmb)
+void RenderingSystem::onMouseMove(int x, int y, bool lmb, bool)
 {
 	if (lmb)
 	{
@@ -246,11 +246,6 @@ void RenderingSystem::onMouseMove(int x, int y, bool lmb, bool rmb)
 	{
 		multiSelect(x, y);
 	}
-}
-
-void RenderingSystem::onMouseRelease(int x, int y, bool lmb, bool rmb)
-{
-
 }
 
 void RenderingSystem::onMouseScroll(int delta)

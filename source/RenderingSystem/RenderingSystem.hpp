@@ -113,8 +113,6 @@ namespace LotsOfLines
 		void onMousePress(int x, int y, bool lmb, bool rmb);
 		///@brief Call when a mouse move event occurs on the window
 		void onMouseMove(int x, int y, bool lmb, bool rmb);
-		///@brief Call when a mouse release event occurs on the window
-		void onMouseRelease(int x, int y, bool lmb, bool rmb);
 		///@brief Call when a mouse scroll wheel event occurs.
 		///@param delta The amount of degrees the mouse wheel was moved.
 		void onMouseScroll(int delta);

@@ -3,7 +3,7 @@
 
 using namespace LotsOfLines;
 
-bool CollocatedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<const DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, RenderingSystem* driver, const VisualizationOptions& options)
+bool CollocatedPairedCoordinatesVisualizationMethod::generateVBO(const std::shared_ptr<const DataSet> dataSet, std::vector<Vertex>& verticesOut, std::vector<unsigned int>& indicesOut, RenderingSystem*, const VisualizationOptions&)
 {
 	unsigned int lineIdx = 0;
 	unsigned int vectorSize = 0;

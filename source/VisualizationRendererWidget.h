@@ -15,8 +15,7 @@ public:
 	LotsOfLines::RenderingSystem* getRenderingSystem();
 
 	void mousePressEvent(QMouseEvent *eventPress);
-	void mouseMoveEvent(QMouseEvent* eventMove);
-	void mouseReleaseEvent(QMouseEvent *releaseEvent);
+    void mouseMoveEvent(QMouseEvent* eventMove);
 	void wheelEvent(QWheelEvent* wheelEvent);
 
 protected:

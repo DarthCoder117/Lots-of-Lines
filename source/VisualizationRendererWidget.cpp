@@ -35,13 +35,6 @@ void VisualizationRendererWidget::mouseMoveEvent(QMouseEvent* eventMove)
 	m_renderingSystem.onMouseMove(eventMove->pos().x(), eventMove->pos().y(), lmb, rmb);
 }
 
-void VisualizationRendererWidget::mouseReleaseEvent(QMouseEvent* eventMove)
-{
-	bool lmb = eventMove->buttons().testFlag(Qt::LeftButton);
-	bool rmb = eventMove->buttons().testFlag(Qt::RightButton);
-	m_renderingSystem.onMouseRelease(eventMove->pos().x(), eventMove->pos().y(), lmb, rmb);
-}
-
 void VisualizationRendererWidget::wheelEvent(QWheelEvent* wheelEvent)
 {
 	m_renderingSystem.onMouseScroll(wheelEvent->delta() / 8);
