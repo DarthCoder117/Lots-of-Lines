@@ -29,7 +29,7 @@ namespace LotsOfLinesExcel
             Globals.ThisAddIn.Application.ActiveWorkbook.SaveCopyAs(tempFile);
 
             //Open Lots of Lines application
-            string lotsOfLinesDir = Environment.GetEnvironmentVariable("LOTS_OF_LINES_PATH");
+            string lotsOfLinesDir = Properties.Settings.Default.LotsOfLinesPath;
             string lotsOfLinesFilename = lotsOfLinesDir + "\\LotsOfLinesApp.exe";
             try
             {
@@ -56,6 +56,16 @@ namespace LotsOfLinesExcel
             {
                 Console.Out.WriteLine(ex.Message);
             }
+        }
+
+        private void editBox1_TextChanged(object sender, RibbonControlEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, RibbonControlEventArgs e)
+        {
+
         }
     }
 }
