@@ -12,7 +12,11 @@ bool CollocatedPairedCoordinatesVisualizationMethod::generateVBO(const std::shar
 	{
 		lineIdx++;
 
-		const Vector& vec = iter.vector();
+		Vector vec = iter.vector();
+		if (vec.size() % 2 != 0)
+		{
+			vec.push_back(vec.back());
+		}
 		vectorSize = vec.size();
 		for (unsigned int x = 1; x < vec.size(); x += 2)
 		{
@@ -20,15 +24,6 @@ bool CollocatedPairedCoordinatesVisualizationMethod::generateVBO(const std::shar
 			v.dataClassIndex = iter.classIndex();
 			v.flags = 0;
 			verticesOut.push_back(v);
-			// If single left over vector
-			if (x == vectorSize - 2)
-			{
-				lineIdx++;
-				//Or (vec[x + 1], 0)
-				v.x = (float)vec[x + 1];
-				v.y = (float)vec[x + 1];
-				verticesOut.push_back(v);
-			}
 		}
 	}
 
