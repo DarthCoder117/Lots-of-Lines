@@ -12,7 +12,9 @@ int main(int argc, char *argv[])
 
 	const QStringList args = parser.positionalArguments();
 
-    LotsOfLinesApp w(!args.isEmpty() ? args.at(0) : "");
+    parser.process(app);
+
+    LotsOfLinesApp w(QString((const char*)argv[1]));
     w.show();
     return app.exec();
 }

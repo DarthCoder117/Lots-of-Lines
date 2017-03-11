@@ -75,8 +75,6 @@ LotsOfLinesApp::LotsOfLinesApp(const QString& openFile, QWidget* parent)
 
 void LotsOfLinesApp::loadFile(const QString& filename, const LotsOfLines::LoadOptions& options)
 {
-    setWindowTitle(filename);
-
 	// Initialize progress dialog
 	QProgressDialog progressDialog(this);
 	progressDialog.setLabelText("Please wait while loading the data file. This may take awhile depending on the size.");
