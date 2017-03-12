@@ -100,13 +100,9 @@ public:
 "}\n"
 "QDockWidget{\n"
 "	background-color: rgb(225, 225, 225);\n"
-"	page-color: rgb(200,200,200);\n"
 "}\n"
 "QGroupBox{\n"
 "	background-color: rgb(225,225,225);\n"
-"}\n"
-"QToolBox{\n"
-"	page-color:rgb(205,205,205);\n"
 "}\n"
 "QCheckBox{\n"
 "	color: rgb(25,25,25);\n"
@@ -124,7 +120,7 @@ public:
         sidebarScrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 122, 472));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 122, 475));
         verticalLayout_2 = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -145,7 +141,7 @@ public:
         optionsScrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QStringLiteral("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 102, 384));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 102, 387));
         optionsScrollLayout = new QVBoxLayout(scrollAreaWidgetContents_2);
         optionsScrollLayout->setSpacing(6);
         optionsScrollLayout->setContentsMargins(11, 11, 11, 11);

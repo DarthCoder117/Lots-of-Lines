@@ -65,13 +65,9 @@
 }
 QDockWidget{
 	background-color: rgb(225, 225, 225);
-	page-color: rgb(200,200,200);
 }
 QGroupBox{
 	background-color: rgb(225,225,225);
-}
-QToolBox{
-	page-color:rgb(205,205,205);
 }
 QCheckBox{
 	color: rgb(25,25,25);
@@ -109,7 +105,7 @@ QCheckBox{
           <x>0</x>
           <y>0</y>
           <width>122</width>
-          <height>472</height>
+          <height>475</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -138,7 +134,7 @@ QCheckBox{
               <x>0</x>
               <y>0</y>
               <width>102</width>
-              <height>384</height>
+              <height>387</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="optionsScrollLayout"/>
@@ -209,9 +205,7 @@ QCheckBox{
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="LotsOfLinesApp.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>loadFileButton</sender>

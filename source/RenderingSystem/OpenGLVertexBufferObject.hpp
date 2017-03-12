@@ -26,6 +26,8 @@ namespace LotsOfLines
 
 	private:
 
+        unsigned int m_vao;
+
 		unsigned int m_vertexBuffer;
 		unsigned int m_vertexCount;
 

@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     const QStringList args = parser.positionalArguments();
 
     //Start application with selected options.
-    LotsOfLinesApp w(args.at(0), parser.isSet(parallelCoordinatesOption), parser.isSet(collocatedPairedOption), parser.isSet(radialPairedOption), parser.isSet(shiftedPairedOption));
+    LotsOfLinesApp w(args.count() >= 1 ? args.at(0) : "", parser.isSet(parallelCoordinatesOption), parser.isSet(collocatedPairedOption), parser.isSet(radialPairedOption), parser.isSet(shiftedPairedOption));
     w.show();
     return app.exec();
 }

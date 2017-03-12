@@ -13,6 +13,10 @@ bool OpenGLVertexBufferObject::init(const std::vector<Vertex>& vertices, const s
 	m_vertexCount = vertices.size();
 	m_indexCount = indices.size();
 
+    //VAO
+    glGenVertexArrays(1, &m_vao);
+    glBindVertexArray(m_vao);
+
 	//Vertex buffer
 	glGenBuffers(1, &m_vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
@@ -23,11 +27,15 @@ bool OpenGLVertexBufferObject::init(const std::vector<Vertex>& vertices, const s
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int)*m_indexCount, &indices[0], GL_STATIC_READ);
 
+    glBindVertexArray(0);
+
 	return true;
 }
 
 void OpenGLVertexBufferObject::draw(bool lines)
 {
+    glBindVertexArray(m_vao);
+
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
@@ -85,6 +93,8 @@ void OpenGLVertexBufferObject::draw(bool lines)
 	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(0);
+
+    glBindVertexArray(0);
 }
 
 Vertex* OpenGLVertexBufferObject::mapVertices(bool readOnly)
