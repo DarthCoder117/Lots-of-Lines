@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="LotsOfLinesPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C://Program Files/LotsOfLines</Value>
+      <Value Profile="(Default)">C://Program Files (x86)/LotsOfLines</Value>
     </Setting>
   </Settings>
 </SettingsFile>

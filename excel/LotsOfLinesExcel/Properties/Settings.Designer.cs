@@ -25,7 +25,7 @@ namespace LotsOfLinesExcel.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C://Program Files/LotsOfLines")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C://Program Files (x86)/LotsOfLines")]
         public string LotsOfLinesPath {
             get {
                 return ((string)(this["LotsOfLinesPath"]));
