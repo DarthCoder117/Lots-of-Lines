@@ -36,12 +36,12 @@
         {
             this.lotsOfLinesTab = this.Factory.CreateRibbonTab();
             this.lotsOfLinesGroup = this.Factory.CreateRibbonGroup();
+            this.parallelCoordinatesButton = this.Factory.CreateRibbonButton();
+            this.collocatedCoordinatesButton = this.Factory.CreateRibbonButton();
+            this.radialCoordinatesButton = this.Factory.CreateRibbonButton();
+            this.shiftedCoordinatesButton = this.Factory.CreateRibbonButton();
             this.group1 = this.Factory.CreateRibbonGroup();
             this.settingsButton = this.Factory.CreateRibbonButton();
-            this.openInLotsOfLinesButton = this.Factory.CreateRibbonButton();
-            this.button1 = this.Factory.CreateRibbonButton();
-            this.button2 = this.Factory.CreateRibbonButton();
-            this.button3 = this.Factory.CreateRibbonButton();
             this.lotsOfLinesTab.SuspendLayout();
             this.lotsOfLinesGroup.SuspendLayout();
             this.group1.SuspendLayout();
@@ -56,12 +56,45 @@
             // 
             // lotsOfLinesGroup
             // 
-            this.lotsOfLinesGroup.Items.Add(this.openInLotsOfLinesButton);
-            this.lotsOfLinesGroup.Items.Add(this.button1);
-            this.lotsOfLinesGroup.Items.Add(this.button2);
-            this.lotsOfLinesGroup.Items.Add(this.button3);
+            this.lotsOfLinesGroup.Items.Add(this.parallelCoordinatesButton);
+            this.lotsOfLinesGroup.Items.Add(this.collocatedCoordinatesButton);
+            this.lotsOfLinesGroup.Items.Add(this.radialCoordinatesButton);
+            this.lotsOfLinesGroup.Items.Add(this.shiftedCoordinatesButton);
             this.lotsOfLinesGroup.Label = "Visualizations";
             this.lotsOfLinesGroup.Name = "lotsOfLinesGroup";
+            // 
+            // parallelCoordinatesButton
+            // 
+            this.parallelCoordinatesButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.parallelCoordinatesButton.Image = global::LotsOfLinesExcel.Properties.Resources.parallel;
+            this.parallelCoordinatesButton.Label = "Parallel Coordinates";
+            this.parallelCoordinatesButton.Name = "parallelCoordinatesButton";
+            this.parallelCoordinatesButton.ShowImage = true;
+            // 
+            // collocatedCoordinatesButton
+            // 
+            this.collocatedCoordinatesButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.collocatedCoordinatesButton.Image = global::LotsOfLinesExcel.Properties.Resources.Collocated;
+            this.collocatedCoordinatesButton.Label = "Colocated Paired Coordinates";
+            this.collocatedCoordinatesButton.Name = "collocatedCoordinatesButton";
+            this.collocatedCoordinatesButton.ShowImage = true;
+            this.collocatedCoordinatesButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button1_Click);
+            // 
+            // radialCoordinatesButton
+            // 
+            this.radialCoordinatesButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.radialCoordinatesButton.Image = global::LotsOfLinesExcel.Properties.Resources.Anchored;
+            this.radialCoordinatesButton.Label = "Radial Paired Coordinates";
+            this.radialCoordinatesButton.Name = "radialCoordinatesButton";
+            this.radialCoordinatesButton.ShowImage = true;
+            // 
+            // shiftedCoordinatesButton
+            // 
+            this.shiftedCoordinatesButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.shiftedCoordinatesButton.Image = global::LotsOfLinesExcel.Properties.Resources.Shifted;
+            this.shiftedCoordinatesButton.Label = "Shifted Paired Coordinates";
+            this.shiftedCoordinatesButton.Name = "shiftedCoordinatesButton";
+            this.shiftedCoordinatesButton.ShowImage = true;
             // 
             // group1
             // 
@@ -74,39 +107,6 @@
             this.settingsButton.Label = "Settings";
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.settingsButton_Click);
-            // 
-            // openInLotsOfLinesButton
-            // 
-            this.openInLotsOfLinesButton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.openInLotsOfLinesButton.Image = global::LotsOfLinesExcel.Properties.Resources.parallel;
-            this.openInLotsOfLinesButton.Label = "Parallel Coordinates";
-            this.openInLotsOfLinesButton.Name = "openInLotsOfLinesButton";
-            this.openInLotsOfLinesButton.ShowImage = true;
-            // 
-            // button1
-            // 
-            this.button1.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button1.Image = global::LotsOfLinesExcel.Properties.Resources.Collocated;
-            this.button1.Label = "Colocated Paired Coordinates";
-            this.button1.Name = "button1";
-            this.button1.ShowImage = true;
-            this.button1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button2.Image = global::LotsOfLinesExcel.Properties.Resources.Anchored;
-            this.button2.Label = "Radial Paired Coordinates";
-            this.button2.Name = "button2";
-            this.button2.ShowImage = true;
-            // 
-            // button3
-            // 
-            this.button3.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.button3.Image = global::LotsOfLinesExcel.Properties.Resources.Shifted;
-            this.button3.Label = "Shifted Paired Coordinates";
-            this.button3.Name = "button3";
-            this.button3.ShowImage = true;
             // 
             // LotsOfLinesRibbon
             // 
@@ -128,11 +128,11 @@
 
         internal Microsoft.Office.Tools.Ribbon.RibbonTab lotsOfLinesTab;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup lotsOfLinesGroup;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton openInLotsOfLinesButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton parallelCoordinatesButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton button1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton button2;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton button3;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton collocatedCoordinatesButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton radialCoordinatesButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton shiftedCoordinatesButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton settingsButton;
     }
 

@@ -16,20 +16,38 @@ namespace LotsOfLinesExcel
     {
         private void LotsOfLinesRibbon_Load(object sender, RibbonUIEventArgs e)
         {
-            this.openInLotsOfLinesButton.Click += OpenInLotsOfLinesButton_Click;
+            parallelCoordinatesButton.Click += ParallelCoordinatesButton_Click;
+            collocatedCoordinatesButton.Click += CollocatedCoordinatesButton_Click;
+            radialCoordinatesButton.Click += RadialCoordinatesButton_Click;
+            shiftedCoordinatesButton.Click += ShiftedCoordinatesButton_Click;
         }
 
         private Dictionary<int, string> tempFileMap = new Dictionary<int, string>();
 
-        private void OpenInLotsOfLinesButton_Click(object sender, RibbonControlEventArgs e)
+        private void ParallelCoordinatesButton_Click(object sender, RibbonControlEventArgs e)
         {
-            OpenApplication();
+            OpenApplication(true, false, false, false);
+        }
+
+        private void CollocatedCoordinatesButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            OpenApplication(false, true, false, false);
+        }
+
+        private void RadialCoordinatesButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            OpenApplication(false, false, true, false);
+        }
+
+        private void ShiftedCoordinatesButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            OpenApplication(false, false, false, true);
         }
 
         /// <summary>
         /// Launch the Lots of Lines application with the selected visualization methods.
         /// </summary>
-        private void OpenApplication()
+        private void OpenApplication(bool parallel, bool collocated, bool radial, bool shifted)
         {
             //Create temp CSV file
             string tempPath = System.IO.Path.GetTempPath();
@@ -44,7 +62,13 @@ namespace LotsOfLinesExcel
             string lotsOfLinesFilename = lotsOfLinesDir + "\\LotsOfLinesApp.exe";
             try
             {
-                Process proc = Process.Start(lotsOfLinesFilename, tempFile);
+                string args = tempFile;
+                if (parallel) args += " -p";
+                if (collocated) args += " -c";
+                if (radial) args += " -r";
+                if (shifted) args += " -s";
+
+                Process proc = Process.Start(lotsOfLinesFilename, args);
 
                 tempFileMap[proc.Id] = tempFile;
                 proc.Exited += Proc_Exited;

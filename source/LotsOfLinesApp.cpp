@@ -17,7 +17,7 @@ class VisualizationTypeCheckbox : public QCheckBox
 {
 public:
 
-	VisualizationTypeCheckbox(const QString& text, QWidget* parent, LotsOfLines::E_VISUALIZATION_TYPE type)
+    VisualizationTypeCheckbox(const QString& text, QWidget* parent, LotsOfLines::E_VISUALIZATION_TYPE type)
 		:QCheckBox(text, parent),
 		m_visualizationType(type)
 	{}
@@ -29,7 +29,7 @@ private:
 	LotsOfLines::E_VISUALIZATION_TYPE m_visualizationType;
 };
 
-LotsOfLinesApp::LotsOfLinesApp(const QString& openFile, QWidget* parent)
+LotsOfLinesApp::LotsOfLinesApp(const QString& openFile, bool parallel, bool collocatedPaired, bool radialPaired, bool shiftedPaired, QWidget* parent)
 	:QMainWindow(parent),
 	m_dataSet(nullptr)
 {
@@ -47,6 +47,15 @@ LotsOfLinesApp::LotsOfLinesApp(const QString& openFile, QWidget* parent)
 		VisualizationTypeCheckbox* methodCheckbox = new VisualizationTypeCheckbox(QString::fromStdString(method->getTypeName()), ui.visualizationTypeArea, method->getType());
 		connect(methodCheckbox, SIGNAL(stateChanged(int)), this, SLOT(onVisualizationChecked(int)));
 		ui.visualizationTypeLayout->addWidget(methodCheckbox);
+
+        //Load default methods
+        if ((method->getType() == LotsOfLines::EVT_PARALLEL_COORDINATES && parallel) ||
+        (method->getType() == LotsOfLines::EVT_COLLOCATED_PAIRED_COORDINATES && collocatedPaired) ||
+        (method->getType() == LotsOfLines::EVT_RADIAL_PAIRED_COORDINATES && radialPaired) ||
+        (method->getType() == LotsOfLines::EVT_SHIFTED_PAIRED_COORDINATES && shiftedPaired))
+        {
+            methodCheckbox->setChecked(true);
+        }
 	}
 
 	delete rendererWidget;
