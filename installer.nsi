@@ -39,9 +39,7 @@ Delete $INSTDIR\uninstaller.exe
 Delete $INSTDIR\LotsOfLinesApp.exe
 Delete $INSTDIR\Qt5Core.dll
 Delete $INSTDIR\Qt5Gui.dll
-Delete $INSTDIR\Qt5OpenGL.dll
 Delete $INSTDIR\Qt5Widgets.dll
-Delete $INSTDIR\Qt5WinExtras.dll
 RMDir /r $INSTDIR\data
  
 SectionEnd
