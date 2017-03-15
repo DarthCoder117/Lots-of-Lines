@@ -10,7 +10,7 @@ VisualizationRendererWidget::VisualizationRendererWidget(QWidget* parent, std::f
 	QSurfaceFormat format;
 	format.setMajorVersion(3);
 	format.setMinorVersion(3);
-    format.setProfile(QSurfaceFormat::CoreProfile);
+    format.setProfile(QSurfaceFormat::CompatibilityProfile);
 	format.setRenderableType(QSurfaceFormat::OpenGL);
 	format.setSamples(8);
 	setFormat(format);

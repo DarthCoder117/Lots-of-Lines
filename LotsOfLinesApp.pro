@@ -24,8 +24,7 @@ INCLUDEPATH += ./source/GeneratedFiles \
     ./source/GeneratedFiles/Debug
 
 # Library dependencies
-LIBS += -l/"$(INHERIT)/" \
-    -L"$$PWD/3rd-party/glew/lib/Release/Win32/" \
+LIBS += -L"$$PWD/3rd-party/glew/lib/Release/Win32/" \
     -lopengl32 \
     -lglew32s \
     -lglu32
