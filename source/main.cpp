@@ -4,6 +4,7 @@
 
 int main(int argc, char *argv[])
 {
+    QCoreApplication::addLibraryPath(".");
     QApplication app(argc, argv);
 	app.setApplicationName("Lots of Lines");
 
