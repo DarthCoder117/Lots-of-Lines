@@ -14,13 +14,16 @@ SetOutPath $INSTDIR
 File bin\release\LotsOfLinesApp.exe
 File 3rd-party\qt\Qt5Core.dll
 File 3rd-party\qt\Qt5Gui.dll
-File 3rd-party\qt\Qt5OpenGL.dll
 File 3rd-party\qt\Qt5Widgets.dll
-File 3rd-party\qt\Qt5WinExtras.dll
+File 3rd-party\vc_redist.x86.exe
+
 File /r data
 
 # define uninstaller name
 WriteUninstaller $INSTDIR\uninstaller.exe
+
+# install VS2015 redistributable.
+ExecWait $INSTDIR\vc_redist.x86.exe
  
 # create shortcuts
 CreateShortCut "$DESKTOP\Lots of Lines.lnk" "$INSTDIR\LotsOfLinesApp.exe"
@@ -40,6 +43,7 @@ Delete $INSTDIR\LotsOfLinesApp.exe
 Delete $INSTDIR\Qt5Core.dll
 Delete $INSTDIR\Qt5Gui.dll
 Delete $INSTDIR\Qt5Widgets.dll
+Delete $INSTDIR\vc_redist.x86.exe
 RMDir /r $INSTDIR\data
  
 SectionEnd
