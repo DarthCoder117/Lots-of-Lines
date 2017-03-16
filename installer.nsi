@@ -15,7 +15,8 @@ File bin\release\LotsOfLinesApp.exe
 File 3rd-party\qt\Qt5Core.dll
 File 3rd-party\qt\Qt5Gui.dll
 File 3rd-party\qt\Qt5Widgets.dll
-File 3rd-party\qt\qwindows.dll
+CreateDirectory $INSTDIR\platforms
+File /oname=$INSTDIR\platforms\qwindows.dll 3rd-party\qt\qwindows.dll
 File 3rd-party\vc_redist.x86.exe
 
 File /r data
@@ -44,7 +45,7 @@ Delete $INSTDIR\LotsOfLinesApp.exe
 Delete $INSTDIR\Qt5Core.dll
 Delete $INSTDIR\Qt5Gui.dll
 Delete $INSTDIR\Qt5Widgets.dll
-Delete $INSTDIR\qwindows.dll
+Delete $INSTDIR\platforms\qwindows.dll
 Delete $INSTDIR\vc_redist.x86.exe
 RMDir /r $INSTDIR\data
  
